@@ -15,6 +15,6 @@ def plugin(ctx, api_client: ApiClient, **kwargs):
 @plugin.command()
 @pass_firmware_svc
 def list(firmware_svc, **kwargs):
-    print(firmware_svc)
     result = firmware_svc.info()
-    click.echo(result)
+    print(result.keys())
+    click.echo(result['plugin'])

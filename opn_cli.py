@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import click
 import yaml
+import os
 
 from opnsense_api.client import ApiClient
 
@@ -16,7 +17,7 @@ def configure(ctx, param, filename):
             data = yaml.load(yaml_file, Loader=yaml.SafeLoader)
         return data
     try:
-        options = dict_from_yaml(filename)
+        options = dict_from_yaml(os.path.expanduser(filename))
     except KeyError:
         options = {}
     ctx.default_map = options

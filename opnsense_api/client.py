@@ -1,5 +1,9 @@
 import requests
 import json
+from urllib3.exceptions import InsecureRequestWarning
+
+# Suppress only the single warning from urllib3 needed.
+requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
 from opnsense_api.exception import APIException
 
@@ -17,14 +21,16 @@ class ApiClient(object):
         if response.status_code in HTTP_SUCCESS:
             return json.loads(response.text)
         else:
-            raise APIException(status_code=response.status_code, resp_body=response.text)
+            print(response.text)
+            raise APIException(response=response.status_code, resp_body=response.text, url=response.url)
 
     def build_endpoint_url(self, *args, **kwargs):
-        endpoint = f"/{kwargs['module']}/{kwargs['controller']}/{kwargs['command']}"
+        endpoint = f"{kwargs['module']}/{kwargs['controller']}/{kwargs['command']}"
         endpoint_params = '/'.join(args)
         if endpoint_params:
-            return f"{endpoint}/{endpoint_params}"
-        return endpoint
+            return f"{endpoint}/{endpoint_params}".lower()
+        return endpoint.lower()
+
 
     def get(self, endpoint):
         req_url = '{}/{}'.format(self.base_url, endpoint)
