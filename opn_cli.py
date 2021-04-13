@@ -3,15 +3,17 @@ import click
 import yaml
 import os
 
-from opnsense_api.client import ApiClient
+from api.client import ApiClient
 
 # import commands
 from commands.plugin import plugin
 from commands.firewall import firewall
 
-DEFAULT_CFG = '~/.opn-cli-conf.yaml'
+CFG_DIR = "~/.opn-cli"
+DEFAULT_CFG = f"{CFG_DIR}/conf.yaml"
+DEFAULT_SSL_VERIFY_CA = f"{CFG_DIR}/ca.pem"
 
-def configure(ctx, param, filename):
+def defaults_from_configfile(ctx, param, filename):
     def dict_from_yaml(path):
         with open(path, 'r') as yaml_file:
             data = yaml.load(yaml_file, Loader=yaml.SafeLoader)
@@ -22,6 +24,9 @@ def configure(ctx, param, filename):
         options = {}
     ctx.default_map = options
 
+def expand_path(ctx, param, filename):
+    return os.path.expanduser(filename)
+
 @click.group()
 @click.option(
     '--config', '-c',
@@ -30,31 +35,48 @@ def configure(ctx, param, filename):
     envvar="OPN_CONFIG",
     default=DEFAULT_CFG,
     show_default=True,
-    callback = configure,
+    callback=defaults_from_configfile,
     is_eager=True,
     expose_value=False,
+    show_envvar=True,
+)
+@click.option(
+    '--ca',
+    help='path to the ca bundle file for ssl verification',
+    type=click.Path(dir_okay=False),
+    envvar="OPN_SSL_VERIFY_CA",
+    default=DEFAULT_SSL_VERIFY_CA,
+    is_eager=True,
+    show_default=True,
+    callback=expand_path,
+    show_envvar=True,
 )
 @click.option(
     '--api-key', '-k',
     help='Your API key for the OPNsense API',
     envvar="OPN_API_KEY",
+    show_envvar=True,
 )
 @click.option(
     '--api-secret', '-s',
     help='Your API secret for the OPNsense API',
     envvar="OPN_API_SECRET",
+    show_envvar=True,
 )
 @click.option(
     '--url', '-u',
     help='The Base URL for the OPNsense API',
     envvar="OPN_API_URL",
-    default="https://127.0.0.1/api"
+    default="https://127.0.0.1/api",
+    show_envvar=True,
 )
 @click.option(
     '--timeout', '-t',
     help='Set timeout for API Calls in seconds.',
     envvar="OPN_API_TIMEOUT",
     default=60,
+    show_envvar=True,
+    show_default=True,
 )
 @click.option(
     '--ssl-verify/--no-ssl-verify',
@@ -62,6 +84,8 @@ def configure(ctx, param, filename):
     envvar="OPN_SSL_VERIFY",
     is_flag=True,
     default=True,
+    show_envvar=True,
+    show_default=True,
 )
 @click.pass_context
 def cli(ctx, **kwargs):
@@ -69,14 +93,11 @@ def cli(ctx, **kwargs):
     OPNsense CLI - interact with OPNsense via the API
 
     You need a valid API key and secret to interact with the API.
-    Goto System->Access->Users and use a existing or generate an Api Key.
+    Open your browser and go to System->Access->Users and generate or use an existing Api Key.
 
-    You can set the required options as environment variables:
-    export OPN_API_KEY="<your-api-key>"
-    export OPN_API_SECRET="<your-api-secret>"
-    export OPN_API_URL="https://127.0.0.1/api"
-    export OPN_SSL_VERIFY=1
-    export OPN_API_TIMEOUT=60
+    If you use ssl verification (--ssl-verify), make sure to specify a valid ca with --ca <path_to_bundle>.
+
+    You can set the required options as environment variables. See --help "[env var: [...]"
 
     Or use a config file passed with -c option.
 
@@ -89,8 +110,14 @@ def cli(ctx, **kwargs):
     3. config file
 
     """
-    ctx.obj = ApiClient(kwargs['api_key'], kwargs['api_secret'], kwargs['url'], kwargs['ssl_verify'], kwargs['timeout'])
-    pass
+    ctx.obj = ApiClient(
+        kwargs['api_key'],
+        kwargs['api_secret'],
+        kwargs['url'],
+        kwargs['ssl_verify'],
+        kwargs['ca'],
+        kwargs['timeout'],
+    )
 
 # register commands
 cli.add_command(plugin)

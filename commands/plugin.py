@@ -1,7 +1,7 @@
 import click
 
-from opnsense_api.client import ApiClient
-from opnsense_api.firmware import Firmware
+from api.client import ApiClient
+from api.firmware import Firmware
 
 pass_api_client = click.make_pass_decorator(ApiClient)
 pass_firmware_svc = click.make_pass_decorator(Firmware)
@@ -14,7 +14,6 @@ def plugin(ctx, api_client: ApiClient, **kwargs):
 
 @plugin.command()
 @pass_firmware_svc
-def list(firmware_svc, **kwargs):
-    result = firmware_svc.info()
-    print(result.keys())
-    click.echo(result['plugin'])
+def list(firmware_svc : Firmware, **kwargs):
+    click.echo(firmware_svc.info()['plugin'])
+    #click.echo(firmware_svc.changelog('18.1'))
