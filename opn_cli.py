@@ -6,8 +6,8 @@ import os
 from api.client import ApiClient
 
 # import commands
-from commands.plugin import plugin
-from commands.firewall import firewall
+from command.plugin import plugin
+from command.firewall import firewall
 
 CFG_DIR = "~/.opn-cli"
 DEFAULT_CFG = f"{CFG_DIR}/conf.yaml"
@@ -119,10 +119,10 @@ def cli(ctx, **kwargs):
         kwargs['timeout'],
     )
 
+
 # register commands
 cli.add_command(plugin)
 cli.add_command(firewall)
-
 
 if __name__ == "__main__":
     cli()

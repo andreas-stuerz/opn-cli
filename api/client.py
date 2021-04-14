@@ -30,7 +30,7 @@ class ApiClient(object):
         else:
             raise APIException(response=response.status_code, resp_body=response.text, url=response.url)
 
-    def build_endpoint_url(self, *args, **kwargs):
+    def get_endpoint_url(self, *args, **kwargs):
         endpoint = f"{kwargs['module']}/{kwargs['controller']}/{kwargs['command']}"
         endpoint_params = '/'.join(args)
         if endpoint_params:
@@ -39,7 +39,6 @@ class ApiClient(object):
 
 
     def get(self, endpoint):
-        print(self.ssl_verify_cert)
         req_url = '{}/{}'.format(self._base_url, endpoint)
         response = requests.get(req_url, verify=self.ssl_verify_cert,
                                 auth=(self._api_key, self._api_secret),
@@ -54,7 +53,7 @@ class ApiClient(object):
         return self._process_response(response)
 
     def execute(self, *args, **kwargs):
-        endpoint = self.build_endpoint_url(*args, **kwargs)
+        endpoint = self.get_endpoint_url(*args, **kwargs)
         if kwargs['method'] == 'get':
             return self.get(endpoint)
         elif kwargs['method'] == 'post':
