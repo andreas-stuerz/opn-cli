@@ -12,6 +12,8 @@ from command.firewall import firewall
 CFG_DIR = "~/.opn-cli"
 DEFAULT_CFG = f"{CFG_DIR}/conf.yaml"
 DEFAULT_SSL_VERIFY_CA = f"{CFG_DIR}/ca.pem"
+CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
+
 
 def defaults_from_configfile(ctx, param, filename):
     def dict_from_yaml(path):
@@ -27,7 +29,8 @@ def defaults_from_configfile(ctx, param, filename):
 def expand_path(ctx, param, filename):
     return os.path.expanduser(filename)
 
-@click.group()
+
+@click.group(context_settings=CONTEXT_SETTINGS)
 @click.option(
     '--config', '-c',
     help='path to the config file',

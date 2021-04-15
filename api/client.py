@@ -30,34 +30,33 @@ class ApiClient(object):
         else:
             raise APIException(response=response.status_code, resp_body=response.text, url=response.url)
 
-    def get_endpoint_url(self, *args, **kwargs):
-        endpoint = f"{kwargs['module']}/{kwargs['controller']}/{kwargs['command']}"
-        endpoint_params = '/'.join(args)
-        if endpoint_params:
-            return f"{endpoint}/{endpoint_params}".lower()
-        return endpoint.lower()
-
-
-    def get(self, endpoint):
+    def _get(self, endpoint):
         req_url = '{}/{}'.format(self._base_url, endpoint)
         response = requests.get(req_url, verify=self.ssl_verify_cert,
                                 auth=(self._api_key, self._api_secret),
                                 timeout=self._timeout)
         return self._process_response(response)
 
-    def post(self, endpoint, body=None):
+    def _post(self, endpoint, body=None):
         req_url = '{}/{}'.format(self._base_url, endpoint)
         response = requests.post(req_url, data=body, verify=self.ssl_verify_cert,
                                  auth=(self._api_key, self._api_secret),
                                  timeout=self._timeout)
         return self._process_response(response)
 
+    def _get_endpoint_url(self, *args, **kwargs):
+        endpoint = f"{kwargs['module']}/{kwargs['controller']}/{kwargs['command']}"
+        endpoint_params = '/'.join(args)
+        if endpoint_params:
+            return f"{endpoint}/{endpoint_params}".lower()
+        return endpoint.lower()
+
     def execute(self, *args, **kwargs):
-        endpoint = self.get_endpoint_url(*args, **kwargs)
+        endpoint = self._get_endpoint_url(*args, **kwargs)
         if kwargs['method'] == 'get':
-            return self.get(endpoint)
+            return self._get(endpoint)
         elif kwargs['method'] == 'post':
-            return self.post(endpoint)
+            return self._post(endpoint)
         else:
             raise NotImplementedError(f"Unkown HTTP method: {kwargs['method']}")
 

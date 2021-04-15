@@ -136,3 +136,84 @@ def remove(firmware_svc : Firmware, **kwargs):
 
     CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
+@plugin.command()
+@click.argument('plugin_name')
+@click.option(
+    '--output', '-o',
+    help='Specifies the output format.',
+    default="table",
+    type=click.Choice(['table', 'json']),
+    show_default=True,
+)
+@click.option(
+    '--cols', '-c',
+    help='Which columns should be printed?',
+    default="status",
+    show_default=True,
+)
+@pass_firmware_svc
+def reinstall(firmware_svc : Firmware, **kwargs):
+    """
+    Reinstall plugin by name.
+    """
+    result = [firmware_svc.reinstall(kwargs['plugin_name'])]
+
+    CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+
+@plugin.command()
+@click.argument('plugin_name')
+@click.option(
+    '--output', '-o',
+    help='Specifies the output format.',
+    default="table",
+    type=click.Choice(['table', 'json']),
+    show_default=True,
+)
+@click.option(
+    '--cols', '-c',
+    help='Which columns should be printed?',
+    default="status",
+    show_default=True,
+)
+@pass_firmware_svc
+def lock(firmware_svc : Firmware, **kwargs):
+    """
+    Lock plugin.
+    """
+    result = [firmware_svc.lock(kwargs['plugin_name'])]
+
+    CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+
+
+@plugin.command()
+@click.argument('plugin_name')
+@click.option(
+    '--output', '-o',
+    help='Specifies the output format.',
+    default="table",
+    type=click.Choice(['table', 'json']),
+    show_default=True,
+)
+@click.option(
+    '--cols', '-c',
+    help='Which columns should be printed?',
+    default="status",
+    show_default=True,
+)
+@pass_firmware_svc
+def unlock(firmware_svc : Firmware, **kwargs):
+    """
+    Unlock plugin.
+    """
+    result = [firmware_svc.unlock(kwargs['plugin_name'])]
+
+    CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+
+
+
+
+
+
+
+
+
