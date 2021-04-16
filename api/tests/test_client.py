@@ -134,6 +134,3 @@ class TestApiClient(TestCase):
         client = ApiClient(*client_args)
         self.assertRaises(NotImplementedError, client.execute, *api_parameters, **api_config)
 
-
-if __name__ == '__main__':
-    unittest.main()

@@ -28,7 +28,7 @@ def plugin(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def list(firmware_svc : Firmware, **kwargs):
+def list(firmware_svc: Firmware, **kwargs):
     """
     List all available plugins.
     """
