@@ -30,7 +30,7 @@ def plugin(ctx, api_client: ApiClient, **kwargs):
 @pass_firmware_svc
 def list(firmware_svc: Firmware, **kwargs):
     """
-    List all available plugins.
+    Show all available plugins.
     """
     result = firmware_svc.info()['plugin']
 
@@ -54,7 +54,7 @@ def list(firmware_svc: Firmware, **kwargs):
 @pass_firmware_svc
 def installed(firmware_svc : Firmware, **kwargs):
     """
-    List installed plugins.
+    Show installed plugins.
     """
     plugins = firmware_svc.info()['plugin']
     result = [plugin for plugin in plugins if plugin['installed'] == "1"]
@@ -128,7 +128,7 @@ def install(firmware_svc : Firmware, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def remove(firmware_svc : Firmware, **kwargs):
+def uninstall(firmware_svc : Firmware, **kwargs):
     """
     Uninstall plugin by name.
     """

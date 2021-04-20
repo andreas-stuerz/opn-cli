@@ -30,6 +30,13 @@ class ApiClient(object):
         else:
             raise APIException(response=response.status_code, resp_body=response.text, url=response.url)
 
+    def _get_endpoint_url(self, *args, **kwargs):
+        endpoint = f"{kwargs['module']}/{kwargs['controller']}/{kwargs['command']}"
+        endpoint_params = '/'.join(args)
+        if endpoint_params:
+            return f"{endpoint}/{endpoint_params}".lower()
+        return endpoint.lower()
+
     def _get(self, endpoint):
         req_url = '{}/{}'.format(self._base_url, endpoint)
         response = requests.get(req_url, verify=self.ssl_verify_cert,
@@ -43,13 +50,6 @@ class ApiClient(object):
                                  auth=(self._api_key, self._api_secret),
                                  timeout=self._timeout)
         return self._process_response(response)
-
-    def _get_endpoint_url(self, *args, **kwargs):
-        endpoint = f"{kwargs['module']}/{kwargs['controller']}/{kwargs['command']}"
-        endpoint_params = '/'.join(args)
-        if endpoint_params:
-            return f"{endpoint}/{endpoint_params}".lower()
-        return endpoint.lower()
 
     def execute(self, *args, **kwargs):
         endpoint = self._get_endpoint_url(*args, **kwargs)

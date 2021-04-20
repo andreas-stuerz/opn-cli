@@ -12,11 +12,6 @@ class Firmware(ApiBase):
         self.method = "get"
         self.command = "info"
 
-    @ApiBase._api_call
-    def changelog(self, *args):
-        self.method = "post"
-        self.command = "changelog"
-
     """
     PACKAGES
     """
@@ -50,7 +45,3 @@ class Firmware(ApiBase):
         self.method = "post"
         self.command = "details"
 
-    @ApiBase._api_call
-    def license(self, *args):
-        self.method = "post"
-        self.command = "license"
