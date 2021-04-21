@@ -6,6 +6,7 @@ class BaseFormat(ABC):
     """
     The base abstract class for command output formats
     """
+
     def __init__(self, data: dict, cols: list):
         self._data = data
         self._cols = cols
@@ -19,6 +20,7 @@ class JsonFormat(BaseFormat):
     """
     Outputs Json
     """
+
     def echo(self):
         click.echo(self._data)
 
@@ -27,6 +29,7 @@ class TableFormat(BaseFormat):
     """
     Output a human readable table
     """
+
     def __init__(self, data: dict, cols: list):
         super().__init__(data, cols)
         self._separator = " "

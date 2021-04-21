@@ -7,6 +7,7 @@ class Firmware(ApiBase):
     """
     FIRMWARE
     """
+
     @ApiBase._api_call
     def info(self, *args):
         self.method = "get"
@@ -15,6 +16,7 @@ class Firmware(ApiBase):
     """
     PACKAGES
     """
+
     @ApiBase._api_call
     def install(self, *args):
         self.method = "post"
@@ -44,4 +46,3 @@ class Firmware(ApiBase):
     def details(self, *args):
         self.method = "post"
         self.command = "details"
-

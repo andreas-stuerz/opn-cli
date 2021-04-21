@@ -8,8 +8,6 @@ from command.plugin import plugin
 class TestPluginCommands(unittest.TestCase):
     def setUp(self):
         self._api_data_fixtures = {
-            "product_id": "opnsense",
-            "product_version": "21.1.4",
             "plugin": [
                 {
                     'name': 'os-acme-client', 'version': '2.4', 'comment': "Let's Encrypt client",
@@ -31,20 +29,6 @@ class TestPluginCommands(unittest.TestCase):
                     'installed': '0', 'path': 'OPNsense/opnsense/os-virtualbox', 'configured': '0'
                 },
             ],
-            "changelog":[
-                {"series": "21.1", "version": "21.1.4", "date": "2021-03-30"},
-                {"series": "21.1", "version": "21.1.3", "date": "2021-03-10"}
-            ],
-            "product":{
-                "product_abi":"21.1", "product_arch":"amd64", "product_check": None,
-                "product_copyright_owner": "Deciso B.V.","product_copyright_url":"https:\/\/www.deciso.com\/",
-                "product_copyright_years":"2014-2021","product_crypto":"OpenSSL",
-                "product_email":"project@opnsense.org","product_flavour":"OpenSSL","product_hash":"0a42a1966",
-                "product_id":"opnsense",
-                "product_mirror":"http:\/\/mirror.fra10.de.leaseweb.net\/opnsense\/FreeBSD:12:amd64\/21.1",
-                "product_name":"OPNsense","product_repos":"OPNsense","product_time":"Tue Apr 6 16:31:43 CEST 2021",
-                "product_version":"21.1.4","product_website":"https:\/\/opnsense.org\/"
-            },
         }
         self._api_client_args_fixtures = [
             'api_key',
@@ -112,7 +96,7 @@ class TestPluginCommands(unittest.TestCase):
 
     @patch('command.plugin.ApiClient.execute')
     def test_install(self, api_response_mock):
-        api_response_mock.return_value = {"status":"ok", "msg_uuid":"ce9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
+        api_response_mock.return_value = {"status": "ok", "msg_uuid": "ce9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
         client_args = self._api_client_args_fixtures
         client = ApiClient(*client_args)
 
@@ -122,10 +106,9 @@ class TestPluginCommands(unittest.TestCase):
         self.assertIn("ok\n", result.output)
         self.assertEqual(0, result.exit_code)
 
-
     @patch('command.plugin.ApiClient.execute')
     def test_uninstall(self, api_response_mock):
-        api_response_mock.return_value = {"status":"ok", "msg_uuid":"de9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
+        api_response_mock.return_value = {"status": "ok", "msg_uuid": "de9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
         client_args = self._api_client_args_fixtures
         client = ApiClient(*client_args)
 
@@ -137,7 +120,7 @@ class TestPluginCommands(unittest.TestCase):
 
     @patch('command.plugin.ApiClient.execute')
     def test_reinstall(self, api_response_mock):
-        api_response_mock.return_value = {"status":"ok", "msg_uuid":"xe9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
+        api_response_mock.return_value = {"status": "ok", "msg_uuid": "xe9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
         client_args = self._api_client_args_fixtures
         client = ApiClient(*client_args)
 
@@ -149,7 +132,7 @@ class TestPluginCommands(unittest.TestCase):
 
     @patch('command.plugin.ApiClient.execute')
     def test_lock(self, api_response_mock):
-        api_response_mock.return_value = {"status":"ok", "msg_uuid":"xe9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
+        api_response_mock.return_value = {"status": "ok", "msg_uuid": "xe9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
         client_args = self._api_client_args_fixtures
         client = ApiClient(*client_args)
 
@@ -161,7 +144,7 @@ class TestPluginCommands(unittest.TestCase):
 
     @patch('command.plugin.ApiClient.execute')
     def test_unlock(self, api_response_mock):
-        api_response_mock.return_value = {"status":"ok", "msg_uuid":"ze9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
+        api_response_mock.return_value = {"status": "ok", "msg_uuid": "ze9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
         client_args = self._api_client_args_fixtures
         client = ApiClient(*client_args)
 
@@ -170,7 +153,3 @@ class TestPluginCommands(unittest.TestCase):
 
         self.assertIn("ok\n", result.output)
         self.assertEqual(0, result.exit_code)
-
-
-
-

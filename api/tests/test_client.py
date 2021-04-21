@@ -1,8 +1,7 @@
-import unittest
 import json
 
 from unittest import TestCase
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 from api.client import ApiClient
 from api.exception import APIException
 
@@ -75,7 +74,6 @@ class TestApiClient(TestCase):
             timeout=60
         )
 
-
     @patch('api.client.requests.post')
     def test_execute_post_success(self, request_mock):
         api_response_fixture = [
@@ -133,4 +131,3 @@ class TestApiClient(TestCase):
 
         client = ApiClient(*client_args)
         self.assertRaises(NotImplementedError, client.execute, *api_parameters, **api_config)
-

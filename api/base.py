@@ -1,5 +1,6 @@
 from api.client import ApiClient
 
+
 class ApiBase():
     def __init__(self, api_client: ApiClient):
         self._api_client = api_client
@@ -24,10 +25,10 @@ class ApiBase():
     def command(self, value):
         self._command = value
 
-
     def _api_call(api_function):
         def api_response(self, *args):
             api_function(self)
             return self._api_client.execute(
                 *args, module=self.module, controller=self.controller, method=self.method, command=self.command)
+
         return api_response

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+ARGS=""
+if [ -n "$1" ]; then
+  ARGS=$(printf ' %q' "$@")
+fi
+coverage run -m unittest discover ${ARGS}

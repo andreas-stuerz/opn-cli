@@ -7,11 +7,16 @@ from api.firmware import Firmware
 pass_api_client = click.make_pass_decorator(ApiClient)
 pass_firmware_svc = click.make_pass_decorator(Firmware)
 
+
 @click.group()
 @pass_api_client
 @click.pass_context
 def plugin(ctx, api_client: ApiClient, **kwargs):
+    """
+    Manage OPNsense plugins
+    """
     ctx.obj = Firmware(api_client)
+
 
 @plugin.command()
 @click.option(
@@ -52,7 +57,7 @@ def list(firmware_svc: Firmware, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def installed(firmware_svc : Firmware, **kwargs):
+def installed(firmware_svc: Firmware, **kwargs):
     """
     Show installed plugins.
     """
@@ -78,7 +83,7 @@ def installed(firmware_svc : Firmware, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def show(firmware_svc : Firmware, **kwargs):
+def show(firmware_svc: Firmware, **kwargs):
     """
     Show plugin details.
     """
@@ -103,7 +108,7 @@ def show(firmware_svc : Firmware, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def install(firmware_svc : Firmware, **kwargs):
+def install(firmware_svc: Firmware, **kwargs):
     """
     Install plugin by name
     """
@@ -128,7 +133,7 @@ def install(firmware_svc : Firmware, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def uninstall(firmware_svc : Firmware, **kwargs):
+def uninstall(firmware_svc: Firmware, **kwargs):
     """
     Uninstall plugin by name.
     """
@@ -136,6 +141,7 @@ def uninstall(firmware_svc : Firmware, **kwargs):
 
     CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
+
 @plugin.command()
 @click.argument('plugin_name')
 @click.option(
@@ -152,7 +158,7 @@ def uninstall(firmware_svc : Firmware, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def reinstall(firmware_svc : Firmware, **kwargs):
+def reinstall(firmware_svc: Firmware, **kwargs):
     """
     Reinstall plugin by name.
     """
@@ -160,6 +166,7 @@ def reinstall(firmware_svc : Firmware, **kwargs):
 
     CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
+
 @plugin.command()
 @click.argument('plugin_name')
 @click.option(
@@ -176,7 +183,7 @@ def reinstall(firmware_svc : Firmware, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def lock(firmware_svc : Firmware, **kwargs):
+def lock(firmware_svc: Firmware, **kwargs):
     """
     Lock plugin.
     """
@@ -201,19 +208,10 @@ def lock(firmware_svc : Firmware, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def unlock(firmware_svc : Firmware, **kwargs):
+def unlock(firmware_svc: Firmware, **kwargs):
     """
     Unlock plugin.
     """
     result = [firmware_svc.unlock(kwargs['plugin_name'])]
 
     CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
-
-
-
-
-
-
-
-
-

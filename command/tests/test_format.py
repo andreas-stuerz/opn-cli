@@ -1,5 +1,5 @@
 import unittest
-from command.format import BaseFormat, JsonFormat, TableFormat
+from command.format import JsonFormat, TableFormat
 import io
 import sys
 
@@ -9,10 +9,10 @@ class TestFormatter(unittest.TestCase):
         self._api_data_fixtures = {
             "plugin": [
                 {
-                  'name': 'os-acme-client', 'version': '2.4', 'comment': "Let's Encrypt client",
-                  'flatsize': '575KiB', 'locked': 'N/A', 'license': 'BSD2CLAUSE',
-                  'repository': 'OPNsense', 'origin': 'opnsense/os-acme-client',
-                  'provided': '1', 'installed': '0', 'path': 'OPNsense/opnsense/os-acme-client', 'configured': '0'
+                    'name': 'os-acme-client', 'version': '2.4', 'comment': "Let's Encrypt client",
+                    'flatsize': '575KiB', 'locked': 'N/A', 'license': 'BSD2CLAUSE',
+                    'repository': 'OPNsense', 'origin': 'opnsense/os-acme-client',
+                    'provided': '1', 'installed': '0', 'path': 'OPNsense/opnsense/os-acme-client', 'configured': '0'
                 },
             ],
         }
@@ -50,5 +50,3 @@ class TestFormatter(unittest.TestCase):
             "os-acme-client|2.4\n",
             result
         )
-
-

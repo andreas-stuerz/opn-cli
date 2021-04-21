@@ -1,13 +1,13 @@
 import requests
 import json
 from urllib3.exceptions import InsecureRequestWarning
+from api.exception import APIException
 
 # Suppress only the single warning from urllib3 needed.
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
-from api.exception import APIException
-
 HTTP_SUCCESS = (200, 201, 202, 203, 204, 205, 206, 207)
+
 
 class ApiClient(object):
     def __init__(self, api_key, api_secret, base_url, ssl_verify_cert, ca, timeout):
@@ -59,4 +59,3 @@ class ApiClient(object):
             return self._post(endpoint)
         else:
             raise NotImplementedError(f"Unkown HTTP method: {kwargs['method']}")
-
