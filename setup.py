@@ -1,9 +1,9 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='opn_cli',
-    version='1.0',
-    py_modules=['opn_cli'],
+    version='1.0.0',
+    packages=find_packages(),
     install_requires=[
         'click',
         'requests',
@@ -11,6 +11,6 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        opn_cli=opn_cli:cli
+        opn_cli=opnsense_cli.cli:cli
     ''',
 )

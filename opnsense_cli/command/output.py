@@ -1,4 +1,4 @@
-from command import format
+from opnsense_cli.command import format
 
 
 class CliOutput():

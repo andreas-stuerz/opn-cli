@@ -1,4 +1,4 @@
-from api.base import ApiBase
+from opnsense_cli.api.base import ApiBase
 
 
 class Firmware(ApiBase):

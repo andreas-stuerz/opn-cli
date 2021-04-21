@@ -1,7 +1,7 @@
-import unittest
-from command.format import JsonFormat, TableFormat
 import io
 import sys
+import unittest
+from opnsense_cli.command.format import JsonFormat, TableFormat
 
 
 class TestFormatter(unittest.TestCase):

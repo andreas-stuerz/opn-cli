@@ -1,4 +1,4 @@
-from api.client import ApiClient
+from opnsense_cli.api.client import ApiClient
 
 
 class ApiBase():

@@ -1,2 +1,3 @@
-# opnsense-api-client
-OPNsense API Client written in python
+# opnsense-cli
+OPNsense CLI written in python
+

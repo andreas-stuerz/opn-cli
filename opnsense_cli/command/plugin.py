@@ -1,8 +1,8 @@
 import click
 
-from command.output import CliOutput
-from api.client import ApiClient
-from api.firmware import Firmware
+from opnsense_cli.command.output import CliOutput
+from opnsense_cli.api.client import ApiClient
+from opnsense_cli.api.firmware import Firmware
 
 pass_api_client = click.make_pass_decorator(ApiClient)
 pass_firmware_svc = click.make_pass_decorator(Firmware)

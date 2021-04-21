@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import patch
 from click.testing import CliRunner
-from api.client import ApiClient
-from command.plugin import plugin
+from opnsense_cli.api.client import ApiClient
+from opnsense_cli.command.plugin import plugin
 
 
 class TestPluginCommands(unittest.TestCase):
@@ -39,7 +39,7 @@ class TestPluginCommands(unittest.TestCase):
             60
         ]
 
-    @patch('command.plugin.ApiClient.execute')
+    @patch('opnsense_cli.command.plugin.ApiClient.execute')
     def test_list(self, api_response_mock):
         api_response_mock.return_value = self._api_data_fixtures
         client_args = self._api_client_args_fixtures
@@ -56,7 +56,7 @@ class TestPluginCommands(unittest.TestCase):
         )
         self.assertEqual(0, result.exit_code)
 
-    @patch('command.plugin.ApiClient.execute')
+    @patch('opnsense_cli.command.plugin.ApiClient.execute')
     def test_installed(self, api_response_mock):
         data = self._api_data_fixtures
         data['plugin'][0]['installed'] = '1'
@@ -75,7 +75,7 @@ class TestPluginCommands(unittest.TestCase):
         )
         self.assertEqual(0, result.exit_code)
 
-    @patch('command.plugin.ApiClient.execute')
+    @patch('opnsense_cli.command.plugin.ApiClient.execute')
     def test_show(self, api_response_mock):
         api_response_mock.return_value = {
             "details": "The xyz plugin\n\n" +
@@ -94,7 +94,7 @@ class TestPluginCommands(unittest.TestCase):
         )
         self.assertEqual(0, result.exit_code)
 
-    @patch('command.plugin.ApiClient.execute')
+    @patch('opnsense_cli.command.plugin.ApiClient.execute')
     def test_install(self, api_response_mock):
         api_response_mock.return_value = {"status": "ok", "msg_uuid": "ce9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
         client_args = self._api_client_args_fixtures
@@ -106,7 +106,7 @@ class TestPluginCommands(unittest.TestCase):
         self.assertIn("ok\n", result.output)
         self.assertEqual(0, result.exit_code)
 
-    @patch('command.plugin.ApiClient.execute')
+    @patch('opnsense_cli.command.plugin.ApiClient.execute')
     def test_uninstall(self, api_response_mock):
         api_response_mock.return_value = {"status": "ok", "msg_uuid": "de9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
         client_args = self._api_client_args_fixtures
@@ -118,7 +118,7 @@ class TestPluginCommands(unittest.TestCase):
         self.assertIn("ok\n", result.output)
         self.assertEqual(0, result.exit_code)
 
-    @patch('command.plugin.ApiClient.execute')
+    @patch('opnsense_cli.command.plugin.ApiClient.execute')
     def test_reinstall(self, api_response_mock):
         api_response_mock.return_value = {"status": "ok", "msg_uuid": "xe9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
         client_args = self._api_client_args_fixtures
@@ -130,7 +130,7 @@ class TestPluginCommands(unittest.TestCase):
         self.assertIn("ok\n", result.output)
         self.assertEqual(0, result.exit_code)
 
-    @patch('command.plugin.ApiClient.execute')
+    @patch('opnsense_cli.command.plugin.ApiClient.execute')
     def test_lock(self, api_response_mock):
         api_response_mock.return_value = {"status": "ok", "msg_uuid": "xe9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
         client_args = self._api_client_args_fixtures
@@ -142,7 +142,7 @@ class TestPluginCommands(unittest.TestCase):
         self.assertIn("ok\n", result.output)
         self.assertEqual(0, result.exit_code)
 
-    @patch('command.plugin.ApiClient.execute')
+    @patch('opnsense_cli.command.plugin.ApiClient.execute')
     def test_unlock(self, api_response_mock):
         api_response_mock.return_value = {"status": "ok", "msg_uuid": "ze9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
         client_args = self._api_client_args_fixtures

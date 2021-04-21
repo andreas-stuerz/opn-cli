@@ -3,14 +3,12 @@ import click
 import yaml
 import os
 
-from api.client import ApiClient
+from opnsense_cli.api.client import ApiClient
+from opnsense_cli.command.version import version
+from opnsense_cli.command.plugin import plugin
+from opnsense_cli.command.firewall import firewall
 
-# import commands
-from command.plugin import plugin
-from command.firewall import firewall
-from command.version import version
 
-VERSION = "v1.0.0"
 CFG_DIR = "~/.opn-cli"
 DEFAULT_CFG = f"{CFG_DIR}/conf.yaml"
 DEFAULT_SSL_VERIFY_CA = f"{CFG_DIR}/ca.pem"
@@ -128,9 +126,9 @@ def cli(ctx, **kwargs):
 
 
 # register commands
+cli.add_command(version)
 cli.add_command(plugin)
 cli.add_command(firewall)
-cli.add_command(version)
 
 if __name__ == "__main__":
     cli()

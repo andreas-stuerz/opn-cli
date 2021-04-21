@@ -2,12 +2,12 @@ import json
 
 from unittest import TestCase
 from unittest.mock import patch
-from api.client import ApiClient
-from api.exception import APIException
+from opnsense_cli.api.client import ApiClient
+from opnsense_cli.api.exception import APIException
 
 
 class TestApiClient(TestCase):
-    @patch('api.client.requests.get')
+    @patch('opnsense_cli.api.client.requests.get')
     def test_execute_get_success(self, request_mock):
         api_response_fixture = {'product_id': 'opnsense'}
         request_mock.return_value.status_code = 200
@@ -40,7 +40,7 @@ class TestApiClient(TestCase):
         )
         self.assertEqual(api_response_fixture, result)
 
-    @patch('api.client.requests.get')
+    @patch('opnsense_cli.api.client.requests.get')
     def test_execute_get_failure(self, request_mock):
         request_mock.return_value.status_code = 400
         request_mock.return_value.text = {
@@ -74,7 +74,7 @@ class TestApiClient(TestCase):
             timeout=60
         )
 
-    @patch('api.client.requests.post')
+    @patch('opnsense_cli.api.client.requests.post')
     def test_execute_post_success(self, request_mock):
         api_response_fixture = [
             {'status': 'ok', 'msg_uuid': '8a0a415a-dbee-410d-be9f-01b90d71ff7c'}
