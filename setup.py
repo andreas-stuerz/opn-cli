@@ -35,7 +35,7 @@ setup(
         'Development Status :: 4 - Beta',
         'Environment :: Console',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD-2-Clause License',
+        'License :: OSI Approved :: BSD License',
         'Operating System :: POSIX',
         'Operating System :: MacOS',
         'Operating System :: Unix',
