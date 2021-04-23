@@ -1,13 +1,15 @@
 import os
 from setuptools import setup, find_packages
 
+from opnsense_cli import __cli_name__, __version__
+
 _directory = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
     name='opn_cli',
-    version='0.1.0',
+    version=__version__,
     packages=find_packages(),
     description="OPNsense CLI written in python.",
     author='Andreas Stürz',
