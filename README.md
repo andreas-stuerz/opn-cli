@@ -1,4 +1,6 @@
 # opnsense-cli
+![CI](https://github.com/andeman/opnsense_cli/actions/workflows/integration.yaml/badge.svg)
+
 OPNsense CLI written in python.
 
 ## Install
@@ -12,8 +14,8 @@ pip install opn_cli
 2. Create the default config file `~/.opn-cli/conf.yaml`
 ```
 ---
-api_key: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-api_secret: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+api_key: your_api_key
+api_secret: your_api_secret
 url: https://opnsense.example.com/api
 timeout: 60
 ssl_verify: true

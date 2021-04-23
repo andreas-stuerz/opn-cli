@@ -1,9 +1,25 @@
+import os
 from setuptools import setup, find_packages
+
+_directory = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(_directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 setup(
     name='opn_cli',
     version='0.1.0',
     packages=find_packages(),
+    description="OPNsense CLI written in python.",
+    author='Andreas Stürz',
+    license='BSD-2-Clause License',
+    project_urls={
+        'Bug Tracker': 'https://github.com/andeman/opnsense_cli/issues',
+        'CI: GitHub Actions Pipelines': 'https://github.com/andeman/opnsense_cli/actions',
+        'Documentation': 'https://github.com/andeman/opnsense_cli',
+        'Source Code': 'https://github.com/andeman/opnsense_cli',
+    },
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     install_requires=[
         'click',
         'requests',
@@ -13,4 +29,17 @@ setup(
         [console_scripts]
         opn_cli=opnsense_cli.cli:cli
     ''',
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'Environment :: Console',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: BSD-2-Clause License',
+        'Operating System :: POSIX',
+        'Operating System :: MacOS',
+        'Operating System :: Unix',
+        'Operating System :: Microsoft :: Windows',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+    ]
 )
