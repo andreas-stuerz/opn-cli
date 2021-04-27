@@ -11,7 +11,7 @@ pip install opn_cli
 ## Configure
 1. Generate an api_key and api_secret. See: https://docs.opnsense.org/development/how-tos/api.html#creating-keys.
 
-2. Create the default config file `~/.opn-cli/conf.yaml`
+2. Create the default config file `~/.opn_cli/conf.yaml`
 ```
 ---
 api_key: your_api_key
@@ -53,11 +53,11 @@ Usage: opn_cli [OPTIONS] COMMAND [ARGS]...
 
 Options:
   -c, --config FILE               path to the config file  [env var:
-                                  OPN_CONFIG; default: ~/.opn-cli/conf.yaml]
+                                  OPN_CONFIG; default: ~/.opn_cli/conf.yaml]
 
   --ca FILE                       path to the ca bundle file for ssl
                                   verification  [env var: OPN_SSL_VERIFY_CA;
-                                  default: ~/.opn-cli/ca.pem]
+                                  default: ~/.opn_cli/ca.pem]
 
   -k, --api-key TEXT              Your API key for the OPNsense API  [env var:
                                   OPN_API_KEY]

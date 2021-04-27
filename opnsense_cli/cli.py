@@ -9,7 +9,7 @@ from opnsense_cli.command.plugin import plugin
 from opnsense_cli.command.firewall import firewall
 
 
-CFG_DIR = "~/.opn-cli"
+CFG_DIR = "~/.opn_cli"
 DEFAULT_CFG = f"{CFG_DIR}/conf.yaml"
 DEFAULT_SSL_VERIFY_CA = f"{CFG_DIR}/ca.pem"
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
