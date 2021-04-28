@@ -4,4 +4,4 @@ if [ -n "$1" ]; then
   ARGS=$(printf ' %q' "$@")
 fi
 
-pytest --verbose --cov ${ARGS}
+pytest --verbose --cov --cov-report term-missing ${ARGS}

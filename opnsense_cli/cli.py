@@ -21,10 +21,7 @@ def defaults_from_configfile(ctx, param, filename):
             data = yaml.load(yaml_file, Loader=yaml.SafeLoader)
         return data
 
-    try:
-        options = dict_from_yaml(os.path.expanduser(filename))
-    except KeyError:
-        options = {}
+    options = dict_from_yaml(os.path.expanduser(filename))
     ctx.default_map = options
 
 
