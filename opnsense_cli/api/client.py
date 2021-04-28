@@ -44,18 +44,18 @@ class ApiClient(object):
                                 timeout=self._timeout)
         return self._process_response(response)
 
-    def _post(self, endpoint, body=None):
+    def _post(self, endpoint, json=None):
         req_url = '{}/{}'.format(self._base_url, endpoint)
-        response = requests.post(req_url, data=body, verify=self.ssl_verify_cert,
+        response = requests.post(req_url, json=json, verify=self.ssl_verify_cert,
                                  auth=(self._api_key, self._api_secret),
                                  timeout=self._timeout)
         return self._process_response(response)
 
-    def execute(self, *args, **kwargs):
+    def execute(self, *args, json=None, **kwargs):
         endpoint = self._get_endpoint_url(*args, **kwargs)
         if kwargs['method'] == 'get':
             return self._get(endpoint)
         elif kwargs['method'] == 'post':
-            return self._post(endpoint)
+            return self._post(endpoint, json)
         else:
             raise NotImplementedError(f"Unkown HTTP method: {kwargs['method']}")

@@ -75,7 +75,7 @@ class TestApiClient(TestCase):
         )
 
     @patch('opnsense_cli.api.client.requests.post')
-    def test_execute_post_success(self, request_mock):
+    def test_execute_post_json_success(self, request_mock):
         api_response_fixture = [
             {'status': 'ok', 'msg_uuid': '8a0a415a-dbee-410d-be9f-01b90d71ff7c'}
         ]
@@ -91,21 +91,28 @@ class TestApiClient(TestCase):
             40
         ]
         api_config = {
-            "module": "Core",
-            "controller": "Firmware",
+            "module": "openvpn",
+            "controller": "export",
             "method": "post",
-            "command": "reinstall",
+            "command": "download",
         }
         api_parameters = [
-            'os_plugin_name'
+            'vpnid',
+            'certref'
         ]
 
+        api_payload = {
+            "param1": 0,
+            "param2": "test",
+            "paramN": "testN",
+        }
+
         client = ApiClient(*client_args)
-        result = client.execute(*api_parameters, **api_config)
+        result = client.execute(*api_parameters, json=api_payload, **api_config)
 
         request_mock.assert_called_once_with(
-            'https://127.0.0.1/api/core/firmware/reinstall/os_plugin_name',
-            data=None,
+            'https://127.0.0.1/api/openvpn/export/download/vpnid/certref',
+            json=api_payload,
             verify=False,
             auth=('api_key2', 'api_secret2'),
             timeout=40
