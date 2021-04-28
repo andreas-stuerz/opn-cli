@@ -1,3 +1,3 @@
-__cli_name__ = 'opn_cli'
-__version__ = '0.2.0'
-__copyright__ = '(c) by Andreas Stuerz'
+__cli_name__ = 'opn-cli'
+__version__ = '0.3.0'
+__copyright__ = '(c) by Andreas Stürz'

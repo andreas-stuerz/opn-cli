@@ -8,11 +8,11 @@ with open(os.path.join(_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='opn_cli',
+    name=__cli_name__,
     version=__version__,
     packages=find_packages(),
     description="OPNsense CLI written in python.",
-    author='Andreas Stürz',
+    author='Andreas Stürz IT-Solutions',
     license='BSD-2-Clause License',
     project_urls={
         'Bug Tracker': 'https://github.com/andeman/opnsense_cli/issues',
@@ -29,7 +29,7 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        opn_cli=opnsense_cli.cli:cli
+        opn-cli=opnsense_cli.cli:cli
     ''',
     classifiers=[
         'Development Status :: 4 - Beta',

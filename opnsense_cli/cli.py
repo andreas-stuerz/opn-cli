@@ -3,13 +3,13 @@ import click
 import yaml
 import os
 
+from opnsense_cli import __cli_name__
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.command.version import version
 from opnsense_cli.command.plugin import plugin
 from opnsense_cli.command.firewall import firewall
 
-
-CFG_DIR = "~/.opn_cli"
+CFG_DIR = f"~/.{__cli_name__}"
 DEFAULT_CFG = f"{CFG_DIR}/conf.yaml"
 DEFAULT_SSL_VERIFY_CA = f"{CFG_DIR}/ca.pem"
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
@@ -95,14 +95,34 @@ def expand_path(ctx, param, filename):
 @click.pass_context
 def cli(ctx, **kwargs):
     """
-    OPNsense CLI - interact with OPNsense via the API
+    OPNsense CLI - interact with OPNsense via the CLI
 
-    You need a valid API key and secret to interact with the API.
-    Open your browser and go to System->Access->Users and generate or use an existing Api Key.
+    API key + secret:
 
-    If you use ssl verification (--ssl-verify), make sure to specify a valid ca with --ca <path_to_bundle>.
+    You need a valid API key and secret to interact with the API. Open your
+    browser and go to System->Access->Users and generate or use an existing
+    Api Key.
 
-    You can set the required options as environment variables. See --help "[env var: [...]"
+    See: https://docs.opnsense.org/development/how-tos/api.html#creating-keys.
+
+    SSL verify / CA:
+
+    If you use ssl verification (--ssl-verify), make sure to specify a valid
+    ca with --ca <path_to_bundle>.
+
+    To download the default self-signed cert, open the OPNsense Web Gui and go to
+    System->Trust->Certificates. Search for the Name: "Web GUI SSL certificate" and
+    press the "export user cert" button.
+
+    If you use a ca signed certificate, go to System->Trust->Authorities and
+    press the "export CA cert" button to download the ca.
+
+    Save the cert or the ca as ~/.opn-cli/ca.pem.
+
+    Configuration:
+
+    You can set the required options as environment variables. See --help
+    "[env var: [...]"
 
     Or use a config file passed with -c option.
 
@@ -114,6 +134,7 @@ def cli(ctx, **kwargs):
 
     3. config file
 
+    Happy automating!
     """
     ctx.obj = ApiClient(
         kwargs['api_key'],
