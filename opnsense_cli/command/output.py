@@ -1,7 +1,7 @@
 from opnsense_cli.command import format
 
 
-class CliOutput():
+class CliOutput:
     formatter_map = {
         'json': format.JsonFormat,
         'table': format.TableFormat

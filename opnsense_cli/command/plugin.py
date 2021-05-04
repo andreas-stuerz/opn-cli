@@ -2,7 +2,7 @@ import click
 
 from opnsense_cli.command.output import CliOutput
 from opnsense_cli.api.client import ApiClient
-from opnsense_cli.api.firmware import Firmware
+from opnsense_cli.api.core import Firmware
 
 pass_api_client = click.make_pass_decorator(ApiClient)
 pass_firmware_svc = click.make_pass_decorator(Firmware)
@@ -87,7 +87,7 @@ def show(firmware_svc: Firmware, **kwargs):
     """
     Show plugin details.
     """
-    result = [firmware_svc.details(kwargs['plugin_name'])]
+    result = firmware_svc.details(kwargs['plugin_name'])
 
     CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
@@ -112,7 +112,7 @@ def install(firmware_svc: Firmware, **kwargs):
     """
     Install plugin by name
     """
-    result = [firmware_svc.install(kwargs['plugin_name'])]
+    result = firmware_svc.install(kwargs['plugin_name'])
 
     CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
@@ -137,7 +137,7 @@ def uninstall(firmware_svc: Firmware, **kwargs):
     """
     Uninstall plugin by name.
     """
-    result = [firmware_svc.remove(kwargs['plugin_name'])]
+    result = firmware_svc.remove(kwargs['plugin_name'])
 
     CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
@@ -162,7 +162,7 @@ def reinstall(firmware_svc: Firmware, **kwargs):
     """
     Reinstall plugin by name.
     """
-    result = [firmware_svc.reinstall(kwargs['plugin_name'])]
+    result = firmware_svc.reinstall(kwargs['plugin_name'])
 
     CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
@@ -187,7 +187,7 @@ def lock(firmware_svc: Firmware, **kwargs):
     """
     Lock plugin.
     """
-    result = [firmware_svc.lock(kwargs['plugin_name'])]
+    result = firmware_svc.lock(kwargs['plugin_name'])
 
     CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
@@ -212,6 +212,6 @@ def unlock(firmware_svc: Firmware, **kwargs):
     """
     Unlock plugin.
     """
-    result = [firmware_svc.unlock(kwargs['plugin_name'])]
+    result = firmware_svc.unlock(kwargs['plugin_name'])
 
     CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()

@@ -7,7 +7,6 @@ from opnsense_cli import __cli_name__
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.command.version import version
 from opnsense_cli.command.plugin import plugin
-from opnsense_cli.command.firewall import firewall
 
 CFG_DIR = f"~/.{__cli_name__}"
 DEFAULT_CFG = f"{CFG_DIR}/conf.yaml"
@@ -146,7 +145,6 @@ def cli(ctx, **kwargs):
 # register commands
 cli.add_command(version)
 cli.add_command(plugin)
-cli.add_command(firewall)
 
 if __name__ == "__main__":
     cli()
