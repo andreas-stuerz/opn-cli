@@ -1,4 +1,5 @@
 import click
+import json
 from abc import ABC, abstractmethod
 
 
@@ -22,7 +23,7 @@ class JsonFormat(BaseFormat):
     """
 
     def echo(self):
-        click.echo(self._data)
+        click.echo(json.dumps(self._data))
 
 
 class TableFormat(BaseFormat):
