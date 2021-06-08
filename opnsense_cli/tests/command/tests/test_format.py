@@ -42,11 +42,11 @@ class TestFormatter(unittest.TestCase):
         result = capturedOutput.getvalue()
 
         self.assertIn(
-            '[{\'name\': \'os-acme-client\', \'version\': \'2.4\', ' +
-            '\'comment\': "Let\'s Encrypt client", \'flatsize\': \'575KiB\', \'locked\': \'N/A\', ' +
-            '\'license\': \'BSD2CLAUSE\', \'repository\': \'OPNsense\', \'origin\': \'opnsense/os-acme-client\', ' +
-            '\'provided\': \'1\', \'installed\': \'0\', \'path\': \'OPNsense/opnsense/os-acme-client\', ' +
-            '\'configured\': \'0\'}]\n',
+            '[{"name": "os-acme-client", "version": "2.4", ' +
+            '"comment": "Let\'s Encrypt client", "flatsize": "575KiB", "locked": "N/A", ' +
+            '"license": "BSD2CLAUSE", "repository": "OPNsense", "origin": "opnsense/os-acme-client", ' +
+            '"provided": "1", "installed": "0", "path": "OPNsense/opnsense/os-acme-client", ' +
+            '"configured": "0"}]\n',
             result
         )
 
