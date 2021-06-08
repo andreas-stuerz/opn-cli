@@ -25,11 +25,11 @@ class TestOpenvpnCommands(unittest.TestCase):
         self._api_data_fixtures_templates = {
             "ArchiveOpenVPN": {
                 "name": "Archive",
-                "supportedOptions": ["plain_config", "p12_password", "random_local_port", "auth_nocache", "cryptoapi"]
+                "supportedOptions": ["plain_config", "p12_password", "random_local_port", "auth_nocache"]
             },
             "PlainOpenVPN": {
                 "name": "File Only",
-                "supportedOptions": ["plain_config", "random_local_port", "auth_nocache", "cryptoapi"]
+                "supportedOptions": ["plain_config", "random_local_port", "auth_nocache"]
             },
             "TheGreenBow": {
                 "name": "TheGreenBow",
@@ -37,7 +37,7 @@ class TestOpenvpnCommands(unittest.TestCase):
             },
             "ViscosityVisz": {
                 "name": "Viscosity (visz)",
-                "supportedOptions": ["plain_config", "p12_password", "random_local_port", "auth_nocache", "cryptoapi"]
+                "supportedOptions": ["plain_config", "p12_password", "random_local_port", "auth_nocache"]
             },
         }
         self._api_data_fixtures_accounts = {
@@ -89,10 +89,10 @@ class TestOpenvpnCommands(unittest.TestCase):
         result = runner.invoke(openvpn, ['templates'], obj=client)
 
         self.assertIn(
-            "ArchiveOpenVPN Archive ['plain_config', 'p12_password', 'random_local_port', 'auth_nocache', 'cryptoapi']\n" +
-            "PlainOpenVPN File Only ['plain_config', 'random_local_port', 'auth_nocache', 'cryptoapi']\n"
+            "ArchiveOpenVPN Archive ['plain_config', 'p12_password', 'random_local_port', 'auth_nocache']\n" +
+            "PlainOpenVPN File Only ['plain_config', 'random_local_port', 'auth_nocache']\n"
             "TheGreenBow TheGreenBow []\n"
-            "ViscosityVisz Viscosity (visz) ['plain_config', 'p12_password', 'random_local_port', 'auth_nocache', 'cryptoapi']\n",
+            "ViscosityVisz Viscosity (visz) ['plain_config', 'p12_password', 'random_local_port', 'auth_nocache']\n",
             result.output
         )
         self.assertEqual(0, result.exit_code)

@@ -7,6 +7,7 @@ from opnsense_cli.api.openvpn import Openvpn
 pass_api_client = click.make_pass_decorator(ApiClient)
 pass_openvpn_svc = click.make_pass_decorator(Openvpn)
 
+
 @click.group()
 @pass_api_client
 @click.pass_context
@@ -15,6 +16,7 @@ def openvpn(ctx, api_client: ApiClient, **kwargs):
     Manage OpenVPN
     """
     ctx.obj = Openvpn(api_client)
+
 
 @openvpn.command()
 @click.argument('vpnid')
@@ -109,7 +111,6 @@ def accounts(openvpn_svc: Openvpn, **kwargs):
     type=int,
     show_default=True,
 )
-
 @click.option(
     '--output', '-o',
     help=' Output format.',
@@ -138,11 +139,15 @@ def download(openvpn_svc: Openvpn, **kwargs):
         'openvpn_export': {
         }
     }
-    options = ['auth_nocache', 'cryptoapi', 'hostname', 'local_port', 'p12_password', 'p12_password_confirm', 'plain_config', 'random_local_port', 'servers', 'template', 'validate_server_cn']
+    options = [
+        'auth_nocache', 'cryptoapi', 'hostname', 'local_port', 'p12_password', 'p12_password_confirm', 'plain_config',
+        'random_local_port', 'servers', 'template', 'validate_server_cn'
+    ]
     for option in options:
-      if kwargs[option] != None: json['openvpn_export'][option] = kwargs[option]
+        if kwargs[option] is not None:
+            json['openvpn_export'][option] = kwargs[option]
 
-    result = openvpn_svc.download(kwargs['vpnid'],kwargs['certref'],json=json)
+    result = openvpn_svc.download(kwargs['vpnid'], kwargs['certref'], json=json)
 
     CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
@@ -193,4 +198,3 @@ def templates(openvpn_svc: Openvpn, **kwargs):
     result = openvpn_svc.templates()
 
     CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
-
