@@ -98,10 +98,33 @@ Options:
   -h, --help                      Show this message and exit.
 
 Commands:
-  firewall  Manage the OPNsense firewall
+  openvpn   Manage OpenVPN
   plugin    Manage OPNsense plugins
   version   Show the CLI version and exit.
 
 ```
+
+## Development
+### Testing
+```
+# lint your code
+scripts/lint
+
+# execute all unit tests
+scripts/unit_tests
+
+# execute the TestFormatter tests
+scripts/unit_tests opnsense_cli/tests/command/tests/test_format.py::TestFormatter
+
+# execute tests with coverage report
+scripts/coverage
+```
+
+### Contributing
+Please use the GitHub issues functionality to report any bugs or requests for new features. Feel free to fork and submit pull requests for potential contributions.
+
+All contributions must pass all existing tests, new features should provide additional unit/acceptance tests.
+
+
 
 
