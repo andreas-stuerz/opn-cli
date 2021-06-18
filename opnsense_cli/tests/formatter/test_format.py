@@ -1,7 +1,8 @@
 import io
 import sys
 import unittest
-from opnsense_cli.command.format import JsonFormat, TableFormat
+from opnsense_cli.formats.json import JsonFormat
+from opnsense_cli.formats.table import TableFormat
 
 
 class TestFormatter(unittest.TestCase):
@@ -25,7 +26,10 @@ class TestFormatter(unittest.TestCase):
         }
 
         self._api_data_json_obj = {
-            'result': 'ok', 'changed': False, 'filename': 'Dial_In_VPN.ovpn', 'filetype': 'text/plain',
+            'result': 'ok',
+            'changed': False,
+            'filename': 'Dial_In_VPN.ovpn',
+            'filetype': 'text/plain',
             'content': 'ZUVXXXXHR1bYYYwZXJzaXN0LXR1bgpwZXJzaXN0LWt=='
         }
 
