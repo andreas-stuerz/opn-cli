@@ -1,5 +1,6 @@
 # opn-cli
 ![CI](https://github.com/andeman/opn-cli/actions/workflows/integration.yaml/badge.svg)
+[![Downloads](https://pepy.tech/badge/opn-cli)](https://pepy.tech/project/opn-cli)
 
 opn-cli - the OPNsense CLI written in python.
 
