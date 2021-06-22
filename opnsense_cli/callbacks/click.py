@@ -1,7 +1,7 @@
 import yaml
 import os
-from opnsense_cli.format_maps.cli_output_format import CliOutputFormatMap
-from opnsense_cli.formats.base import Format
+from opnsense_cli.formatters.factories.cli_output_format import CliOutputFormatFactory
+from opnsense_cli.formatters.formats.base import Format
 
 """
 Click callback methods
@@ -23,5 +23,5 @@ def expand_path(ctx, param, filename):
 
 
 def formatter_from_formatter_name(ctx, param, format_name) -> Format:
-    format_map = CliOutputFormatMap(format_name)
+    format_map = CliOutputFormatFactory(format_name)
     return format_map.get_formatter()

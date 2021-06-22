@@ -1,6 +1,6 @@
 import click
 
-from opnsense_cli.formatters.cli import CliOutputFormatter
+from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import formatter_from_formatter_name
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.openvpn import Openvpn
