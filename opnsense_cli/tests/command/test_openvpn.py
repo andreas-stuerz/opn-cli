@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import patch
 from click.testing import CliRunner
 from opnsense_cli.api.client import ApiClient
-from opnsense_cli.command.openvpn import openvpn
+from opnsense_cli.commands.openvpn import openvpn
 
 
 class TestOpenvpnCommands(unittest.TestCase):
@@ -64,7 +64,7 @@ class TestOpenvpnCommands(unittest.TestCase):
             60
         ]
 
-    @patch('opnsense_cli.command.openvpn.ApiClient.execute')
+    @patch('opnsense_cli.commands.openvpn.ApiClient.execute')
     def test_providers(self, api_response_mock):
         api_response_mock.return_value = self._api_data_fixtures_providers
         client_args = self._api_client_args_fixtures
@@ -79,7 +79,7 @@ class TestOpenvpnCommands(unittest.TestCase):
         )
         self.assertEqual(0, result.exit_code)
 
-    @patch('opnsense_cli.command.openvpn.ApiClient.execute')
+    @patch('opnsense_cli.commands.openvpn.ApiClient.execute')
     def test_templates(self, api_response_mock):
         api_response_mock.return_value = self._api_data_fixtures_templates
         client_args = self._api_client_args_fixtures
@@ -97,7 +97,7 @@ class TestOpenvpnCommands(unittest.TestCase):
         )
         self.assertEqual(0, result.exit_code)
 
-    @patch('opnsense_cli.command.openvpn.ApiClient.execute')
+    @patch('opnsense_cli.commands.openvpn.ApiClient.execute')
     def test_accounts(self, api_response_mock):
         api_response_mock.return_value = self._api_data_fixtures_accounts
         client_args = self._api_client_args_fixtures
@@ -113,7 +113,7 @@ class TestOpenvpnCommands(unittest.TestCase):
         )
         self.assertEqual(0, result.exit_code)
 
-    @patch('opnsense_cli.command.openvpn.ApiClient.execute')
+    @patch('opnsense_cli.commands.openvpn.ApiClient.execute')
     def test_download(self, api_response_mock):
         api_response_mock.return_value = self._api_data_fixtures_download
         client_args = self._api_client_args_fixtures

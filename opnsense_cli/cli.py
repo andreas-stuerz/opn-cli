@@ -1,32 +1,17 @@
 #!/usr/bin/env python3
 import click
-import yaml
-import os
 
 from opnsense_cli import __cli_name__
+from opnsense_cli.callbacks.click import defaults_from_configfile, expand_path
 from opnsense_cli.api.client import ApiClient
-from opnsense_cli.command.version import version
-from opnsense_cli.command.plugin import plugin
-from opnsense_cli.command.openvpn import openvpn
+from opnsense_cli.commands.version import version
+from opnsense_cli.commands.plugin import plugin
+from opnsense_cli.commands.openvpn import openvpn
 
 CFG_DIR = f"~/.{__cli_name__}"
 DEFAULT_CFG = f"{CFG_DIR}/conf.yaml"
 DEFAULT_SSL_VERIFY_CA = f"{CFG_DIR}/ca.pem"
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
-
-
-def defaults_from_configfile(ctx, param, filename):
-    def dict_from_yaml(path):
-        with open(path, 'r') as yaml_file:
-            data = yaml.load(yaml_file, Loader=yaml.SafeLoader)
-        return data
-
-    options = dict_from_yaml(os.path.expanduser(filename))
-    ctx.default_map = options
-
-
-def expand_path(ctx, param, filename):
-    return os.path.expanduser(filename)
 
 
 @click.group(context_settings=CONTEXT_SETTINGS)

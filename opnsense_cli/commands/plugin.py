@@ -1,6 +1,7 @@
 import click
 
-from opnsense_cli.command.output import CliOutput
+from opnsense_cli.formatters.cli_output import CliOutputFormatter
+from opnsense_cli.callbacks.click import formatter_from_formatter_name
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core import Firmware
 
@@ -21,9 +22,10 @@ def plugin(ctx, api_client: ApiClient, **kwargs):
 @plugin.command()
 @click.option(
     '--output', '-o',
-    help=' Output format.',
+    help='Specifies the Output format.',
     default="table",
     type=click.Choice(['table', 'json']),
+    callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
@@ -39,7 +41,7 @@ def list(firmware_svc: Firmware, **kwargs):
     """
     result = firmware_svc.info()['plugin']
 
-    CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
 @plugin.command()
@@ -48,6 +50,7 @@ def list(firmware_svc: Firmware, **kwargs):
     help='Specifies the output format.',
     default="table",
     type=click.Choice(['table', 'json']),
+    callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
@@ -64,7 +67,7 @@ def installed(firmware_svc: Firmware, **kwargs):
     plugins = firmware_svc.info()['plugin']
     result = [plugin for plugin in plugins if plugin['installed'] == "1"]
 
-    CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
 @plugin.command()
@@ -74,6 +77,7 @@ def installed(firmware_svc: Firmware, **kwargs):
     help='Specifies the output format.',
     default="table",
     type=click.Choice(['table', 'json']),
+    callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
@@ -89,7 +93,7 @@ def show(firmware_svc: Firmware, **kwargs):
     """
     result = firmware_svc.details(kwargs['plugin_name'])
 
-    CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
 @plugin.command()
@@ -99,6 +103,7 @@ def show(firmware_svc: Firmware, **kwargs):
     help='Specifies the output format.',
     default="table",
     type=click.Choice(['table', 'json']),
+    callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
@@ -114,7 +119,7 @@ def install(firmware_svc: Firmware, **kwargs):
     """
     result = firmware_svc.install(kwargs['plugin_name'])
 
-    CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
 @plugin.command()
@@ -124,6 +129,7 @@ def install(firmware_svc: Firmware, **kwargs):
     help='Specifies the output format.',
     default="table",
     type=click.Choice(['table', 'json']),
+    callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
@@ -139,7 +145,7 @@ def uninstall(firmware_svc: Firmware, **kwargs):
     """
     result = firmware_svc.remove(kwargs['plugin_name'])
 
-    CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
 @plugin.command()
@@ -149,6 +155,7 @@ def uninstall(firmware_svc: Firmware, **kwargs):
     help='Specifies the output format.',
     default="table",
     type=click.Choice(['table', 'json']),
+    callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
@@ -164,7 +171,7 @@ def reinstall(firmware_svc: Firmware, **kwargs):
     """
     result = firmware_svc.reinstall(kwargs['plugin_name'])
 
-    CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
 @plugin.command()
@@ -174,6 +181,7 @@ def reinstall(firmware_svc: Firmware, **kwargs):
     help='Specifies the output format.',
     default="table",
     type=click.Choice(['table', 'json']),
+    callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
@@ -189,7 +197,7 @@ def lock(firmware_svc: Firmware, **kwargs):
     """
     result = firmware_svc.lock(kwargs['plugin_name'])
 
-    CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
 @plugin.command()
@@ -199,6 +207,7 @@ def lock(firmware_svc: Firmware, **kwargs):
     help='Specifies the output format.',
     default="table",
     type=click.Choice(['table', 'json']),
+    callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
@@ -214,4 +223,4 @@ def unlock(firmware_svc: Firmware, **kwargs):
     """
     result = firmware_svc.unlock(kwargs['plugin_name'])
 
-    CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()

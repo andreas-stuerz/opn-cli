@@ -1,6 +1,7 @@
 import click
 
-from opnsense_cli.command.output import CliOutput
+from opnsense_cli.formatters.cli_output import CliOutputFormatter
+from opnsense_cli.callbacks.click import formatter_from_formatter_name
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.openvpn import Openvpn
 
@@ -25,6 +26,7 @@ def openvpn(ctx, api_client: ApiClient, **kwargs):
     help=' Output format.',
     default="table",
     type=click.Choice(['table', 'json']),
+    callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
@@ -42,7 +44,7 @@ def accounts(openvpn_svc: Openvpn, **kwargs):
     """
     result = openvpn_svc.accounts(kwargs['vpnid'])
 
-    CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
 @openvpn.command()
@@ -116,6 +118,7 @@ def accounts(openvpn_svc: Openvpn, **kwargs):
     help=' Output format.',
     default="table",
     type=click.Choice(['table', 'json']),
+    callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
@@ -149,7 +152,7 @@ def download(openvpn_svc: Openvpn, **kwargs):
 
     result = openvpn_svc.download(kwargs['vpnid'], kwargs['certref'], json=json)
 
-    CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
 @openvpn.command()
@@ -158,6 +161,7 @@ def download(openvpn_svc: Openvpn, **kwargs):
     help=' Output format.',
     default="table",
     type=click.Choice(['table', 'json']),
+    callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
@@ -173,7 +177,7 @@ def providers(openvpn_svc: Openvpn, **kwargs):
     """
     result = openvpn_svc.providers()
 
-    CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
 @openvpn.command()
@@ -182,6 +186,7 @@ def providers(openvpn_svc: Openvpn, **kwargs):
     help=' Output format.',
     default="table",
     type=click.Choice(['table', 'json']),
+    callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
@@ -197,4 +202,4 @@ def templates(openvpn_svc: Openvpn, **kwargs):
     """
     result = openvpn_svc.templates()
 
-    CliOutput(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()

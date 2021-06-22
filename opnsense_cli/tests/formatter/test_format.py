@@ -1,7 +1,8 @@
 import io
 import sys
 import unittest
-from opnsense_cli.command.format import JsonFormat, TableFormat
+from opnsense_cli.formatters.formats.json_output import JsonOutputFormat
+from opnsense_cli.formatters.formats.table_output import TableOutputFormat
 
 
 class TestFormatter(unittest.TestCase):
@@ -25,7 +26,10 @@ class TestFormatter(unittest.TestCase):
         }
 
         self._api_data_json_obj = {
-            'result': 'ok', 'changed': False, 'filename': 'Dial_In_VPN.ovpn', 'filetype': 'text/plain',
+            'result': 'ok',
+            'changed': False,
+            'filename': 'Dial_In_VPN.ovpn',
+            'filetype': 'text/plain',
             'content': 'ZUVXXXXHR1bYYYwZXJzaXN0LXR1bgpwZXJzaXN0LWt=='
         }
 
@@ -33,7 +37,7 @@ class TestFormatter(unittest.TestCase):
         """
         JSON Formatter always return all columns
         """
-        formatter = JsonFormat(self._api_data_json_obj_list['plugin'], ['name'])
+        formatter = JsonOutputFormat(self._api_data_json_obj_list['plugin'], ['name'])
 
         capturedOutput = io.StringIO()
         sys.stdout = capturedOutput
@@ -51,7 +55,7 @@ class TestFormatter(unittest.TestCase):
         )
 
     def test_TableFormat_with_json_obj_list(self):
-        formatter = TableFormat(self._api_data_json_obj_list['plugin'], ['name', 'version'])
+        formatter = TableOutputFormat(self._api_data_json_obj_list['plugin'], ['name', 'version'])
         formatter.separator = "|"
 
         capturedOutput = io.StringIO()
@@ -66,7 +70,7 @@ class TestFormatter(unittest.TestCase):
         )
 
     def test_TableFormat_with_json_nested(self):
-        formatter = TableFormat(self._api_data_json_nested, ['<ID>', 'name', 'supportedOptions'])
+        formatter = TableOutputFormat(self._api_data_json_nested, ['<ID>', 'name', 'supportedOptions'])
         formatter.separator = "|"
 
         capturedOutput = io.StringIO()
@@ -84,7 +88,7 @@ class TestFormatter(unittest.TestCase):
         )
 
     def test_TableFormat_with_json_obj(self):
-        formatter = TableFormat(self._api_data_json_obj, ['result', 'changed', 'filename'])
+        formatter = TableOutputFormat(self._api_data_json_obj, ['result', 'changed', 'filename'])
         formatter.separator = "|"
 
         capturedOutput = io.StringIO()
@@ -99,7 +103,7 @@ class TestFormatter(unittest.TestCase):
         )
 
     def test_TableFormat_not_implemented(self):
-        formatter = TableFormat("Just a String", [])
+        formatter = TableOutputFormat("Just a String", [])
         formatter.separator = "|"
 
         self.assertRaises(NotImplementedError, formatter.echo)

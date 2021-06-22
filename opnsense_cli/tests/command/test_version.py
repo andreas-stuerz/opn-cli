@@ -1,7 +1,7 @@
 import unittest
 
 from click.testing import CliRunner
-from opnsense_cli.command.version import version
+from opnsense_cli.commands.version import version
 from opnsense_cli import __cli_name__, __version__
 
 

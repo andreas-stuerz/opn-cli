@@ -1,5 +1,6 @@
 # opn-cli
 ![CI](https://github.com/andeman/opn-cli/actions/workflows/integration.yaml/badge.svg)
+[![Downloads](https://pepy.tech/badge/opn-cli)](https://pepy.tech/project/opn-cli)
 
 opn-cli - the OPNsense CLI written in python.
 
@@ -21,7 +22,6 @@ timeout: 60
 ssl_verify: true
 ca: ~/.opn-cli/ca.pem
 ```
-
 
 ## Usage
 ```
@@ -105,6 +105,25 @@ Commands:
 ```
 
 ## Development
+
+### Setup development environment
+
+Requirements:
+* vagrant
+* virtualbox
+
+This will install opn-cli, add it to your PATH and setup an opnsense vm with vagrant:
+```
+# setup 
+scripts/create_test_env
+
+# test opn-cli
+opn-cli plugin list
+
+# teardown 
+scripts/remove_test_env
+```
+
 ### Testing
 ```
 # lint your code

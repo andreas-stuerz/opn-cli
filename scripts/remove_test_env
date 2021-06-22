@@ -1,0 +1,3 @@
+#!/bin/bash
+cp -rv ~/.opn-cli.bak ~/.opn-cli
+vagrant destroy -f

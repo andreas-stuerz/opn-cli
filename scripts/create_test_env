@@ -1,0 +1,7 @@
+#!/bin/bash
+pip install -e .
+cp -rv ~/.opn-cli ~/.opn-cli.bak
+mkdir -p ~/.opn-cli
+cp opnsense_cli/ca.pem ~/.opn-cli/.
+cp opnsense_cli/conf.yaml ~/.opn-cli/.
+vagrant up
