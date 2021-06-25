@@ -1,15 +1,7 @@
-from opnsense_cli.formatters.types.base import JsonType
+from opnsense_cli.types.json.base import JsonType
 
 
 class JsonObjNested(JsonType):
-    """
-    Table Output for nested json Objects.
-    Example:
-    {
-        '567f2891c6002': {'description': 'vpn name 1', 'users': []},
-        '567f28af0cb4d': {'description': 'vpn name 2', 'users': []}
-    }
-    """
     def __init__(self, json_data):
         json_data_with_id = self.__extract_id_column(json_data)
         super().__init__(json_data_with_id)

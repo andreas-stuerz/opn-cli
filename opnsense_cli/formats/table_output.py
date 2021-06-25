@@ -1,5 +1,5 @@
 import click
-from opnsense_cli.formatters.formats.base import Format
+from opnsense_cli.formats.base import Format
 
 
 class TableOutputFormat(Format):
@@ -21,5 +21,6 @@ class TableOutputFormat(Format):
     def echo(self):
         json_type = self.get_json_type()
         filtered_data = json_type.get_filtered_by_columns(self._cols)
+
         for row in filtered_data:
             click.echo(self.separator.join(row))

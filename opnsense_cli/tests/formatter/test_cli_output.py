@@ -1,11 +1,11 @@
 import io
 import sys
 import unittest
-from opnsense_cli.formatters.formats.json_output import JsonOutputFormat
-from opnsense_cli.formatters.formats.table_output import TableOutputFormat
+from opnsense_cli.formats.json_output import JsonOutputFormat
+from opnsense_cli.formats.table_output import TableOutputFormat
 
 
-class TestFormatter(unittest.TestCase):
+class TestCliOutputFormatter(unittest.TestCase):
     def setUp(self):
         self._api_data_json_obj_list = {
             "plugin": [
@@ -54,7 +54,7 @@ class TestFormatter(unittest.TestCase):
             result
         )
 
-    def test_TableFormat_with_json_obj_list(self):
+    def test_TableFormat_with_json_array(self):
         formatter = TableOutputFormat(self._api_data_json_obj_list['plugin'], ['name', 'version'])
         formatter.separator = "|"
 

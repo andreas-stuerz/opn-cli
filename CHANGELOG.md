@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/andeman/opn-cli/tree/HEAD)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.4.0...HEAD)
+
+**Merged pull requests:**
+
+- Refactor Formatter types and formats [\#3](https://github.com/andeman/opn-cli/pull/3) ([andeman](https://github.com/andeman))
+
 ## [v0.4.0](https://github.com/andeman/opn-cli/tree/v0.4.0) (2021-06-08)
 
 [Full Changelog](https://github.com/andeman/opn-cli/compare/v.0.3.2...v0.4.0)
