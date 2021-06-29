@@ -175,7 +175,7 @@ def create(firewall_alias_svc: FirewallAliasFacade, **kwargs):
         'alias': {
             "enabled": kwargs['enabled'],
             "name": kwargs['name'],
-            "type": "external",
+            "type": kwargs['type'],
             "content": kwargs['content'],
             "description": kwargs['description'],
             "proto": kwargs['proto'],
