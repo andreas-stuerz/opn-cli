@@ -18,12 +18,18 @@ class FirewallAliasFacade():
     def show_alias(self, alias_name):
         return self._get_details_for_alias(alias_name)
 
+    def update_alias(self, alias_name, json_payload: dict):
+        uuid = self._get_uuid_for_name(alias_name)
+        return self._firewall_alias_api.set_item(uuid, json=json_payload)
+
+    def delete_alias(self, alias_name):
+        uuid = self._get_uuid_for_name(alias_name)
+        return self._firewall_alias_api.del_item(uuid)
+
     def _get_details_for_alias(self, alias_name):
         uuid = self._get_uuid_for_name(alias_name)
         aliases = self._get_alias_list()
-
         alias = next((item for item in aliases if item["uuid"] == uuid), {})
-
         return alias
 
     def _get_uuid_for_name(self, name):
@@ -50,14 +56,3 @@ class FirewallAliasFacade():
 
     def create_alias(self, json_payload: dict):
         return self._firewall_alias_api.add_item(json=json_payload)
-
-    def delete_alias(self, alias_name):
-        uuid = self._get_uuid_for_name(alias_name)
-        return self._firewall_alias_api.del_item(uuid)
-
-    def update_alias(self, alias_name, json_payload: dict):
-        uuid = self._get_uuid_for_name(alias_name)
-        existing_alias = self._get_details_for_alias(alias_name)
-        print(existing_alias)
-        return {}
-

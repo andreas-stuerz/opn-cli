@@ -27,3 +27,7 @@ def formatter_from_formatter_name(ctx, param, format_name) -> Format:
     factory = CliOutputFormatFactory(format_name)
     return factory.get_class()
 
+
+def bool_as_string(ctx, param, value):
+    if type(value) == 'bool':
+        return str(int(value))

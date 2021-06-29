@@ -1,5 +1,6 @@
 from opnsense_cli.api.base import ApiBase
 
+
 class FirewallAlias(ApiBase):
     MODULE = "firewall"
     CONTROLLER = "alias"
@@ -27,7 +28,7 @@ class FirewallAlias(ApiBase):
         self.command = "delItem"
 
     @ApiBase._api_call
-    def set_item(self, *args):
+    def set_item(self, *args, json=None):
         self.method = "post"
         self.command = "setItem"
 

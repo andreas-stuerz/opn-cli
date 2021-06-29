@@ -1,8 +1,6 @@
 import click
-
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import formatter_from_formatter_name
-
+from opnsense_cli.callbacks.click import formatter_from_formatter_name, bool_as_string
 from opnsense_cli.commands.firewall import firewall
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.firewall import FirewallAlias, FirewallAliasUtil
@@ -17,7 +15,7 @@ pass_firewall_alias_svc = click.make_pass_decorator(FirewallAliasFacade)
 @click.pass_context
 def alias(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage OPNsense firewall aliases
+    Manage OPNsense firewall aliases.
 
     See: https://wiki.opnsense.org/manual/aliases.html
     """
@@ -76,6 +74,7 @@ def show(firewall_alias_svc: FirewallAliasFacade, **kwargs):
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
+
 @alias.command()
 @click.argument('alias_name')
 @click.option(
@@ -100,6 +99,7 @@ def table(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     result = firewall_alias_svc.show_pf_table(kwargs['alias_name'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+
 
 @alias.command()
 @click.argument('name')
@@ -127,6 +127,7 @@ def table(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     help='Enable or disable alias.',
     show_default=True,
     is_flag=True,
+    callback=bool_as_string,
     default=True,
     required=True,
 )
@@ -135,7 +136,6 @@ def table(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     help='Which type should be used for alias type geoip? Geo locations to iso countries, IPv4 and/or IPv6 networks',
     type=click.Choice(['', 'IPv4', 'IPv6', 'IPv4,IPv6']),
     show_default=True,
-    #default="",
 )
 @click.option(
     '--updatefreq', '-u',
@@ -167,7 +167,7 @@ def table(firewall_alias_svc: FirewallAliasFacade, **kwargs):
 @pass_firewall_alias_svc
 def create(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     """
-    Create a new alias
+    Create a new alias.
 
     See: https://wiki.opnsense.org/manual/aliases.html
     """
@@ -186,6 +186,7 @@ def create(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     result = firewall_alias_svc.create_alias(json_payload)
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+
 
 @alias.command()
 @click.argument('alias_name')
@@ -209,6 +210,14 @@ def create(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     '--description', '-d',
     help='The alias description.',
     show_default=True,
+)
+@click.option(
+    '--enabled/--disabled',
+    help='Enable or disable alias.',
+    show_default=True,
+    is_flag=True,
+    callback=bool_as_string,
+    default=None,
 )
 @click.option(
     '--enabled/--disabled',
@@ -253,12 +262,12 @@ def create(firewall_alias_svc: FirewallAliasFacade, **kwargs):
 @pass_firewall_alias_svc
 def update(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     """
-    Update an alias
+    Update an alias.
 
     See: https://wiki.opnsense.org/manual/aliases.html
     """
     json_payload = {
-        'alias': {}
+        'alias': {'name': kwargs['alias_name']}
     }
     options = [
         'enabled', 'name', 'type', 'content', 'description', 'proto', 'updatefreq', 'counters'
@@ -266,28 +275,10 @@ def update(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     for option in options:
         if kwargs[option] is not None:
             json_payload['alias'][option] = kwargs[option]
-    # json_payload = {
-    #     'alias': {
-    #         "enabled": kwargs['enabled'],
-    #         "name": kwargs['name'],
-    #         "type": "external",
-    #         "content": kwargs['content'],
-    #         "description": kwargs['description'],
-    #         "proto": kwargs['proto'],
-    #         "updatefreq": kwargs['updatefreq'],
-    #         "counters": kwargs['counters'],
-    #     }
-    # }
-    #result = firewall_alias_svc.add_alias(json_payload)
-    print(kwargs)
-    print(json_payload)
 
     result = firewall_alias_svc.update_alias(kwargs['alias_name'], json_payload)
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
-
-
-
 
 
 @alias.command()
@@ -314,5 +305,3 @@ def delete(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     result = firewall_alias_svc.delete_alias(kwargs['name'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
-
-

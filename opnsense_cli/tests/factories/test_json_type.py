@@ -1,7 +1,6 @@
-import io
-import sys
 import unittest
 from opnsense_cli.factories.json_type import JsonTypeFactory, JsonObj, JsonArray, JsonObjNested
+
 
 class TestJsonTypeFactory(unittest.TestCase):
     def setUp(self):
@@ -49,8 +48,3 @@ class TestJsonTypeFactory(unittest.TestCase):
         for json_data in self._should_be_json_nested:
             json_type_obj = self._factory.get_type_for_data(json_data)
             self.assertIsInstance(json_type_obj, JsonObjNested)
-
-
-
-
-
