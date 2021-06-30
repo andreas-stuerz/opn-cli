@@ -29,5 +29,12 @@ def formatter_from_formatter_name(ctx, param, format_name) -> Format:
 
 
 def bool_as_string(ctx, param, value):
-    if type(value) == 'bool':
+    if type(value) == bool:
         return str(int(value))
+    return value
+
+
+def comma_to_newline(ctx, param, value):
+    if "," in value:
+        return value.replace(",","\n")
+    return value

@@ -1,13 +1,19 @@
-import unittest
-from unittest.mock import patch
-from click.testing import CliRunner
-from opnsense_cli.api.client import ApiClient
-from opnsense_cli.commands.firewall.alias import firewall, alias
+from unittest.mock import patch, Mock
+from opnsense_cli.commands.firewall.alias import alias
+from opnsense_cli.tests.command.base import CommandTestCase
 
 
-class TestFirewallAliasCommands(unittest.TestCase):
+class TestFirewallAliasCommands(CommandTestCase):
     def setUp(self):
-        self._api_data_fixtures = {
+        self._api_data_fixtures_create_OK = {
+            "result": "saved",
+            "uuid": "5c2163a8-a429-4226-a3b8-dd2b1560b12b"
+        }
+        self._api_data_fixtures_create_EXISTS = {
+            "result": "failed",
+            "validations": {"alias.name": "An alias with this name already exists."}
+        }
+        self._api_data_fixtures_list = {
             "aliases": {
                 "alias": {
                     "bogons": {
@@ -34,7 +40,7 @@ class TestFirewallAliasCommands(unittest.TestCase):
                     },
                     "23636461-dfd1-46cf-9d60-ee46f6aeb04a": {
                         "enabled": "1",
-                        "name": "new_alias",
+                        "name": "example_alias",
                         "type": "host",
                         "proto": "",
                         "counters": "1",
@@ -68,6 +74,18 @@ class TestFirewallAliasCommands(unittest.TestCase):
                 }
             }
         }
+        self._api_data_fixtures_table = {
+            'total': 4,
+            'rowCount': -1,
+            'current': 1,
+            'rows': [
+                {'ip': '193.99.144.85'},
+                {'ip': '2606:2800:220:1:248:1893:25c8:1946'},
+                {'ip': '2a02:2e0:3fe:1001:7777:772e:2:85'},
+                {'ip': '93.184.216.34'}
+            ]
+        }
+
         self._api_client_args_fixtures = [
             'api_key',
             'api_secret',
@@ -77,25 +95,143 @@ class TestFirewallAliasCommands(unittest.TestCase):
             60
         ]
 
-    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
-    def test_list(self, api_response_mock):
-        api_response_mock.return_value = self._api_data_fixtures
-        client_args = self._api_client_args_fixtures
-        client = ApiClient(*client_args)
-
-        runner = CliRunner()
-        result = runner.invoke(alias, ['list'], obj=client)
+    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    def test_list(self, api_response_mock: Mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_list,
+            ],
+            alias,
+            ['list']
+        )
 
         self.assertIn(
             (
                 "bogons external bogon networks (internal)  1\n"
                 "bogonsv6 external bogon networks IPv6 (internal)  1\n"
-                "new_alias host test alias www.example.com 1\n"
+                "example_alias host test alias www.example.com 1\n"
                 "sshlockout external abuse lockout table (internal)  1\n"
                 "virusprot external overload table for rate limitting (internal)  1\n"
             ),
             result.output
         )
 
-    def test_show(self):
-        pass
+    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    def test_show(self, api_response_mock: Mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                {'uuid': '23636461-dfd1-46cf-9d60-ee46f6aeb04a'},
+                self._api_data_fixtures_list
+            ],
+            alias,
+            ['show', 'example_alias']
+        )
+
+        self.assertIn(
+            (
+                "23636461-dfd1-46cf-9d60-ee46f6aeb04a example_alias host  1 test alias  www.example.com 1\n"
+            ),
+            result.output
+        )
+
+    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    def test_table(self, api_response_mock: Mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_table
+            ],
+            alias,
+            ['table', 'example_alias']
+        )
+
+        self.assertIn(
+            (
+                "193.99.144.85\n"
+                "2606:2800:220:1:248:1893:25c8:1946\n"
+                "2a02:2e0:3fe:1001:7777:772e:2:85\n"
+                "93.184.216.34\n"
+            ),
+            result.output
+        )
+
+    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    def test_create_url_table_OK(self, api_response_mock: Mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_create_OK
+            ],
+            alias,
+            [
+                "create", "new_url_table",
+                "-t", "urltable",
+                "-C", "'https://www.spamhaus.org/drop/drop.txt,https://www.spamhaus.org/drop/edrop.txt'",
+                "-d", "Spamhaus block list",
+                "-u", 0.5,
+                "--counters",
+                "--disabled",
+            ]
+        )
+
+        self.assertIn(
+            (
+                "saved \n"
+            ),
+            result.output
+        )
+
+    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    def test_create_url_table_EXISTS(self, api_response_mock: Mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_create_EXISTS
+            ],
+            alias,
+            [
+                "create", "existing_url_table",
+                "-t", "urltable",
+                "-C", "'https://www.spamhaus.org/drop/drop.txt,https://www.spamhaus.org/drop/edrop.txt'",
+                "-d", "Spamhaus block list",
+                "-u", 0.6,
+                "--no-counters",
+                "--disabled",
+            ]
+        )
+
+        self.assertIn(
+            (
+                "failed {'alias.name': 'An alias with this name already exists.'}\n"
+            ),
+            result.output
+        )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

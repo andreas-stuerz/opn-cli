@@ -26,11 +26,15 @@ class TestCliOutputFormatter(unittest.TestCase):
         }
 
         self._api_data_json_obj = {
-            'result': 'ok',
-            'changed': False,
-            'filename': 'Dial_In_VPN.ovpn',
-            'filetype': 'text/plain',
-            'content': 'ZUVXXXXHR1bYYYwZXJzaXN0LXR1bgpwZXJzaXN0LWt=='
+            "enabled": "1",
+            "name": "zabbix_host",
+            "type": "host",
+            "proto": "IPv4",
+            "counters": "0",
+            "updatefreq": "0.5",
+            "content": "www.example.com,www.heise.de",
+            "description": "Test",
+            "uuid": "24948d07-8525-4276-b497-108a0c55fcc2"
         }
 
     def test_JsonFormat(self):
@@ -88,7 +92,9 @@ class TestCliOutputFormatter(unittest.TestCase):
         )
 
     def test_TableFormat_with_json_obj(self):
-        formatter = TableOutputFormat(self._api_data_json_obj, ['result', 'changed', 'filename'])
+        formatter = TableOutputFormat(self._api_data_json_obj, [
+            'uuid', 'name', 'type', 'proto', 'counters', 'description', 'updatefreq', 'content', 'enabled'
+        ])
         formatter.separator = "|"
 
         capturedOutput = io.StringIO()
@@ -98,7 +104,7 @@ class TestCliOutputFormatter(unittest.TestCase):
         result = capturedOutput.getvalue()
 
         self.assertIn(
-            "ok|False|Dial_In_VPN.ovpn\n",
+            "24948d07-8525-4276-b497-108a0c55fcc2|zabbix_host|host|IPv4|0|Test|0.5|www.example.com,www.heise.de|1\n",
             result
         )
 

@@ -1,6 +1,6 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import formatter_from_formatter_name, bool_as_string
+from opnsense_cli.callbacks.click import formatter_from_formatter_name, bool_as_string, comma_to_newline
 from opnsense_cli.commands.firewall import firewall
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.firewall import FirewallAlias, FirewallAliasUtil
@@ -114,6 +114,7 @@ def table(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     '--content', '-C',
     help='The alias content. Pass multiple values comma separated. Exclusion starts with “!” sign eg. !192.168.0.0/24',
     show_default=True,
+    callback=comma_to_newline,
     required=True,
 )
 @click.option(
@@ -129,7 +130,7 @@ def table(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     is_flag=True,
     callback=bool_as_string,
     default=True,
-    required=True,
+    #required=True,
 )
 @click.option(
     '--proto', '-p',
@@ -183,6 +184,7 @@ def create(firewall_alias_svc: FirewallAliasFacade, **kwargs):
             "counters": kwargs['counters'],
         }
     }
+
     result = firewall_alias_svc.create_alias(json_payload)
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
@@ -275,7 +277,7 @@ def update(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     for option in options:
         if kwargs[option] is not None:
             json_payload['alias'][option] = kwargs[option]
-
+    print(kwargs)
     result = firewall_alias_svc.update_alias(kwargs['alias_name'], json_payload)
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
