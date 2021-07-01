@@ -1,8 +1,8 @@
 # Changelog
 
-## [v0.5.0](https://github.com/andeman/opn-cli/tree/v0.5.0) (2021-07-01)
+## [v0.5.1](https://github.com/andeman/opn-cli/tree/v0.5.1) (2021-07-01)
 
-[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.4.0...v0.5.0)
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.4.0...v0.5.1)
 
 **Implemented enhancements:**
 
