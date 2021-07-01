@@ -4,6 +4,19 @@
 
 opn-cli - the OPNsense CLI written in python.
 
+- [opn-cli](#opn-cli)
+  * [Install](#install)
+  * [Configure](#configure)
+  * [Usage](#usage)
+  * [Features](#features)
+    + [firewall aliases](#firewall-aliases)
+    + [OpenVPN](#openvpn)
+    + [Plugins](#plugins)
+  * [Development](#development)
+    + [Setup development environment](#setup-development-environment)
+    + [Testing](#testing)
+    + [Contributing](#contributing)
+  
 ## Install
 ```
 pip install opn-cli
@@ -98,10 +111,68 @@ Options:
   -h, --help                      Show this message and exit.
 
 Commands:
+  firewall  Execute firewall operations
   openvpn   Manage OpenVPN
   plugin    Manage OPNsense plugins
   version   Show the CLI version and exit.
+```
 
+## Features
+
+### firewall aliases
+```
+Usage: opn-cli firewall alias [OPTIONS] COMMAND [ARGS]...
+
+  Manage OPNsense firewall aliases.
+
+  See: https://wiki.opnsense.org/manual/aliases.html
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new alias.
+  delete  Delete an alias
+  list    Show all aliases
+  show    Show details for alias
+  table   Show pf table entries for alias
+  update  Update an alias.
+```
+
+### OpenVPN
+```
+Usage: opn-cli openvpn [OPTIONS] COMMAND [ARGS]...
+
+  Manage OpenVPN
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  accounts   Show all accounts for an OpenVPN server.
+  download   Download client config for chosen OpenVPN server and account.
+  providers  Show all available OpenVPN servers.
+  templates  Show all available export templates.
+```
+
+### Plugins
+```
+Usage: opn-cli plugin [OPTIONS] COMMAND [ARGS]...
+
+  Manage OPNsense plugins
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  install    Install plugin by name
+  installed  Show installed plugins.
+  list       Show all available plugins.
+  lock       Lock plugin.
+  reinstall  Reinstall plugin by name.
+  show       Show plugin details.
+  uninstall  Uninstall plugin by name.
+  unlock     Unlock plugin.
 ```
 
 ## Development
