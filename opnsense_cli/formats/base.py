@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from opnsense_cli.formatters.factories.json_type import JsonTypeFactory
+from opnsense_cli.factories.json_type import JsonTypeFactory
 
 
 class Format(ABC):

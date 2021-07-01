@@ -1,6 +1,6 @@
 import click
 import json
-from opnsense_cli.formatters.formats.base import Format
+from opnsense_cli.formats.base import Format
 
 
 class JsonOutputFormat(Format):

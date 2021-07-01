@@ -7,6 +7,9 @@ from opnsense_cli.api.client import ApiClient
 from opnsense_cli.commands.version import version
 from opnsense_cli.commands.plugin import plugin
 from opnsense_cli.commands.openvpn import openvpn
+from opnsense_cli.commands.firewall import firewall
+from opnsense_cli.commands.firewall.alias import alias
+
 
 CFG_DIR = f"~/.{__cli_name__}"
 DEFAULT_CFG = f"{CFG_DIR}/conf.yaml"
@@ -128,10 +131,13 @@ def cli(ctx, **kwargs):
     )
 
 
-# register commands
-cli.add_command(version)
+# register commands groups and commands
+cli.add_command(firewall)
+firewall.add_command(alias)
+
 cli.add_command(plugin)
 cli.add_command(openvpn)
+cli.add_command(version)
 
 if __name__ == "__main__":
     cli()

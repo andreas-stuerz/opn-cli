@@ -1,7 +1,7 @@
 import yaml
 import os
-from opnsense_cli.formatters.factories.cli_output_format import CliOutputFormatFactory
-from opnsense_cli.formatters.formats.base import Format
+from opnsense_cli.factories.cli_output_format import CliOutputFormatFactory
+from opnsense_cli.formats.base import Format
 
 """
 Click callback methods
@@ -23,5 +23,17 @@ def expand_path(ctx, param, filename):
 
 
 def formatter_from_formatter_name(ctx, param, format_name) -> Format:
-    format_map = CliOutputFormatFactory(format_name)
-    return format_map.get_formatter()
+    factory = CliOutputFormatFactory(format_name)
+    return factory.get_class()
+
+
+def bool_as_string(ctx, param, value):
+    if type(value) == bool:
+        return str(int(value))
+    return value
+
+
+def comma_to_newline(ctx, param, value):
+    if "," in value:
+        return value.replace(",", "\n")
+    return value

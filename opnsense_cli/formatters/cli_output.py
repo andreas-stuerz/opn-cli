@@ -1,5 +1,5 @@
 from opnsense_cli.formatters.base import Formatter
-from opnsense_cli.formatters.formats.base import Format
+from opnsense_cli.formats.base import Format
 
 
 class CliOutputFormatter(Formatter):
