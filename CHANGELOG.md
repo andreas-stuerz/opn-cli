@@ -1,8 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/andeman/opn-cli/tree/HEAD)
+## [v0.5.0](https://github.com/andeman/opn-cli/tree/v0.5.0) (2021-07-01)
 
-[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.4.0...HEAD)
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.4.0...v0.5.0)
+
+**Implemented enhancements:**
+
+- Add firewall alias commands [\#4](https://github.com/andeman/opn-cli/pull/4) ([andeman](https://github.com/andeman))
 
 **Merged pull requests:**
 
