@@ -130,7 +130,6 @@ def table(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     is_flag=True,
     callback=bool_as_string,
     default=True,
-    #required=True,
 )
 @click.option(
     '--proto', '-p',
@@ -277,7 +276,7 @@ def update(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     for option in options:
         if kwargs[option] is not None:
             json_payload['alias'][option] = kwargs[option]
-    print(kwargs)
+
     result = firewall_alias_svc.update_alias(kwargs['alias_name'], json_payload)
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()

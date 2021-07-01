@@ -1,7 +1,6 @@
 import yaml
 import os
 from opnsense_cli.factories.cli_output_format import CliOutputFormatFactory
-
 from opnsense_cli.formats.base import Format
 
 """
@@ -36,5 +35,5 @@ def bool_as_string(ctx, param, value):
 
 def comma_to_newline(ctx, param, value):
     if "," in value:
-        return value.replace(",","\n")
+        return value.replace(",", "\n")
     return value

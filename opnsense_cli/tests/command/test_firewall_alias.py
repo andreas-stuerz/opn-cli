@@ -13,6 +13,21 @@ class TestFirewallAliasCommands(CommandTestCase):
             "result": "failed",
             "validations": {"alias.name": "An alias with this name already exists."}
         }
+        self._api_data_fixtures_update_NOT_EXISTS = {
+            "result": "failed"
+        }
+        self._api_data_fixtures_update_OK = {
+            "result": "saved"
+        }
+        self._api_data_fixtures_delete_NOT_FOUND = {
+            "result": "not found"
+        }
+        self._api_data_fixtures_delete_OK = {
+            "result": "deleted"
+        }
+        self._api_data_uuid_for_name = {
+            'uuid': '23636461-dfd1-46cf-9d60-ee46f6aeb04a'
+        }
         self._api_data_fixtures_list = {
             "aliases": {
                 "alias": {
@@ -122,7 +137,7 @@ class TestFirewallAliasCommands(CommandTestCase):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
-                {'uuid': '23636461-dfd1-46cf-9d60-ee46f6aeb04a'},
+                self._api_data_uuid_for_name,
                 self._api_data_fixtures_list
             ],
             alias,
@@ -198,7 +213,7 @@ class TestFirewallAliasCommands(CommandTestCase):
                 "-d", "Spamhaus block list",
                 "-u", 0.6,
                 "--no-counters",
-                "--disabled",
+                "--enabled",
             ]
         )
 
@@ -209,29 +224,99 @@ class TestFirewallAliasCommands(CommandTestCase):
             result.output
         )
 
+    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    def test_update_geo_ip_OK(self, api_response_mock: Mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_uuid_for_name,
+                self._api_data_fixtures_update_OK,
+            ],
+            alias,
+            [
+                "update", "rename_geo_ip",
+                "-n", "my_geo_ip",
+                "-t", "geoip",
+                "-C", "DE,GR",
+                "-d", "blocked countries",
+                "-p", "IPv4,IPv6",
+                "--no-counters",
+                "--enabled",
+            ]
+        )
 
+        self.assertIn(
+            (
+                "saved \n"
+            ),
+            result.output
+        )
 
+    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    def test_update_geo_ip_NOT_EXISTS(self, api_response_mock: Mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                [],
+                self._api_data_fixtures_update_NOT_EXISTS,
+            ],
+            alias,
+            [
+                "update", "not_existing_geo_ip",
+                "-t", "geoip",
+                "-C", "DE,GR",
+                "-d", "blocked countries",
+                "-p", "IPv4,IPv6",
+                "--counters",
+                "--disabled",
+            ]
+        )
 
+        self.assertIn(
+            (
+                "failed \n"
+            ),
+            result.output
+        )
 
+    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    def test_delete_OK(self, api_response_mock: Mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_uuid_for_name,
+                self._api_data_fixtures_delete_OK,
+            ],
+            alias,
+            [
+                "delete", "existing_alias",
+            ]
+        )
 
+        self.assertIn(
+            (
+                "deleted \n"
+            ),
+            result.output
+        )
 
+    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    def test_delete_NOT_FOUND(self, api_response_mock: Mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                [],
+                self._api_data_fixtures_delete_NOT_FOUND,
+            ],
+            alias,
+            [
+                "delete", "not_existing_alias",
+            ]
+        )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        self.assertIn(
+            (
+                "not found \n"
+            ),
+            result.output
+        )

@@ -5,9 +5,8 @@ from opnsense_cli.commands.version import version
 from opnsense_cli import __cli_name__, __version__
 
 
-class TestPluginCommands(unittest.TestCase):
+class TestVersionCommands(unittest.TestCase):
     def test_version(self):
-
         runner = CliRunner()
         result = runner.invoke(version)
 

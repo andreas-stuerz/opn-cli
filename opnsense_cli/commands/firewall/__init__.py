@@ -6,8 +6,3 @@ def firewall(**kwargs):
     """
     Execute firewall operations
     """
-    pass
-
-
-
-
