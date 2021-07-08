@@ -133,7 +133,7 @@ def table(firewall_alias_svc: FirewallAliasFacade, **kwargs):
 )
 @click.option(
     '--proto', '-p',
-    help='Which type should be used for alias type geoip? Geo locations to iso countries, IPv4 and/or IPv6 networks',
+    help='Which ip type should be used? IPv4 and/or IPv6 networks?',
     type=click.Choice(['', 'IPv4', 'IPv6', 'IPv4,IPv6']),
     show_default=True,
 )
@@ -229,7 +229,7 @@ def create(firewall_alias_svc: FirewallAliasFacade, **kwargs):
 )
 @click.option(
     '--proto', '-p',
-    help='Which type should be used for alias type geoip? Geo locations to iso countries, IPv4 and/or IPv6 networks',
+    help='Which ip type should be used? IPv4 and/or IPv6 networks?',
     type=click.Choice(['', 'IPv4', 'IPv6', 'IPv4,IPv6']),
     show_default=True,
 )
