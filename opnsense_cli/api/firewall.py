@@ -1,5 +1,56 @@
 from opnsense_cli.api.base import ApiBase
 
+class FirewallFilter(ApiBase):
+    MODULE = "firewall"
+    CONTROLLER = "filter"
+    """
+    Firewall Filter (needs plugin: os-firewall)
+    """
+    @ApiBase._api_call
+    def add_rule(self, *args, json=None):
+        self.method = "post"
+        self.command = "addRule"
+
+    @ApiBase._api_call
+    def del_rule(self, *args):
+        self.method = "post"
+        self.command = "delRule"
+
+    @ApiBase._api_call
+    def get_rule(self, *args):
+        self.method = "get"
+        self.command = "getRule"
+
+    @ApiBase._api_call
+    def search_rule(self, *args):
+        self.method = "get"
+        self.command = "searchRule"
+
+    @ApiBase._api_call
+    def set_rule(self, *args):
+        self.method = "post"
+        self.command = "setRule"
+
+    @ApiBase._api_call
+    def apply(self, *args):
+        self.method = "post"
+        self.command = "apply"
+
+    @ApiBase._api_call
+    def savepoint(self, *args):
+        self.method = "post"
+        self.command = "savepoint"
+
+    @ApiBase._api_call
+    def savepoint(self, *args):
+        self.method = "post"
+        self.command = "savepoint"
+
+    @ApiBase._api_call
+    def get(self, *args):
+        self.method = "get"
+        self.command = "get"
+
 
 class FirewallAlias(ApiBase):
     MODULE = "firewall"
