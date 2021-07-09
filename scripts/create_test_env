@@ -5,3 +5,6 @@ mkdir -p ~/.opn-cli
 cp opnsense_cli/ca.pem ~/.opn-cli/.
 cp opnsense_cli/conf.yaml ~/.opn-cli/.
 vagrant up
+
+# install required opnsense plugins
+opn-cli plugin install os-firewall
