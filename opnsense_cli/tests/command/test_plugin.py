@@ -3,11 +3,12 @@ from unittest.mock import patch
 from click.testing import CliRunner
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.commands.plugin import plugin
+from opnsense_cli.tests.command.base import CommandTestCase
 
 
-class TestPluginCommands(unittest.TestCase):
+class TestPluginCommands(CommandTestCase):
     def setUp(self):
-        self._api_data_fixtures = {
+        self._api_data_fixtures_list = {
             "plugin": [
                 {
                     'name': 'os-acme-client', 'version': '2.4', 'comment': "Let's Encrypt client",
@@ -30,6 +31,17 @@ class TestPluginCommands(unittest.TestCase):
                 },
             ],
         }
+        self._api_data_fixtures_OK = {
+            "status": "ok",
+            "msg_uuid": "ce9c554b-5cc2-4d98-a559-3bc10a2f99ab"
+        }
+
+        self._api_data_fixtures_show = {
+            "details": "The xyz plugin\n\n" +
+                       "The xyz example plugin\n\n" +
+                       "Maintainer: maintainer@example.com"
+        }
+
         self._api_client_args_fixtures = [
             'api_key',
             'api_secret',
@@ -41,12 +53,14 @@ class TestPluginCommands(unittest.TestCase):
 
     @patch('opnsense_cli.commands.plugin.ApiClient.execute')
     def test_list(self, api_response_mock):
-        api_response_mock.return_value = self._api_data_fixtures
-        client_args = self._api_client_args_fixtures
-        client = ApiClient(*client_args)
-
-        runner = CliRunner()
-        result = runner.invoke(plugin, ['list'], obj=client)
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_list,
+            ],
+            plugin,
+            ['list']
+        )
 
         self.assertIn(
             "os-acme-client 2.4 Let's Encrypt client 0\n" +
@@ -54,102 +68,104 @@ class TestPluginCommands(unittest.TestCase):
             "os-virtualbox 1.0_1 VirtualBox guest additions 0\n",
             result.output
         )
-        self.assertEqual(0, result.exit_code)
 
     @patch('opnsense_cli.commands.plugin.ApiClient.execute')
     def test_installed(self, api_response_mock):
-        data = self._api_data_fixtures
+        data = self._api_data_fixtures_list
         data['plugin'][0]['installed'] = '1'
         data['plugin'][0]['configured'] = '1'
 
-        api_response_mock.return_value = data
-        client_args = self._api_client_args_fixtures
-        client = ApiClient(*client_args)
-
-        runner = CliRunner()
-        result = runner.invoke(plugin, ['installed'], obj=client)
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                data,
+            ],
+            plugin,
+            ['installed']
+        )
 
         self.assertIn(
             "os-acme-client 2.4 Let's Encrypt client N/A\n",
             result.output
         )
-        self.assertEqual(0, result.exit_code)
 
     @patch('opnsense_cli.commands.plugin.ApiClient.execute')
     def test_show(self, api_response_mock):
-        api_response_mock.return_value = {
-            "details": "The xyz plugin\n\n" +
-                       "The xyz example plugin\n\n" +
-                       "Maintainer: maintainer@example.com"
-        }
-        client_args = self._api_client_args_fixtures
-        client = ApiClient(*client_args)
-
-        runner = CliRunner()
-        result = runner.invoke(plugin, ['show', 'os-haproxy'], obj=client)
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_show,
+            ],
+            plugin,
+            ['show', 'os-haproxy']
+        )
 
         self.assertIn(
             "The xyz plugin\n\nThe xyz example plugin\n\nMaintainer: maintainer@example.com\n",
             result.output
         )
-        self.assertEqual(0, result.exit_code)
 
     @patch('opnsense_cli.commands.plugin.ApiClient.execute')
     def test_install(self, api_response_mock):
-        api_response_mock.return_value = {"status": "ok", "msg_uuid": "ce9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
-        client_args = self._api_client_args_fixtures
-        client = ApiClient(*client_args)
-
-        runner = CliRunner()
-        result = runner.invoke(plugin, ['install', 'os-haproxy'], obj=client)
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_OK,
+            ],
+            plugin,
+            ['install', 'os-haproxy']
+        )
 
         self.assertIn("ok\n", result.output)
-        self.assertEqual(0, result.exit_code)
 
     @patch('opnsense_cli.commands.plugin.ApiClient.execute')
     def test_uninstall(self, api_response_mock):
-        api_response_mock.return_value = {"status": "ok", "msg_uuid": "de9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
-        client_args = self._api_client_args_fixtures
-        client = ApiClient(*client_args)
-
-        runner = CliRunner()
-        result = runner.invoke(plugin, ['uninstall', 'os-haproxy'], obj=client)
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_OK,
+            ],
+            plugin,
+            ['uninstall', 'os-haproxy']
+        )
 
         self.assertIn("ok\n", result.output)
-        self.assertEqual(0, result.exit_code)
 
     @patch('opnsense_cli.commands.plugin.ApiClient.execute')
     def test_reinstall(self, api_response_mock):
-        api_response_mock.return_value = {"status": "ok", "msg_uuid": "xe9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
-        client_args = self._api_client_args_fixtures
-        client = ApiClient(*client_args)
-
-        runner = CliRunner()
-        result = runner.invoke(plugin, ['reinstall', 'os-haproxy'], obj=client)
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_OK,
+            ],
+            plugin,
+            ['reinstall', 'os-haproxy']
+        )
 
         self.assertIn("ok\n", result.output)
-        self.assertEqual(0, result.exit_code)
 
     @patch('opnsense_cli.commands.plugin.ApiClient.execute')
     def test_lock(self, api_response_mock):
-        api_response_mock.return_value = {"status": "ok", "msg_uuid": "xe9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
-        client_args = self._api_client_args_fixtures
-        client = ApiClient(*client_args)
-
-        runner = CliRunner()
-        result = runner.invoke(plugin, ['lock', 'os-haproxy'], obj=client)
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_OK,
+            ],
+            plugin,
+            ['lock', 'os-haproxy']
+        )
 
         self.assertIn("ok\n", result.output)
-        self.assertEqual(0, result.exit_code)
 
     @patch('opnsense_cli.commands.plugin.ApiClient.execute')
     def test_unlock(self, api_response_mock):
-        api_response_mock.return_value = {"status": "ok", "msg_uuid": "ze9c554b-5cc2-4d98-a559-3bc10a2f99ab"}
-        client_args = self._api_client_args_fixtures
-        client = ApiClient(*client_args)
-
-        runner = CliRunner()
-        result = runner.invoke(plugin, ['unlock', 'os-haproxy'], obj=client)
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_OK,
+            ],
+            plugin,
+            ['unlock', 'os-haproxy']
+        )
 
         self.assertIn("ok\n", result.output)
-        self.assertEqual(0, result.exit_code)
