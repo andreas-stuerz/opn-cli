@@ -32,7 +32,8 @@ Vagrant.configure("2") do |config|
       configctl firmware flush
       configctl firmware update
       sleep 1
-      tail -f /tmp/pkg_upgrade.progress
+      timeout 2m tail -f /tmp/pkg_upgrade.progress
+      exit 0
     fi
   SCRIPT
 
