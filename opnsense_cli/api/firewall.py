@@ -42,9 +42,14 @@ class FirewallFilter(ApiBase):
         self.command = "savepoint"
 
     @ApiBase._api_call
-    def savepoint(self, *args):
+    def revert(self, *args):
         self.method = "post"
-        self.command = "savepoint"
+        self.command = "revert"
+
+    @ApiBase._api_call
+    def cancel_rollback(self, *args):
+        self.method = "post"
+        self.command = "cancelRollback"
 
     @ApiBase._api_call
     def get(self, *args):

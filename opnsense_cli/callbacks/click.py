@@ -34,6 +34,12 @@ def bool_as_string(ctx, param, value):
 
 
 def comma_to_newline(ctx, param, value):
-    if "," in value:
+    if type(value) == str and "," in value:
         return value.replace(",", "\n")
+    return value
+
+
+def int_as_string(ctx, param, value):
+    if type(value) == int:
+        return str(value)
     return value

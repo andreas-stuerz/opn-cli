@@ -48,7 +48,7 @@ class FirewallAliasFacade(CommandFacade):
             alias_data['content'] = alias_data['content'].replace("\n", ",")
             aliases.append(alias_data)
 
-        aliases = self._sort_dict(aliases, 'name')
+        aliases = self._sort_dict_by_string(aliases, 'name')
 
         return aliases
 

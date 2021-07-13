@@ -1,6 +1,6 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import formatter_from_formatter_name, bool_as_string, comma_to_newline
+from opnsense_cli.callbacks.click import formatter_from_formatter_name, bool_as_string, int_as_string
 from opnsense_cli.commands.firewall import firewall
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.firewall import FirewallFilter
@@ -27,7 +27,6 @@ def rule(ctx, api_client: ApiClient, **kwargs):
     All the created firewall rules are above all other rules. The order of execution for the firewall rules goes:
     Automation -> Floating -> Interface
 
-
     """
     rule_api = FirewallFilter(api_client)
     ctx.obj = FirewallRuleFacade(rule_api)
@@ -38,7 +37,7 @@ def rule(ctx, api_client: ApiClient, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -55,7 +54,7 @@ def rule(ctx, api_client: ApiClient, **kwargs):
 @pass_firewall_rule_svc
 def list(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     """
-    Show all rules
+    Show all firewall rules
     """
     result = firewall_rule_svc.list_rules()
 
@@ -63,12 +62,12 @@ def list(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 
 
 @rule.command()
-@click.argument('rule_sequence')
+@click.argument('rule_uuid')
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
-    default="table",
-    type=click.Choice(['table', 'json']),
+    default="yaml",
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -85,214 +84,375 @@ def list(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 @pass_firewall_rule_svc
 def show(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     """
-    Show details for alias
+    Show firewall rule details
     """
-    result = firewall_rule_svc.show_rule(kwargs['rule_sequence'])
+    result = firewall_rule_svc.show_rule(kwargs['rule_uuid'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
-# @alias.command()
-# @click.argument('name')
-# @click.option(
-#     '--type', '-t',
-#     help='The alias type',
-#     type=click.Choice(['host', 'network', 'port', 'url', 'urltable', 'geoip', 'networkgroup', 'mac', 'external']),
-#     show_default=True,
-#     required=True,
-# )
-# @click.option(
-#     '--content', '-C',
-#     help='The alias content. Pass multiple values comma separated. Exclusion starts with “!” sign eg. !192.168.0.0/24',
-#     show_default=True,
-#     callback=comma_to_newline,
-#     required=True,
-# )
-# @click.option(
-#     '--description', '-d',
-#     help='The alias description.',
-#     show_default=True,
-#     required=True,
-# )
-# @click.option(
-#     '--enabled/--disabled',
-#     help='Enable or disable alias.',
-#     show_default=True,
-#     is_flag=True,
-#     callback=bool_as_string,
-#     default=True,
-# )
-# @click.option(
-#     '--proto', '-p',
-#     help='Which ip type should be used? IPv4 and/or IPv6 networks?',
-#     type=click.Choice(['', 'IPv4', 'IPv6', 'IPv4,IPv6']),
-#     show_default=True,
-# )
-# @click.option(
-#     '--updatefreq', '-u',
-#     help='How often should the alias type url_table be updated in days? For every hour specify 1/24: 0.0416666666',
-#     type=float,
-#     show_default=True,
-# )
-# @click.option(
-#     '--counters/--no-counters',
-#     help='Enable or disable pfTable statistics for this alias.',
-#     show_default=True,
-#     is_flag=True,
-#     default=False,
-# )
-# @click.option(
-#     '--output', '-o',
-#     help='Specifies the Output format.',
-#     default="table",
-#     type=click.Choice(['table', 'json']),
-#     callback=formatter_from_formatter_name,
-#     show_default=True,
-# )
-# @click.option(
-#     '--cols', '-c',
-#     help='Which columns should be printed?',
-#     default="result,validations",
-#     show_default=True,
-# )
-# @pass_firewall_rule_svc
-# def create(firewall_alias_svc: FirewallAliasFacade, **kwargs):
-#     """
-#     Create a new alias.
-#
-#     See: https://wiki.opnsense.org/manual/aliases.html
-#     """
-#     json_payload = {
-#         'alias': {
-#             "enabled": kwargs['enabled'],
-#             "name": kwargs['name'],
-#             "type": kwargs['type'],
-#             "content": kwargs['content'],
-#             "description": kwargs['description'],
-#             "proto": kwargs['proto'],
-#             "updatefreq": kwargs['updatefreq'],
-#             "counters": kwargs['counters'],
-#         }
-#     }
-#
-#     result = firewall_alias_svc.create_alias(json_payload)
-#
-#     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
-#
-#
-# @alias.command()
-# @click.argument('alias_name')
-# @click.option(
-#     '--name', '-n',
-#     help='The new name for the alias.',
-#     show_default=True,
-# )
-# @click.option(
-#     '--type', '-t',
-#     help='The alias type',
-#     type=click.Choice(['host', 'network', 'port', 'url', 'urltable', 'geoip', 'networkgroup', 'mac', 'external']),
-#     show_default=True,
-# )
-# @click.option(
-#     '--content', '-C',
-#     help='The alias content. Pass multiple values comma separated. Exclusion starts with “!” sign eg. !192.168.0.0/24',
-#     show_default=True,
-# )
-# @click.option(
-#     '--description', '-d',
-#     help='The alias description.',
-#     show_default=True,
-# )
-# @click.option(
-#     '--enabled/--disabled',
-#     help='Enable or disable alias.',
-#     show_default=True,
-#     is_flag=True,
-#     callback=bool_as_string,
-#     default=None,
-# )
-# @click.option(
-#     '--enabled/--disabled',
-#     help='Enable or disable alias.',
-#     show_default=True,
-#     is_flag=True,
-#     default=None
-# )
-# @click.option(
-#     '--proto', '-p',
-#     help='Which ip type should be used? IPv4 and/or IPv6 networks?',
-#     type=click.Choice(['', 'IPv4', 'IPv6', 'IPv4,IPv6']),
-#     show_default=True,
-# )
-# @click.option(
-#     '--updatefreq', '-u',
-#     help='How often should the alias type url_table be updated in days? For every hour specify 1/24: 0.0416666666',
-#     type=float,
-#     show_default=True,
-# )
-# @click.option(
-#     '--counters/--no-counters',
-#     help='Enable or disable pfTable statistics for this alias.',
-#     show_default=True,
-#     is_flag=True,
-#     default=None
-# )
-# @click.option(
-#     '--output', '-o',
-#     help='Specifies the Output format.',
-#     default="table",
-#     type=click.Choice(['table', 'json']),
-#     callback=formatter_from_formatter_name,
-#     show_default=True,
-# )
-# @click.option(
-#     '--cols', '-c',
-#     help='Which columns should be printed?',
-#     default="result,validations",
-#     show_default=True,
-# )
-# @pass_firewall_rule_svc
-# def update(firewall_alias_svc: FirewallAliasFacade, **kwargs):
-#     """
-#     Update an alias.
-#
-#     See: https://wiki.opnsense.org/manual/aliases.html
-#     """
-#     json_payload = {
-#         'alias': {'name': kwargs['alias_name']}
-#     }
-#     options = [
-#         'enabled', 'name', 'type', 'content', 'description', 'proto', 'updatefreq', 'counters'
-#     ]
-#     for option in options:
-#         if kwargs[option] is not None:
-#             json_payload['alias'][option] = kwargs[option]
-#
-#     result = firewall_alias_svc.update_alias(kwargs['alias_name'], json_payload)
-#
-#     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
-#
-#
-# @alias.command()
-# @click.argument('name')
-# @click.option(
-#     '--output', '-o',
-#     help='Specifies the Output format.',
-#     default="table",
-#     type=click.Choice(['table', 'json']),
-#     callback=formatter_from_formatter_name,
-#     show_default=True,
-# )
-# @click.option(
-#     '--cols', '-c',
-#     help='Which columns should be printed?',
-#     default="result,validations",
-#     show_default=True,
-# )
-# @pass_firewall_rule_svc
-# def delete(firewall_alias_svc: FirewallAliasFacade, **kwargs):
-#     """
-#     Delete an alias
-#     """
-#     result = firewall_alias_svc.delete_alias(kwargs['name'])
-#
-#     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+@rule.command()
+@click.argument(
+    'sequence',
+    type=int,
+    callback=int_as_string,
+)
+@click.option(
+    '--enabled/--disabled',
+    help='Enable or disable this rule.',
+    show_default=True,
+    is_flag=True,
+    callback=bool_as_string,
+    default=True,
+)
+@click.option(
+    '--action', '-a',
+    help='Choose what to do with packets that match the criteria specified.',
+    type=click.Choice(['pass', 'block', 'reject']),
+    show_default=True,
+    default='pass',
+    required=True,
+)
+@click.option(
+    '--quick/--no-quick',
+    help='If a packet matches a rule specifying quick, then that rule is considered the last matching rule.',
+    show_default=True,
+    is_flag=True,
+    callback=bool_as_string,
+    default=True,
+)
+@click.option(
+    '--interface', '-i',
+    help='The network interface(s). Pass multiple values comma separated e.g. lan,wan,lo0',
+    show_default=True,
+    required=True,
+)
+@click.option(
+    '--direction', '-d',
+    help='Direction of the traffic.',
+    type=click.Choice(['in', 'out']),
+    show_default=True,
+    default='in',
+)
+@click.option(
+    '--ipprotocol', '-ip',
+    help='TCP/IP Version',
+    type=click.Choice(['inet', 'inet6']),
+    default='inet',
+    show_default=True,
+)
+@click.option(
+    '--protocol', '-p',
+    help='Protocol',
+    type=click.Choice([
+        'any', 'ICMP', 'IGMP', 'GGP', 'IPENCAP', 'ST2', 'TCP', 'CBT', 'EGP', 'IGP', 'BBN-RCC', 'NVP', 'PUP',
+        'ARGUS', 'EMCON', 'XNET', 'CHAOS', 'UDP', 'MUX', 'DCN', 'HMP', 'PRM', 'XNS-IDP', 'TRUNK-1', 'TRUNK-2',
+        'LEAF-1', 'LEAF-2', 'RDP', 'IRTP', 'ISO-TP4', 'NETBLT', 'MFE-NSP', 'MERIT-INP', 'DCCP', '3PC', 'IDPR',
+        'XTP', 'DDP', 'IDPR-CMTP', 'TP++', 'IL', 'IPV6', 'SDRP', 'IDRP', 'RSVP', 'GRE', 'DSR', 'BNA', 'ESP',
+        'AH', 'I-NLSP', 'SWIPE', 'NARP', 'MOBILE', 'TLSP', 'SKIP', 'IPV6-ICMP', 'CFTP', 'SAT-EXPAK', 'KRYPTOLAN',
+        'RVD', 'IPPC', 'SAT-MON', 'VISA', 'IPCV', 'CPNX', 'CPHB', 'WSN', 'PVP', 'BR-SAT-MON', 'SUN-ND', 'WB-MON',
+        'WB-EXPAK', 'ISO-IP', 'VMTP', 'SECURE-VMTP', 'VINES', 'TTP', 'NSFNET-IGP', 'DGP', 'TCF', 'EIGRP', 'OSPF',
+        'SPRITE-RPC', 'LARP', 'MTP', 'AX.25', 'IPIP', 'MICP', 'SCC-SP', 'ETHERIP', 'ENCAP', 'GMTP', 'IFMP', 'PNNI',
+        'PIM', 'ARIS', 'SCPS', 'QNX', 'A/N', 'IPCOMP', 'SNP', 'COMPAQ-PEER', 'IPX-IN-IP', 'CARP', 'PGM', 'L2TP',
+        'DDX', 'IATP', 'STP', 'SRP', 'UTI', 'SMP', 'SM', 'PTP', 'ISIS', 'CRTP', 'CRUDP', 'SPS', 'PIPE', 'SCTP',
+        'FC', 'RSVP-E2E-IGNORE', 'UDPLITE', 'MPLS-IN-IP', 'MANET', 'HIP', 'SHIM6', 'WESP', 'ROHC',
+        'PFSYNC', 'DIVERT'
+        ]),
+    default='any',
+    show_default=True,
+)
+@click.option(
+    '--source-net', '-src',
+    help='The source eg. any, ip address, network or alias.',
+    show_default=True,
+    required=True,
+    default='any'
+)
+@click.option(
+    '--source-port', '-src-port',
+    help='Source port number or well known name (imap, imaps, http, https, ...), for ranges use a dash.',
+    show_default=True,
+    required=True,
+    default='',
+)
+@click.option(
+    '--source-not/--no-source-not', '--source-invert/--no-source-invert',
+    help='Use this option to invert the sense of the match for source.',
+    show_default=True,
+    is_flag=True,
+    callback=bool_as_string,
+    default=False,
+)
+@click.option(
+    '--destination-net', '-dst',
+    help='The destination eg. any, ip address, network or alias.',
+    show_default=True,
+    required=True,
+    default='any'
+)
+@click.option(
+    '--destination-port', '-dst-port',
+    help='Destination port number or well known name (imap, imaps, http, https, ...), for ranges use a dash',
+    show_default=True,
+    required=True,
+    default='',
+)
+@click.option(
+    '--destination-not/--no-destination-not', '--destination-invert/--no-destination-invert',
+    help='Use this option to invert the sense of the match for source.',
+    show_default=True,
+    is_flag=True,
+    callback=bool_as_string,
+    default=False,
+)
+@click.option(
+    '--gateway', '-g',
+    help='Leave as default to use the system routing table. Or choose a gateway to utilize policy based routing.',
+    show_default=True,
+    required=True,
+    default='',
+)
+@click.option(
+    '--log/--no-log',
+    help='Log packets that are handled by this rule.',
+    show_default=True,
+    is_flag=True,
+    callback=bool_as_string,
+    default=False,
+)
+@click.option(
+    '--description', '-d',
+    help='The alias description.',
+    show_default=True,
+    required=True,
+)
+@click.option(
+    '--output', '-o',
+    help='Specifies the Output format.',
+    default="table",
+    type=click.Choice(['table', 'json']),
+    callback=formatter_from_formatter_name,
+    show_default=True,
+)
+@click.option(
+    '--cols', '-c',
+    help='Which columns should be printed?',
+    default="result,validations",
+    show_default=True,
+)
+@pass_firewall_rule_svc
+def create(firewall_rule_svc: FirewallRuleFacade, **kwargs):
+    """
+    Create a new firewall rule.
+
+    See: https://docs.opnsense.org/manual/firewall.html
+    """
+    json_payload = {
+        'rule': {
+            "enabled": kwargs['enabled'],
+            "sequence": kwargs['sequence'],
+            "action": kwargs['action'],
+            "quick": kwargs['quick'],
+            "interface": kwargs['interface'],
+            "direction": kwargs['direction'],
+            "ipprotocol": kwargs['ipprotocol'],
+            "protocol": kwargs['protocol'],
+            "source_net": kwargs['source_net'],
+            "source_port": kwargs['source_port'],
+            "source_not": kwargs['source_not'],
+            "destination_net": kwargs['destination_net'],
+            "destination_not": kwargs['destination_not'],
+            "destination_port": kwargs['destination_port'],
+            "gateway": kwargs['gateway'],
+            "log": kwargs['log'],
+            "description": kwargs['description'],
+        }
+    }
+
+    result = firewall_rule_svc.create_rule(json_payload)
+
+    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+
+@rule.command()
+@click.argument(
+    'rule_uuid',
+)
+@click.option(
+    '--sequence', '-s',
+    help='The sequence number of this rule.',
+    type=int,
+    callback=int_as_string,
+)
+@click.option(
+    '--enabled/--disabled',
+    help='Enable or disable this rule.',
+    show_default=True,
+    is_flag=True,
+    callback=bool_as_string,
+    default=None,
+)
+@click.option(
+    '--action', '-a',
+    help='Choose what to do with packets that match the criteria specified.',
+    type=click.Choice(['pass', 'block', 'reject']),
+    show_default=True,
+)
+@click.option(
+    '--quick/--no-quick',
+    help='If a packet matches a rule specifying quick, then that rule is considered the last matching rule.',
+    show_default=True,
+    is_flag=True,
+    callback=bool_as_string,
+    default=None,
+)
+@click.option(
+    '--interface', '-i',
+    help='The network interface(s). Pass multiple values comma separated e.g. lan,wan,lo0',
+    show_default=True,
+)
+@click.option(
+    '--direction', '-d',
+    help='Direction of the traffic.',
+    type=click.Choice(['in', 'out']),
+    show_default=True,
+)
+@click.option(
+    '--ipprotocol', '-ip',
+    help='TCP/IP Version',
+    type=click.Choice(['inet', 'inet6']),
+    show_default=True,
+)
+@click.option(
+    '--protocol', '-p',
+    help='Protocol',
+    type=click.Choice([
+        'any', 'ICMP', 'IGMP', 'GGP', 'IPENCAP', 'ST2', 'TCP', 'CBT', 'EGP', 'IGP', 'BBN-RCC', 'NVP', 'PUP',
+        'ARGUS', 'EMCON', 'XNET', 'CHAOS', 'UDP', 'MUX', 'DCN', 'HMP', 'PRM', 'XNS-IDP', 'TRUNK-1', 'TRUNK-2',
+        'LEAF-1', 'LEAF-2', 'RDP', 'IRTP', 'ISO-TP4', 'NETBLT', 'MFE-NSP', 'MERIT-INP', 'DCCP', '3PC', 'IDPR',
+        'XTP', 'DDP', 'IDPR-CMTP', 'TP++', 'IL', 'IPV6', 'SDRP', 'IDRP', 'RSVP', 'GRE', 'DSR', 'BNA', 'ESP',
+        'AH', 'I-NLSP', 'SWIPE', 'NARP', 'MOBILE', 'TLSP', 'SKIP', 'IPV6-ICMP', 'CFTP', 'SAT-EXPAK', 'KRYPTOLAN',
+        'RVD', 'IPPC', 'SAT-MON', 'VISA', 'IPCV', 'CPNX', 'CPHB', 'WSN', 'PVP', 'BR-SAT-MON', 'SUN-ND', 'WB-MON',
+        'WB-EXPAK', 'ISO-IP', 'VMTP', 'SECURE-VMTP', 'VINES', 'TTP', 'NSFNET-IGP', 'DGP', 'TCF', 'EIGRP', 'OSPF',
+        'SPRITE-RPC', 'LARP', 'MTP', 'AX.25', 'IPIP', 'MICP', 'SCC-SP', 'ETHERIP', 'ENCAP', 'GMTP', 'IFMP', 'PNNI',
+        'PIM', 'ARIS', 'SCPS', 'QNX', 'A/N', 'IPCOMP', 'SNP', 'COMPAQ-PEER', 'IPX-IN-IP', 'CARP', 'PGM', 'L2TP',
+        'DDX', 'IATP', 'STP', 'SRP', 'UTI', 'SMP', 'SM', 'PTP', 'ISIS', 'CRTP', 'CRUDP', 'SPS', 'PIPE', 'SCTP',
+        'FC', 'RSVP-E2E-IGNORE', 'UDPLITE', 'MPLS-IN-IP', 'MANET', 'HIP', 'SHIM6', 'WESP', 'ROHC',
+        'PFSYNC', 'DIVERT'
+    ]),
+    show_default=True,
+)
+@click.option(
+    '--source-net', '-src',
+    help='The source eg. any, ip address, network or alias.',
+    show_default=True,
+)
+@click.option(
+    '--source-port', '-src-port',
+    help='Source port number or well known name (imap, imaps, http, https, ...), for ranges use a dash.',
+    show_default=True,
+)
+@click.option(
+    '--source-not/--no-source-not', '--source-invert/--no-source-invert',
+    help='Use this option to invert the sense of the match for source.',
+    show_default=True,
+    is_flag=True,
+    callback=bool_as_string,
+    default=None,
+)
+@click.option(
+    '--destination-net', '-dst',
+    help='The destination eg. any, ip address, network or alias.',
+    show_default=True,
+)
+@click.option(
+    '--destination-port', '-dst-port',
+    help='Destination port number or well known name (imap, imaps, http, https, ...), for ranges use a dash',
+    show_default=True,
+)
+@click.option(
+    '--destination-not/--no-destination-not', '--destination-invert/--no-destination-invert',
+    help='Use this option to invert the sense of the match for source.',
+    show_default=True,
+    is_flag=True,
+    callback=bool_as_string,
+    default=None,
+)
+@click.option(
+    '--gateway', '-g',
+    help='Leave as default to use the system routing table. Or choose a gateway to utilize policy based routing.',
+    show_default=True,
+)
+@click.option(
+    '--log/--no-log',
+    help='Log packets that are handled by this rule.',
+    show_default=True,
+    is_flag=True,
+    callback=bool_as_string,
+    default=None,
+)
+@click.option(
+    '--description', '-d',
+    help='The alias description.',
+    show_default=True,
+)
+@click.option(
+    '--output', '-o',
+    help='Specifies the Output format.',
+    default="table",
+    type=click.Choice(['table', 'json']),
+    callback=formatter_from_formatter_name,
+    show_default=True,
+)
+@click.option(
+    '--cols', '-c',
+    help='Which columns should be printed?',
+    default="result,validations",
+    show_default=True,
+)
+@pass_firewall_rule_svc
+def update(firewall_rule_svc: FirewallRuleFacade, **kwargs):
+    """
+    Update firewall rule.
+
+    See: https://docs.opnsense.org/manual/firewall.html
+    """
+    json_payload = {
+        'rule': {}
+    }
+    options = [
+        'sequence', 'action', 'source_net', 'direction', 'destination_net', 'destination_not', 'destination_port',
+        'source_not', 'protocol', 'interface', 'gateway', 'log', 'enabled', 'description', 'source_port',
+        'ipprotocol', 'quick'
+    ]
+    for option in options:
+        if kwargs[option] is not None:
+            json_payload['rule'][option] = kwargs[option]
+
+    result = firewall_rule_svc.update_rule(kwargs['rule_uuid'], json_payload)
+
+    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+
+
+@rule.command()
+@click.argument('rule_uuid')
+@click.option(
+    '--output', '-o',
+    help='Specifies the Output format.',
+    default="table",
+    type=click.Choice(['table', 'json']),
+    callback=formatter_from_formatter_name,
+    show_default=True,
+)
+@click.option(
+    '--cols', '-c',
+    help='Which columns should be printed?',
+    default="result,validations",
+    show_default=True,
+)
+@pass_firewall_rule_svc
+def delete(firewall_rule_svc: FirewallRuleFacade, **kwargs):
+    """
+    Delete a firewall rule
+    """
+    result = firewall_rule_svc.delete_rule(kwargs['rule_uuid'])
+
+    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
