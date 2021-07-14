@@ -1,5 +1,5 @@
 # opn-cli
-![CI](https://github.com/andeman/opn-cli/actions/workflows/integration.yaml/badge.svg)
+[![CI](https://github.com/andeman/opn-cli/actions/workflows/integration.yaml/badge.svg)](https://github.com/andeman/opn-cli/actions/workflows/integration.yaml)
 [![Downloads](https://pepy.tech/badge/opn-cli)](https://pepy.tech/project/opn-cli)
 
 opn-cli - the OPNsense CLI written in python.
@@ -9,7 +9,8 @@ opn-cli - the OPNsense CLI written in python.
   * [Configure](#configure)
   * [Usage](#usage)
   * [Features](#features)
-    + [firewall aliases](#firewall-aliases)
+    + [Firewall aliases](#firewall-aliases)
+    + [Firewall rules](#firewall-rules)
     + [OpenVPN](#openvpn)
     + [Plugins](#plugins)
   * [Development](#development)
@@ -119,7 +120,7 @@ Commands:
 
 ## Features
 
-### firewall aliases
+### Firewall aliases
 ```
 Usage: opn-cli firewall alias [OPTIONS] COMMAND [ARGS]...
 
@@ -137,6 +138,42 @@ Commands:
   show    Show details for alias
   table   Show pf table entries for alias
   update  Update an alias.
+```
+
+### Firewall rules
+```
+Usage: opn-cli firewall rule [OPTIONS] COMMAND [ARGS]...
+
+  Manage OPNsense firewall rules.
+
+  See: https://docs.opnsense.org/manual/firewall.html
+
+  This Feature need the plugin: os-firewall
+
+  With the new plugin on version 20.1.5 for the firewall API, it adds a new
+  menu item under the "Firewall" section called "Automation" under that is
+  the "Filter" menu item.
+
+  All the created firewall rules are above all other rules. The order of
+  execution for the firewall rules goes: Automation -> Floating ->
+  Interface.
+
+  Before you modify a rule, an automatic config savepoint will be created.
+  if you lock yourself out, the config will be rollbacked after 60 seconds.
+
+  See:
+  https://docs.opnsense.org/development/api/plugins/firewall.html#concept
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new firewall rule.
+  delete  Delete a firewall rule
+  list    Show all firewall rules
+  show    Show firewall rule details
+  update  Update firewall rule.
+
 ```
 
 ### OpenVPN

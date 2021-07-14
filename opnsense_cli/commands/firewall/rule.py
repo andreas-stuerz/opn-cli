@@ -26,7 +26,12 @@ def rule(ctx, api_client: ApiClient, **kwargs):
     called "Automation" under that is the "Filter" menu item.
 
     All the created firewall rules are above all other rules. The order of execution for the firewall rules goes:
-    Automation -> Floating -> Interface
+    Automation -> Floating -> Interface.
+
+    Before you modify a rule, an automatic config savepoint will be created. if you lock yourself out, the config will
+    be rollbacked after 60 seconds.
+
+    See: https://docs.opnsense.org/development/api/plugins/firewall.html#concept
 
     """
     rule_api = FirewallFilter(api_client)
