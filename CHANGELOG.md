@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.6.0](https://github.com/andeman/opn-cli/tree/v0.6.0) (2021-07-14)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.5.1...v0.6.0)
+
+**Implemented enhancements:**
+
+- Add Firewall rule [\#5](https://github.com/andeman/opn-cli/pull/5) ([andeman](https://github.com/andeman))
+
 ## [v0.5.1](https://github.com/andeman/opn-cli/tree/v0.5.1) (2021-07-01)
 
 [Full Changelog](https://github.com/andeman/opn-cli/compare/v0.4.0...v0.5.1)
