@@ -29,7 +29,7 @@ def alias(ctx, api_client: ApiClient, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -55,7 +55,7 @@ def list(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -81,7 +81,7 @@ def show(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -154,7 +154,7 @@ def table(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -250,7 +250,7 @@ def create(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -288,7 +288,7 @@ def update(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )

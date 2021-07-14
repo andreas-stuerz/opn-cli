@@ -1,7 +1,4 @@
-import unittest
 from unittest.mock import patch
-from click.testing import CliRunner
-from opnsense_cli.api.client import ApiClient
 from opnsense_cli.commands.plugin import plugin
 from opnsense_cli.tests.command.base import CommandTestCase
 

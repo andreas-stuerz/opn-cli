@@ -1,5 +1,6 @@
 from opnsense_cli.api.base import ApiBase
 
+
 class FirewallFilter(ApiBase):
     MODULE = "firewall"
     CONTROLLER = "filter"
@@ -22,11 +23,6 @@ class FirewallFilter(ApiBase):
         self.command = "getRule"
 
     @ApiBase._api_call
-    def search_rule(self, *args):
-        self.method = "get"
-        self.command = "searchRule"
-
-    @ApiBase._api_call
     def set_rule(self, *args):
         self.method = "post"
         self.command = "setRule"
@@ -40,11 +36,6 @@ class FirewallFilter(ApiBase):
     def savepoint(self, *args):
         self.method = "post"
         self.command = "savepoint"
-
-    @ApiBase._api_call
-    def revert(self, *args):
-        self.method = "post"
-        self.command = "revert"
 
     @ApiBase._api_call
     def cancel_rollback(self, *args):

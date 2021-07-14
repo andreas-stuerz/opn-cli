@@ -1,4 +1,5 @@
 import click
+
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import formatter_from_formatter_name, bool_as_string, int_as_string
 from opnsense_cli.commands.firewall import firewall
@@ -66,7 +67,7 @@ def list(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
-    default="yaml",
+    default="table",
     type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
@@ -89,6 +90,7 @@ def show(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     result = firewall_rule_svc.show_rule(kwargs['rule_uuid'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+
 
 @rule.command()
 @click.argument(
@@ -229,7 +231,7 @@ def show(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -271,6 +273,7 @@ def create(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     result = firewall_rule_svc.create_rule(json_payload)
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+
 
 @rule.command()
 @click.argument(
@@ -398,7 +401,7 @@ def create(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -438,7 +441,7 @@ def update(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )

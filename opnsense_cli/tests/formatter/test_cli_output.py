@@ -1,11 +1,10 @@
-import io
-import sys
-import unittest
+from opnsense_cli.tests.formatter.base import FormatterTestCase
 from opnsense_cli.formats.json_output import JsonOutputFormat
 from opnsense_cli.formats.table_output import TableOutputFormat
+from opnsense_cli.formats.yaml_output import YamlOutputFormat
 
 
-class TestCliOutputFormatter(unittest.TestCase):
+class TestCliOutputFormatter(FormatterTestCase):
     def setUp(self):
         self._api_data_json_obj_list = {
             "plugin": [
@@ -37,17 +36,49 @@ class TestCliOutputFormatter(unittest.TestCase):
             "uuid": "24948d07-8525-4276-b497-108a0c55fcc2"
         }
 
+    def test_YamlFormat_with_json_array(self):
+        format = YamlOutputFormat(self._api_data_json_obj_list['plugin'], ['name', 'version'])
+        result = self._get_format_output(format)
+
+        self.assertIn("name: os-acme-client\nversion: '2.4'\n\n", result)
+
+    def test_YamlFormat_with_json_nested(self):
+        format = YamlOutputFormat(self._api_data_json_nested, ['<ID>', 'name', 'supportedOptions'])
+        result = self._get_format_output(format)
+
+        self.assertIn(
+            (
+                "- <ID>: ArchiveOpenVPN\n  name: Archive\n  supportedOptions: '[''plain_config'', ''p12_password'']'\n"
+                "- <ID>: PlainOpenVPN\n  name: File Only\n  supportedOptions: '[''auth_nocache'', ''cryptoapi'']'\n"
+                "- <ID>: TheGreenBow\n  name: TheGreenBow\n  supportedOptions: '[]'\n"
+                "- <ID>: ViscosityVisz\n  name: Viscosity (visz)\n"
+                "  supportedOptions: '[''plain_config'', ''random_local_port'']'\n\n"
+            ),
+            result
+        )
+
+    def test_YamlFormat_with_json_obj(self):
+        format = YamlOutputFormat(self._api_data_json_obj, [
+            'uuid', 'name', 'type', 'proto', 'counters', 'description', 'updatefreq', 'content', 'enabled'
+        ])
+        result = self._get_format_output(format)
+
+        self.assertIn(
+            (
+                "uuid: 24948d07-8525-4276-b497-108a0c55fcc2\nname: zabbix_host\ntype: host\nproto: IPv4\n"
+                "counters: '0'\ndescription: Test\nupdatefreq: '0.5'\ncontent: www.example.com,www.heise.de\n"
+                "enabled: '1'\n\n"
+            ),
+            result
+        )
+
     def test_JsonFormat(self):
         """
         JSON Formatter always return all columns
         """
-        formatter = JsonOutputFormat(self._api_data_json_obj_list['plugin'], ['name'])
+        format = JsonOutputFormat(self._api_data_json_obj_list['plugin'], ['name'])
 
-        capturedOutput = io.StringIO()
-        sys.stdout = capturedOutput
-        formatter.echo()
-        sys.stdout = sys.__stdout__
-        result = capturedOutput.getvalue()
+        result = self._get_format_output(format)
 
         self.assertIn(
             '[{"name": "os-acme-client", "version": "2.4", ' +
@@ -59,14 +90,10 @@ class TestCliOutputFormatter(unittest.TestCase):
         )
 
     def test_TableFormat_with_json_array(self):
-        formatter = TableOutputFormat(self._api_data_json_obj_list['plugin'], ['name', 'version'])
-        formatter.separator = "|"
+        format = TableOutputFormat(self._api_data_json_obj_list['plugin'], ['name', 'version'])
+        format.separator = "|"
 
-        capturedOutput = io.StringIO()
-        sys.stdout = capturedOutput
-        formatter.echo()
-        sys.stdout = sys.__stdout__
-        result = capturedOutput.getvalue()
+        result = self._get_format_output(format)
 
         self.assertIn(
             "os-acme-client|2.4\n",
@@ -74,14 +101,10 @@ class TestCliOutputFormatter(unittest.TestCase):
         )
 
     def test_TableFormat_with_json_nested(self):
-        formatter = TableOutputFormat(self._api_data_json_nested, ['<ID>', 'name', 'supportedOptions'])
-        formatter.separator = "|"
+        format = TableOutputFormat(self._api_data_json_nested, ['<ID>', 'name', 'supportedOptions'])
+        format.separator = "|"
 
-        capturedOutput = io.StringIO()
-        sys.stdout = capturedOutput
-        formatter.echo()
-        sys.stdout = sys.__stdout__
-        result = capturedOutput.getvalue()
+        result = self._get_format_output(format)
 
         self.assertIn(
             "ArchiveOpenVPN|Archive|['plain_config', 'p12_password']\n"
@@ -92,16 +115,12 @@ class TestCliOutputFormatter(unittest.TestCase):
         )
 
     def test_TableFormat_with_json_obj(self):
-        formatter = TableOutputFormat(self._api_data_json_obj, [
+        format = TableOutputFormat(self._api_data_json_obj, [
             'uuid', 'name', 'type', 'proto', 'counters', 'description', 'updatefreq', 'content', 'enabled'
         ])
-        formatter.separator = "|"
+        format.separator = "|"
 
-        capturedOutput = io.StringIO()
-        sys.stdout = capturedOutput
-        formatter.echo()
-        sys.stdout = sys.__stdout__
-        result = capturedOutput.getvalue()
+        result = self._get_format_output(format)
 
         self.assertIn(
             "24948d07-8525-4276-b497-108a0c55fcc2|zabbix_host|host|IPv4|0|Test|0.5|www.example.com,www.heise.de|1\n",
@@ -109,7 +128,7 @@ class TestCliOutputFormatter(unittest.TestCase):
         )
 
     def test_TableFormat_not_implemented(self):
-        formatter = TableOutputFormat("Just a String", [])
-        formatter.separator = "|"
+        format = TableOutputFormat("Just a String", [])
+        format.separator = "|"
 
-        self.assertRaises(NotImplementedError, formatter.echo)
+        self.assertRaises(NotImplementedError, format.echo)

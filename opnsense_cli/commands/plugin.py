@@ -24,7 +24,7 @@ def plugin(ctx, api_client: ApiClient, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -49,7 +49,7 @@ def list(firmware_svc: Firmware, **kwargs):
     '--output', '-o',
     help='Specifies the output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -76,7 +76,7 @@ def installed(firmware_svc: Firmware, **kwargs):
     '--output', '-o',
     help='Specifies the output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -102,7 +102,7 @@ def show(firmware_svc: Firmware, **kwargs):
     '--output', '-o',
     help='Specifies the output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -128,7 +128,7 @@ def install(firmware_svc: Firmware, **kwargs):
     '--output', '-o',
     help='Specifies the output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -154,7 +154,7 @@ def uninstall(firmware_svc: Firmware, **kwargs):
     '--output', '-o',
     help='Specifies the output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -180,7 +180,7 @@ def reinstall(firmware_svc: Firmware, **kwargs):
     '--output', '-o',
     help='Specifies the output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -206,7 +206,7 @@ def lock(firmware_svc: Firmware, **kwargs):
     '--output', '-o',
     help='Specifies the output format.',
     default="table",
-    type=click.Choice(['table', 'json']),
+    type=click.Choice(['table', 'json', 'yaml']),
     callback=formatter_from_formatter_name,
     show_default=True,
 )

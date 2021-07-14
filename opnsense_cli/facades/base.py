@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 
 
 class CommandFacade(ABC):
@@ -10,7 +10,7 @@ class CommandFacade(ABC):
         :return: dict
         """
         result = {}
-        for key,val in api_response.items():
+        for key, val in api_response.items():
             if isinstance(val, dict):
                 selected_val = ",".join([
                     choice_key for choice_key, choice_dict in val.items() if choice_dict["selected"] == 1
