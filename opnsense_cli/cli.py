@@ -9,6 +9,7 @@ from opnsense_cli.commands.plugin import plugin
 from opnsense_cli.commands.openvpn import openvpn
 from opnsense_cli.commands.firewall import firewall
 from opnsense_cli.commands.firewall.alias import alias
+from opnsense_cli.commands.firewall.rule import rule
 
 
 CFG_DIR = f"~/.{__cli_name__}"
@@ -134,6 +135,7 @@ def cli(ctx, **kwargs):
 # register commands groups and commands
 cli.add_command(firewall)
 firewall.add_command(alias)
+firewall.add_command(rule)
 
 cli.add_command(plugin)
 cli.add_command(openvpn)

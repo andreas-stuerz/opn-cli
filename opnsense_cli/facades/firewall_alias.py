@@ -1,7 +1,8 @@
 from opnsense_cli.api.firewall import FirewallAlias, FirewallAliasUtil
+from opnsense_cli.facades.base import CommandFacade
 
 
-class FirewallAliasFacade():
+class FirewallAliasFacade(CommandFacade):
     def __init__(self, firewall_alias_api: FirewallAlias, firewall_alias_util_api: FirewallAliasUtil):
         self._firewall_alias_api = firewall_alias_api
         self._firewall_alias_util_api = firewall_alias_util_api
@@ -47,12 +48,9 @@ class FirewallAliasFacade():
             alias_data['content'] = alias_data['content'].replace("\n", ",")
             aliases.append(alias_data)
 
-        aliases = self._sort_aliases(aliases, 'name')
+        aliases = self._sort_dict_by_string(aliases, 'name')
 
         return aliases
-
-    def _sort_aliases(self, aliases, by_column):
-        return sorted(aliases, key=lambda k: k[by_column])
 
     def create_alias(self, json_payload: dict):
         return self._firewall_alias_api.add_item(json=json_payload)
