@@ -9,6 +9,7 @@ opn-cli - the OPNsense CLI written in python.
   * [Configure](#configure)
   * [Usage](#usage)
   * [Features](#features)
+    + [Shell Completion](#shell-completion)
     + [Firewall aliases](#firewall-aliases)
     + [Firewall rules](#firewall-rules)
     + [OpenVPN](#openvpn)
@@ -112,13 +113,28 @@ Options:
   -h, --help                      Show this message and exit.
 
 Commands:
-  firewall  Execute firewall operations
-  openvpn   Manage OpenVPN
-  plugin    Manage OPNsense plugins
-  version   Show the CLI version and exit.
+  completion  Output Instructions for shell completion
+  firewall    Execute firewall operations
+  openvpn     Manage OpenVPN
+  plugin      Manage OPNsense plugins
+  version     Show the CLI version and exit.
 ```
 
 ## Features
+### Shell Completion
+```
+Instructions for shell completion:
+
+See: https://click.palletsprojects.com/en/latest/shell-completion/
+
+Zsh:
+echo '# shell completion for opn-cli' >> ~/.zshrc
+echo 'eval "$(_OPN_CLI_COMPLETE=zsh_source opn-cli)"' >> ~/.zshrc
+
+Bash:
+echo '# shell completion for opn-cli' >> ~/.zshrc
+echo 'eval "$(_OPN_CLI_COMPLETE=bash_source opn-cli)"' >> ~/.zshrc
+```
 
 ### Firewall aliases
 ```

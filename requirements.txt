@@ -1,6 +1,4 @@
 #
 ####### requirements.txt #######
 #
-click
-requests
-PyYAML
+.
