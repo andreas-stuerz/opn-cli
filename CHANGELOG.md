@@ -1,5 +1,13 @@
 # Changelog
 
+## [v.0.6.1](https://github.com/andeman/opn-cli/tree/v.0.6.1) (2021-07-15)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.0...v.0.6.1)
+
+**Implemented enhancements:**
+
+- add shell completion [\#6](https://github.com/andeman/opn-cli/pull/6) ([andeman](https://github.com/andeman))
+
 ## [v0.6.0](https://github.com/andeman/opn-cli/tree/v0.6.0) (2021-07-14)
 
 [Full Changelog](https://github.com/andeman/opn-cli/compare/v0.5.1...v0.6.0)
