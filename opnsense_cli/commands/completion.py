@@ -6,6 +6,7 @@ def completion():
     """
     Output Instructions for shell completion
     """
+    pass
     instructions = '''
         Instructions for shell completion:
         
@@ -18,7 +19,6 @@ def completion():
         Bash:
         echo '# shell completion for opn-cli' >> ~/.zshrc
         echo 'eval "$(_OPN_CLI_COMPLETE=bash_source opn-cli)"' >> ~/.zshrc
-        
     '''
     click.echo(textwrap.dedent(instructions))
 
