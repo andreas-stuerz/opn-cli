@@ -5,6 +5,7 @@ from opnsense_cli import __cli_name__
 from opnsense_cli.callbacks.click import defaults_from_configfile, expand_path
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.commands.version import version
+from opnsense_cli.commands.completion import completion
 from opnsense_cli.commands.plugin import plugin
 from opnsense_cli.commands.openvpn import openvpn
 from opnsense_cli.commands.firewall import firewall
@@ -140,6 +141,7 @@ firewall.add_command(rule)
 cli.add_command(plugin)
 cli.add_command(openvpn)
 cli.add_command(version)
+cli.add_command(completion)
 
 if __name__ == "__main__":
     cli()
