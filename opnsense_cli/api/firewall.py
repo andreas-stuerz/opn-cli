@@ -79,6 +79,11 @@ class FirewallAlias(ApiBase):
         self.method = "post"
         self.command = "setItem"
 
+    @ApiBase._api_call
+    def reconfigure(self, *args):
+        self.method = "post"
+        self.command = "reconfigure"
+
 
 class FirewallAliasUtil(ApiBase):
     MODULE = "firewall"
