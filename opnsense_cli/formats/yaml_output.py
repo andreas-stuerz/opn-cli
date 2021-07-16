@@ -16,13 +16,15 @@ class YamlOutputFormat(Format):
         if len(filtered_data) > 1:
             result = self._get_for_multi_items(filtered_data)
         else:
-            result = self._get_for_single_item(filtered_data[0])
+            result = self._get_for_single_item(filtered_data)
 
         result = yaml.dump(result, sort_keys=False)
         return result
 
     def _get_for_single_item(self, line: list):
-        return dict(zip(self._cols, line))
+        if not line:
+            return {}
+        return dict(zip(self._cols, line[0]))
 
     def _get_for_multi_items(self, lines: list):
         result = []
