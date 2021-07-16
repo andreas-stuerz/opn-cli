@@ -2140,7 +2140,7 @@ class TestFirewallRuleCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
     def test_delete_NOT_FOUND(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -2161,7 +2161,7 @@ class TestFirewallRuleCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
     def test_start_transaction_FAILED(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -2177,7 +2177,7 @@ class TestFirewallRuleCommands(CommandTestCase):
 
         self.assertIn("CommandException", str(type(result.exception)))
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
     def test_commit_transaction_apply_FAILED(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -2196,7 +2196,7 @@ class TestFirewallRuleCommands(CommandTestCase):
 
         self.assertIn("CommandException", str(type(result.exception)))
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
     def test_commit_transaction_cancel_rollback_FAILED(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,

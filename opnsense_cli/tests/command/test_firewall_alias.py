@@ -5,6 +5,12 @@ from opnsense_cli.tests.command.base import CommandTestCase
 
 class TestFirewallAliasCommands(CommandTestCase):
     def setUp(self):
+        self._api_data_fixtures_apply_OK = {
+            "status": "ok"
+        }
+        self._api_data_fixtures_apply_FAILED = {
+            "status": "failed"
+        }
         self._api_data_fixtures_create_OK = {
             "result": "saved",
             "uuid": "5c2163a8-a429-4226-a3b8-dd2b1560b12b"
@@ -177,7 +183,8 @@ class TestFirewallAliasCommands(CommandTestCase):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
-                self._api_data_fixtures_create_OK
+                self._api_data_fixtures_create_OK,
+                self._api_data_fixtures_apply_OK,
             ],
             alias,
             [
@@ -203,7 +210,7 @@ class TestFirewallAliasCommands(CommandTestCase):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
-                self._api_data_fixtures_create_EXISTS
+                self._api_data_fixtures_create_EXISTS,
             ],
             alias,
             [
@@ -231,6 +238,7 @@ class TestFirewallAliasCommands(CommandTestCase):
             [
                 self._api_data_uuid_for_name,
                 self._api_data_fixtures_update_OK,
+                self._api_data_fixtures_apply_OK,
             ],
             alias,
             [
@@ -286,6 +294,7 @@ class TestFirewallAliasCommands(CommandTestCase):
             [
                 self._api_data_uuid_for_name,
                 self._api_data_fixtures_delete_OK,
+                self._api_data_fixtures_apply_OK,
             ],
             alias,
             [
@@ -320,3 +329,22 @@ class TestFirewallAliasCommands(CommandTestCase):
             ),
             result.output
         )
+
+    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    def test_alias_apply_FAILED(self, api_response_mock: Mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_uuid_for_name,
+                self._api_data_fixtures_delete_OK,
+                self._api_data_fixtures_apply_FAILED,
+
+            ],
+            alias,
+            [
+                "delete", "existing_alias",
+            ],
+            True
+        )
+
+        self.assertIn("CommandException", str(type(result.exception)))

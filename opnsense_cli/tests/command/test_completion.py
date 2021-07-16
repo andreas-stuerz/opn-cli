@@ -3,6 +3,7 @@ import unittest
 from click.testing import CliRunner
 from opnsense_cli.commands.completion import completion
 
+
 class TestCompletionCommands(unittest.TestCase):
     def test_version(self):
         runner = CliRunner()

@@ -206,6 +206,7 @@ def create(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     '--content', '-C',
     help='The alias content. Pass multiple values comma separated. Exclusion starts with “!” sign eg. !192.168.0.0/24',
     show_default=True,
+    callback=comma_to_newline,
 )
 @click.option(
     '--description', '-d',
