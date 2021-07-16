@@ -1,8 +1,16 @@
 # Changelog
 
-## [v.0.6.1](https://github.com/andeman/opn-cli/tree/v.0.6.1) (2021-07-15)
+## [v0.6.2](https://github.com/andeman/opn-cli/tree/v0.6.2) (2021-07-16)
 
-[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.0...v.0.6.1)
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.1...v0.6.2)
+
+**Fixed bugs:**
+
+- Apply firewall alias after create, delete and update [\#7](https://github.com/andeman/opn-cli/pull/7) ([andeman](https://github.com/andeman))
+
+## [v0.6.1](https://github.com/andeman/opn-cli/tree/v0.6.1) (2021-07-15)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.0...v0.6.1)
 
 **Implemented enhancements:**
 
@@ -30,7 +38,11 @@
 
 ## [v0.4.0](https://github.com/andeman/opn-cli/tree/v0.4.0) (2021-06-08)
 
-[Full Changelog](https://github.com/andeman/opn-cli/compare/v.0.3.2...v0.4.0)
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v.0.4.0...v0.4.0)
+
+## [v.0.4.0](https://github.com/andeman/opn-cli/tree/v.0.4.0) (2021-06-08)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v.0.3.2...v.0.4.0)
 
 **Implemented enhancements:**
 
