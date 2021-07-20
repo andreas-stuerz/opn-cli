@@ -134,7 +134,7 @@ def show(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     required=True,
 )
 @click.option(
-    '--direction', '-d',
+    '--direction', '-dir',
     help='Direction of the traffic.',
     type=click.Choice(['in', 'out']),
     show_default=True,
@@ -318,7 +318,7 @@ def create(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     show_default=True,
 )
 @click.option(
-    '--direction', '-d',
+    '--direction', '-dir',
     help='Direction of the traffic.',
     type=click.Choice(['in', 'out']),
     show_default=True,
