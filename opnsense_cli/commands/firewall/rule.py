@@ -134,7 +134,7 @@ def show(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     required=True,
 )
 @click.option(
-    '--direction', '-d',
+    '--direction', '-dir',
     help='Direction of the traffic.',
     type=click.Choice(['in', 'out']),
     show_default=True,
@@ -142,7 +142,7 @@ def show(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 )
 @click.option(
     '--ipprotocol', '-ip',
-    help='TCP/IP Version',
+    help='IP Version',
     type=click.Choice(['inet', 'inet6']),
     default='inet',
     show_default=True,
@@ -183,7 +183,7 @@ def show(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 )
 @click.option(
     '--source-not/--no-source-not', '--source-invert/--no-source-invert',
-    help='Use this option to invert the sense of the match for source.',
+    help='Use this option to invert the sense of the match for the source.',
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -205,7 +205,7 @@ def show(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 )
 @click.option(
     '--destination-not/--no-destination-not', '--destination-invert/--no-destination-invert',
-    help='Use this option to invert the sense of the match for source.',
+    help='Use this option to invert the sense of the match for the destination.',
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -228,7 +228,7 @@ def show(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 )
 @click.option(
     '--description', '-d',
-    help='The alias description.',
+    help='The rule description.',
     show_default=True,
     required=True,
 )
@@ -318,14 +318,14 @@ def create(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     show_default=True,
 )
 @click.option(
-    '--direction', '-d',
+    '--direction', '-dir',
     help='Direction of the traffic.',
     type=click.Choice(['in', 'out']),
     show_default=True,
 )
 @click.option(
     '--ipprotocol', '-ip',
-    help='TCP/IP Version',
+    help='IP Version',
     type=click.Choice(['inet', 'inet6']),
     show_default=True,
 )
@@ -360,7 +360,7 @@ def create(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 )
 @click.option(
     '--source-not/--no-source-not', '--source-invert/--no-source-invert',
-    help='Use this option to invert the sense of the match for source.',
+    help='Use this option to invert the sense of the match for the source.',
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -378,7 +378,7 @@ def create(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 )
 @click.option(
     '--destination-not/--no-destination-not', '--destination-invert/--no-destination-invert',
-    help='Use this option to invert the sense of the match for source.',
+    help='Use this option to invert the sense of the match for the destination.',
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -399,7 +399,7 @@ def create(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 )
 @click.option(
     '--description', '-d',
-    help='The alias description.',
+    help='The rule description.',
     show_default=True,
 )
 @click.option(
