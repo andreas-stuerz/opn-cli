@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.6.3](https://github.com/andeman/opn-cli/tree/v0.6.3) (2021-07-21)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.2...v0.6.3)
+
+**Fixed bugs:**
+
+- fix bugs with empty list  yaml output  and firewall rule duplictate -d options [\#8](https://github.com/andeman/opn-cli/pull/8) ([andeman](https://github.com/andeman))
+
 ## [v0.6.2](https://github.com/andeman/opn-cli/tree/v0.6.2) (2021-07-16)
 
 [Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.1...v0.6.2)

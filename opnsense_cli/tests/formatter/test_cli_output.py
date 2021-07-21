@@ -72,6 +72,16 @@ class TestCliOutputFormatter(FormatterTestCase):
             result
         )
 
+    def test_YamlFormat_with_empty_data(self):
+        format = YamlOutputFormat([], ['name', 'version'])
+        result = self._get_format_output(format)
+        self.assertIn(
+            (
+                "{}\n\n"
+            ),
+            result
+        )
+
     def test_JsonFormat(self):
         """
         JSON Formatter always return all columns
@@ -86,6 +96,16 @@ class TestCliOutputFormatter(FormatterTestCase):
             '"license": "BSD2CLAUSE", "repository": "OPNsense", "origin": "opnsense/os-acme-client", ' +
             '"provided": "1", "installed": "0", "path": "OPNsense/opnsense/os-acme-client", ' +
             '"configured": "0"}]\n',
+            result
+        )
+
+    def test_JsonFormat_with_empty_data(self):
+        format = JsonOutputFormat([], ['name', 'version'])
+        result = self._get_format_output(format)
+        self.assertIn(
+            (
+                "[]"
+            ),
             result
         )
 
@@ -124,6 +144,16 @@ class TestCliOutputFormatter(FormatterTestCase):
 
         self.assertIn(
             "24948d07-8525-4276-b497-108a0c55fcc2|zabbix_host|host|IPv4|0|Test|0.5|www.example.com,www.heise.de|1\n",
+            result
+        )
+
+    def test_TableFormat_with_empty_data(self):
+        format = TableOutputFormat([], ['name', 'version'])
+        result = self._get_format_output(format)
+        self.assertIn(
+            (
+                ""
+            ),
             result
         )
 
