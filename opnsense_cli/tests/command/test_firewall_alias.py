@@ -15,6 +15,10 @@ class TestFirewallAliasCommands(CommandTestCase):
             "result": "saved",
             "uuid": "5c2163a8-a429-4226-a3b8-dd2b1560b12b"
         }
+        self._api_data_fixtures_create_ERROR = {
+            "result": "failed",
+            "validations": {"alias.content": "Entry \"test\" is not a valid alias."}
+        }
         self._api_data_fixtures_create_EXISTS = {
             "result": "failed",
             "validations": {"alias.name": "An alias with this name already exists."}
@@ -179,7 +183,7 @@ class TestFirewallAliasCommands(CommandTestCase):
         )
 
     @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
-    def test_create_url_table_OK(self, api_response_mock: Mock):
+    def test_create_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
@@ -206,7 +210,32 @@ class TestFirewallAliasCommands(CommandTestCase):
         )
 
     @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
-    def test_create_url_table_EXISTS(self, api_response_mock: Mock):
+    def test_create_ERROR(self, api_response_mock: Mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_create_ERROR,
+            ],
+            alias,
+            [
+                "create", "error_alias",
+                "-t", "networkgroup",
+                "-C", "non_existing_alias",
+                "-d", "error alias",
+            ]
+        )
+
+        self.assertIn(
+            (
+                "Error: {\'result\': \'failed\', \'validations\': {\'alias.content\': "
+                "\'Entry \"test\" is not a valid alias.\'}}\n"
+            ),
+            result.output
+        )
+        self.assertEqual(1, result.exit_code)
+
+    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    def test_create_EXISTS(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
@@ -226,13 +255,15 @@ class TestFirewallAliasCommands(CommandTestCase):
 
         self.assertIn(
             (
-                "failed {'alias.name': 'An alias with this name already exists.'}\n"
+                "Error: "
+                "{'result': 'failed', 'validations': {'alias.name': 'An alias with this name already exists.'}}\n"
             ),
             result.output
         )
+        self.assertEqual(1, result.exit_code)
 
     @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
-    def test_update_geo_ip_OK(self, api_response_mock: Mock):
+    def test_update_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
@@ -261,7 +292,7 @@ class TestFirewallAliasCommands(CommandTestCase):
         )
 
     @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
-    def test_update_geo_ip_NOT_EXISTS(self, api_response_mock: Mock):
+    def test_update_NOT_EXISTS(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
@@ -280,12 +311,8 @@ class TestFirewallAliasCommands(CommandTestCase):
             ]
         )
 
-        self.assertIn(
-            (
-                "failed \n"
-            ),
-            result.output
-        )
+        self.assertIn("Error: {'result': 'failed'}\n", result.output)
+        self.assertEqual(1, result.exit_code)
 
     @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
     def test_delete_OK(self, api_response_mock: Mock):
@@ -323,12 +350,8 @@ class TestFirewallAliasCommands(CommandTestCase):
             ]
         )
 
-        self.assertIn(
-            (
-                "not found \n"
-            ),
-            result.output
-        )
+        self.assertIn("Error: {'result': 'not found'}\n", result.output)
+        self.assertEqual(1, result.exit_code)
 
     @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
     def test_alias_apply_FAILED(self, api_response_mock: Mock):
@@ -347,4 +370,5 @@ class TestFirewallAliasCommands(CommandTestCase):
             True
         )
 
-        self.assertIn("CommandException", str(type(result.exception)))
+        self.assertIn("Error: Apply failed: {'status': 'failed'}\n", result.output)
+        self.assertEqual(1, result.exit_code)

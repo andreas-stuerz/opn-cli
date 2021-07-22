@@ -137,4 +137,4 @@ class TestApiClient(TestCase):
         api_parameters = []
 
         client = ApiClient(*client_args)
-        self.assertRaises(NotImplementedError, client.execute, *api_parameters, **api_config)
+        self.assertRaises(APIException, client.execute, *api_parameters, **api_config)
