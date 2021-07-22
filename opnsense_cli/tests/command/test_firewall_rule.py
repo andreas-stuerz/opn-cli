@@ -2050,10 +2050,12 @@ class TestFirewallRuleCommands(CommandTestCase):
 
         self.assertIn(
             (
-                "failed {'rule.source_net': 'alias_not_exists is not a valid source IP address or alias.'}\n"
+                "Error: {'result': 'failed', "
+                "'validations': {'rule.source_net': 'alias_not_exists is not a valid source IP address or alias.'}}\n"
             ),
             result.output
         )
+        self.assertEqual(1, result.exit_code)
 
     @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
     def test_update_OK(self, api_response_mock: Mock):
@@ -2112,10 +2114,11 @@ class TestFirewallRuleCommands(CommandTestCase):
 
         self.assertIn(
             (
-                "failed \n"
+                "Error: {'result': 'failed'}\n"
             ),
             result.output
         )
+        self.assertEqual(1, result.exit_code)
 
     @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
     def test_delete_OK(self, api_response_mock: Mock):
@@ -2154,12 +2157,8 @@ class TestFirewallRuleCommands(CommandTestCase):
             ]
         )
 
-        self.assertIn(
-            (
-                "not found \n"
-            ),
-            result.output
-        )
+        self.assertIn("Error: {'result': 'not found'}\n", result.output)
+        self.assertEqual(1, result.exit_code)
 
     @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
     def test_start_transaction_FAILED(self, api_response_mock: Mock):
@@ -2175,7 +2174,8 @@ class TestFirewallRuleCommands(CommandTestCase):
             True
         )
 
-        self.assertIn("CommandException", str(type(result.exception)))
+        self.assertIn("Error: Savepoint creation failed: {'status': 'failed'}\n", result.output)
+        self.assertEqual(1, result.exit_code)
 
     @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
     def test_commit_transaction_apply_FAILED(self, api_response_mock: Mock):
@@ -2194,7 +2194,8 @@ class TestFirewallRuleCommands(CommandTestCase):
             True
         )
 
-        self.assertIn("CommandException", str(type(result.exception)))
+        self.assertIn("Error: firewall rule apply failed: {'status': 'FAILED\\n\\n'}\n", result.output)
+        self.assertEqual(1, result.exit_code)
 
     @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
     def test_commit_transaction_cancel_rollback_FAILED(self, api_response_mock: Mock):
@@ -2213,4 +2214,11 @@ class TestFirewallRuleCommands(CommandTestCase):
             True
         )
 
-        self.assertIn("CommandException", str(type(result.exception)))
+        self.assertIn(
+            (
+                "Error: firewall rule cancel rollback failed. "
+                "Rollback configuration after 60 seconds: {'status': 'failed\\n\\n'}\n"
+            ),
+            result.output
+        )
+        self.assertEqual(1, result.exit_code)

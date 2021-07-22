@@ -25,7 +25,6 @@ class FirewallRuleFacade(CommandFacade):
         return self._get_details_for_rule(uuid)
 
     def _get_details_for_rule(self, uuid):
-        # self._firewall_rule_api.get_rule(uuid) return default values for empty string
         if not uuid:
             return {}
 
@@ -53,20 +52,19 @@ class FirewallRuleFacade(CommandFacade):
     def _start_transaction(self):
         result = self._firewall_rule_api.savepoint()
         if result['status'] != 'ok':
-            raise CommandException("Savepoint creation failed.", result)
+            raise CommandException(f"Savepoint creation failed: {result}")
         return result['revision']
 
     def _commit_transaction(self, timestamp, result_admin_action):
         if result_admin_action['result'] not in ['saved', 'deleted']:
-            return
+            raise CommandException(result_admin_action)
 
         result_apply = self._firewall_rule_api.apply(timestamp)
         if result_apply['status'].replace("\n", "") != 'OK':
-            raise CommandException("firewall rule apply failed.", result_apply)
+            raise CommandException(f"firewall rule apply failed: {result_apply}")
 
-        result_cancel_rollback = self._firewall_rule_api.cancel_rollback(timestamp)
-        if result_cancel_rollback['status'].replace("\n", "") != '':
+        result_cancel = self._firewall_rule_api.cancel_rollback(timestamp)
+        if result_cancel['status'].replace("\n", "") != '':
             raise CommandException(
-                "firewall rule cancel rollback failed. Rollback configuration after 60 seconds",
-                result_cancel_rollback
+                f"firewall rule cancel rollback failed. Rollback configuration after 60 seconds: {result_cancel}"
             )

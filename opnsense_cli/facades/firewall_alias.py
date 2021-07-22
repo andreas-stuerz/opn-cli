@@ -42,14 +42,12 @@ class FirewallAliasFacade(CommandFacade):
 
     def _apply(self, result_admin_action):
         if result_admin_action['result'] not in ['saved', 'deleted']:
-            return
+            raise CommandException(result_admin_action)
 
         result_apply = self._firewall_alias_api.reconfigure()
 
-        if result_apply['status'] == 'ok':
-            return
-
-        raise CommandException("Apply failed.", result_apply)
+        if result_apply['status'] != 'ok':
+            raise CommandException(f"Apply failed: {result_apply}")
 
     def list_aliases(self):
         return self._get_alias_list()
