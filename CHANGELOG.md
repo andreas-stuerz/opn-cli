@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.6.4](https://github.com/andeman/opn-cli/tree/v0.6.4) (2021-07-22)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.3...v0.6.4)
+
+**Fixed bugs:**
+
+- add exit 1 on command failures and throw Exceptions [\#9](https://github.com/andeman/opn-cli/pull/9) ([andeman](https://github.com/andeman))
+
 ## [v0.6.3](https://github.com/andeman/opn-cli/tree/v0.6.3) (2021-07-21)
 
 [Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.2...v0.6.3)
