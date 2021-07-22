@@ -53,9 +53,12 @@ class ApiClient(object):
 
     def execute(self, *args, json=None, **kwargs):
         endpoint = self._get_endpoint_url(*args, **kwargs)
-        if kwargs['method'] == 'get':
-            return self._get(endpoint)
-        elif kwargs['method'] == 'post':
-            return self._post(endpoint, json)
-        else:
-            raise NotImplementedError(f"Unkown HTTP method: {kwargs['method']}")
+        try:
+            if kwargs['method'] == 'get':
+                return self._get(endpoint)
+            elif kwargs['method'] == 'post':
+                return self._post(endpoint, json)
+            else:
+                raise NotImplementedError(f"Unkown HTTP method: {kwargs['method']}")
+        except Exception as e:
+            raise APIException(resp_body=e)
