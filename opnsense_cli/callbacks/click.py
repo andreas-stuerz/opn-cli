@@ -22,6 +22,10 @@ def expand_path(ctx, param, filename):
     return os.path.expanduser(filename)
 
 
+def available_formats():
+    return CliOutputFormatFactory._keymap.keys()
+
+
 def formatter_from_formatter_name(ctx, param, format_name) -> Format:
     factory = CliOutputFormatFactory(format_name)
     return factory.get_class()

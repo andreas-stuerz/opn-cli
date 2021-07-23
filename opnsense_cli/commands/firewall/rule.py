@@ -1,7 +1,7 @@
 import click
 
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import formatter_from_formatter_name, bool_as_string, int_as_string
+from opnsense_cli.callbacks.click import formatter_from_formatter_name, bool_as_string, int_as_string, available_formats
 from opnsense_cli.commands.firewall import firewall
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.firewall import FirewallFilter
@@ -43,7 +43,7 @@ def rule(ctx, api_client: ApiClient, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json', 'yaml']),
+    type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -73,7 +73,7 @@ def list(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json', 'yaml']),
+    type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -236,7 +236,7 @@ def show(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json', 'yaml']),
+    type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -406,7 +406,7 @@ def create(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json', 'yaml']),
+    type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -446,7 +446,7 @@ def update(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json', 'yaml']),
+    type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )

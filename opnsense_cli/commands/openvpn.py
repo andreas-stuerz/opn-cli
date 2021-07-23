@@ -1,7 +1,7 @@
 import click
 
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import formatter_from_formatter_name
+from opnsense_cli.callbacks.click import formatter_from_formatter_name, available_formats
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.openvpn import Openvpn
 
@@ -25,7 +25,7 @@ def openvpn(ctx, api_client: ApiClient, **kwargs):
     '--output', '-o',
     help=' Output format.',
     default="table",
-    type=click.Choice(['table', 'json', 'yaml']),
+    type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -117,7 +117,7 @@ def accounts(openvpn_svc: Openvpn, **kwargs):
     '--output', '-o',
     help=' Output format.',
     default="table",
-    type=click.Choice(['table', 'json', 'yaml']),
+    type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -160,7 +160,7 @@ def download(openvpn_svc: Openvpn, **kwargs):
     '--output', '-o',
     help=' Output format.',
     default="table",
-    type=click.Choice(['table', 'json', 'yaml']),
+    type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -185,7 +185,7 @@ def providers(openvpn_svc: Openvpn, **kwargs):
     '--output', '-o',
     help=' Output format.',
     default="table",
-    type=click.Choice(['table', 'json', 'yaml']),
+    type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )

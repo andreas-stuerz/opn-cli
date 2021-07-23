@@ -1,6 +1,7 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import formatter_from_formatter_name, bool_as_string, comma_to_newline
+from opnsense_cli.callbacks.click import \
+    formatter_from_formatter_name, bool_as_string, comma_to_newline, available_formats
 from opnsense_cli.commands.firewall import firewall
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.firewall import FirewallAlias, FirewallAliasUtil
@@ -29,7 +30,7 @@ def alias(ctx, api_client: ApiClient, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json', 'yaml']),
+    type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -55,7 +56,7 @@ def list(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json', 'yaml']),
+    type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -81,7 +82,7 @@ def show(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json', 'yaml']),
+    type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -154,7 +155,7 @@ def table(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json', 'yaml']),
+    type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -251,7 +252,7 @@ def create(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json', 'yaml']),
+    type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
@@ -289,7 +290,7 @@ def update(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     '--output', '-o',
     help='Specifies the Output format.',
     default="table",
-    type=click.Choice(['table', 'json', 'yaml']),
+    type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )

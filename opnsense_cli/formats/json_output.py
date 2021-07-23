@@ -1,5 +1,6 @@
 import click
 import json
+
 from opnsense_cli.formats.base import Format
 
 
