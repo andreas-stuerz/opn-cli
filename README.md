@@ -1,5 +1,6 @@
 # opn-cli
-[![CI](https://github.com/andeman/opn-cli/actions/workflows/integration.yaml/badge.svg)](https://github.com/andeman/opn-cli/actions/workflows/integration.yaml)
+[![CI](https://github.com/andeman/opn-cli/actions/workflows/build.yaml/badge.svg)](https://github.com/andeman/opn-cli/actions/workflows/integration.yaml)
+[![codecov](https://codecov.io/gh/andeman/opn-cli/branch/main/graph/badge.svg?token=WGV66ULJT4)](https://codecov.io/gh/andeman/opn-cli)
 [![Downloads](https://pepy.tech/badge/opn-cli)](https://pepy.tech/project/opn-cli)
 
 opn-cli - the OPNsense CLI written in python.
