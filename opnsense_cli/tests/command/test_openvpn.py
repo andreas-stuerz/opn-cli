@@ -70,7 +70,7 @@ class TestOpenvpnCommands(CommandTestCase):
                 self._api_data_fixtures_providers,
             ],
             openvpn,
-            ['providers']
+            ['providers', '-o', 'table']
         )
 
         self.assertIn(
@@ -86,7 +86,7 @@ class TestOpenvpnCommands(CommandTestCase):
                 self._api_data_fixtures_templates,
             ],
             openvpn,
-            ['templates']
+            ['templates', '-o', 'table']
         )
 
         self.assertIn(
@@ -105,7 +105,7 @@ class TestOpenvpnCommands(CommandTestCase):
                 self._api_data_fixtures_accounts,
             ],
             openvpn,
-            ['accounts', '2']
+            ['accounts', '2', '-o', 'table']
         )
 
         self.assertIn(
@@ -122,7 +122,7 @@ class TestOpenvpnCommands(CommandTestCase):
                 self._api_data_fixtures_download,
             ],
             openvpn,
-            ['download', '2', '57194c007be18']
+            ['download', '2', '57194c007be18', '-o', 'table']
         )
 
         self.assertIn(

@@ -8,6 +8,7 @@ class JsonType(ABC):
     @abstractmethod
     def get_filtered_by_columns(self, filter_columns: list) -> list:
         result = []
+
         for item in self._json_data:
             row = [value for name, value in item.items()]
             if filter_columns:

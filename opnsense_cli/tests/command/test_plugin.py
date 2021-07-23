@@ -56,7 +56,7 @@ class TestPluginCommands(CommandTestCase):
                 self._api_data_fixtures_list,
             ],
             plugin,
-            ['list']
+            ['list', '-o', 'table']
         )
 
         self.assertIn(
@@ -78,7 +78,7 @@ class TestPluginCommands(CommandTestCase):
                 data,
             ],
             plugin,
-            ['installed']
+            ['installed', '-o', 'table']
         )
 
         self.assertIn(
@@ -94,7 +94,7 @@ class TestPluginCommands(CommandTestCase):
                 self._api_data_fixtures_show,
             ],
             plugin,
-            ['show', 'os-haproxy']
+            ['show', 'os-haproxy', '-o', 'table']
         )
 
         self.assertIn(

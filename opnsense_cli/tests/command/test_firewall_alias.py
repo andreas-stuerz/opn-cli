@@ -128,7 +128,7 @@ class TestFirewallAliasCommands(CommandTestCase):
                 self._api_data_fixtures_list,
             ],
             alias,
-            ['list']
+            ['list', '-o', 'table']
         )
 
         self.assertIn(
@@ -151,7 +151,7 @@ class TestFirewallAliasCommands(CommandTestCase):
                 self._api_data_fixtures_list
             ],
             alias,
-            ['show', 'example_alias']
+            ['show', 'example_alias', '-o', 'table']
         )
 
         self.assertIn(
@@ -169,7 +169,7 @@ class TestFirewallAliasCommands(CommandTestCase):
                 self._api_data_fixtures_table
             ],
             alias,
-            ['table', 'example_alias']
+            ['table', 'example_alias', '-o', 'table']
         )
 
         self.assertIn(
@@ -199,6 +199,7 @@ class TestFirewallAliasCommands(CommandTestCase):
                 "-u", 0.5,
                 "--counters",
                 "--disabled",
+                "-o", "table"
             ]
         )
 

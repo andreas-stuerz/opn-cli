@@ -42,14 +42,14 @@ def rule(ctx, api_client: ApiClient, **kwargs):
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
-    default="table",
+    default="pretty",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=",".join([
         "uuid,sequence,interface,action,direction,ipprotocol,protocol",
         "source_net,source_port,destination_net,destination_port",
@@ -72,14 +72,14 @@ def list(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
-    default="table",
+    default="pretty",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=",".join([
         "sequence,action,quick,interface,direction,ipprotocol,protocol",
         "source_net,source_not,source_port,destination_net",
@@ -242,7 +242,7 @@ def show(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="result,validations",
     show_default=True,
 )
@@ -412,7 +412,7 @@ def create(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="result,validations",
     show_default=True,
 )
@@ -452,7 +452,7 @@ def update(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="result,validations",
     show_default=True,
 )

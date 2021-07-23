@@ -1917,7 +1917,7 @@ class TestFirewallRuleCommands(CommandTestCase):
                 self._api_data_fixtures_list,
             ],
             rule,
-            ['list', '-c', columns]
+            ['list', '-c', columns, '-o', 'table']
         )
 
         self.assertIn(

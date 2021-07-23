@@ -23,14 +23,14 @@ def plugin(ctx, api_client: ApiClient, **kwargs):
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
-    default="table",
+    default="pretty",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="name,version,comment,installed",
     show_default=True,
 )
@@ -48,14 +48,14 @@ def list(firmware_svc: Firmware, **kwargs):
 @click.option(
     '--output', '-o',
     help='Specifies the output format.',
-    default="table",
+    default="pretty",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="name,version,comment,locked",
     show_default=True,
 )
@@ -75,14 +75,14 @@ def installed(firmware_svc: Firmware, **kwargs):
 @click.option(
     '--output', '-o',
     help='Specifies the output format.',
-    default="table",
+    default="pretty",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="details",
     show_default=True,
 )
@@ -108,7 +108,7 @@ def show(firmware_svc: Firmware, **kwargs):
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="status",
     show_default=True,
 )
@@ -134,7 +134,7 @@ def install(firmware_svc: Firmware, **kwargs):
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="status",
     show_default=True,
 )
@@ -160,7 +160,7 @@ def uninstall(firmware_svc: Firmware, **kwargs):
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="status",
     show_default=True,
 )
@@ -186,7 +186,7 @@ def reinstall(firmware_svc: Firmware, **kwargs):
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="status",
     show_default=True,
 )
@@ -212,7 +212,7 @@ def lock(firmware_svc: Firmware, **kwargs):
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="status",
     show_default=True,
 )
