@@ -1,3 +1,5 @@
+import json
+from opnsense_cli.formats.json_filter_output import JsonFilterOutputFormat
 from opnsense_cli.tests.formatter.base import FormatterTestCase
 from opnsense_cli.formats.json_output import JsonOutputFormat
 from opnsense_cli.formats.table_output import TableOutputFormat
@@ -6,22 +8,44 @@ from opnsense_cli.formats.yaml_output import YamlOutputFormat
 
 class TestCliOutputFormatter(FormatterTestCase):
     def setUp(self):
-        self._api_data_json_obj_list = {
-            "plugin": [
-                {
-                    'name': 'os-acme-client', 'version': '2.4', 'comment': "Let's Encrypt client",
-                    'flatsize': '575KiB', 'locked': 'N/A', 'license': 'BSD2CLAUSE',
-                    'repository': 'OPNsense', 'origin': 'opnsense/os-acme-client',
-                    'provided': '1', 'installed': '0', 'path': 'OPNsense/opnsense/os-acme-client', 'configured': '0'
-                },
-            ],
-        }
+        self._api_data_json_empty = []
+        self._api_data_json_array = [
+            {
+                "name": "os-acme-client",
+                "version": "2.4",
+                "comment": "Let's Encrypt client",
+                "flatsize": "575KiB",
+                "locked": "N/A",
+                "license": "BSD2CLAUSE",
+                "repository": "OPNsense",
+                "origin": "opnsense/os-acme-client",
+                "provided": "1",
+                "installed": "0",
+                "path": "OPNsense/opnsense/os-acme-client",
+                "configured": "0"
+            },
+            {
+                "name": "os-virtualbox",
+                "version": "1.0_1",
+                "comment": "VirtualBox guest additions",
+                "flatsize": "525B",
+                "locked": "N/A",
+                "automatic": "N/A",
+                "license": "BSD2CLAUSE",
+                "repository": "OPNsense",
+                "origin": "opnsense/os-virtualbox",
+                "provided": "1",
+                "installed": "1",
+                "path": "OPNsense/opnsense/os-virtualbox",
+                "configured": "1"
+            }
+        ]
 
         self._api_data_json_nested = {
-            'ArchiveOpenVPN': {'name': 'Archive', 'supportedOptions': ['plain_config', 'p12_password']},
-            'PlainOpenVPN': {'name': 'File Only', 'supportedOptions': ['auth_nocache', 'cryptoapi']},
-            'TheGreenBow': {'name': 'TheGreenBow', 'supportedOptions': []},
-            'ViscosityVisz': {'name': 'Viscosity (visz)', 'supportedOptions': ['plain_config', 'random_local_port']}
+            "ArchiveOpenVPN": {"name": "Archive", "supportedOptions": ["plain_config", "p12_password"]},
+            "PlainOpenVPN": {"name": "File Only", "supportedOptions": ["auth_nocache", "cryptoapi"]},
+            "TheGreenBow": {"name": "TheGreenBow", "supportedOptions": []},
+            "ViscosityVisz": {"name": "Viscosity (visz)", "supportedOptions": ["plain_config", "random_local_port"]}
         }
 
         self._api_data_json_obj = {
@@ -37,10 +61,10 @@ class TestCliOutputFormatter(FormatterTestCase):
         }
 
     def test_YamlFormat_with_json_array(self):
-        format = YamlOutputFormat(self._api_data_json_obj_list['plugin'], ['name', 'version'])
+        format = YamlOutputFormat(self._api_data_json_array, ['name', 'version'])
         result = self._get_format_output(format)
 
-        self.assertIn("name: os-acme-client\nversion: '2.4'\n\n", result)
+        self.assertIn("- name: os-acme-client\n  version: '2.4'\n- name: os-virtualbox\n  version: '1.0_1'\n\n", result)
 
     def test_YamlFormat_with_json_nested(self):
         format = YamlOutputFormat(self._api_data_json_nested, ['<ID>', 'name', 'supportedOptions'])
@@ -73,7 +97,7 @@ class TestCliOutputFormatter(FormatterTestCase):
         )
 
     def test_YamlFormat_with_empty_data(self):
-        format = YamlOutputFormat([], ['name', 'version'])
+        format = YamlOutputFormat(self._api_data_json_empty, ['name', 'version'])
         result = self._get_format_output(format)
         self.assertIn(
             (
@@ -83,24 +107,37 @@ class TestCliOutputFormatter(FormatterTestCase):
         )
 
     def test_JsonFormat(self):
-        """
-        JSON Formatter always return all columns
-        """
-        format = JsonOutputFormat(self._api_data_json_obj_list['plugin'], ['name'])
+        format = JsonOutputFormat(self._api_data_json_array, ['name'])
 
         result = self._get_format_output(format)
 
         self.assertIn(
-            '[{"name": "os-acme-client", "version": "2.4", ' +
-            '"comment": "Let\'s Encrypt client", "flatsize": "575KiB", "locked": "N/A", ' +
-            '"license": "BSD2CLAUSE", "repository": "OPNsense", "origin": "opnsense/os-acme-client", ' +
-            '"provided": "1", "installed": "0", "path": "OPNsense/opnsense/os-acme-client", ' +
-            '"configured": "0"}]\n',
+            f"{json.dumps(self._api_data_json_array)}\n",
+            result
+        )
+
+    def test_JsonFilterFormat_with_json_array(self):
+        format = JsonFilterOutputFormat(self._api_data_json_array, ['name', 'version'])
+
+        result = self._get_format_output(format)
+
+        self.assertIn(
+            '[{"name": "os-acme-client", "version": "2.4"}, {"name": "os-virtualbox", "version": "1.0_1"}]\n',
+            result
+        )
+
+    def test_JsonFilterFormat_with_json_obj(self):
+        format = JsonFilterOutputFormat(self._api_data_json_obj, ['uuid', 'name'])
+
+        result = self._get_format_output(format)
+
+        self.assertIn(
+            '{"uuid": "24948d07-8525-4276-b497-108a0c55fcc2", "name": "zabbix_host"}\n',
             result
         )
 
     def test_JsonFormat_with_empty_data(self):
-        format = JsonOutputFormat([], ['name', 'version'])
+        format = JsonOutputFormat(self._api_data_json_empty, ['name', 'version'])
         result = self._get_format_output(format)
         self.assertIn(
             (
@@ -110,7 +147,7 @@ class TestCliOutputFormatter(FormatterTestCase):
         )
 
     def test_TableFormat_with_json_array(self):
-        format = TableOutputFormat(self._api_data_json_obj_list['plugin'], ['name', 'version'])
+        format = TableOutputFormat(self._api_data_json_array, ['name', 'version'])
         format.separator = "|"
 
         result = self._get_format_output(format)
@@ -148,7 +185,7 @@ class TestCliOutputFormatter(FormatterTestCase):
         )
 
     def test_TableFormat_with_empty_data(self):
-        format = TableOutputFormat([], ['name', 'version'])
+        format = TableOutputFormat(self._api_data_json_empty, ['name', 'version'])
         result = self._get_format_output(format)
         self.assertIn(
             (
