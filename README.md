@@ -11,6 +11,13 @@ opn-cli - the OPNsense CLI written in python.
   * [Usage](#usage)
   * [Features](#features)
     + [Shell Completion](#shell-completion)
+    + [Output formats](#output-formats)
+      - [cols](#cols)
+      - [table](#table)
+      - [json](#json)
+      - [json_filter](#json-filter)
+      - [plain](#plain)
+      - [yaml](#yaml)
     + [Firewall aliases](#firewall-aliases)
     + [Firewall rules](#firewall-rules)
     + [OpenVPN](#openvpn)
@@ -19,7 +26,7 @@ opn-cli - the OPNsense CLI written in python.
     + [Setup development environment](#setup-development-environment)
     + [Testing](#testing)
     + [Contributing](#contributing)
-  
+
 ## Install
 ```
 pip install opn-cli
@@ -146,6 +153,89 @@ Zsh (current shell):
 _OPN_CLI_COMPLETE=zsh_source opn-cli >! ~/.opn-cli/opn-cli-complete.zsh
 source ~/.opn-cli/opn-cli-complete.zsh
 ```
+
+### Output formats
+Each command has a default output format. For lists and details the table output format and for create / update / delete the plain output formatis used.
+
+You can always specify the output format with the `-o` output and show or hide columns with the `-c` output.
+
+#### cols
+Show which default columns will be shown 
+```
+$ opn-cli plugin installed -o cols
+name,version,comment,locked
+```
+
+Show which columns are available. You could always pass an empty string to show all columns.
+```
+$ opn-cli plugin installed -o cols -c ''
+name,version,comment,flatsize,locked,automatic,license,repository,origin,provided,installed,path,configured
+```
+
+#### table
+Show output as pretty table.
+
+```
+$ opn-cli plugin installed -o table
++-----------------+---------+-----------------------------------+--------+
+|       name      | version |              comment              | locked |
++-----------------+---------+-----------------------------------+--------+
+|   os-firewall   |  1.0_2  | Firewall API supplemental package |  N/A   |
+|     os-iperf    |  1.0_1  |      Connection speed tester      |  N/A   |
+|  os-virtualbox  |  1.0_1  |     VirtualBox guest additions    |  N/A   |
+| os-zabbix-agent |  1.8_2  |      Zabbix monitoring agent      |  N/A   |
++-----------------+---------+-----------------------------------+--------+
+
+```
+#### json
+Always returns the complete json output. The `-c` output will be ignored.
+
+```
+$ opn-cli plugin installed -o json 
+[{"name": "os-firewall", "version": "1.0_2", "comment": "Firewall API supplemental package", "flatsize": "56.0KiB", "locked": "N/A", "automatic": "N/A", "license": "BSD2CLAUSE", "repository": "OPNsense", "origin": "opnsense/os-firewall", "provided": "1", "installed": "1", "path": "OPNsense/opnsense/os-firewall", "configured": "1"}, {"name": "os-iperf", "version": "1.0_1", "comment": "Connection speed tester", "flatsize": "24.6KiB", "locked": "N/A", "automatic": "N/A", "license": "BSD2CLAUSE", "repository": "OPNsense", "origin": "opnsense/os-iperf", "provided": "1", "installed": "1", "path": "OPNsense/opnsense/os-iperf", "configured": "1"}, {"name": "os-virtualbox", "version": "1.0_1", "comment": "VirtualBox guest additions", "flatsize": "525B", "locked": "N/A", "automatic": "N/A", "license": "BSD2CLAUSE", "repository": "OPNsense", "origin": "opnsense/os-virtualbox", "provided": "1", "installed": "1", "path": "OPNsense/opnsense/os-virtualbox", "configured": "1"}, {"name": "os-zabbix-agent", "version": "1.8_2", "comment": "Zabbix monitoring agent", "flatsize": "49.2KiB", "locked": "N/A", "automatic": "N/A", "license": "BSD2CLAUSE", "repository": "OPNsense", "origin": "opnsense/os-zabbix-agent", "provided": "1", "installed": "1", "path": "OPNsense/opnsense/os-zabbix-agent", "configured": "1"}]
+```
+
+#### json_filter
+Filter the json output and return the columns specified with the `-c` output.
+```
+$ opn-cli plugin installed -o json_filter -c name,version
+[{"name": "os-firewall", "version": "1.0_2"}, {"name": "os-virtualbox", "version": "1.0_1"},
+```
+
+#### plain
+Show the output separated by space.
+```
+$ opn-cli  plugin installed -o plain 
+os-firewall 1.0_2 Firewall API supplemental package N/A
+os-iperf 1.0_1 Connection speed tester N/A
+os-virtualbox 1.0_1 VirtualBox guest additions N/A
+os-zabbix-agent 1.8_2 Zabbix monitoring agent N/A
+```
+
+#### yaml
+Show yaml output.
+```
+$ opn-cli plugin installed -o yaml 
+- name: os-firewall
+  version: '1.0_2'
+  comment: Firewall API supplemental package
+  locked: N/A
+- name: os-iperf
+  version: '1.0_1'
+  comment: Connection speed tester
+  locked: N/A
+- name: os-virtualbox
+  version: '1.0_1'
+  comment: VirtualBox guest additions
+  locked: N/A
+- name: os-zabbix-agent
+  version: '1.8_2'
+  comment: Zabbix monitoring agent
+  locked: N/A
+
+```
+
+
 
 ### Firewall aliases
 ```
