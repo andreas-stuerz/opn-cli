@@ -1,6 +1,6 @@
 from unittest.mock import patch, Mock
 from opnsense_cli.commands.firewall.alias import alias
-from opnsense_cli.tests.command.base import CommandTestCase
+from opnsense_cli.tests.commands.base import CommandTestCase
 
 
 class TestFirewallAliasCommands(CommandTestCase):
@@ -128,7 +128,7 @@ class TestFirewallAliasCommands(CommandTestCase):
                 self._api_data_fixtures_list,
             ],
             alias,
-            ['list']
+            ['list', '-o', 'plain']
         )
 
         self.assertIn(
@@ -151,7 +151,7 @@ class TestFirewallAliasCommands(CommandTestCase):
                 self._api_data_fixtures_list
             ],
             alias,
-            ['show', 'example_alias']
+            ['show', 'example_alias', '-o', 'plain']
         )
 
         self.assertIn(
@@ -169,7 +169,7 @@ class TestFirewallAliasCommands(CommandTestCase):
                 self._api_data_fixtures_table
             ],
             alias,
-            ['table', 'example_alias']
+            ['table', 'example_alias', '-o', 'plain']
         )
 
         self.assertIn(
@@ -199,6 +199,7 @@ class TestFirewallAliasCommands(CommandTestCase):
                 "-u", 0.5,
                 "--counters",
                 "--disabled",
+                "-o", "plain"
             ]
         )
 

@@ -31,7 +31,7 @@ def openvpn(ctx, api_client: ApiClient, **kwargs):
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="<ID>,description,users",
     show_default=True,
 )
@@ -116,14 +116,14 @@ def accounts(openvpn_svc: Openvpn, **kwargs):
 @click.option(
     '--output', '-o',
     help=' Output format.',
-    default="table",
+    default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     # NOTE: "content" is base64 encoded, otherwise the binary content
     # would scramble the console. (Whether or not binary content is actually
     # returned by the API depends on the value of --template.)
@@ -166,7 +166,7 @@ def download(openvpn_svc: Openvpn, **kwargs):
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="<ID>,name,mode,vpnid,hostname,template,local_port",
     show_default=True,
 )
@@ -191,7 +191,7 @@ def providers(openvpn_svc: Openvpn, **kwargs):
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="<ID>,name,supportedOptions",
     show_default=True,
 )

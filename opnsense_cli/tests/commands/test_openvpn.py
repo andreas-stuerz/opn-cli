@@ -1,6 +1,6 @@
 from unittest.mock import patch
 from opnsense_cli.commands.openvpn import openvpn
-from opnsense_cli.tests.command.base import CommandTestCase
+from opnsense_cli.tests.commands.base import CommandTestCase
 
 
 class TestOpenvpnCommands(CommandTestCase):
@@ -70,7 +70,7 @@ class TestOpenvpnCommands(CommandTestCase):
                 self._api_data_fixtures_providers,
             ],
             openvpn,
-            ['providers']
+            ['providers', '-o', 'plain']
         )
 
         self.assertIn(
@@ -86,7 +86,7 @@ class TestOpenvpnCommands(CommandTestCase):
                 self._api_data_fixtures_templates,
             ],
             openvpn,
-            ['templates']
+            ['templates', '-o', 'plain']
         )
 
         self.assertIn(
@@ -105,7 +105,7 @@ class TestOpenvpnCommands(CommandTestCase):
                 self._api_data_fixtures_accounts,
             ],
             openvpn,
-            ['accounts', '2']
+            ['accounts', '2', '-o', 'plain']
         )
 
         self.assertIn(
@@ -122,7 +122,7 @@ class TestOpenvpnCommands(CommandTestCase):
                 self._api_data_fixtures_download,
             ],
             openvpn,
-            ['download', '2', '57194c007be18']
+            ['download', '2', '57194c007be18', '-o', 'plain']
         )
 
         self.assertIn(

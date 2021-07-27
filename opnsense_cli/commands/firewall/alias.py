@@ -36,7 +36,7 @@ def alias(ctx, api_client: ApiClient, **kwargs):
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="name,type,description,content,enabled",
     show_default=True,
 )
@@ -62,7 +62,7 @@ def list(firewall_alias_svc: FirewallAliasFacade, **kwargs):
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="uuid,name,type,proto,counters,description,updatefreq,content,enabled",
     show_default=True,
 )
@@ -88,7 +88,7 @@ def show(firewall_alias_svc: FirewallAliasFacade, **kwargs):
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="ip",
     show_default=True,
 )
@@ -154,14 +154,14 @@ def table(firewall_alias_svc: FirewallAliasFacade, **kwargs):
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
-    default="table",
+    default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="result,validations",
     show_default=True,
 )
@@ -251,14 +251,14 @@ def create(firewall_alias_svc: FirewallAliasFacade, **kwargs):
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
-    default="table",
+    default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="result,validations",
     show_default=True,
 )
@@ -289,14 +289,14 @@ def update(firewall_alias_svc: FirewallAliasFacade, **kwargs):
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
-    default="table",
+    default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
     '--cols', '-c',
-    help='Which columns should be printed?',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default="result,validations",
     show_default=True,
 )

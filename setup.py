@@ -25,6 +25,7 @@ setup(
     install_requires=[
         'click>=8.0.1',
         'requests',
+        'PTable',
         'PyYAML',
     ],
     entry_points='''
