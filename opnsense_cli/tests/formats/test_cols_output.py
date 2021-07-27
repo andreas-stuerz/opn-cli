@@ -22,4 +22,3 @@ class TestColsOutputFormat(FormatTestCase):
             'name,version,comment,flatsize,locked,license,repository,origin,provided,installed,path,configured\n',
             result
         )
-

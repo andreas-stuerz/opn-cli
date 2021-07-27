@@ -1,7 +1,5 @@
-import json
 from opnsense_cli.tests.formats.base import FormatTestCase
 from opnsense_cli.formats.table_output import TableOutputFormat
-from opnsense_cli.formats.yaml_output import YamlOutputFormat
 
 
 class TestTableOutputFormat(FormatTestCase):
@@ -17,5 +15,4 @@ class TestTableOutputFormat(FormatTestCase):
                 "| os-acme-client |   2.4   |\n"
                 "| os-virtualbox  |  1.0_1  |\n"
                 "+----------------+---------+\n"
-            )
-            , result)
+            ), result)

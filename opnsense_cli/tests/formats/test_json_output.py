@@ -13,4 +13,3 @@ class TestJsonOutputFormat(FormatTestCase):
             f"{json.dumps(self._api_data_json_array)}\n",
             result
         )
-
