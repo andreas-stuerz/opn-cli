@@ -1,12 +1,21 @@
 # Changelog
 
-## [v0.6.4](https://github.com/andeman/opn-cli/tree/v0.6.4) (2021-07-22)
+## [v0.6.5](https://github.com/andeman/opn-cli/tree/v0.6.5) (2021-07-27)
 
-[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.3...v0.6.4)
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.4...v0.6.5)
+
+**Implemented enhancements:**
+
+- add new formats cols, table \(which is now a pretty table\) [\#11](https://github.com/andeman/opn-cli/pull/11) ([andeman](https://github.com/andeman))
+- add new format: json\_filter [\#10](https://github.com/andeman/opn-cli/pull/10) ([andeman](https://github.com/andeman))
 
 **Fixed bugs:**
 
 - add exit 1 on command failures and throw Exceptions [\#9](https://github.com/andeman/opn-cli/pull/9) ([andeman](https://github.com/andeman))
+
+## [v0.6.4](https://github.com/andeman/opn-cli/tree/v0.6.4) (2021-07-22)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.3...v0.6.4)
 
 ## [v0.6.3](https://github.com/andeman/opn-cli/tree/v0.6.3) (2021-07-21)
 
