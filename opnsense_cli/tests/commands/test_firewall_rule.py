@@ -1,6 +1,6 @@
 from unittest.mock import patch, Mock
 from opnsense_cli.commands.firewall.rule import rule
-from opnsense_cli.tests.command.base import CommandTestCase
+from opnsense_cli.tests.commands.base import CommandTestCase
 
 
 class TestFirewallRuleCommands(CommandTestCase):
@@ -1917,7 +1917,7 @@ class TestFirewallRuleCommands(CommandTestCase):
                 self._api_data_fixtures_list,
             ],
             rule,
-            ['list', '-c', columns, '-o', 'table']
+            ['list', '-c', columns, '-o', 'plain']
         )
 
         self.assertIn(

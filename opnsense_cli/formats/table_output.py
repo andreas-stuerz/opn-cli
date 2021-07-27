@@ -1,26 +1,16 @@
 import click
+from prettytable import PrettyTable
 from opnsense_cli.formats.base import Format
 
 
 class TableOutputFormat(Format):
-    """
-    Output a human readable table
-    """
-    def __init__(self, json_data: dict, cols: list):
-        super().__init__(json_data, cols)
-        self._separator = " "
-
-    @property
-    def separator(self):
-        return self._separator
-
-    @separator.setter
-    def separator(self, value):
-        self._separator = value
-
     def echo(self):
+        pretty_table = PrettyTable()
+        pretty_table.field_names = self._cols
         json_type = self.get_json_type()
         filtered_data = json_type.get_filtered_by_columns(self._cols)
 
         for row in filtered_data:
-            click.echo(self.separator.join(row))
+            pretty_table.add_row(row)
+
+        click.echo(pretty_table)

@@ -42,7 +42,7 @@ def rule(ctx, api_client: ApiClient, **kwargs):
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
-    default="pretty",
+    default="table",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
@@ -72,7 +72,7 @@ def list(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
-    default="pretty",
+    default="table",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
@@ -235,7 +235,7 @@ def show(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
-    default="table",
+    default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
@@ -405,7 +405,7 @@ def create(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
-    default="table",
+    default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
@@ -445,7 +445,7 @@ def update(firewall_rule_svc: FirewallRuleFacade, **kwargs):
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
-    default="table",
+    default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,

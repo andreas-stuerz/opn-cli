@@ -24,7 +24,7 @@ def openvpn(ctx, api_client: ApiClient, **kwargs):
 @click.option(
     '--output', '-o',
     help=' Output format.',
-    default="pretty",
+    default="table",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
@@ -116,7 +116,7 @@ def accounts(openvpn_svc: Openvpn, **kwargs):
 @click.option(
     '--output', '-o',
     help=' Output format.',
-    default="table",
+    default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
@@ -159,7 +159,7 @@ def download(openvpn_svc: Openvpn, **kwargs):
 @click.option(
     '--output', '-o',
     help=' Output format.',
-    default="pretty",
+    default="table",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
@@ -184,7 +184,7 @@ def providers(openvpn_svc: Openvpn, **kwargs):
 @click.option(
     '--output', '-o',
     help=' Output format.',
-    default="pretty",
+    default="table",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,

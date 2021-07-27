@@ -1,6 +1,6 @@
 from unittest.mock import patch
 from opnsense_cli.commands.plugin import plugin
-from opnsense_cli.tests.command.base import CommandTestCase
+from opnsense_cli.tests.commands.base import CommandTestCase
 
 
 class TestPluginCommands(CommandTestCase):
@@ -56,7 +56,7 @@ class TestPluginCommands(CommandTestCase):
                 self._api_data_fixtures_list,
             ],
             plugin,
-            ['list', '-o', 'table']
+            ['list', '-o', 'plain']
         )
 
         self.assertIn(
@@ -78,7 +78,7 @@ class TestPluginCommands(CommandTestCase):
                 data,
             ],
             plugin,
-            ['installed', '-o', 'table']
+            ['installed', '-o', 'plain']
         )
 
         self.assertIn(
@@ -94,7 +94,7 @@ class TestPluginCommands(CommandTestCase):
                 self._api_data_fixtures_show,
             ],
             plugin,
-            ['show', 'os-haproxy', '-o', 'table']
+            ['show', 'os-haproxy', '-o', 'plain']
         )
 
         self.assertIn(
