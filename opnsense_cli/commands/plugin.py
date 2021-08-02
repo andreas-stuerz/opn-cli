@@ -1,22 +1,30 @@
 import click
 
+from opnsense_cli.facades.firmware import FirmwareFacade
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import formatter_from_formatter_name, available_formats
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core import Firmware
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_firmware_svc = click.make_pass_decorator(Firmware)
+pass_firmware_svc = click.make_pass_decorator(FirmwareFacade)
 
 
 @click.group()
+@click.option(
+    '--time-interval', '-t',
+    help='Wait x seconds between query for upgrade status.',
+    default=1,
+    show_default=True,
+)
 @pass_api_client
 @click.pass_context
 def plugin(ctx, api_client: ApiClient, **kwargs):
     """
     Manage OPNsense plugins
     """
-    ctx.obj = Firmware(api_client)
+    firmware_api = Firmware(api_client)
+    ctx.obj = FirmwareFacade(firmware_api, kwargs['time_interval'])
 
 
 @plugin.command()
@@ -35,11 +43,11 @@ def plugin(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def list(firmware_svc: Firmware, **kwargs):
+def list(firmware_svc: FirmwareFacade, **kwargs):
     """
     Show all available plugins.
     """
-    result = firmware_svc.info()['plugin']
+    result = firmware_svc.plugin_list()
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
@@ -60,12 +68,11 @@ def list(firmware_svc: Firmware, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def installed(firmware_svc: Firmware, **kwargs):
+def installed(firmware_svc: FirmwareFacade, **kwargs):
     """
     Show installed plugins.
     """
-    plugins = firmware_svc.info()['plugin']
-    result = [plugin for plugin in plugins if plugin['installed'] == "1"]
+    result = firmware_svc.plugin_installed()
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
@@ -87,11 +94,11 @@ def installed(firmware_svc: Firmware, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def show(firmware_svc: Firmware, **kwargs):
+def show(firmware_svc: FirmwareFacade, **kwargs):
     """
     Show plugin details.
     """
-    result = firmware_svc.details(kwargs['plugin_name'])
+    result = firmware_svc.plugin_show(kwargs['plugin_name'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
@@ -113,11 +120,11 @@ def show(firmware_svc: Firmware, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def install(firmware_svc: Firmware, **kwargs):
+def install(firmware_svc: FirmwareFacade, **kwargs):
     """
     Install plugin by name
     """
-    result = firmware_svc.install(kwargs['plugin_name'])
+    result = firmware_svc.plugin_install(kwargs['plugin_name'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
@@ -139,11 +146,11 @@ def install(firmware_svc: Firmware, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def uninstall(firmware_svc: Firmware, **kwargs):
+def uninstall(firmware_svc: FirmwareFacade, **kwargs):
     """
     Uninstall plugin by name.
     """
-    result = firmware_svc.remove(kwargs['plugin_name'])
+    result = firmware_svc.plugin_uninstall(kwargs['plugin_name'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
@@ -165,11 +172,11 @@ def uninstall(firmware_svc: Firmware, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def reinstall(firmware_svc: Firmware, **kwargs):
+def reinstall(firmware_svc: FirmwareFacade, **kwargs):
     """
     Reinstall plugin by name.
     """
-    result = firmware_svc.reinstall(kwargs['plugin_name'])
+    result = firmware_svc.plugin_reinstall(kwargs['plugin_name'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
@@ -191,11 +198,11 @@ def reinstall(firmware_svc: Firmware, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def lock(firmware_svc: Firmware, **kwargs):
+def lock(firmware_svc: FirmwareFacade, **kwargs):
     """
     Lock plugin.
     """
-    result = firmware_svc.lock(kwargs['plugin_name'])
+    result = firmware_svc.plugin_lock(kwargs['plugin_name'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
@@ -217,10 +224,10 @@ def lock(firmware_svc: Firmware, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def unlock(firmware_svc: Firmware, **kwargs):
+def unlock(firmware_svc: FirmwareFacade, **kwargs):
     """
     Unlock plugin.
     """
-    result = firmware_svc.unlock(kwargs['plugin_name'])
+    result = firmware_svc.plugin_unlock(kwargs['plugin_name'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
