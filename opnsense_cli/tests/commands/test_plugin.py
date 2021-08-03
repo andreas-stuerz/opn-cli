@@ -29,14 +29,77 @@ class TestPluginCommands(CommandTestCase):
             ],
         }
         self._api_data_fixtures_OK = {
-            "status": "ok",
-            "msg_uuid": "ce9c554b-5cc2-4d98-a559-3bc10a2f99ab"
+            "msg_uuid": "26abc5c9-8a38-4582-9736-a1b1bf867982",
+            "status": "ok"
+        }
+        self._api_data_fixtures_upgrade_status_RUNNING = {
+            "status": "running",
+            "log": "Whatever....."
+        }
+        self._api_data_fixtures_upgrade_status_OK = {
+            "status": "done",
+            "log": (
+                "***GOT REQUEST TO INSTALL***\n"
+                "Updating OPNsense repository catalogue...\n"
+                "OPNsense repository is up to date.\n"
+                "All repositories are up to date.\n"
+                "Checking integrity... done (0 conflicting)\n"
+                "The most recent versions of packages are already installed\n"
+                "Checking integrity... done (0 conflicting)\n"
+                "Nothing to do.\n"
+                "***DONE***"
+            )
+        }
+        self._api_data_fixtures_install_ERROR = {
+            "status": "done",
+            "log": (
+                "***GOT REQUEST TO INSTALL***\n"
+                "Updating OPNsense repository catalogue...\n"
+                "OPNsense repository is up to date.\n"
+                "All repositories are up to date.\n"
+                "pkg: No packages available to install matching 'os-helloworld2' have been found in the repositories\n"
+                "Checking integrity... done (0 conflicting)\n"
+                "Nothing to do.\n"
+                "***DONE***"
+            )
+        }
+        self._api_data_fixtures_uninstall_NOT_FOUND = {
+            "status": "done",
+            "log": (
+                "***GOT REQUEST TO REMOVE***\n"
+                "No packages matched for pattern 'os-helloworld2'\n\n"
+                "Checking integrity... done (0 conflicting)\n"
+                "1 packages requested for removal: 0 locked, 1 missing"
+            )
+        }
+        self._api_data_fixtures_reinstall_NOT_FOUND = {
+            "status": "done",
+            "log": (
+                "***GOT REQUEST TO REINSTALL***\n"
+                "Package 'os-helloworld2' is not installed"
+            )
+        }
+        self._api_data_fixtures_lock_NOT_FOUND = {
+            "status": "done",
+            "log": (
+                "***GOT REQUEST TO LOCK***\n"
+                "***DONE***"
+            )
+        }
+        self._api_data_fixtures_unlock_NOT_FOUND = {
+            "status": "done",
+            "log": (
+                "***GOT REQUEST TO UNLOCK***\n"
+                "***DONE***"
+            )
         }
 
         self._api_data_fixtures_show = {
-            "details": "The xyz plugin\n\n" +
-                       "The xyz example plugin\n\n" +
-                       "Maintainer: maintainer@example.com"
+            "details": (
+                "The xyz plugin\n\n"
+                "The xyz example plugin\n\n"
+                "Maintainer: maintainer@example.com"
+            )
         }
 
         self._api_client_args_fixtures = [
@@ -103,66 +166,159 @@ class TestPluginCommands(CommandTestCase):
         )
 
     @patch('opnsense_cli.commands.plugin.ApiClient.execute')
-    def test_install(self, api_response_mock):
+    def test_install_OK(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
                 self._api_data_fixtures_OK,
+                self._api_data_fixtures_upgrade_status_OK,
             ],
             plugin,
             ['install', 'os-haproxy']
         )
 
-        self.assertIn("ok\n", result.output)
+        self.assertIn("done\n", result.output)
 
     @patch('opnsense_cli.commands.plugin.ApiClient.execute')
-    def test_uninstall(self, api_response_mock):
+    def test_install_ERROR(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
                 self._api_data_fixtures_OK,
+                self._api_data_fixtures_install_ERROR,
+            ],
+            plugin,
+            ['install', 'does_not_exists']
+        )
+
+        self.assertIn("Error:", result.output)
+        self.assertEqual(1, result.exit_code)
+
+    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    def test_uninstall_OK(self, api_response_mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_OK,
+                self._api_data_fixtures_upgrade_status_OK,
             ],
             plugin,
             ['uninstall', 'os-haproxy']
         )
 
-        self.assertIn("ok\n", result.output)
+        self.assertIn("done\n", result.output)
 
     @patch('opnsense_cli.commands.plugin.ApiClient.execute')
-    def test_reinstall(self, api_response_mock):
+    def test_uninstall_NOT_FOUND(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
                 self._api_data_fixtures_OK,
+                self._api_data_fixtures_uninstall_NOT_FOUND,
+            ],
+            plugin,
+            ['uninstall', 'is_not_installed_plugin']
+        )
+
+        self.assertIn("not found\n", result.output)
+        self.assertEqual(0, result.exit_code)
+
+    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    def test_reinstall_OK(self, api_response_mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_OK,
+                self._api_data_fixtures_upgrade_status_OK,
             ],
             plugin,
             ['reinstall', 'os-haproxy']
         )
 
-        self.assertIn("ok\n", result.output)
+        self.assertIn("done\n", result.output)
 
     @patch('opnsense_cli.commands.plugin.ApiClient.execute')
-    def test_lock(self, api_response_mock):
+    def test_reinstall_NOT_FOUND(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
                 self._api_data_fixtures_OK,
+                self._api_data_fixtures_reinstall_NOT_FOUND,
+            ],
+            plugin,
+            ['reinstall', 'os-haproxy12121']
+        )
+
+        self.assertIn("not found\n", result.output)
+
+    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    def test_lock_OK(self, api_response_mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_OK,
+                self._api_data_fixtures_upgrade_status_OK,
             ],
             plugin,
             ['lock', 'os-haproxy']
         )
 
-        self.assertIn("ok\n", result.output)
+        self.assertIn("done\n", result.output)
 
     @patch('opnsense_cli.commands.plugin.ApiClient.execute')
-    def test_unlock(self, api_response_mock):
+    def test_lock_NOT_FOUND(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
                 self._api_data_fixtures_OK,
+                self._api_data_fixtures_lock_NOT_FOUND,
+            ],
+            plugin,
+            ['lock', 'os-haproxy12121']
+        )
+
+        self.assertIn("not found\n", result.output)
+
+    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    def test_unlock_OK(self, api_response_mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_OK,
+                self._api_data_fixtures_upgrade_status_OK,
             ],
             plugin,
             ['unlock', 'os-haproxy']
         )
 
-        self.assertIn("ok\n", result.output)
+        self.assertIn("done\n", result.output)
+
+    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    def test_unlock_NOT_FOUND(self, api_response_mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_OK,
+                self._api_data_fixtures_unlock_NOT_FOUND,
+            ],
+            plugin,
+            ['unlock', 'os-haproxy_1212']
+        )
+
+        self.assertIn("not found\n", result.output)
+
+    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    def test_upgrade_status_RUNNING(self, api_response_mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_OK,
+                self._api_data_fixtures_upgrade_status_RUNNING,
+                self._api_data_fixtures_upgrade_status_OK,
+
+            ],
+            plugin,
+            ['-t', 0, 'install', 'os-haproxy']
+        )
+
+        self.assertIn("done\n", result.output)

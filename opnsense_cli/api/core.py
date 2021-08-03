@@ -13,6 +13,11 @@ class Firmware(ApiBase):
         self.method = "get"
         self.command = "info"
 
+    @ApiBase._api_call
+    def upgradestatus(self, *args):
+        self.method = "get"
+        self.command = "upgradestatus"
+
     """
     PACKAGES
     """
