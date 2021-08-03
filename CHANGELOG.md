@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.6.6](https://github.com/andeman/opn-cli/tree/v0.6.6) (2021-08-03)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.5...v0.6.6)
+
+**Fixed bugs:**
+
+- fix multiple plugin operations in short time  [\#12](https://github.com/andeman/opn-cli/pull/12) ([andeman](https://github.com/andeman))
+
 ## [v0.6.5](https://github.com/andeman/opn-cli/tree/v0.6.5) (2021-07-27)
 
 [Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.4...v0.6.5)
