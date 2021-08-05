@@ -1,4 +1,4 @@
-from opnsense_cli.api.firewall import FirewallFilter
+from opnsense_cli.api.plugin.firewall import FirewallFilter
 from opnsense_cli.facades.base import CommandFacade
 from opnsense_cli.exceptions.command import CommandException
 

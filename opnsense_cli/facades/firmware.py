@@ -1,7 +1,7 @@
 import time
 
 from opnsense_cli.facades.base import CommandFacade
-from opnsense_cli.api.core import Firmware
+from opnsense_cli.api.core.firmware import Firmware
 from opnsense_cli.exceptions.command import CommandException
 
 

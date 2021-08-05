@@ -4,7 +4,7 @@ from opnsense_cli.facades.firmware import FirmwareFacade
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import formatter_from_formatter_name, available_formats
 from opnsense_cli.api.client import ApiClient
-from opnsense_cli.api.core import Firmware
+from opnsense_cli.api.core.firmware import Firmware
 
 pass_api_client = click.make_pass_decorator(ApiClient)
 pass_firmware_svc = click.make_pass_decorator(FirmwareFacade)
