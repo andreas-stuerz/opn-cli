@@ -3,7 +3,7 @@ import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import formatter_from_formatter_name, available_formats
 from opnsense_cli.api.client import ApiClient
-from opnsense_cli.api.openvpn import Openvpn
+from opnsense_cli.api.plugin.openvpn import Openvpn
 
 pass_api_client = click.make_pass_decorator(ApiClient)
 pass_openvpn_svc = click.make_pass_decorator(Openvpn)
