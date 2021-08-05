@@ -1,4 +1,6 @@
 from abc import ABC
+import os
+import base64
 
 
 class CommandFacade(ABC):
@@ -25,3 +27,8 @@ class CommandFacade(ABC):
 
     def _sort_dict_by_number(self, dict, by_column):
         return sorted(dict, key=lambda k: int(k[by_column]))
+
+    def _write_base64_string_to_zipfile(self, path, base64_data):
+        content = base64.b64decode(base64_data)
+        with open(path, 'wb') as zipFile:
+            zipFile.write(content)

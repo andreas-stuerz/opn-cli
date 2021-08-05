@@ -9,8 +9,12 @@ from opnsense_cli.commands.completion import completion
 from opnsense_cli.commands.plugin import plugin
 from opnsense_cli.commands.openvpn import openvpn
 from opnsense_cli.commands.firewall import firewall
-from opnsense_cli.commands.firewall.alias import alias
-from opnsense_cli.commands.firewall.rule import rule
+from opnsense_cli.commands.firewall.alias import alias as firewall_alias
+from opnsense_cli.commands.firewall.rule import rule as firewall_rule
+from opnsense_cli.commands.haproxy import haproxy
+from opnsense_cli.commands.haproxy.config import config as haproxy_config
+from opnsense_cli.commands.haproxy.server import server as haproxy_server
+
 
 
 CFG_DIR = f"~/.{__cli_name__}"
@@ -134,9 +138,13 @@ def cli(ctx, **kwargs):
 
 
 # register commands groups and commands
+cli.add_command(haproxy)
+haproxy.add_command(haproxy_config)
+haproxy.add_command(haproxy_server)
+
 cli.add_command(firewall)
-firewall.add_command(alias)
-firewall.add_command(rule)
+firewall.add_command(firewall_alias)
+firewall.add_command(firewall_rule)
 
 cli.add_command(plugin)
 cli.add_command(openvpn)
