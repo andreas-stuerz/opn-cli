@@ -109,7 +109,7 @@ class Service(ApiBase):
 
     @ApiBase._api_call
     def reconfigure(self, *args):
-        self.method = "get"
+        self.method = "post"
         self.command = "reconfigure"
 
     @ApiBase._api_call
@@ -190,7 +190,7 @@ class Settings(ApiBase):
         self.command = "addMapfile"
 
     @ApiBase._api_call
-    def addServer(self, *args):
+    def addServer(self, *args, json=None):
         self.method = "post"
         self.command = "addServer"
 
@@ -480,7 +480,7 @@ class Settings(ApiBase):
         self.command = "setMapfile"
 
     @ApiBase._api_call
-    def setServer(self, *args):
+    def setServer(self, *args, json=None):
         self.method = "post"
         self.command = "setServer"
 

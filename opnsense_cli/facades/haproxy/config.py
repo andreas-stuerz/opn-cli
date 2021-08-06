@@ -1,16 +1,25 @@
-from opnsense_cli.facades.base import CommandFacade
 from opnsense_cli.exceptions.command import CommandException
 from opnsense_cli.api.plugin.haproxy import Settings
 from opnsense_cli.api.plugin.haproxy import Export
+from opnsense_cli.api.plugin.haproxy import Service
+from opnsense_cli.facades.haproxy.base import HaproxyFacade
 
 
-class HaproxyConfigFacade(CommandFacade):
-    def __init__(self, settings_api: Settings, export_api: Export):
+class HaproxyConfigFacade(HaproxyFacade):
+    def __init__(self, settings_api: Settings, export_api: Export, service_api: Service):
         self._settings_api = settings_api
         self._export_api = export_api
+        self._service_api = service_api
 
     def show_config(self):
         return self._export_api.config()
+
+    def test_config(self):
+        return self._service_api.configtest()
+
+    def apply_config(self):
+        self._apply()
+        return {"status":"ok"}
 
     def show_diff(self):
         return self._export_api.diff()

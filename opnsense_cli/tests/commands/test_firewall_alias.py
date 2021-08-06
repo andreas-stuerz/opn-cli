@@ -143,7 +143,7 @@ class TestFirewallAliasCommands(CommandTestCase):
         )
 
     @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
-    def test_show(self, api_response_mock: Mock):
+    def test_show_(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
