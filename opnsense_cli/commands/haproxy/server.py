@@ -38,7 +38,7 @@ def server(ctx, api_client: ApiClient, **kwargs):
 @click.option(
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
-    default="id,name,type,address,port,description,enabled"
+    default="uuid,name,type,address,port,description,ssl,sslVerify,weight,enabled"
 )
 @pass_haproxy_server_svc
 def list(haproxy_server_svc: HaproxyServerFacade, **kwargs):
@@ -51,7 +51,7 @@ def list(haproxy_server_svc: HaproxyServerFacade, **kwargs):
 
 
 @server.command()
-@click.argument('server_name')
+@click.argument('server_uuid')
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -71,7 +71,7 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     """
     Show details for server
     """
-    result = haproxy_server_svc.show_server(kwargs['server_name'])
+    result = haproxy_server_svc.show_server(kwargs['server_uuid'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
@@ -115,7 +115,7 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     show_default=True,
 )
 @click.option(
-    '--number', '-n',
+    '--number', '-nu',
     help='The number of servers this template initializes, i.e. 5 or 1-5.',
     show_default=True,
 )
@@ -284,13 +284,19 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 @server.command()
-@click.argument('name_or_prefix')
+@click.argument('server_uuid')
+@click.option(
+    '--name', '-n',
+    help='The server name.',
+    show_default=True,
+)
 @click.option(
     '--enabled/--disabled',
     help='Enable or disable server.',
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
+    default=None,
 )
 @click.option(
     '--type', '-t',
@@ -318,7 +324,7 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     show_default=True,
 )
 @click.option(
-    '--number', '-n',
+    '--number', '-num',
     help='The number of servers this template initializes, i.e. 5 or 1-5.',
     show_default=True,
 )
@@ -366,6 +372,7 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
+    default=None,
 )
 @click.option(
     '--sslVerify/--no-sslVerify', '--ssl-verify/--no-ssl-verify',
@@ -373,6 +380,7 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
+    default=None,
 )
 @click.option(
     '--sslCA', '-ca',
@@ -451,42 +459,43 @@ def update(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     Update a backend server.
     """
     json_payload = {
-        'server': {'name': kwargs['server_name']}
+        'server': {}
     }
-    # id,enabled,name,description,address,port,checkport,mode,type,serviceName,number,linkedResolver,resolverOpts,resolvePrefer,ssl,sslVerify,sslCA,sslCRL,sslClientCertificate,weight,checkInterval,checkDownInterval,source,advanced,uuid
     options = [
-        'enabled', 'name', 'type', 'content', 'description', 'proto', 'updatefreq', 'counters'
+        'enabled', 'name', 'description', 'address', 'port', 'checkport', 'mode', 'type', 'serviceName', 'number',
+        'linkedresolver', 'resolverOpts','resolvePrefer', 'ssl', 'sslVerify', 'sslCA', 'sslCRL',
+        'sslClientCertificate', 'weight', 'checkInterval', 'checkDownInterval', 'source', 'advanced'
     ]
     for option in options:
-        if kwargs[option] is not None:
-            json_payload['server'][option] = kwargs[option]
+        if kwargs[option.lower()] is not None:
+            json_payload['server'][option] = kwargs[option.lower()]
 
-    result = haproxy_server_svc.update_server(kwargs['server_name'], json_payload)
+    result = haproxy_server_svc.update_server(kwargs['server_uuid'], json_payload)
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
-# @server.command()
-# @click.argument('name')
-# @click.option(
-#     '--output', '-o',
-#     help='Specifies the Output format.',
-#     default="plain",
-#     type=click.Choice(available_formats()),
-#     callback=formatter_from_formatter_name,
-#     show_default=True,
-# )
-# @click.option(
-#     '--cols', '-c',
-#     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
-#     default="result,validations",
-#     show_default=True,
-# )
-# @pass_haproxy_server_svc
-# def delete(haproxy_server_svc: HaproxyServerFacade, **kwargs):
-#     """
-#     Delete an server
-#     """
-#     result = firewall_server_svc.delete_server(kwargs['name'])
-#
-#     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+@server.command()
+@click.argument('server_uuid')
+@click.option(
+    '--output', '-o',
+    help='Specifies the Output format.',
+    default="plain",
+    type=click.Choice(available_formats()),
+    callback=formatter_from_formatter_name,
+    show_default=True,
+)
+@click.option(
+    '--cols', '-c',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
+    default="result,validations",
+    show_default=True,
+)
+@pass_haproxy_server_svc
+def delete(haproxy_server_svc: HaproxyServerFacade, **kwargs):
+    """
+    Delete a backend server
+    """
+    result = haproxy_server_svc.delete_server(kwargs['server_uuid'])
+
+    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
