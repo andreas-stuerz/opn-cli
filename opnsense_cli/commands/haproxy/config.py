@@ -1,7 +1,7 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
-    formatter_from_formatter_name, expand_path, comma_to_newline, available_formats
+    formatter_from_formatter_name, expand_path, available_formats
 from opnsense_cli.commands.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Export, Service
@@ -47,6 +47,7 @@ def show(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
     result = haproxy_server_svc.show_config()
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+
 
 @config.command()
 @click.option(
@@ -97,6 +98,7 @@ def diff(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
+
 @config.command()
 @click.option(
     '--output', '-o',
@@ -121,9 +123,10 @@ def apply(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
+
 @config.command()
 @click.option(
-    '-p','--path',
+    '-p', '--path',
     help='The target path.',
     type=click.Path(dir_okay=False),
     default='./haproxy_config_export.zip',
@@ -155,5 +158,3 @@ def download(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
     result = haproxy_server_svc.download_config(kwargs['path'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
-
-

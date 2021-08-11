@@ -23,6 +23,7 @@ class Export(ApiBase):
         self.method = "get"
         self.command = "download"
 
+
 class Maintenance(ApiBase):
     MODULE = "haproxy"
     CONTROLLER = "maintenance"
@@ -95,6 +96,7 @@ class Maintenance(ApiBase):
         self.method = "get"
         self.command = "set"
 
+
 class Service(ApiBase):
     MODULE = "haproxy"
     CONTROLLER = "service"
@@ -131,6 +133,7 @@ class Service(ApiBase):
     def stop(self, *args):
         self.method = "get"
         self.command = "stop"
+
 
 class Settings(ApiBase):
     MODULE = "haproxy"
@@ -543,6 +546,7 @@ class Settings(ApiBase):
     def toggleresolver(self, *args):
         self.method = "post"
         self.command = "toggleresolver"
+
 
 class Statistics(ApiBase):
     MODULE = "haproxy"

@@ -9,4 +9,3 @@ class JsonObj(JsonType):
 
     def get_all_columns(self):
         return list(self._json_data.keys())
-

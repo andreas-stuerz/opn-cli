@@ -16,7 +16,6 @@ from opnsense_cli.commands.haproxy.config import config as haproxy_config
 from opnsense_cli.commands.haproxy.server import server as haproxy_server
 
 
-
 CFG_DIR = f"~/.{__cli_name__}"
 DEFAULT_CFG = f"{CFG_DIR}/conf.yaml"
 DEFAULT_SSL_VERIFY_CA = f"{CFG_DIR}/ca.pem"

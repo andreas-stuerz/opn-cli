@@ -22,5 +22,3 @@ class JsonType(ABC):
             result = list(row.keys())
             break
         return result
-
-

@@ -1,4 +1,3 @@
-from opnsense_cli.exceptions.command import CommandException
 from opnsense_cli.api.plugin.haproxy import Settings
 from opnsense_cli.api.plugin.haproxy import Export
 from opnsense_cli.api.plugin.haproxy import Service
@@ -19,7 +18,7 @@ class HaproxyConfigFacade(HaproxyFacade):
 
     def apply_config(self):
         self._apply()
-        return {"status":"ok"}
+        return {"status": "ok"}
 
     def show_diff(self):
         return self._export_api.diff()

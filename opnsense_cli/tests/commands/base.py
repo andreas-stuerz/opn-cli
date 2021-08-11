@@ -4,6 +4,7 @@ from click.core import Group
 from opnsense_cli.api.client import ApiClient
 from pyfakefs.fake_filesystem_unittest import TestCase
 
+
 class CommandTestCase(TestCase):
     def _opn_cli_command_result(self, api_mock: Mock, api_return_values: list, click_group: Group,
                                 click_params: list, catch_exceptions=False) -> Result:

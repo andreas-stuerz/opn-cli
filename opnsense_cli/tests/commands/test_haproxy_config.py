@@ -3,6 +3,7 @@ from opnsense_cli.commands.haproxy import haproxy
 from opnsense_cli.tests.commands.base import CommandTestCase
 import os
 
+
 class TestHaproxyConfigCommands(CommandTestCase):
     def setUp(self):
         self.setUpPyfakefs()
@@ -125,7 +126,6 @@ class TestHaproxyConfigCommands(CommandTestCase):
             "ok\n",
             result.output
         )
-
 
     @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
     def test_apply_CONFIGTEST_FAILED(self, api_response_mock: Mock):

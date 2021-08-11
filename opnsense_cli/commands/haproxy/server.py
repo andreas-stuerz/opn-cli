@@ -1,7 +1,7 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
-    formatter_from_formatter_name, bool_as_string, comma_to_newline, available_formats, int_as_string
+    formatter_from_formatter_name, bool_as_string, available_formats, int_as_string
 from opnsense_cli.commands.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Export, Service
@@ -100,7 +100,6 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     help='The server description.',
     show_default=True,
 )
-
 @click.option(
     '--address', '-a',
     help='The FQDN or the IP address of this server.',
@@ -283,6 +282,7 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
+
 @server.command()
 @click.argument('server_uuid')
 @click.option(
@@ -309,7 +309,6 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     help='The server description.',
     show_default=True,
 )
-
 @click.option(
     '--address', '-a',
     help='The FQDN or the IP address of this server.',
@@ -463,7 +462,7 @@ def update(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     }
     options = [
         'enabled', 'name', 'description', 'address', 'port', 'checkport', 'mode', 'type', 'serviceName', 'number',
-        'linkedresolver', 'resolverOpts','resolvePrefer', 'ssl', 'sslVerify', 'sslCA', 'sslCRL',
+        'linkedresolver', 'resolverOpts', 'resolvePrefer', 'ssl', 'sslVerify', 'sslCA', 'sslCRL',
         'sslClientCertificate', 'weight', 'checkInterval', 'checkDownInterval', 'source', 'advanced'
     ]
     for option in options:

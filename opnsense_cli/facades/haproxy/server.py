@@ -1,8 +1,6 @@
-from opnsense_cli.facades.base import CommandFacade
-from opnsense_cli.exceptions.command import CommandException
+from opnsense_cli.facades.haproxy.base import HaproxyFacade
 from opnsense_cli.api.plugin.haproxy import Settings, Service
 from opnsense_cli.api.plugin.haproxy import Export
-from opnsense_cli.facades.haproxy.base import HaproxyFacade
 
 
 class HaproxyServerFacade(HaproxyFacade):
@@ -45,5 +43,3 @@ class HaproxyServerFacade(HaproxyFacade):
         result = self._settings_api.delServer(uuid)
         self._apply(result)
         return result
-
-
