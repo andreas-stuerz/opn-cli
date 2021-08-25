@@ -4,7 +4,7 @@ from opnsense_cli.callbacks.click import \
     formatter_from_formatter_name, bool_as_string, available_formats, int_as_string
 from opnsense_cli.commands.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
-from opnsense_cli.api.plugin.haproxy import Settings, Export, Service
+from opnsense_cli.api.plugin.haproxy import Settings, Service
 from opnsense_cli.facades.haproxy.server import HaproxyServerFacade
 
 pass_api_client = click.make_pass_decorator(ApiClient)
@@ -21,9 +21,8 @@ def server(ctx, api_client: ApiClient, **kwargs):
     See: https://docs.opnsense.org/manual/how-tos/haproxy.html#first-step-configure-backend-servers
     """
     settings_api = Settings(api_client)
-    export_api = Export(api_client)
     service_api = Service(api_client)
-    ctx.obj = HaproxyServerFacade(settings_api, export_api, service_api)
+    ctx.obj = HaproxyServerFacade(settings_api, service_api)
 
 
 @server.command()
@@ -38,20 +37,20 @@ def server(ctx, api_client: ApiClient, **kwargs):
 @click.option(
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
-    default="uuid,name,type,address,port,description,ssl,sslVerify,weight,enabled"
+    default="uuid,enabled,name,type,address,port,description,ssl,sslVerify,weight"
 )
 @pass_haproxy_server_svc
 def list(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     """
     Show all servers
     """
-    result = haproxy_server_svc.list_server()
+    result = haproxy_server_svc.list_servers()
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
 @server.command()
-@click.argument('server_uuid')
+@click.argument('uuid')
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -63,7 +62,7 @@ def list(haproxy_server_svc: HaproxyServerFacade, **kwargs):
 @click.option(
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
-    default="id,name,type,address,port,description,enabled",
+    default="enabled,id,name,type,address,port,description",
     show_default=True,
 )
 @pass_haproxy_server_svc
@@ -71,7 +70,7 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     """
     Show details for server
     """
-    result = haproxy_server_svc.show_server(kwargs['server_uuid'])
+    result = haproxy_server_svc.show_server(kwargs['uuid'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
@@ -284,7 +283,7 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
 
 
 @server.command()
-@click.argument('server_uuid')
+@click.argument('uuid')
 @click.option(
     '--name', '-n',
     help='The server name.',
@@ -469,13 +468,13 @@ def update(haproxy_server_svc: HaproxyServerFacade, **kwargs):
         if kwargs[option.lower()] is not None:
             json_payload['server'][option] = kwargs[option.lower()]
 
-    result = haproxy_server_svc.update_server(kwargs['server_uuid'], json_payload)
+    result = haproxy_server_svc.update_server(kwargs['uuid'], json_payload)
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
 @server.command()
-@click.argument('server_uuid')
+@click.argument('uuid')
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -495,6 +494,6 @@ def delete(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     """
     Delete a backend server
     """
-    result = haproxy_server_svc.delete_server(kwargs['server_uuid'])
+    result = haproxy_server_svc.delete_server(kwargs['uuid'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()

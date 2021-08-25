@@ -422,9 +422,9 @@ class TestHaproxyServerCommands(CommandTestCase):
 
         self.assertIn(
             (
-                "dd74172b-d5c7-4d44-9ce3-667675a1e780 server1 static 192.168.56.1 8081  1 1  1\n"
-                "28cfa25d-74b2-4a22-9f4a-d5923fb1394d server2 static    0 1  1\n"
-                "46e159c3-c96d-45a1-8c81-f963c40e1e9f server4 static 10.0.0.1 9000  0 1  1\n"
+                "dd74172b-d5c7-4d44-9ce3-667675a1e780 1 server1 static 192.168.56.1 8081  1 1 \n"
+                "28cfa25d-74b2-4a22-9f4a-d5923fb1394d 1 server2 static    0 1 \n"
+                "46e159c3-c96d-45a1-8c81-f963c40e1e9f 1 server4 static 10.0.0.1 9000  0 1 \n"
             ),
             result.output
         )
@@ -466,7 +466,7 @@ class TestHaproxyServerCommands(CommandTestCase):
 
         self.assertIn(
             (
-                "61126a6eaa9e37.48182479 server1 static 192.168.56.1 8081  1\n"
+                "1 61126a6eaa9e37.48182479 server1 static 192.168.56.1 8081 \n"
             ),
             result.output
         )

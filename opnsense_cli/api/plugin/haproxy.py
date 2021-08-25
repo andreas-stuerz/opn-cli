@@ -153,7 +153,7 @@ class Settings(ApiBase):
         self.command = "addAction"
 
     @ApiBase._api_call
-    def addBackend(self, *args):
+    def addBackend(self, *args, json=None):
         self.method = "post"
         self.command = "addBackend"
 
@@ -168,7 +168,7 @@ class Settings(ApiBase):
         self.command = "addErrorfile"
 
     @ApiBase._api_call
-    def addFrontend(self, *args):
+    def addFrontend(self, *args, json=None):
         self.method = "post"
         self.command = "addFrontend"
 
@@ -223,7 +223,7 @@ class Settings(ApiBase):
         self.command = "delAction"
 
     @ApiBase._api_call
-    def delBackend(self, *args):
+    def delBackend(self, *args, json=None):
         self.method = "post"
         self.command = "delBackend"
 
@@ -238,7 +238,7 @@ class Settings(ApiBase):
         self.command = "delErrorfile"
 
     @ApiBase._api_call
-    def delFrontend(self, *args):
+    def delFrontend(self, *args, json=None):
         self.method = "post"
         self.command = "delFrontend"
 
@@ -443,7 +443,7 @@ class Settings(ApiBase):
         self.command = "setAction"
 
     @ApiBase._api_call
-    def setBackend(self, *args):
+    def setBackend(self, *args, json=None):
         self.method = "post"
         self.command = "setBackend"
 
@@ -458,7 +458,7 @@ class Settings(ApiBase):
         self.command = "setErrorfile"
 
     @ApiBase._api_call
-    def setFrontend(self, *args):
+    def setFrontend(self, *args, json=None):
         self.method = "post"
         self.command = "setFrontend"
 

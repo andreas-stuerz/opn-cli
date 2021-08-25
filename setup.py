@@ -27,6 +27,9 @@ setup(
         'requests',
         'PTable',
         'PyYAML',
+        'jsonpath-ng',
+        'beautifulsoup4',
+        'lxml'
     ],
     entry_points='''
         [console_scripts]

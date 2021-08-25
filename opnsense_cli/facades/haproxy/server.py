@@ -1,15 +1,13 @@
 from opnsense_cli.facades.haproxy.base import HaproxyFacade
 from opnsense_cli.api.plugin.haproxy import Settings, Service
-from opnsense_cli.api.plugin.haproxy import Export
 
 
 class HaproxyServerFacade(HaproxyFacade):
-    def __init__(self, settings_api: Settings, export_api: Export, service_api: Service):
+    def __init__(self, settings_api: Settings, service_api: Service):
         self._settings_api = settings_api
-        self._export_api = export_api
         self._service_api = service_api
 
-    def list_server(self):
+    def list_servers(self):
         return self._get_servers_list()
 
     def show_server(self, uuid):
@@ -18,16 +16,16 @@ class HaproxyServerFacade(HaproxyFacade):
         return server
 
     def _get_servers_list(self):
-        raw_servers = dict(self._settings_api.get()['haproxy']['servers']['server'])
+        complete_model_data = self._settings_api.get()
+        jsonpath_base = '$.haproxy.servers.server'
+        uuid_resolver_map = {
+            "linkedResolver": {
+                "template": "$.haproxy.resolvers.resolver[{uuids}].name",
+                "insert_as_key": "Resolver"
+            },
+        }
 
-        servers = []
-        for uuid, server_raw in raw_servers.items():
-            server = self._api_mutable_model_get_items_to_json(server_raw)
-            server.update({'uuid': uuid})
-            servers.append(server)
-
-        servers = self._sort_dict_by_string(servers, 'name')
-        return servers
+        return self._api_mutable_model_get(complete_model_data, jsonpath_base, uuid_resolver_map)
 
     def create_server(self, json_payload: dict):
         result = self._settings_api.addServer(json=json_payload)
