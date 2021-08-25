@@ -8,6 +8,10 @@ class CommandFacade(ABC):
         raw_items = self._get_model_data_slice_with_jsonpath(jsonpath_base, complete_model_data)
 
         items = []
+
+        if not isinstance(raw_items, dict):
+            return items
+
         for uuid, item_raw in raw_items.items():
             item = self._api_mutable_model_get_items_to_json(item_raw)
             item.update({'uuid': uuid})
@@ -25,9 +29,10 @@ class CommandFacade(ABC):
         items = self._sort_dict_by_string(items, sort_by)
         return items
 
-    def _get_model_data_slice_with_jsonpath(self, path, data):
+    def _get_model_data_slice_with_jsonpath(self, path, data) -> dict:
         expression = parse(path)
         slice = [match.value for match in expression.find(data)][0]
+
         return slice
 
     def _resolve_linked_items_with_jsonpath_template(self, item_csv_string, map, data):

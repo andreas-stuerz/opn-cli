@@ -38,6 +38,13 @@ class TestHaproxyServerCommands(CommandTestCase):
         self._api_data_fixtures_delete_OK = {
             "result": "deleted"
         }
+        self._api_data_fixtures_list_EMPTY = {
+            "haproxy": {
+                "servers": {
+                    "server": []
+                }
+            }
+        }
         self._api_data_fixtures_list = {
             "haproxy": {
                 "servers": {
@@ -428,6 +435,19 @@ class TestHaproxyServerCommands(CommandTestCase):
             ),
             result.output
         )
+
+    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    def test_list_EMPTY(self, api_response_mock: Mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_list_EMPTY,
+            ],
+            server,
+            ['list', '-o', 'plain']
+        )
+
+        self.assertIn("", result.output)
 
     @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
     def test_show_NOT_FOUND(self, api_response_mock: Mock):
