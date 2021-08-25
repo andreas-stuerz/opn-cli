@@ -23,7 +23,7 @@ class ClickCommandCodeGenerator(CodeGenerator):
             if tag.attrs.get('type') in self.IGNORED_TYPES:
                 continue
 
-            click_option_type = self._click_option_factory.get_type_for_data(tag)
+            click_option_type: ClickOptionCodeFragment = self._click_option_factory.get_type_for_data(tag)
             code_fragment_create = click_option_type.get_code_for_create()
             code_fragment_update = click_option_type.get_code_for_update()
 
@@ -31,7 +31,7 @@ class ClickCommandCodeGenerator(CodeGenerator):
             click_options_update.append(code_fragment_update)
 
             print(code_fragment_create)
-            print(code_fragment_update)
+            #print(code_fragment_update)
 
             #exit()
 

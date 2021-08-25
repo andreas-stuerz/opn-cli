@@ -1,5 +1,6 @@
 from opnsense_cli.types.click_option.base import ClickOptionCodeFragment
 
+
 class ClickBoolean(ClickOptionCodeFragment):
     TEMPLATE_CREATE = '''
     @click.option(
@@ -22,6 +23,7 @@ class ClickBoolean(ClickOptionCodeFragment):
         default=None
     )
     '''
+
     @property
     def _default(self):
         if self._tag_content.find('default'):

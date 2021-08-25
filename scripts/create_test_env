@@ -16,3 +16,4 @@ vagrant up
 
 # install required opnsense plugins
 opn-cli plugin install os-firewall
+opn-cli plugin install os-haproxy

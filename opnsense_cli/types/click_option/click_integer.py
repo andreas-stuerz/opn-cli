@@ -1,5 +1,6 @@
 from opnsense_cli.types.click_option.base import ClickOptionCodeFragment
 
+
 class ClickInteger(ClickOptionCodeFragment):
     TEMPLATE_CREATE = '''
     @click.option(

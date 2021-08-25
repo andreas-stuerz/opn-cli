@@ -1,5 +1,6 @@
 from opnsense_cli.types.click_option.base import ClickOptionCodeFragment
 
+
 class ClickChoice(ClickOptionCodeFragment):
     TEMPLATE_CREATE = '''
     @click.option(
@@ -23,9 +24,13 @@ class ClickChoice(ClickOptionCodeFragment):
 
     @property
     def _choices(self):
-        choices = self._tag_content.find('OptionValues').findChildren(recursive=False)
+        options = self._tag_content.find('OptionValues').findChildren(recursive=False)
+        choices = [option.name for option in options]
 
-        return repr([choice.name for choice in choices])
+        if "False" in self._required:
+            choices.insert(0, '')
+
+        return repr(choices)
 
     def _render_template(self):
         return self._template.substitute(
