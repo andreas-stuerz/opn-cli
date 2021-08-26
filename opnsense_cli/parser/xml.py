@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 from bs4.element import Tag
 import requests
-import lxml
 from opnsense_cli.parser.base import Parser
 
 class XmlParser(Parser):

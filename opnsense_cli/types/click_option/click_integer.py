@@ -5,7 +5,7 @@ class ClickInteger(ClickOptionCodeFragment):
     TEMPLATE_CREATE = '''
     @click.option(
         '--${name}',
-        help='<TODO>',
+        help='ToDo',
         show_default=True,
         type=int,
         callback=int_as_string,
@@ -16,7 +16,7 @@ class ClickInteger(ClickOptionCodeFragment):
     TEMPLATE_UPDATE = '''
     @click.option(
         '--${name}',
-        help='<TODO>',
+        help='ToDo',
         show_default=True,
         type=int,
         callback=int_as_string,

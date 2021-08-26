@@ -5,7 +5,7 @@ class ClickChoice(ClickOptionCodeFragment):
     TEMPLATE_CREATE = '''
     @click.option(
         '--${name}',
-        help='<TODO>',
+        help='ToDo',
         type=click.Choice(${choices}),
         ${multiple}
         show_default=True,
@@ -16,7 +16,7 @@ class ClickChoice(ClickOptionCodeFragment):
     TEMPLATE_UPDATE = '''
     @click.option(
         '--${name}',
-        help='<TODO>',
+        help='ToDo',
         type=click.Choice(${choices}),
         ${multiple}
         show_default=True,
@@ -33,6 +33,12 @@ class ClickChoice(ClickOptionCodeFragment):
             choices.insert(0, '')
 
         return repr(choices)
+
+    @property
+    def _default(self):
+        if self._tag_content.find('default'):
+            return f"default='{self._tag_content.default.string}',"
+        return f"default=None,"
 
     def _render_template(self):
         return self._template.substitute(

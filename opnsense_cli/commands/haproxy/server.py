@@ -76,7 +76,7 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
 
 
 @server.command()
-@click.argument('name_or_prefix')
+@click.argument('name')
 @click.option(
     '--enabled/--disabled',
     help='Enable or disable server.',
@@ -252,7 +252,7 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     json_payload = {
         'server': {
             "enabled": kwargs['enabled'],
-            "name": kwargs['name_or_prefix'],
+            "name": kwargs['name'],
             "description": kwargs['description'],
             "type": kwargs['type'],
             "address": kwargs['address'],

@@ -5,7 +5,7 @@ class ClickText(ClickOptionCodeFragment):
     TEMPLATE_CREATE = '''
     @click.option(
         '--${name}',
-        help='<TODO>',
+        help='ToDo',
         show_default=True,
         ${default}
         ${required}
@@ -14,7 +14,7 @@ class ClickText(ClickOptionCodeFragment):
     TEMPLATE_UPDATE = '''
     @click.option(
         '--${name}',
-        help='<TODO>',
+        help='ToDo',
         show_default=True,
         default=None
     )

@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 import click
+import os
 from opnsense_cli.parser.opnsense_model import OpnsenseModelParser
 from opnsense_cli.factories.code_generator.click_option import ClickOptionCodeFactory
 from opnsense_cli.facades.code_generator.click_command import ClickCommandCodeGenerator
+from opnsense_cli.facades.template_engines.jinja2 import Jinja2TemplateEngine
+
 
 @click.group()
 def command(**kwargs):
@@ -29,6 +32,18 @@ def command(**kwargs):
     help='The item key from the model.xml to generate the command from.',
     show_default=True,
     required=True
+)
+@click.option(
+    '--template-basedir', '-tb',
+    help='The template basedir path',
+    show_default=True,
+    default=os.path.join(os.path.dirname(__file__), '../opnsense_cli/templates2')
+)
+@click.option(
+    '--template--command', '-tc',
+    help='The template for the command relative to the template basedir.',
+    show_default=True,
+    default='code_generator/command/command.py.j2'
 )
 def core(**kwargs):
     """
@@ -65,6 +80,18 @@ def core(**kwargs):
     show_default=True,
     required=True
 )
+@click.option(
+    '--template-basedir', '-tb',
+    help='The template basedir path',
+    show_default=True,
+    default=os.path.join(os.path.dirname(__file__), '../opnsense_cli/templates')
+)
+@click.option(
+    '--template-command', '-tc',
+    help='The template for the command relative to the template basedir.',
+    show_default=True,
+    default='code_generator/command/command.py.j2'
+)
 def plugin(**kwargs):
     """
     Generate new command code for a plugin module.
@@ -73,14 +100,15 @@ def plugin(**kwargs):
 
     https://github.com/opnsense/plugins
     """
-    print(kwargs)
-
-    ClickCommandCodeGenerator(
+    code_generator = ClickCommandCodeGenerator(
         OpnsenseModelParser(kwargs['url'], kwargs['tag']),
+        Jinja2TemplateEngine(kwargs['template_basedir']),
+        kwargs['template_command'],
         ClickOptionCodeFactory(),
         kwargs['click_group'],
         kwargs['click_command'],
-    ).generate_code()
+    )
+    code_generator.generate_code()
 
 
 if __name__ == '__main__':
