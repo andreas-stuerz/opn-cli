@@ -7,6 +7,7 @@ class ClickChoice(ClickOptionCodeFragment):
         '--${name}',
         help='<TODO>',
         type=click.Choice(${choices}),
+        ${multiple}
         show_default=True,
         ${default}
         ${required}
@@ -17,6 +18,7 @@ class ClickChoice(ClickOptionCodeFragment):
         '--${name}',
         help='<TODO>',
         type=click.Choice(${choices}),
+        ${multiple}
         show_default=True,
         default=None
     )
@@ -36,6 +38,7 @@ class ClickChoice(ClickOptionCodeFragment):
         return self._template.substitute(
             name=self._name,
             choices=self._choices,
+            multiple=self._multiple,
             required=self._required,
             default=self._default
         ).strip()

@@ -10,6 +10,28 @@ class ClickOptionCodeFragment(ABC):
         self.__template = Template(textwrap.dedent(self.TEMPLATE_CREATE))
 
     @property
+    @abstractmethod
+    def TEMPLATE_CREATE(self):
+        """ This property should be implemented. """
+
+    def get_code_for_create(self):
+        self._template = self.TEMPLATE_CREATE
+        return self._render_template()
+
+    @property
+    @abstractmethod
+    def TEMPLATE_UPDATE(self):
+        """ This property should be implemented. """
+
+    def get_code_for_update(self):
+        self._template = self.TEMPLATE_UPDATE
+        return self._render_template()
+
+    @abstractmethod
+    def _render_template(self):
+        """ This method should be implemented. """
+
+    @property
     def _template(self):
         return self.__template
 
@@ -30,23 +52,9 @@ class ClickOptionCodeFragment(ABC):
         return f"default=None,"
 
     @property
-    @abstractmethod
-    def TEMPLATE_CREATE(self):
-        """ This property should be implemented. """
+    def _multiple(self):
+        if self._tag_content.find(name='Multiple', text='Y'):
+            return f"multiple=True,"
+        return f"multiple=False,"
 
-    @property
-    @abstractmethod
-    def TEMPLATE_UPDATE(self):
-        """ This property should be implemented. """
 
-    def get_code_for_create(self):
-        self._template = self.TEMPLATE_CREATE
-        return self._render_template()
-
-    def get_code_for_update(self):
-        self._template = self.TEMPLATE_UPDATE
-        return self._render_template()
-
-    @abstractmethod
-    def _render_template(self):
-        """ This method should be implemented. """
