@@ -104,7 +104,7 @@ def show(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     callback=int_as_string,
 )
 @click.option(
-    '--enabled/--disabled',
+    '--enabled/--disabled', '--enabled/--no-enabled',
     help='Enable or disable this rule.',
     show_default=True,
     is_flag=True,
@@ -291,7 +291,7 @@ def create(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     callback=int_as_string,
 )
 @click.option(
-    '--enabled/--disabled',
+    '--enabled/--disabled',  '--enabled/--no-enabled',
     help='Enable or disable this rule.',
     show_default=True,
     is_flag=True,

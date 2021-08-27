@@ -125,7 +125,7 @@ def table(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     required=True,
 )
 @click.option(
-    '--enabled/--disabled',
+    '--enabled/--disabled', '--enabled/--no-enabled',
     help='Enable or disable alias.',
     show_default=True,
     is_flag=True,
@@ -215,7 +215,7 @@ def create(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     show_default=True,
 )
 @click.option(
-    '--enabled/--disabled',
+    '--enabled/--disabled', '--enabled/--no-enabled',
     help='Enable or disable alias.',
     show_default=True,
     is_flag=True,
@@ -223,7 +223,7 @@ def create(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     default=None,
 )
 @click.option(
-    '--enabled/--disabled',
+    '--enabled/--disabled', '--enabled/--no-enabled',
     help='Enable or disable alias.',
     show_default=True,
     is_flag=True,
