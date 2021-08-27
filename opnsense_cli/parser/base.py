@@ -13,4 +13,3 @@ class Parser(ABC):
     def parse(self):
         self._set_content()
         return self._parse_content()
-

@@ -10,5 +10,3 @@ class CommandTemplateVars:
     column_names: list
     column_list: str
     module_type: str
-
-

@@ -3,6 +3,7 @@ from bs4.element import Tag
 import requests
 from opnsense_cli.parser.base import Parser
 
+
 class XmlParser(Parser):
     def __init__(self, url, tag):
         self._url = url

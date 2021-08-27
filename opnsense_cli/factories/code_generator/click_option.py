@@ -7,6 +7,7 @@ from opnsense_cli.types.click_option.click_text import ClickText
 from opnsense_cli.types.click_option.click_integer import ClickInteger
 from opnsense_cli.types.click_option.click_choice import ClickChoice
 
+
 class ClickOptionCodeFactory(ObjectTypeFromDataFactory):
     _keymap = {
         'BooleanField': ClickBoolean,
@@ -29,5 +30,3 @@ class ClickOptionCodeFactory(ObjectTypeFromDataFactory):
         click_option_type_class = self._get_class(field_type)
 
         return click_option_type_class(tag)
-
-

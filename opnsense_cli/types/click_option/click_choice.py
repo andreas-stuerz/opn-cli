@@ -38,7 +38,7 @@ class ClickChoice(ClickOptionCodeFragment):
     def _default(self):
         if self._tag_content.find('default'):
             return f"default='{self._tag_content.default.string}',"
-        return f"default=None,"
+        return "default=None,"
 
     def _render_template(self):
         return self._template.substitute(

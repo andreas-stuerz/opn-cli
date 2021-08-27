@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from opnsense_cli.exceptions.template_engine import TemplateEngineException
 
+
 class TemplateEngine(ABC):
     def __init__(self, template_basedir):
         self.__vars = None

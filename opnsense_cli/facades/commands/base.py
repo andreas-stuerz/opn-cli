@@ -1,6 +1,6 @@
 from abc import ABC
 import base64
-from jsonpath_ng import jsonpath, parse
+from jsonpath_ng import parse
 
 
 class CommandFacade(ABC):

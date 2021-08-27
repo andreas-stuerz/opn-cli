@@ -3,6 +3,7 @@ from bs4.element import Tag
 from string import Template
 import textwrap
 
+
 class ClickOptionCodeFragment(ABC):
     def __init__(self, tag: Tag):
         self._tag_content = tag
@@ -50,19 +51,17 @@ class ClickOptionCodeFragment(ABC):
     @property
     def _required(self):
         if self._tag_content.find(name='Required', text='Y'):
-            return f"required=True,"
-        return f"required=False,"
+            return "required=True,"
+        return "required=False,"
 
     @property
     def _default(self):
         if self._tag_content.find(name='default'):
-            return f"default={self._tag_content.default.string},"
-        return f"default=None,"
+            return "default={self._tag_content.default.string},"
+        return "default=None,"
 
     @property
     def _multiple(self):
         if self._tag_content.find(name='Multiple', text='Y') or self._tag_content.find(name='multiple', text='Y'):
-            return f"multiple=True,"
-        return f"multiple=False,"
-
-
+            return "multiple=True,"
+        return "multiple=False,"

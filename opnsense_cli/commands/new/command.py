@@ -14,6 +14,7 @@ def command(**kwargs):
     Generate code for a new command
     """
 
+
 @command.command()
 @click.argument('click_group')
 @click.argument('click_command')
@@ -62,7 +63,6 @@ def command(**kwargs):
     show_default=True,
     default=os.path.join(os.path.dirname(__file__), '../../../output/facades/command/plugin'),
 )
-
 def core(**kwargs):
     """
     Generate new command code for a core module.
@@ -82,6 +82,7 @@ def core(**kwargs):
     --url https://raw.githubusercontent.com/opnsense/core/master/src/opnsense/mvc/app/models/OPNsense/Unbound/Unbound.xml
     """
     generate_command_files('plugin', **kwargs)
+
 
 @command.command()
 @click.argument('click_group')
@@ -145,7 +146,8 @@ def plugin(**kwargs):
     Example:
 
     $ opn-cli new command plugin haproxy server --tag servers \
-    --url https://raw.githubusercontent.com/opnsense/plugins/master/net/haproxy/src/opnsense/mvc/app/models/OPNsense/HAProxy/HAProxy.xml
+    --url https://raw.githubusercontent.com/opnsense/plugins/master/net/haproxy/src/opnsense/mvc/app/models/OPNsense/
+    HAProxy/HAProxy.xml
 
     """
     generate_command_files('plugin', **kwargs)

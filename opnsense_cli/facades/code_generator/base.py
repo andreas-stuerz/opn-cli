@@ -59,4 +59,3 @@ class CommandCodeGenerator(CodeGenerator):
         with open(path, 'w') as file:
             file.writelines(content)
         return f"generate new code: {path}"
-
