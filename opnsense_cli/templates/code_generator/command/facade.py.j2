@@ -1,5 +1,5 @@
 {% set facade = "{g}{c}Facade".format(g=vars.click_group.capitalize(), c=vars.click_command.capitalize()) -%}
-from opnsense_cli.facades.{{ vars.click_group }}.base import {{ vars.click_group.capitalize() }}Facade
+from opnsense_cli.facades.commands.{{ vars.module_type }}.{{ vars.click_group }}.base import {{ vars.click_group.capitalize() }}Facade
 from opnsense_cli.api.{{ vars.module_type }}.{{ vars.click_group }} import Settings, Service
 
 

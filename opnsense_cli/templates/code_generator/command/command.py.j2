@@ -5,10 +5,10 @@ import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
     formatter_from_formatter_name, bool_as_string, available_formats, int_as_string
-from opnsense_cli.commands.{{ vars.click_group }} import {{ vars.click_group }}
+from opnsense_cli.commands.{{ vars.module_type }}.{{ vars.click_group }} import {{ vars.click_group }}
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.{{ vars.module_type }}.{{ vars.click_group }} import Settings, Service
-from opnsense_cli.facades.{{ vars.click_group }}.{{ vars.click_command }} import {{ facade }}
+from opnsense_cli.facades.commands.{{ vars.module_type }}.{{ vars.click_group }}.{{ vars.click_command }} import {{ facade }}
 
 pass_api_client = click.make_pass_decorator(ApiClient)
 pass_{{ vars.click_group }}_{{ vars.click_command }}_svc = click.make_pass_decorator({{ facade }})
