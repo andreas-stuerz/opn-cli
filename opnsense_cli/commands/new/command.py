@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import click
 import os
 
@@ -12,7 +11,7 @@ from opnsense_cli.facades.template_engines.jinja2 import Jinja2TemplateEngine
 @click.group()
 def command(**kwargs):
     """
-    Generate code for a new command by parsing an opnsense model.xml file.
+    Generate code for a new command
     """
 
 @command.command()
@@ -37,7 +36,7 @@ def command(**kwargs):
     '--template-basedir', '-tb',
     help='The template basedir path',
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), '../opnsense_cli/templates')
+    default=os.path.join(os.path.dirname(__file__), '../../../opnsense_cli/templates')
 )
 @click.option(
     '--template-command', '-tc',
@@ -46,17 +45,24 @@ def command(**kwargs):
     default='code_generator/command/command.py.j2'
 )
 @click.option(
+    '--template-facade', '-tf',
+    help='The template for the command relative to the template basedir.',
+    show_default=True,
+    default='code_generator/command/facade.py.j2'
+)
+@click.option(
     '--command-output-dir', '-cod',
     help='The output directory for the generated command',
     show_default=True,
-    default='output/commands/core'
+    default=os.path.join(os.path.dirname(__file__), '../../../output/commands/plugin'),
 )
 @click.option(
     '--facade-output-dir', '-fod',
     help='The output directory for the generated facade',
     show_default=True,
-    default='output/facades/command/core'
+    default=os.path.join(os.path.dirname(__file__), '../../../output/facades/command/plugin'),
 )
+
 def core(**kwargs):
     """
     Generate new command code for a core module.
@@ -98,7 +104,7 @@ def core(**kwargs):
     '--template-basedir', '-tb',
     help='The template basedir path',
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), '../opnsense_cli/templates')
+    default=os.path.join(os.path.dirname(__file__), '../../../opnsense_cli/templates')
 )
 @click.option(
     '--template-command', '-tc',
@@ -116,13 +122,13 @@ def core(**kwargs):
     '--command-output-dir', '-cod',
     help='The output directory for the generated command',
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), '../output/commands/plugin'),
+    default=os.path.join(os.path.dirname(__file__), '../../../output/commands/plugin'),
 )
 @click.option(
     '--facade-output-dir', '-fod',
     help='The output directory for the generated facade',
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), '../output/facades/command/plugin'),
+    default=os.path.join(os.path.dirname(__file__), '../../../output/facades/command/plugin'),
 )
 def plugin(**kwargs):
     """
@@ -137,6 +143,9 @@ def plugin(**kwargs):
     https://github.com/opnsense/plugins
 
     Example:
+
+    $ opn-cli new command plugin haproxy server --tag servers \
+    --url https://raw.githubusercontent.com/opnsense/plugins/master/net/haproxy/src/opnsense/mvc/app/models/OPNsense/HAProxy/HAProxy.xml
 
     """
     generate_command_files('plugin', **kwargs)
@@ -169,8 +178,8 @@ def generate_command_files(model_type, **kwargs):
         model_type,
     )
 
-    command_code_generator.write_code(kwargs['command_output_dir'])
-    command_facade_generator.write_code(kwargs['facade_output_dir'])
+    click.echo(command_code_generator.write_code(kwargs['command_output_dir']))
+    click.echo(command_facade_generator.write_code(kwargs['facade_output_dir']))
 
 
 if __name__ == '__main__':

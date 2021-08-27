@@ -1,6 +1,6 @@
 import unittest
 from click.testing import CliRunner
-from opnsense_cli.commands.firewall import firewall
+from opnsense_cli.commands.core.firewall import firewall
 
 
 class TestFirewallCommands(unittest.TestCase):

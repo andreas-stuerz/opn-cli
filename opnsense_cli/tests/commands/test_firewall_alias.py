@@ -1,5 +1,5 @@
 from unittest.mock import patch, Mock
-from opnsense_cli.commands.firewall.alias import alias
+from opnsense_cli.commands.core.firewall.alias import alias
 from opnsense_cli.tests.commands.base import CommandTestCase
 
 
@@ -120,7 +120,7 @@ class TestFirewallAliasCommands(CommandTestCase):
             60
         ]
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.firewall.alias.ApiClient.execute')
     def test_list(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -142,7 +142,7 @@ class TestFirewallAliasCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.firewall.alias.ApiClient.execute')
     def test_show_(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -161,7 +161,7 @@ class TestFirewallAliasCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.firewall.alias.ApiClient.execute')
     def test_table(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -182,7 +182,7 @@ class TestFirewallAliasCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.firewall.alias.ApiClient.execute')
     def test_create_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -210,7 +210,7 @@ class TestFirewallAliasCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.firewall.alias.ApiClient.execute')
     def test_create_ERROR(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -235,7 +235,7 @@ class TestFirewallAliasCommands(CommandTestCase):
         )
         self.assertEqual(1, result.exit_code)
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.firewall.alias.ApiClient.execute')
     def test_create_EXISTS(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -263,7 +263,7 @@ class TestFirewallAliasCommands(CommandTestCase):
         )
         self.assertEqual(1, result.exit_code)
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.firewall.alias.ApiClient.execute')
     def test_update_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -292,7 +292,7 @@ class TestFirewallAliasCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.firewall.alias.ApiClient.execute')
     def test_update_NOT_EXISTS(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -315,7 +315,7 @@ class TestFirewallAliasCommands(CommandTestCase):
         self.assertIn("Error: {'result': 'failed'}\n", result.output)
         self.assertEqual(1, result.exit_code)
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.firewall.alias.ApiClient.execute')
     def test_delete_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -337,7 +337,7 @@ class TestFirewallAliasCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.firewall.alias.ApiClient.execute')
     def test_delete_NOT_FOUND(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -354,7 +354,7 @@ class TestFirewallAliasCommands(CommandTestCase):
         self.assertIn("Error: {'result': 'not found'}\n", result.output)
         self.assertEqual(1, result.exit_code)
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.firewall.alias.ApiClient.execute')
     def test_alias_apply_FAILED(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,

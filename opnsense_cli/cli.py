@@ -4,18 +4,20 @@ import click
 from opnsense_cli import __cli_name__
 from opnsense_cli.callbacks.click import defaults_from_configfile, expand_path
 from opnsense_cli.api.client import ApiClient
+from opnsense_cli.commands.new import new
+from opnsense_cli.commands.new.command import command as new_command
 from opnsense_cli.commands.version import version
 from opnsense_cli.commands.completion import completion
-from opnsense_cli.commands.plugin import plugin
-from opnsense_cli.commands.openvpn import openvpn
-from opnsense_cli.commands.firewall import firewall
-from opnsense_cli.commands.firewall.alias import alias as firewall_alias
-from opnsense_cli.commands.firewall.rule import rule as firewall_rule
-from opnsense_cli.commands.haproxy import haproxy
-from opnsense_cli.commands.haproxy.config import config as haproxy_config
-from opnsense_cli.commands.haproxy.server import server as haproxy_server
-from opnsense_cli.commands.haproxy.backend import backend as haproxy_backend
-from opnsense_cli.commands.haproxy.frontend import frontend as haproxy_frontend
+from opnsense_cli.commands.core.plugin import plugin
+from opnsense_cli.commands.core.openvpn import openvpn
+from opnsense_cli.commands.core.firewall import firewall
+from opnsense_cli.commands.core.firewall.alias import alias as firewall_alias
+from opnsense_cli.commands.plugin.firewall.rule import rule as firewall_rule
+from opnsense_cli.commands.plugin.haproxy import haproxy
+from opnsense_cli.commands.plugin.haproxy.config import config as haproxy_config
+from opnsense_cli.commands.plugin.haproxy.server import server as haproxy_server
+from opnsense_cli.commands.plugin.haproxy.backend import backend as haproxy_backend
+#from opnsense_cli.commands.haproxy.frontend import frontend as haproxy_frontend
 
 
 CFG_DIR = f"~/.{__cli_name__}"
@@ -143,11 +145,14 @@ cli.add_command(haproxy)
 haproxy.add_command(haproxy_config)
 haproxy.add_command(haproxy_server)
 haproxy.add_command(haproxy_backend)
-haproxy.add_command(haproxy_frontend)
+#haproxy.add_command(haproxy_frontend)
 
 cli.add_command(firewall)
 firewall.add_command(firewall_alias)
 firewall.add_command(firewall_rule)
+
+cli.add_command(new)
+new.add_command(new_command)
 
 cli.add_command(plugin)
 cli.add_command(openvpn)

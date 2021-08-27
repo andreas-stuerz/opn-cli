@@ -9,5 +9,6 @@ class CommandTemplateVars:
     click_options_update: list
     column_names: list
     column_list: str
+    module_type: str
 
 

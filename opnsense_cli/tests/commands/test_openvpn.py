@@ -1,5 +1,5 @@
 from unittest.mock import patch
-from opnsense_cli.commands.openvpn import openvpn
+from opnsense_cli.commands.core.openvpn import openvpn
 from opnsense_cli.tests.commands.base import CommandTestCase
 
 
@@ -62,7 +62,7 @@ class TestOpenvpnCommands(CommandTestCase):
             60
         ]
 
-    @patch('opnsense_cli.commands.openvpn.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.openvpn.ApiClient.execute')
     def test_providers(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -78,7 +78,7 @@ class TestOpenvpnCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.openvpn.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.openvpn.ApiClient.execute')
     def test_templates(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -97,7 +97,7 @@ class TestOpenvpnCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.openvpn.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.openvpn.ApiClient.execute')
     def test_accounts(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -114,7 +114,7 @@ class TestOpenvpnCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.openvpn.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.openvpn.ApiClient.execute')
     def test_download(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,

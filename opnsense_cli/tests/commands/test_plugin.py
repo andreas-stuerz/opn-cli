@@ -1,5 +1,5 @@
 from unittest.mock import patch
-from opnsense_cli.commands.plugin import plugin
+from opnsense_cli.commands.core.plugin import plugin
 from opnsense_cli.tests.commands.base import CommandTestCase
 
 
@@ -111,7 +111,7 @@ class TestPluginCommands(CommandTestCase):
             60
         ]
 
-    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.plugin.ApiClient.execute')
     def test_list(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -129,7 +129,7 @@ class TestPluginCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.plugin.ApiClient.execute')
     def test_installed(self, api_response_mock):
         data = self._api_data_fixtures_list
         data['plugin'][0]['installed'] = '1'
@@ -149,7 +149,7 @@ class TestPluginCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.plugin.ApiClient.execute')
     def test_show(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -165,7 +165,7 @@ class TestPluginCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.plugin.ApiClient.execute')
     def test_install_OK(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -179,7 +179,7 @@ class TestPluginCommands(CommandTestCase):
 
         self.assertIn("done\n", result.output)
 
-    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.plugin.ApiClient.execute')
     def test_install_ERROR(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -194,7 +194,7 @@ class TestPluginCommands(CommandTestCase):
         self.assertIn("Error:", result.output)
         self.assertEqual(1, result.exit_code)
 
-    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.plugin.ApiClient.execute')
     def test_uninstall_OK(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -208,7 +208,7 @@ class TestPluginCommands(CommandTestCase):
 
         self.assertIn("done\n", result.output)
 
-    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.plugin.ApiClient.execute')
     def test_uninstall_NOT_FOUND(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -223,7 +223,7 @@ class TestPluginCommands(CommandTestCase):
         self.assertIn("not found\n", result.output)
         self.assertEqual(0, result.exit_code)
 
-    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.plugin.ApiClient.execute')
     def test_reinstall_OK(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -237,7 +237,7 @@ class TestPluginCommands(CommandTestCase):
 
         self.assertIn("done\n", result.output)
 
-    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.plugin.ApiClient.execute')
     def test_reinstall_NOT_FOUND(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -251,7 +251,7 @@ class TestPluginCommands(CommandTestCase):
 
         self.assertIn("not found\n", result.output)
 
-    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.plugin.ApiClient.execute')
     def test_lock_OK(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -265,7 +265,7 @@ class TestPluginCommands(CommandTestCase):
 
         self.assertIn("done\n", result.output)
 
-    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.plugin.ApiClient.execute')
     def test_lock_NOT_FOUND(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -279,7 +279,7 @@ class TestPluginCommands(CommandTestCase):
 
         self.assertIn("not found\n", result.output)
 
-    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.plugin.ApiClient.execute')
     def test_unlock_OK(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -293,7 +293,7 @@ class TestPluginCommands(CommandTestCase):
 
         self.assertIn("done\n", result.output)
 
-    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.plugin.ApiClient.execute')
     def test_unlock_NOT_FOUND(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -307,7 +307,7 @@ class TestPluginCommands(CommandTestCase):
 
         self.assertIn("not found\n", result.output)
 
-    @patch('opnsense_cli.commands.plugin.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.plugin.ApiClient.execute')
     def test_upgrade_status_RUNNING(self, api_response_mock):
         result = self._opn_cli_command_result(
             api_response_mock,

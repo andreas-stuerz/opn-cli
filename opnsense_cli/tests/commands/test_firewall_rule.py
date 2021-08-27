@@ -1,5 +1,5 @@
 from unittest.mock import patch, Mock
-from opnsense_cli.commands.firewall.rule import rule
+from opnsense_cli.commands.plugin.firewall.rule import rule
 from opnsense_cli.tests.commands.base import CommandTestCase
 
 
@@ -1905,7 +1905,7 @@ class TestFirewallRuleCommands(CommandTestCase):
             60
         ]
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.firewall.rule.ApiClient.execute')
     def test_list(self, api_response_mock: Mock):
         columns = (
             'sequence,interface,action,direction,ipprotocol,protocol,'
@@ -1929,7 +1929,7 @@ class TestFirewallRuleCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.firewall.rule.ApiClient.execute')
     def test_show_NOT_FOUND(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -1941,7 +1941,7 @@ class TestFirewallRuleCommands(CommandTestCase):
         )
         self.assertIn("", result.output)
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.firewall.rule.ApiClient.execute')
     def test_show_EMPTY_STRING(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -1951,7 +1951,7 @@ class TestFirewallRuleCommands(CommandTestCase):
         )
         self.assertIn("", result.output)
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.firewall.rule.ApiClient.execute')
     def test_show(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -1988,7 +1988,7 @@ class TestFirewallRuleCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.firewall.rule.ApiClient.execute')
     def test_create_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -2027,7 +2027,7 @@ class TestFirewallRuleCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.firewall.rule.ApiClient.execute')
     def test_create_ERROR(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -2057,7 +2057,7 @@ class TestFirewallRuleCommands(CommandTestCase):
         )
         self.assertEqual(1, result.exit_code)
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.firewall.rule.ApiClient.execute')
     def test_update_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -2097,7 +2097,7 @@ class TestFirewallRuleCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.firewall.rule.ApiClient.execute')
     def test_update_NOT_EXISTS(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -2120,7 +2120,7 @@ class TestFirewallRuleCommands(CommandTestCase):
         )
         self.assertEqual(1, result.exit_code)
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.firewall.rule.ApiClient.execute')
     def test_delete_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -2143,7 +2143,7 @@ class TestFirewallRuleCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.firewall.rule.ApiClient.execute')
     def test_delete_NOT_FOUND(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -2160,7 +2160,7 @@ class TestFirewallRuleCommands(CommandTestCase):
         self.assertIn("Error: {'result': 'not found'}\n", result.output)
         self.assertEqual(1, result.exit_code)
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.firewall.rule.ApiClient.execute')
     def test_start_transaction_FAILED(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -2177,7 +2177,7 @@ class TestFirewallRuleCommands(CommandTestCase):
         self.assertIn("Error: Savepoint creation failed: {'status': 'failed'}\n", result.output)
         self.assertEqual(1, result.exit_code)
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.firewall.rule.ApiClient.execute')
     def test_commit_transaction_apply_FAILED(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -2197,7 +2197,7 @@ class TestFirewallRuleCommands(CommandTestCase):
         self.assertIn("Error: firewall rule apply failed: {'status': 'FAILED\\n\\n'}\n", result.output)
         self.assertEqual(1, result.exit_code)
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.firewall.rule.ApiClient.execute')
     def test_commit_transaction_cancel_rollback_FAILED(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,

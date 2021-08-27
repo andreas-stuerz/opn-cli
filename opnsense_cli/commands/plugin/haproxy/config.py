@@ -2,10 +2,10 @@ import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
     formatter_from_formatter_name, expand_path, available_formats
-from opnsense_cli.commands.haproxy import haproxy
+from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Export, Service
-from opnsense_cli.facades.haproxy.config import HaproxyConfigFacade
+from opnsense_cli.facades.commands.plugin.haproxy.config import HaproxyConfigFacade
 
 pass_api_client = click.make_pass_decorator(ApiClient)
 pass_haproxy_config_svc = click.make_pass_decorator(HaproxyConfigFacade)

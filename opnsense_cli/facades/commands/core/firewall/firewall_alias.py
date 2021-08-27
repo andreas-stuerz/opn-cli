@@ -1,6 +1,6 @@
 from opnsense_cli.api.plugin.firewall import FirewallAlias, FirewallAliasUtil
 from opnsense_cli.exceptions.command import CommandException
-from opnsense_cli.facades.base import CommandFacade
+from opnsense_cli.facades.commands.base import CommandFacade
 
 
 class FirewallAliasFacade(CommandFacade):

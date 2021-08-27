@@ -1,5 +1,5 @@
 from unittest.mock import patch, Mock
-from opnsense_cli.commands.haproxy import haproxy
+from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.tests.commands.base import CommandTestCase
 import os
 
@@ -62,7 +62,7 @@ class TestHaproxyConfigCommands(CommandTestCase):
             60
         ]
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.config.ApiClient.execute')
     def test_show(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -78,7 +78,7 @@ class TestHaproxyConfigCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.config.ApiClient.execute')
     def test_diff(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -94,7 +94,7 @@ class TestHaproxyConfigCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.config.ApiClient.execute')
     def test_test(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -110,7 +110,7 @@ class TestHaproxyConfigCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.config.ApiClient.execute')
     def test_apply_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -127,7 +127,7 @@ class TestHaproxyConfigCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.config.ApiClient.execute')
     def test_apply_CONFIGTEST_FAILED(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -142,7 +142,7 @@ class TestHaproxyConfigCommands(CommandTestCase):
         self.assertIn("Error:", result.output)
         self.assertEqual(1, result.exit_code)
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.config.ApiClient.execute')
     def test_apply_APPLY_FAILED(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -157,7 +157,7 @@ class TestHaproxyConfigCommands(CommandTestCase):
         self.assertIn("Error:", result.output)
         self.assertEqual(1, result.exit_code)
 
-    @patch('opnsense_cli.commands.firewall.alias.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.config.ApiClient.execute')
     def test_download_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,

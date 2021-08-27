@@ -1,5 +1,5 @@
 from unittest.mock import patch, Mock
-from opnsense_cli.commands.haproxy.server import server
+from opnsense_cli.commands.plugin.haproxy.server import server
 from opnsense_cli.tests.commands.base import CommandTestCase
 
 
@@ -416,7 +416,7 @@ class TestHaproxyServerCommands(CommandTestCase):
             60
         ]
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.server.ApiClient.execute')
     def test_list(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -436,7 +436,7 @@ class TestHaproxyServerCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.server.ApiClient.execute')
     def test_list_EMPTY(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -449,7 +449,7 @@ class TestHaproxyServerCommands(CommandTestCase):
 
         self.assertIn("", result.output)
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.server.ApiClient.execute')
     def test_show_NOT_FOUND(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -461,7 +461,7 @@ class TestHaproxyServerCommands(CommandTestCase):
         )
         self.assertIn("", result.output)
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.server.ApiClient.execute')
     def test_show_EMPTY_STRING(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -473,7 +473,7 @@ class TestHaproxyServerCommands(CommandTestCase):
         )
         self.assertIn("", result.output)
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.server.ApiClient.execute')
     def test_show(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -491,7 +491,7 @@ class TestHaproxyServerCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.server.ApiClient.execute')
     def test_create_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -525,7 +525,7 @@ class TestHaproxyServerCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.server.ApiClient.execute')
     def test_create_ERROR(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -550,7 +550,7 @@ class TestHaproxyServerCommands(CommandTestCase):
         )
         self.assertEqual(1, result.exit_code)
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.server.ApiClient.execute')
     def test_update_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -573,7 +573,7 @@ class TestHaproxyServerCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.server.ApiClient.execute')
     def test_update_NOT_EXISTS(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -597,7 +597,7 @@ class TestHaproxyServerCommands(CommandTestCase):
         )
         self.assertEqual(1, result.exit_code)
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.server.ApiClient.execute')
     def test_delete_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -619,7 +619,7 @@ class TestHaproxyServerCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.firewall.rule.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.haproxy.server.ApiClient.execute')
     def test_delete_NOT_FOUND(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,

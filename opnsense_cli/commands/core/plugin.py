@@ -1,6 +1,6 @@
 import click
 
-from opnsense_cli.facades.firmware import FirmwareFacade
+from opnsense_cli.facades.commands.core.firmware import FirmwareFacade
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import formatter_from_formatter_name, available_formats
 from opnsense_cli.api.client import ApiClient

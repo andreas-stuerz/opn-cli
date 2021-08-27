@@ -1,7 +1,7 @@
 from opnsense_cli.api.plugin.haproxy import Settings
 from opnsense_cli.api.plugin.haproxy import Export
 from opnsense_cli.api.plugin.haproxy import Service
-from opnsense_cli.facades.haproxy.base import HaproxyFacade
+from opnsense_cli.facades.commands.plugin.haproxy.base import HaproxyFacade
 
 
 class HaproxyConfigFacade(HaproxyFacade):

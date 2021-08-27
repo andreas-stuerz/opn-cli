@@ -2,30 +2,55 @@ import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
     formatter_from_formatter_name, bool_as_string, available_formats, int_as_string
-from opnsense_cli.commands.haproxy import haproxy
+from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
-from opnsense_cli.facades.haproxy.frontend import HaproxyFrontendFacade
+from opnsense_cli.facades.commands.plugin.haproxy.backend import HaproxyBackendFacade
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_haproxy_frontend_svc = click.make_pass_decorator(HaproxyFrontendFacade)
+pass_haproxy_backend_svc = click.make_pass_decorator(HaproxyBackendFacade)
 
 
 @haproxy.group()
 @pass_api_client
 @click.pass_context
-def frontend(ctx, api_client: ApiClient, **kwargs):
+def backend(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage haproxy frontends
+    Manage haproxy backends
 
-    See: https://docs.opnsense.org/manual/how-tos/haproxy.html#fifth-step-configure-a-frontend
+    See: https://docs.opnsense.org/manual/how-tos/haproxy.html#second-step-configure-a-backend
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = HaproxyFrontendFacade(settings_api, service_api)
+    ctx.obj = HaproxyBackendFacade(settings_api, service_api)
 
 
-@frontend.command()
+@backend.command()
+@click.option(
+    '--output', '-o',
+    help='Specifies the Output format.',
+    default="table",
+    type=click.Choice(available_formats()),
+    callback=formatter_from_formatter_name,
+    show_default=True,
+)
+@click.option(
+    '--cols', '-c',
+    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
+    default="uuid,enabled,name,description,mode,algorithm,Servers,Resolver,healthCheckEnabled,health_check"
+)
+@pass_haproxy_backend_svc
+def list(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
+    """
+    Show all backends
+    """
+    result = haproxy_backend_svc.list_backends()
+
+    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+
+
+@backend.command()
+@click.argument('uuid')
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -38,47 +63,23 @@ def frontend(ctx, api_client: ApiClient, **kwargs):
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=(
-        "uuid,enabled,name,description,bind,mode,Backend,ssl_enabled"
-    )
-)
-@pass_haproxy_frontend_svc
-def list(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
-    """
-    Show all backends
-    """
-    result = haproxy_frontend_svc.list_frontends()
-
-    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
-
-
-@frontend.command()
-@click.argument('frontend_uuid')
-@click.option(
-    '--output', '-o',
-    help='Specifies the Output format.',
-    default="table",
-    type=click.Choice(available_formats()),
-    callback=formatter_from_formatter_name,
+        "enabled,name,description,mode,algorithm,proxyProtocol,Servers,Resolvers,healthCheckEnabled,health_check,"
+        "Mailer,Actions,Errorfiles"
+    ),
     show_default=True,
 )
-@click.option(
-    '--cols', '-c',
-    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
-    default="enabled,name,description,bind,mode,Backend,ssl_enabled",
-    show_default=True,
-)
-@pass_haproxy_frontend_svc
-def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
+@pass_haproxy_backend_svc
+def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     """
     Show details for backend
     """
-    result = haproxy_frontend_svc.show_frontend(kwargs['frontend_uuid'])
+    result = haproxy_backend_svc.show_backend(kwargs['uuid'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
-@frontend.command()
-@click.argument('name_or_prefix')
+@backend.command()
+@click.argument('name')
 @click.option(
     '--enabled/--disabled',
     help='Enable or disable server.',
@@ -89,29 +90,27 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     required=True,
 )
 @click.option(
-    '--type', '-t',
-    help='The server type. Either static server or template to initialize multiple servers with shared parameters',
-    type=click.Choice(['static', 'template']),
-    show_default=True,
-    required=True,
-    default='static'
-)
-@click.option(
     '--description', '-d',
     help='The server description.',
     show_default=True,
 )
 @click.option(
-    '--address', '-a',
-    help='The FQDN or the IP address of this server.',
+    '--mode', '-m',
+    help=(
+        'Set the running mode or protocol of the Backend Pool.'
+    ),
+    type=click.Choice(['http', 'tcp']),
+    default='http',
     show_default=True,
 )
 @click.option(
-    '--serviceName', '-sn',
+    '--algorithm', '-a',
     help=(
-            'Provide either the FQDN for all the servers this template initializes or a service name to discover the '
-            'available services via DNS SRV records.'
+        'Set the running mode or protocol of the Backend Pool.'
+        'Usually the Public Service and the Backend Pool are in the same mode.'
     ),
+    type=click.Choice(['http', 'tcp']),
+    default='',
     show_default=True,
 )
 @click.option(
@@ -228,7 +227,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 @click.option(
     '--advanced', '-opt',
     help=(
-            "list of parameters that will be appended to the server line in every backend where this server will be used."
+        "list of parameters that will be appended to the server line in every backend where this server will be used."
     ),
     show_default=True,
 )
@@ -246,13 +245,13 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     default="result,validations",
     show_default=True,
 )
-@pass_haproxy_frontend_svc
-def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
+@pass_haproxy_backend_svc
+def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     """
     Create a new backend
     """
     json_payload = {
-        'frontend': {
+        'backend': {
             "enabled": kwargs['enabled'],
             "name": kwargs['name_or_prefix'],
             "description": kwargs['description'],
@@ -279,13 +278,13 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
         }
     }
 
-    result = haproxy_frontend_svc.create_frontend(json_payload)
+    result = haproxy_backend_svc.create_backend(json_payload)
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
-@frontend.command()
-@click.argument('frontend_uuid')
+@backend.command()
+@click.argument('uuid')
 @click.option(
     '--name', '-n',
     help='The server name.',
@@ -453,13 +452,13 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     default="result,validations",
     show_default=True,
 )
-@pass_haproxy_frontend_svc
-def update(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
+@pass_haproxy_backend_svc
+def update(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     """
-    Update frontend
+    Update backend
     """
     json_payload = {
-        'frontend': {}
+        'backend': {}
     }
     options = [
         'enabled', 'name', 'description', 'address', 'port', 'checkport', 'mode', 'type', 'serviceName', 'number',
@@ -468,15 +467,15 @@ def update(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     ]
     for option in options:
         if kwargs[option.lower()] is not None:
-            json_payload['frontend'][option] = kwargs[option.lower()]
+            json_payload['backend'][option] = kwargs[option.lower()]
 
-    result = haproxy_frontend_svc.update_frontend(kwargs['frontend_uuid'], json_payload)
+    result = haproxy_backend_svc.update_backend(kwargs['server_uuid'], json_payload)
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
-@frontend.command()
-@click.argument('frontend_uuid')
+@backend.command()
+@click.argument('server_uuid')
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -491,11 +490,11 @@ def update(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     default="result,validations",
     show_default=True,
 )
-@pass_haproxy_frontend_svc
-def delete(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
+@pass_haproxy_backend_svc
+def delete(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     """
     Delete a backend
     """
-    result = haproxy_frontend_svc.delete_frontend(kwargs['frontend_uuid'])
+    result = haproxy_backend_svc.delete_server(kwargs['server_uuid'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()

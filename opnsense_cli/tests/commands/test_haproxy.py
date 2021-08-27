@@ -1,6 +1,6 @@
 import unittest
 from click.testing import CliRunner
-from opnsense_cli.commands.haproxy import haproxy
+from opnsense_cli.commands.plugin.haproxy import haproxy
 
 
 class TestHaproxyCommands(unittest.TestCase):

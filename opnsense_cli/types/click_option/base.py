@@ -49,19 +49,19 @@ class ClickOptionCodeFragment(ABC):
 
     @property
     def _required(self):
-        if self._tag_content.Required.string == 'Y':
+        if self._tag_content.find(name='Required', text='Y'):
             return f"required=True,"
         return f"required=False,"
 
     @property
     def _default(self):
-        if self._tag_content.find('default'):
+        if self._tag_content.find(name='default'):
             return f"default={self._tag_content.default.string},"
         return f"default=None,"
 
     @property
     def _multiple(self):
-        if self._tag_content.find(name='Multiple', text='Y'):
+        if self._tag_content.find(name='Multiple', text='Y') or self._tag_content.find(name='multiple', text='Y'):
             return f"multiple=True,"
         return f"multiple=False,"
 

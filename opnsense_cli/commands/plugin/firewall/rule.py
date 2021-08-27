@@ -2,10 +2,10 @@ import click
 
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import formatter_from_formatter_name, bool_as_string, int_as_string, available_formats
-from opnsense_cli.commands.firewall import firewall
+from opnsense_cli.commands.core.firewall import firewall
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.firewall import FirewallFilter
-from opnsense_cli.facades.firewall_rule import FirewallRuleFacade
+from opnsense_cli.facades.commands.plugin.firewall.firewall_rule import FirewallRuleFacade
 
 pass_api_client = click.make_pass_decorator(ApiClient)
 pass_firewall_rule_svc = click.make_pass_decorator(FirewallRuleFacade)
