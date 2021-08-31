@@ -8,6 +8,7 @@ class ClickChoice(ClickOptionCodeFragment):
         help='ToDo',
         type=click.Choice(${choices}),
         multiple=${multiple},
+        callback=tuple_to_csv,
         show_default=True,
         default=${default},
         ${required}
@@ -19,6 +20,7 @@ class ClickChoice(ClickOptionCodeFragment):
         help='ToDo',
         type=click.Choice(${choices}),
         multiple=${multiple},
+        callback=tuple_to_csv,
         show_default=True,
         default=None
     )

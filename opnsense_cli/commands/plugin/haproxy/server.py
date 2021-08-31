@@ -1,7 +1,7 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
-    formatter_from_formatter_name, bool_as_string, available_formats, int_as_string
+    formatter_from_formatter_name, bool_as_string, available_formats, int_as_string, tuple_to_csv
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
@@ -176,6 +176,7 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     help='Add resolver options.',
     type=click.Choice(['', 'allow-dup-ip', 'ignore-weight', 'prevent-dup-ip']),
     multiple=True,
+    callback=tuple_to_csv,
     show_default=True,
     default=None,
     required=False,
@@ -295,7 +296,6 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     """
     Create a new server
     """
-    print(kwargs)
     json_payload = {
         'server': {
             "enabled": kwargs['enabled'],
@@ -323,6 +323,7 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
             "advanced": kwargs['advanced'],
         }
     }
+    print(json_payload)
 
     result = haproxy_server_svc.create_server(json_payload)
 
