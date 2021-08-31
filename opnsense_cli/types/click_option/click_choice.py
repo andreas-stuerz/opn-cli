@@ -7,9 +7,9 @@ class ClickChoice(ClickOptionCodeFragment):
         '--${name}',
         help='ToDo',
         type=click.Choice(${choices}),
-        ${multiple}
+        multiple=${multiple},
         show_default=True,
-        default='${default}',
+        default=${default},
         ${required}
     )
     '''
@@ -18,11 +18,21 @@ class ClickChoice(ClickOptionCodeFragment):
         '--${name}',
         help='ToDo',
         type=click.Choice(${choices}),
-        ${multiple}
+        multiple=${multiple},
         show_default=True,
         default=None
     )
     '''
+    @property
+    def _default(self):
+        if self._multiple:
+            if super()._default:
+                return super()._default.split(",")
+            else:
+              return []
+        else:
+            return f"'{super()._default}'"
+
 
     @property
     def _choices(self):
@@ -40,5 +50,5 @@ class ClickChoice(ClickOptionCodeFragment):
             choices=self._choices,
             multiple=self._multiple,
             required=self._required,
-            default=self._default
+            default=self._default,
         ).strip()

@@ -7,7 +7,7 @@ class ClickText(ClickOptionCodeFragment):
         '--${name}',
         help='ToDo',
         show_default=True,
-        default='${default}',
+        default=${default},
         ${required}
     )
     '''
@@ -24,5 +24,5 @@ class ClickText(ClickOptionCodeFragment):
         return self._template.substitute(
             name=self._name,
             required=self._required,
-            default=self._default
+            default=f"'{self._default}'" if self._default else self._default
         ).strip()

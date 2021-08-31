@@ -36,6 +36,11 @@ class CommandFacade(ABC):
         return slice
 
     def _resolve_linked_items_with_jsonpath_template(self, item_csv_string, map, data):
+        if not isinstance(item_csv_string, str):
+            return {
+                map['insert_as_key']: ""
+            }
+
         quoted_items = "'{}'".format("','".join(item_csv_string.split(",")))
         evaluated_template = map['template'].format(uuids=quoted_items)
         uuid_expression = parse(evaluated_template)

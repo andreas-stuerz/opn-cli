@@ -63,5 +63,5 @@ class ClickOptionCodeFragment(ABC):
     @property
     def _multiple(self):
         if self._tag_content.find(name='Multiple', text='Y') or self._tag_content.find(name='multiple', text='Y'):
-            return "multiple=True,"
-        return "multiple=False,"
+            return True
+        return False
