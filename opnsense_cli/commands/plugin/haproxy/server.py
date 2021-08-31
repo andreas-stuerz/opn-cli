@@ -356,8 +356,8 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
 @click.option(
     '--port', '-p',
     help=(
-            'Provide the TCP or UDP communication port for this server. '
-            'If unset, the same port the client connected to will be used'
+        'Provide the TCP or UDP communication port for this server. '
+        'If unset, the same port the client connected to will be used'
     ),
     show_default=True,
     type=int,

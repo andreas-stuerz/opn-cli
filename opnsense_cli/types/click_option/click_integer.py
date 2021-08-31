@@ -9,7 +9,7 @@ class ClickInteger(ClickOptionCodeFragment):
         show_default=True,
         type=int,
         callback=int_as_string,
-        ${default}
+        default=${default},
         ${required}
     )
     '''

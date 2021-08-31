@@ -9,7 +9,7 @@ class ClickChoice(ClickOptionCodeFragment):
         type=click.Choice(${choices}),
         ${multiple}
         show_default=True,
-        ${default}
+        default='${default}',
         ${required}
     )
     '''
@@ -33,12 +33,6 @@ class ClickChoice(ClickOptionCodeFragment):
             choices.insert(0, '')
 
         return repr(choices)
-
-    @property
-    def _default(self):
-        if self._tag_content.find('default'):
-            return f"default='{self._tag_content.default.string}',"
-        return "default=None,"
 
     def _render_template(self):
         return self._template.substitute(

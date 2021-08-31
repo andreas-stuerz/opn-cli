@@ -57,8 +57,8 @@ class ClickOptionCodeFragment(ABC):
     @property
     def _default(self):
         if self._tag_content.find(name='default'):
-            return f"default={self._tag_content.default.string},"
-        return "default=None,"
+            return self._tag_content.default.string
+        return None
 
     @property
     def _multiple(self):

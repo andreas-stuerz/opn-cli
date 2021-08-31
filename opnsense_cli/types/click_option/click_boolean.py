@@ -9,7 +9,7 @@ class ClickBoolean(ClickOptionCodeFragment):
         show_default=True,
         is_flag=True,
         callback=bool_as_string,
-        ${default}
+        default=${default},
         ${required}
     )
     '''
@@ -27,8 +27,8 @@ class ClickBoolean(ClickOptionCodeFragment):
     @property
     def _default(self):
         if self._tag_content.find('default'):
-            return f"default={bool(self._tag_content.default.string)},"
-        return "default=None,"
+            return bool(self._tag_content.default.string)
+        return None
 
     def _render_template(self):
         return self._template.substitute(

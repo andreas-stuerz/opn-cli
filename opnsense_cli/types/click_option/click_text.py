@@ -7,7 +7,7 @@ class ClickText(ClickOptionCodeFragment):
         '--${name}',
         help='ToDo',
         show_default=True,
-        ${default}
+        default='${default}',
         ${required}
     )
     '''
