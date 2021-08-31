@@ -25,7 +25,7 @@ class ClickCommandCodeGenerator(CommandCodeGenerator):
             if create_option_code:
                 click_options_create.append(create_option_code)
 
-            update_option_code = self._get_click_option_create_code(tag, click_option_type)
+            update_option_code = self._get_click_option_update_code(tag, click_option_type)
             if update_option_code:
                 click_options_update.append(update_option_code)
 

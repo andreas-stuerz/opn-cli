@@ -103,7 +103,7 @@ def create({{ service }}: {{ facade }}, **kwargs):
     json_payload = {
         '{{ vars.click_command }}': {
             {% for column in vars.column_names -%}
-                "{{ column }}": kwargs['{{ column }}'],
+                "{{ column }}": kwargs['{{ column.lower() }}'],
             {% endfor %}
         }
     }

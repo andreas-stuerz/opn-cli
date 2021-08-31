@@ -5,12 +5,12 @@ from bs4.element import Tag
 
 class ClickCommandFacadeCodeGenerator(CommandCodeGenerator):
     def _get_template_vars(self):
-        resolver_map = []
+        resolver_map = {}
         for tag in self._tag_content.findChildren(recursive=False):
             resolver_item = self._get_resolver(tag)
 
             if resolver_item:
-                resolver_map.append(resolver_item)
+                resolver_map.update(resolver_item)
 
         return FacadeTemplateVars(
             click_command=self._click_command,

@@ -16,9 +16,7 @@ pass_haproxy_server_svc = click.make_pass_decorator(HaproxyServerFacade)
 @click.pass_context
 def server(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage haproxy backend servers
-
-    See: https://docs.opnsense.org/manual/how-tos/haproxy.html#first-step-configure-backend-servers
+    Manage haproxy server
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
@@ -42,7 +40,7 @@ def server(ctx, api_client: ApiClient, **kwargs):
 @pass_haproxy_server_svc
 def list(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     """
-    Show all servers
+    Show all server
     """
     result = haproxy_server_svc.list_servers()
 
@@ -78,7 +76,7 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
 @server.command()
 @click.argument('name')
 @click.option(
-    '--enabled/--disabled',
+    '--enabled/--no-enabled',
     help='Enable or disable server.',
     show_default=True,
     is_flag=True,
@@ -87,22 +85,57 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     required=True,
 )
 @click.option(
-    '--type', '-t',
-    help='The server type. Either static server or template to initialize multiple servers with shared parameters',
-    type=click.Choice(['static', 'template']),
-    show_default=True,
-    required=True,
-    default='static'
-)
-@click.option(
     '--description', '-d',
     help='The server description.',
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--address', '-a',
     help='The FQDN or the IP address of this server.',
     show_default=True,
+    default=None,
+    required=False,
+)
+@click.option(
+    '--port', '-p',
+    help=(
+            'Provide the TCP or UDP communication port for this server. '
+            'If unset, the same port the client connected to will be used'
+    ),
+    show_default=True,
+    type=int,
+    callback=int_as_string,
+    default=None,
+    required=False,
+)
+@click.option(
+    '--checkport', '--cp',
+    help="Provide the TCP communication port to use during check.",
+    show_default=True,
+    type=int,
+    callback=int_as_string,
+    default=None,
+    required=False,
+)
+@click.option(
+    '--mode', '-m',
+    help='Sets the operation mode to use for this server.',
+    type=click.Choice(['', 'active', 'backup', 'disabled']),
+    multiple=False,
+    show_default=True,
+    default='active',
+    required=False,
+)
+@click.option(
+    '--type', '-t',
+    help='The server type. Either static server or template to initialize multiple servers with shared parameters',
+    type=click.Choice(['static', 'template']),
+    multiple=False,
+    show_default=True,
+    default='static',
+    required=True,
 )
 @click.option(
     '--serviceName', '-sn',
@@ -111,49 +144,46 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
         'available services via DNS SRV records.'
     ),
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--number', '-nu',
     help='The number of servers this template initializes, i.e. 5 or 1-5.',
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--linkedResolver', '-lr',
     help=(
-        'Specify the uuid of the resolver that the server template should look at '
-        'to discover available services via DNS.'
+            'Specify the uuid of the resolver that the server template should look at '
+            'to discover available services via DNS.'
     ),
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--resolverOpts', '-ro',
     help='Add resolver options.',
+    type=click.Choice(['', 'allow-dup-ip', 'ignore-weight', 'prevent-dup-ip']),
+    multiple=True,
     show_default=True,
-)
-@click.option(
-    '--port', '-p',
-    help=(
-        'Provide the TCP or UDP communication port for this server. '
-        'If unset, the same port the client connected to will be used'
-    ),
-    type=int,
-    callback=int_as_string,
-    show_default=True,
-)
-@click.option(
-    '--mode', '-m',
-    help='Sets the operation mode to use for this server.',
-    type=click.Choice(['', 'active', 'backup', 'disabled']),
-    show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--resolvePrefer', '-rp',
     help=(
-        'When DNS resolution is enabled for a server and multiple IP addresses from different families are returned, '
-        'HAProxy will prefer using an IP address from the selected family.'
+            'When DNS resolution is enabled for a server and multiple IP addresses from different families are returned, '
+            'HAProxy will prefer using an IP address from the selected family.'
     ),
     type=click.Choice(['', 'ipv4', 'ipv6']),
+    multiple=False,
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--ssl/--no-ssl',
@@ -161,11 +191,11 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
-    default=False,
+    default=True,
     required=True,
 )
 @click.option(
-    '--sslVerify/--no-sslVerify', '--ssl-verify/--no-ssl-verify',
+    '--sslVerify/--no-sslVerify',
     help='Enable or disable server ssl certificate verification.',
     show_default=True,
     is_flag=True,
@@ -177,14 +207,18 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     '--sslCA', '-ca',
     help="These CA Ids will be used to verify server's certificate. Pass multiple values comma separated",
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--sslCRL', '-crl',
     help=(
-        "This certificate revocation list Ids will be used to verify server's certificate. "
-        "Pass multiple values comma separated"
+            "This certificate revocation list Ids will be used to verify server's certificate. "
+            "Pass multiple values comma separated"
     ),
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--sslClientCertificate', '-cert',
@@ -193,42 +227,47 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
             "Pass the certificate id eg. 60cc4641eb577"
     ),
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--weight', '-w',
     help="Adjust the server's weight relative to other servers.",
+    show_default=True,
     type=int,
     callback=int_as_string,
+    default=None,
+    required=False,
 )
 @click.option(
     '--checkInterval', '-ci',
     help="Sets the interval (in milliseconds) for running health checks on this server.",
-    type=int,
-    callback=int_as_string,
+    show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--checkDownInterval', '-cdi',
     help="Sets the interval (in milliseconds) for running health checks on the server when the server state is DOWN.",
-    type=int,
-    callback=int_as_string,
-)
-@click.option(
-    '--checkport', '-cp',
-    help="Provide the TCP communication port to use during check.",
-    type=int,
-    callback=int_as_string,
+    show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--source', '-s',
-    help="Sets the source address which will be used when connecting to the server..",
+    help="Sets the source address which will be used when connecting to the server.",
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
-    '--advanced', '-opt',
+    '--advanced', '-adv',
     help=(
-        "list of parameters that will be appended to the server line in every backend where this server will be used."
+            "list of parameters that will be appended to the server line in every backend where this server will be used."
     ),
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--output', '-o',
@@ -247,18 +286,19 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
 @pass_haproxy_server_svc
 def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     """
-    Create a new backend server
+    Create a new server
     """
+    print(kwargs)
     json_payload = {
         'server': {
             "enabled": kwargs['enabled'],
             "name": kwargs['name'],
             "description": kwargs['description'],
-            "type": kwargs['type'],
             "address": kwargs['address'],
             "port": kwargs['port'],
             "checkport": kwargs['checkport'],
             "mode": kwargs['mode'],
+            "type": kwargs['type'],
             "serviceName": kwargs['servicename'],
             "number": kwargs['number'],
             "linkedResolver": kwargs['linkedresolver'],
@@ -285,33 +325,72 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
 @server.command()
 @click.argument('uuid')
 @click.option(
-    '--name', '-n',
-    help='The server name.',
-    show_default=True,
-)
-@click.option(
-    '--enabled/--disabled',
+    '--enabled/--no-enabled',
     help='Enable or disable server.',
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
-    default=None,
+    default=True,
+    required=True,
 )
 @click.option(
-    '--type', '-t',
-    help='The server type. Either static server or template to initialize multiple servers with shared parameters',
-    type=click.Choice(['static', 'template']),
+    '--name',
+    help='The server name.',
     show_default=True,
+    default=None
 )
 @click.option(
     '--description', '-d',
     help='The server description.',
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--address', '-a',
     help='The FQDN or the IP address of this server.',
     show_default=True,
+    default=None,
+    required=False,
+)
+@click.option(
+    '--port', '-p',
+    help=(
+            'Provide the TCP or UDP communication port for this server. '
+            'If unset, the same port the client connected to will be used'
+    ),
+    show_default=True,
+    type=int,
+    callback=int_as_string,
+    default=None,
+    required=False,
+)
+@click.option(
+    '--checkport', '-cp',
+    help="Provide the TCP communication port to use during check.",
+    show_default=True,
+    type=int,
+    callback=int_as_string,
+    default=None,
+    required=False,
+)
+@click.option(
+    '--mode', '-m',
+    help='Sets the operation mode to use for this server.',
+    type=click.Choice(['', 'active', 'backup', 'disabled']),
+    multiple=False,
+    show_default=True,
+    default='active',
+    required=False,
+)
+@click.option(
+    '--type', '-t',
+    help='The server type. Either static server or template to initialize multiple servers with shared parameters',
+    type=click.Choice(['static', 'template']),
+    multiple=False,
+    show_default=True,
+    default='static',
+    required=True,
 )
 @click.option(
     '--serviceName', '-sn',
@@ -320,11 +399,15 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
             'available services via DNS SRV records.'
     ),
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
-    '--number', '-num',
+    '--number', '-nu',
     help='The number of servers this template initializes, i.e. 5 or 1-5.',
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--linkedResolver', '-lr',
@@ -333,27 +416,17 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
             'to discover available services via DNS.'
     ),
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--resolverOpts', '-ro',
     help='Add resolver options.',
+    type=click.Choice(['', 'allow-dup-ip', 'ignore-weight', 'prevent-dup-ip']),
+    multiple=True,
     show_default=True,
-)
-@click.option(
-    '--port', '-p',
-    help=(
-            'Provide the TCP or UDP communication port for this server. '
-            'If unset, the same port the client connected to will be used'
-    ),
-    type=int,
-    callback=int_as_string,
-    show_default=True,
-)
-@click.option(
-    '--mode', '-m',
-    help='Sets the operation mode to use for this server.',
-    type=click.Choice(['', 'active', 'backup', 'disabled']),
-    show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--resolvePrefer', '-rp',
@@ -362,7 +435,10 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
             'HAProxy will prefer using an IP address from the selected family.'
     ),
     type=click.Choice(['', 'ipv4', 'ipv6']),
+    multiple=False,
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--ssl/--no-ssl',
@@ -370,20 +446,24 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
-    default=None,
+    default=True,
+    required=True,
 )
 @click.option(
-    '--sslVerify/--no-sslVerify', '--ssl-verify/--no-ssl-verify',
+    '--sslVerify/--no-sslVerify',
     help='Enable or disable server ssl certificate verification.',
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
-    default=None,
+    default=True,
+    required=True,
 )
 @click.option(
     '--sslCA', '-ca',
     help="These CA Ids will be used to verify server's certificate. Pass multiple values comma separated",
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--sslCRL', '-crl',
@@ -392,6 +472,8 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
             "Pass multiple values comma separated"
     ),
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--sslClientCertificate', '-cert',
@@ -400,42 +482,47 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
             "Pass the certificate id eg. 60cc4641eb577"
     ),
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--weight', '-w',
     help="Adjust the server's weight relative to other servers.",
+    show_default=True,
     type=int,
     callback=int_as_string,
+    default=None,
+    required=False,
 )
 @click.option(
     '--checkInterval', '-ci',
     help="Sets the interval (in milliseconds) for running health checks on this server.",
-    type=int,
-    callback=int_as_string,
+    show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--checkDownInterval', '-cdi',
     help="Sets the interval (in milliseconds) for running health checks on the server when the server state is DOWN.",
-    type=int,
-    callback=int_as_string,
-)
-@click.option(
-    '--checkport', '-cp',
-    help="Provide the TCP communication port to use during check.",
-    type=int,
-    callback=int_as_string,
+    show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--source', '-s',
-    help="Sets the source address which will be used when connecting to the server..",
+    help="Sets the source address which will be used when connecting to the server.",
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
-    '--advanced', '-opt',
+    '--advanced', '-adv',
     help=(
             "list of parameters that will be appended to the server line in every backend where this server will be used."
     ),
     show_default=True,
+    default=None,
+    required=False,
 )
 @click.option(
     '--output', '-o',
@@ -454,16 +541,12 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
 @pass_haproxy_server_svc
 def update(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     """
-    Update a backend server.
+    Update a server.
     """
     json_payload = {
         'server': {}
     }
-    options = [
-        'enabled', 'name', 'description', 'address', 'port', 'checkport', 'mode', 'type', 'serviceName', 'number',
-        'linkedresolver', 'resolverOpts', 'resolvePrefer', 'ssl', 'sslVerify', 'sslCA', 'sslCRL',
-        'sslClientCertificate', 'weight', 'checkInterval', 'checkDownInterval', 'source', 'advanced'
-    ]
+    options = ['enabled', 'name', 'description', 'address', 'port', 'checkport', 'mode', 'type', 'serviceName', 'number', 'linkedResolver', 'resolverOpts', 'resolvePrefer', 'ssl', 'sslVerify', 'sslCA', 'sslCRL', 'sslClientCertificate', 'weight', 'checkInterval', 'checkDownInterval', 'source', 'advanced']
     for option in options:
         if kwargs[option.lower()] is not None:
             json_payload['server'][option] = kwargs[option.lower()]
@@ -492,7 +575,7 @@ def update(haproxy_server_svc: HaproxyServerFacade, **kwargs):
 @pass_haproxy_server_svc
 def delete(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     """
-    Delete a backend server
+    Delete server
     """
     result = haproxy_server_svc.delete_server(kwargs['uuid'])
 

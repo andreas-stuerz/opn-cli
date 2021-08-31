@@ -6,5 +6,5 @@ class FacadeTemplateVars:
     click_command: str
     click_group: str
     model_xml_tag: str
-    resolver_map: list
+    resolver_map: dict
     module_type: str

@@ -70,8 +70,8 @@ class TestHaproxyServerCommands(CommandTestCase):
                                     "value": "backup",
                                     "selected": 0
                                 },
-                                "disabled": {
-                                    "value": "disabled",
+                                "no-enabled": {
+                                    "value": "no-enabled",
                                     "selected": 0
                                 }
                             },
@@ -188,8 +188,8 @@ class TestHaproxyServerCommands(CommandTestCase):
                                     "value": "backup",
                                     "selected": 0
                                 },
-                                "disabled": {
-                                    "value": "disabled",
+                                "no-enabled": {
+                                    "value": "no-enabled",
                                     "selected": 0
                                 }
                             },
@@ -306,8 +306,8 @@ class TestHaproxyServerCommands(CommandTestCase):
                                     "value": "backup",
                                     "selected": 0
                                 },
-                                "disabled": {
-                                    "value": "disabled",
+                                "no-enabled": {
+                                    "value": "no-enabled",
                                     "selected": 0
                                 }
                             },
@@ -503,15 +503,14 @@ class TestHaproxyServerCommands(CommandTestCase):
             server,
             [
                 "create", "my_test_server",
-                "--disabled",
+                "--no-enabled",
                 "--type", "template",
                 "--description", "test",
                 "--address", "10.0.0.1",
                 "--port", "9091",
                 "--mode", "backup",
                 "--no-ssl",
-                "--no-ssl",
-                "--no-ssl-verify",
+                "--no-sslVerify",
                 "--weight", "10",
                 "--checkInterval", "10",
                 "--source", "10.0.0.5",
@@ -585,7 +584,7 @@ class TestHaproxyServerCommands(CommandTestCase):
             server,
             [
                 "update", "99282721-934c-42be-ba4d-a93cbfda2644",
-                "--disabled",
+                "--no-enabled",
             ]
         )
 

@@ -20,8 +20,8 @@ class {{ facade }}({{ vars.click_group.capitalize() }}Facade):
         complete_model_data = self._settings_api.get()
         jsonpath_base = '$.{{ vars.click_group }}.{{ vars.model_xml_tag }}.{{ vars.click_command }}'
         uuid_resolver_map = {
-            {% for item in vars.resolver_map -%}
-                {{ item }},
+            {% for key, config in vars.resolver_map.items() -%}
+                '{{ key }}': {{ config }},
             {% endfor %}
         }
 
