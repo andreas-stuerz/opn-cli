@@ -1,3 +1,5 @@
+import json
+import os
 from unittest.mock import Mock
 from click.testing import CliRunner, Result
 from click.core import Group
@@ -6,6 +8,12 @@ from pyfakefs.fake_filesystem_unittest import TestCase
 
 
 class CommandTestCase(TestCase):
+    def _read_json_fixture(self, relative_path, fixture_dir='../fixtures'):
+        path = os.path.join(os.path.dirname(__file__), fixture_dir, relative_path)
+        with open(path) as json_file:
+            fixture = json.load(json_file)
+        return fixture
+
     def _opn_cli_command_result(self, api_mock: Mock, api_return_values: list, click_group: Group,
                                 click_params: list, catch_exceptions=False) -> Result:
         """
