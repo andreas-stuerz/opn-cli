@@ -35,7 +35,10 @@ def server(ctx, api_client: ApiClient, **kwargs):
 @click.option(
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
-    default="uuid,enabled,name,type,address,port,description,ssl,sslVerify,weight"
+    default=(
+        "uuid,enabled,name,type,address,port,description,ssl,sslVerify,weight"
+    ),
+    show_default=True,
 )
 @pass_haproxy_server_svc
 def list(haproxy_server_svc: HaproxyServerFacade, **kwargs):
@@ -60,7 +63,11 @@ def list(haproxy_server_svc: HaproxyServerFacade, **kwargs):
 @click.option(
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
-    default="enabled,id,name,type,address,port,description",
+    default=(
+        "enabled,name,description,address,port,checkport,mode,type,serviceName,number,"
+        "linkedResolver,resolverOpts,resolvePrefer,ssl,sslVerify,sslCA,sslCRL,sslClientCertificate,"
+        "weight,checkInterval,checkDownInterval,source,advanced"
+    ),
     show_default=True,
 )
 @pass_haproxy_server_svc

@@ -38,7 +38,10 @@ def {{ vars.click_command }}(ctx, api_client: ApiClient, **kwargs):
 @click.option(
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
-    default="{{ ",".join(vars.column_names) }}"
+    default=(
+        "{{ ",".join(vars.column_names) }}"
+    ),
+    show_default=True,
 )
 @pass_{{ service }}
 def list({{ service }}: {{ facade }}, **kwargs):
@@ -63,7 +66,9 @@ def list({{ service }}: {{ facade }}, **kwargs):
 @click.option(
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
-    default="enabled,id,name,type,address,port,description",
+    default=(
+        "{{ ",".join(vars.column_names) }}"
+    ),
     show_default=True,
 )
 @pass_{{ service }}
