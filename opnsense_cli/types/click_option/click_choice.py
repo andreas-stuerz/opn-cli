@@ -27,14 +27,23 @@ class ClickChoice(ClickOptionCodeFragment):
     '''
     @property
     def _default(self):
+        default_for_multiple = self._get_default_for_multiple()
+
+        if default_for_multiple:
+            return default_for_multiple
+
+        if super()._default:
+            return f"'{super()._default}'"
+        else:
+            return super()._default
+
+    def _get_default_for_multiple(self):
         if self._multiple:
             if super()._default:
                 return super()._default.split(",")
             else:
-              return []
-        else:
-            return f"'{super()._default}'"
-
+                return []
+        return None
 
     @property
     def _choices(self):

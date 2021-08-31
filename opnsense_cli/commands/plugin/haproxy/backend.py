@@ -1,7 +1,7 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
-    formatter_from_formatter_name, bool_as_string, available_formats, int_as_string
+    formatter_from_formatter_name, bool_as_string, available_formats, int_as_string, tuple_to_csv
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
@@ -112,6 +112,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     help='Set the running mode or protocol of the backend pool.',
     type=click.Choice(['http', 'tcp']),
     multiple=False,
+    callback=tuple_to_csv,
     show_default=True,
     default='http',
     required=True,
@@ -121,6 +122,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     help='Define the load balancing algorithm to be used in a backend pool.',
     type=click.Choice(['source', 'roundrobin', 'static-rr', 'leastconn', 'uri', 'random']),
     multiple=False,
+    callback=tuple_to_csv,
     show_default=True,
     default='source',
     required=True,
@@ -142,8 +144,9 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     help='Enforces use of the PROXY protocol over any connection established to the configured servers.',
     type=click.Choice(['', 'v1', 'v2']),
     multiple=False,
+    callback=tuple_to_csv,
     show_default=True,
-    default='None',
+    default=None,
     required=False,
 )
 @click.option(
@@ -165,6 +168,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     help='Add resolver options.',
     type=click.Choice(['', 'allow-dup-ip', 'ignore-weight', 'prevent-dup-ip']),
     multiple=True,
+    callback=tuple_to_csv,
     show_default=True,
     default=[],
     required=False,
@@ -177,8 +181,9 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     ),
     type=click.Choice(['', 'ipv4', 'ipv6']),
     multiple=False,
+    callback=tuple_to_csv,
     show_default=True,
-    default='None',
+    default=None,
     required=False,
 )
 @click.option(
@@ -284,6 +289,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     ),
     type=click.Choice(['', 'h2', 'http11', 'http10']),
     multiple=True,
+    callback=tuple_to_csv,
     show_default=True,
     default=['h2', 'http11'],
     required=False,
@@ -297,6 +303,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     ),
     type=click.Choice(['', 'sticktable', 'cookie']),
     multiple=False,
+    callback=tuple_to_csv,
     show_default=True,
     default='sticktable',
     required=False,
@@ -309,6 +316,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     ),
     type=click.Choice(['piggyback', 'new']),
     multiple=False,
+    callback=tuple_to_csv,
     show_default=True,
     default='piggyback',
     required=True,
@@ -334,6 +342,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     help='Choose a request pattern to associate a user to a server.',
     type=click.Choice(['', 'sourceipv4', 'sourceipv6', 'cookievalue', 'rdpcookie']),
     multiple=False,
+    callback=tuple_to_csv,
     show_default=True,
     default='sourceipv4',
     required=False,
@@ -352,6 +361,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
         ]
     ),
     multiple=True,
+    callback=tuple_to_csv,
     show_default=True,
     default=[],
     required=False,
@@ -563,6 +573,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     ),
     type=click.Choice(['', 'never', 'safe', 'aggressive', 'always']),
     multiple=False,
+    callback=tuple_to_csv,
     show_default=True,
     default='safe',
     required=False,
@@ -703,6 +714,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     help='Set the running mode or protocol of the backend pool.',
     type=click.Choice(['http', 'tcp']),
     multiple=False,
+    callback=tuple_to_csv,
     show_default=True,
     default=None
 )
@@ -711,6 +723,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     help='Define the load balancing algorithm to be used in a backend pool.',
     type=click.Choice(['source', 'roundrobin', 'static-rr', 'leastconn', 'uri', 'random']),
     multiple=False,
+    callback=tuple_to_csv,
     show_default=True,
     default=None
 )
@@ -730,6 +743,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     help='Enforces use of the PROXY protocol over any connection established to the configured servers.',
     type=click.Choice(['', 'v1', 'v2']),
     multiple=False,
+    callback=tuple_to_csv,
     show_default=True,
     default=None
 )
@@ -750,6 +764,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     help='Add resolver options.',
     type=click.Choice(['', 'allow-dup-ip', 'ignore-weight', 'prevent-dup-ip']),
     multiple=True,
+    callback=tuple_to_csv,
     show_default=True,
     default=None
 )
@@ -761,6 +776,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     ),
     type=click.Choice(['', 'ipv4', 'ipv6']),
     multiple=False,
+    callback=tuple_to_csv,
     show_default=True,
     default=None
 )
@@ -856,6 +872,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     ),
     type=click.Choice(['', 'h2', 'http11', 'http10']),
     multiple=True,
+    callback=tuple_to_csv,
     show_default=True,
     default=None
 )
@@ -868,6 +885,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     ),
     type=click.Choice(['', 'sticktable', 'cookie']),
     multiple=False,
+    callback=tuple_to_csv,
     show_default=True,
     default=None
 )
@@ -879,6 +897,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     ),
     type=click.Choice(['piggyback', 'new']),
     multiple=False,
+    callback=tuple_to_csv,
     show_default=True,
     default=None
 )
@@ -901,6 +920,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     help='Choose a request pattern to associate a user to a server.',
     type=click.Choice(['', 'sourceipv4', 'sourceipv6', 'cookievalue', 'rdpcookie']),
     multiple=False,
+    callback=tuple_to_csv,
     show_default=True,
     default=None
 )
@@ -918,6 +938,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
         ]
     ),
     multiple=True,
+    callback=tuple_to_csv,
     show_default=True,
     default=None
 )
@@ -1108,6 +1129,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     ),
     type=click.Choice(['', 'never', 'safe', 'aggressive', 'always']),
     multiple=False,
+    callback=tuple_to_csv,
     show_default=True,
     default=None
 )

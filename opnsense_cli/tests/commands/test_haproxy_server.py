@@ -486,7 +486,7 @@ class TestHaproxyServerCommands(CommandTestCase):
 
         self.assertIn(
             (
-                "1 61126a6eaa9e37.48182479 server1 static 192.168.56.1 8081 \n"
+                "1 server1  192.168.56.1 8081  active static      1 1        \n"
             ),
             result.output
         )
