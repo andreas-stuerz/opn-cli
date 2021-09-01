@@ -9,6 +9,7 @@ class ClickOptionCodeFragment(ABC):
         self._tag_content = tag
         self.__name = tag.name
         self.__template = Template(textwrap.dedent(self.TEMPLATE_CREATE))
+        self.__help = 'ToDo'
 
     @property
     @abstractmethod
@@ -65,3 +66,11 @@ class ClickOptionCodeFragment(ABC):
         if self._tag_content.find(name='Multiple', text='Y') or self._tag_content.find(name='multiple', text='Y'):
             return True
         return False
+
+    @property
+    def _help(self):
+        return self.__help
+
+    @_help.setter
+    def help(self, help):
+        self.__help = help

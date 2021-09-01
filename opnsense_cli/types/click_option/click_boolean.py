@@ -5,7 +5,7 @@ class ClickBoolean(ClickOptionCodeFragment):
     TEMPLATE_CREATE = '''
     @click.option(
         '--${name}/--no-${name}',
-        help='ToDo',
+        help=('${help}'),
         show_default=True,
         is_flag=True,
         callback=bool_as_string,
@@ -16,7 +16,7 @@ class ClickBoolean(ClickOptionCodeFragment):
     TEMPLATE_UPDATE = '''
     @click.option(
         '--${name}/--no-${name}',
-        help='ToDo',
+        help=('${help}'),
         show_default=True,
         is_flag=True,
         callback=bool_as_string,
@@ -34,5 +34,6 @@ class ClickBoolean(ClickOptionCodeFragment):
         return self._template.substitute(
             name=self._name,
             required=self._required,
-            default=self._default
+            default=self._default,
+            help=self._help,
         ).strip()

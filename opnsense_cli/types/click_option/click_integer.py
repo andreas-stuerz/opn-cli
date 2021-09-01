@@ -5,7 +5,7 @@ class ClickInteger(ClickOptionCodeFragment):
     TEMPLATE_CREATE = '''
     @click.option(
         '--${name}',
-        help='ToDo',
+        help=('${help}'),
         show_default=True,
         type=int,
         callback=int_as_string,
@@ -16,7 +16,7 @@ class ClickInteger(ClickOptionCodeFragment):
     TEMPLATE_UPDATE = '''
     @click.option(
         '--${name}',
-        help='ToDo',
+        help=('${help}'),
         show_default=True,
         type=int,
         callback=int_as_string,
@@ -28,5 +28,6 @@ class ClickInteger(ClickOptionCodeFragment):
         return self._template.substitute(
             name=self._name,
             required=self._required,
-            default=self._default
+            default=self._default,
+            help=self._help,
         ).strip()

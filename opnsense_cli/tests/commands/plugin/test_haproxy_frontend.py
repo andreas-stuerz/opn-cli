@@ -23,7 +23,7 @@ class TestHaproxyFrontendCommands(CommandTestCase):
         }
         self._api_data_fixtures_create_ERROR = {
             "result": "failed",
-            "validations": {'<TODO>': ['Please specify a value between 1 and 100.']}
+            "validations": {'frontend.ssl_certificates': 'Please select a valid certificate from the list.'}
         }
         self._api_data_fixtures_update_OK = {
             "result": "saved"
@@ -64,13 +64,14 @@ class TestHaproxyFrontendCommands(CommandTestCase):
             frontend,
             [
                 'list', '-o', 'plain', '-c',
-                'uuid,TODO_specifiy_columns'
+                'uuid,enabled,name,bind,mode,Backend,ssl_enabled,ssl_certificates'
             ]
         )
 
         self.assertIn(
             (
-                "<TODO match to command output>\n"
+                "fe29d032-ea4c-4b2c-99a7-18250322eceb 1 frontend_1 127.0.0.1:8080 http pool2 1 60cc4641eb577\n"
+                "6c19c893-2c38-4944-9540-a2af1eb2b7d3 1 frontend_custom 127.0.0.1:8080 http pool2 1 60cc4641eb577\n"
             ),
             result.output
         )
@@ -121,14 +122,14 @@ class TestHaproxyFrontendCommands(CommandTestCase):
             ],
             frontend,
             [
-                'show', '2c57ff97-10df-41a1-8a02-ab2fd1a4a651', '-o', 'plain', '-c',
-                'uuid,name,Servers,Resolver,Healthcheck,Mailer,Users,Groups,Actions,Errorfiles'
+                'show', '6c19c893-2c38-4944-9540-a2af1eb2b7d3', '-o', 'plain', '-c',
+                'uuid,enabled,name,bind,mode,Backend,ssl_enabled,ssl_certificates'
             ]
         )
 
         self.assertIn(
             (
-                "2c57ff97-10df-41a1-8a02-ab2fd1a4a651 pool2 server2,server4  http_head     \n"
+                "6c19c893-2c38-4944-9540-a2af1eb2b7d3 1 frontend_custom 127.0.0.1:8080 http pool2 1 60cc4641eb577\n"
             ),
             result.output
         )
@@ -145,7 +146,10 @@ class TestHaproxyFrontendCommands(CommandTestCase):
             frontend,
             [
                 "create", "my_test_frontend",
-                "--TODO", "<customize with create options>"
+                "--bind", "127.0.0.1:8080",
+                "--defaultBackend", "5d17779f-1407-4cdf-a616-b7024bea4448",
+                "--ssl_enabled",
+                "--ssl_certificates", "60cc4641eb577,610d37950266d"
             ]
         )
 
@@ -168,14 +172,17 @@ class TestHaproxyFrontendCommands(CommandTestCase):
             frontend,
             [
                 "create", "my_test_frontend",
-                 "--TODO", "<customize and trigger a validation error>"
+                "--bind", "127.0.0.1:8080",
+                "--defaultBackend", "5d17779f-1407-4cdf-a616-b7024bea4448",
+                "--ssl_enabled",
+                "--ssl_certificates", "does_not_exists"
             ]
         )
 
         self.assertIn(
             (
                 "Error: {'result': 'failed', 'validations': "
-                "{'todo.click_option': ['Please specify a value between 1 and 100.']}}\n"
+                "{'frontend.ssl_certificates': 'Please select a valid certificate from the list.'}}\n"
             ),
             result.output
         )
@@ -192,8 +199,8 @@ class TestHaproxyFrontendCommands(CommandTestCase):
             ],
             frontend,
             [
-                "update", "<TODO customize uuid>",
-                "--TODO", "<customize with create options>"
+                "update", "6c19c893-2c38-4944-9540-a2af1eb2b7d3",
+                "--enabled"
             ]
         )
 

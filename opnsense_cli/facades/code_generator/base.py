@@ -24,7 +24,8 @@ class CommandCodeGenerator(CodeGenerator):
             group,
             command,
             model_xml_tag,
-            module_type
+            module_type,
+            help_messages=None
     ):
         self._parser = parser
         self._tag_content: Tag = parser.parse()
@@ -35,6 +36,7 @@ class CommandCodeGenerator(CodeGenerator):
         self._click_option_factory = option_factory
         self._model_xml_tag = model_xml_tag
         self._module_type = module_type
+        self.__help_messages = help_messages
 
     def write_code(self, output_dir, filename_prefix='', filename_suffix='.py'):
         code = self.get_code()

@@ -181,7 +181,12 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 @click.option(
     '--ssl_bindOptions',
     help='ToDo',
-    type=click.Choice(['', 'no-sslv3', 'no-tlsv10', 'no-tlsv11', 'no-tlsv12', 'no-tlsv13', 'no-tls-tickets', 'force-sslv3', 'force-tlsv10', 'force-tlsv11', 'force-tlsv12', 'force-tlsv13', 'prefer-client-ciphers', 'strict-sni']),
+    type=click.Choice(
+        [
+            '', 'no-sslv3', 'no-tlsv10', 'no-tlsv11', 'no-tlsv12', 'no-tlsv13', 'no-tls-tickets', 'force-sslv3',
+            'force-tlsv10', 'force-tlsv11', 'force-tlsv12', 'force-tlsv13', 'prefer-client-ciphers', 'strict-sni'
+        ]
+    ),
     multiple=True,
     callback=tuple_to_csv,
     show_default=True,
@@ -212,7 +217,11 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     '--ssl_cipherList',
     help='ToDo',
     show_default=True,
-    default='ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256',
+    default=(
+            'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:'
+            'ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:'
+            'ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256'
+    ),
     required=False,
 )
 @click.option(
@@ -409,7 +418,12 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 @click.option(
     '--stickiness_dataTypes',
     help='ToDo',
-    type=click.Choice(['', 'conn_cnt', 'conn_cur', 'conn_rate', 'sess_cnt', 'sess_rate', 'http_req_cnt', 'http_req_rate', 'http_err_cnt', 'http_err_rate', 'bytes_in_cnt', 'bytes_in_rate', 'bytes_out_cnt', 'bytes_out_rate']),
+    type=click.Choice(
+        [
+            '', 'conn_cnt', 'conn_cur', 'conn_rate', 'sess_cnt', 'sess_rate', 'http_req_cnt', 'http_req_rate',
+            'http_err_cnt', 'http_err_rate', 'bytes_in_cnt', 'bytes_in_rate', 'bytes_out_cnt', 'bytes_out_rate'
+        ]
+    ),
     multiple=True,
     callback=tuple_to_csv,
     show_default=True,
@@ -565,7 +579,6 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     default=None,
     required=False,
 )
-
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -646,7 +659,6 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
             "customOptions": kwargs['customoptions'],
             "linkedActions": kwargs['linkedactions'],
             "linkedErrorfiles": kwargs['linkederrorfiles'],
-            
         }
     }
 
@@ -741,7 +753,12 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 @click.option(
     '--ssl_bindOptions',
     help='ToDo',
-    type=click.Choice(['', 'no-sslv3', 'no-tlsv10', 'no-tlsv11', 'no-tlsv12', 'no-tlsv13', 'no-tls-tickets', 'force-sslv3', 'force-tlsv10', 'force-tlsv11', 'force-tlsv12', 'force-tlsv13', 'prefer-client-ciphers', 'strict-sni']),
+    type=click.Choice(
+        [
+            '', 'no-sslv3', 'no-tlsv10', 'no-tlsv11', 'no-tlsv12', 'no-tlsv13', 'no-tls-tickets', 'force-sslv3',
+            'force-tlsv10', 'force-tlsv11', 'force-tlsv12', 'force-tlsv13', 'prefer-client-ciphers', 'strict-sni'
+        ]
+    ),
     multiple=True,
     callback=tuple_to_csv,
     show_default=True,
@@ -942,7 +959,12 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 @click.option(
     '--stickiness_dataTypes',
     help='ToDo',
-    type=click.Choice(['', 'conn_cnt', 'conn_cur', 'conn_rate', 'sess_cnt', 'sess_rate', 'http_req_cnt', 'http_req_rate', 'http_err_cnt', 'http_err_rate', 'bytes_in_cnt', 'bytes_in_rate', 'bytes_out_cnt', 'bytes_out_rate']),
+    type=click.Choice(
+        [
+            '', 'conn_cnt', 'conn_cur', 'conn_rate', 'sess_cnt', 'sess_rate', 'http_req_cnt', 'http_req_rate',
+            'http_err_cnt', 'http_err_rate', 'bytes_in_cnt', 'bytes_in_rate', 'bytes_out_cnt', 'bytes_out_rate'
+        ]
+    ),
     multiple=True,
     callback=tuple_to_csv,
     show_default=True,
@@ -1078,7 +1100,6 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     show_default=True,
     default=None
 )
-
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -1101,7 +1122,21 @@ def update(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     json_payload = {
         'frontend': {}
     }
-    options = ['enabled', 'name', 'description', 'bind', 'bindOptions', 'mode', 'defaultBackend', 'ssl_enabled', 'ssl_certificates', 'ssl_default_certificate', 'ssl_customOptions', 'ssl_advancedEnabled', 'ssl_bindOptions', 'ssl_minVersion', 'ssl_maxVersion', 'ssl_cipherList', 'ssl_cipherSuites', 'ssl_hstsEnabled', 'ssl_hstsIncludeSubDomains', 'ssl_hstsPreload', 'ssl_hstsMaxAge', 'ssl_clientAuthEnabled', 'ssl_clientAuthVerify', 'ssl_clientAuthCAs', 'ssl_clientAuthCRLs', 'basicAuthEnabled', 'basicAuthUsers', 'basicAuthGroups', 'tuning_maxConnections', 'tuning_timeoutClient', 'tuning_timeoutHttpReq', 'tuning_timeoutHttpKeepAlive', 'linkedCpuAffinityRules', 'logging_dontLogNull', 'logging_dontLogNormal', 'logging_logSeparateErrors', 'logging_detailedLog', 'logging_socketStats', 'stickiness_pattern', 'stickiness_dataTypes', 'stickiness_expire', 'stickiness_size', 'stickiness_counter', 'stickiness_counter_key', 'stickiness_length', 'stickiness_connRatePeriod', 'stickiness_sessRatePeriod', 'stickiness_httpReqRatePeriod', 'stickiness_httpErrRatePeriod', 'stickiness_bytesInRatePeriod', 'stickiness_bytesOutRatePeriod', 'http2Enabled', 'http2Enabled_nontls', 'advertised_protocols', 'forwardFor', 'connectionBehaviour', 'customOptions', 'linkedActions', 'linkedErrorfiles']
+    options = [
+        'enabled', 'name', 'description', 'bind', 'bindOptions', 'mode', 'defaultBackend', 'ssl_enabled',
+        'ssl_certificates', 'ssl_default_certificate', 'ssl_customOptions', 'ssl_advancedEnabled', 'ssl_bindOptions',
+        'ssl_minVersion', 'ssl_maxVersion', 'ssl_cipherList', 'ssl_cipherSuites', 'ssl_hstsEnabled',
+        'ssl_hstsIncludeSubDomains', 'ssl_hstsPreload', 'ssl_hstsMaxAge', 'ssl_clientAuthEnabled',
+        'ssl_clientAuthVerify', 'ssl_clientAuthCAs', 'ssl_clientAuthCRLs', 'basicAuthEnabled', 'basicAuthUsers',
+        'basicAuthGroups', 'tuning_maxConnections', 'tuning_timeoutClient', 'tuning_timeoutHttpReq',
+        'tuning_timeoutHttpKeepAlive', 'linkedCpuAffinityRules', 'logging_dontLogNull', 'logging_dontLogNormal',
+        'logging_logSeparateErrors', 'logging_detailedLog', 'logging_socketStats', 'stickiness_pattern',
+        'stickiness_dataTypes', 'stickiness_expire', 'stickiness_size', 'stickiness_counter', 'stickiness_counter_key',
+        'stickiness_length', 'stickiness_connRatePeriod', 'stickiness_sessRatePeriod', 'stickiness_httpReqRatePeriod',
+        'stickiness_httpErrRatePeriod', 'stickiness_bytesInRatePeriod', 'stickiness_bytesOutRatePeriod',
+        'http2Enabled', 'http2Enabled_nontls', 'advertised_protocols', 'forwardFor', 'connectionBehaviour',
+        'customOptions', 'linkedActions', 'linkedErrorfiles'
+    ]
     for option in options:
         if kwargs[option.lower()] is not None:
             json_payload['frontend'][option] = kwargs[option.lower()]

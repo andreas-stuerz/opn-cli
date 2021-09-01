@@ -5,7 +5,7 @@ class ClickChoice(ClickOptionCodeFragment):
     TEMPLATE_CREATE = '''
     @click.option(
         '--${name}',
-        help='ToDo',
+        help=('${help}'),
         type=click.Choice(${choices}),
         multiple=${multiple},
         callback=tuple_to_csv,
@@ -17,7 +17,7 @@ class ClickChoice(ClickOptionCodeFragment):
     TEMPLATE_UPDATE = '''
     @click.option(
         '--${name}',
-        help='ToDo',
+        help=('${help}'),
         type=click.Choice(${choices}),
         multiple=${multiple},
         callback=tuple_to_csv,
@@ -63,4 +63,5 @@ class ClickChoice(ClickOptionCodeFragment):
             multiple=self._multiple,
             required=self._required,
             default=self._default,
+            help=self._help,
         ).strip()

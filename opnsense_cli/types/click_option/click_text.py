@@ -5,7 +5,7 @@ class ClickText(ClickOptionCodeFragment):
     TEMPLATE_CREATE = '''
     @click.option(
         '--${name}',
-        help='ToDo',
+        help=('${help}'),
         show_default=True,
         default=${default},
         ${required}
@@ -14,7 +14,7 @@ class ClickText(ClickOptionCodeFragment):
     TEMPLATE_UPDATE = '''
     @click.option(
         '--${name}',
-        help='ToDo',
+        help=('${help}'),
         show_default=True,
         default=None
     )
@@ -24,5 +24,6 @@ class ClickText(ClickOptionCodeFragment):
         return self._template.substitute(
             name=self._name,
             required=self._required,
-            default=f"'{self._default}'" if self._default else self._default
+            default=f"'{self._default}'" if self._default else self._default,
+            help=self._help,
         ).strip()

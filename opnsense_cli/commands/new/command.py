@@ -3,6 +3,7 @@ import os
 
 from opnsense_cli.facades.code_generator.click_command_facade import ClickCommandFacadeCodeGenerator
 from opnsense_cli.facades.code_generator.click_command_test import ClickCommandTestCodeGenerator
+from opnsense_cli.parser.opnsense_form import OpnsenseFormParser
 from opnsense_cli.parser.opnsense_model import OpnsenseModelParser
 from opnsense_cli.factories.code_generator.click_option import ClickOptionCodeFactory
 from opnsense_cli.facades.code_generator.click_command import ClickCommandCodeGenerator
@@ -20,7 +21,7 @@ def command(**kwargs):
 @click.argument('click_group')
 @click.argument('click_command')
 @click.option(
-    '--url', '-u',
+    '--model-url', '-m',
     help=(
         'The url to the model xml. For core unbound e.g. https://raw.githubusercontent.com'
         '/opnsense/core/master/src/opnsense/mvc/app/models/OPNsense/Unbound/Unbound.xml'
@@ -31,6 +32,15 @@ def command(**kwargs):
 @click.option(
     '--tag', '-t',
     help='The xml tag from the model.xml e.g. dnsbl for unbound dnsbl command',
+    show_default=True,
+    required=True
+)
+@click.option(
+    '--form-url', '-f',
+    help=(
+        'The url to the form xml for parsing the help texts. For net/haproxy server e.g. https://raw.githubusercontent.com/opnsense/plugins/'
+        'master/net/haproxy/src/opnsense/mvc/app/controllers/OPNsense/HAProxy/forms/dialogServer.xml'
+    ),
     show_default=True,
     required=True
 )
@@ -101,7 +111,7 @@ def core(**kwargs):
 @click.argument('click_group')
 @click.argument('click_command')
 @click.option(
-    '--url', '-u',
+    '--model-url', '-m',
     help=(
         'The url to the model xml. For net/haproxy e.g. https://raw.githubusercontent.com/opnsense/plugins/blob/master/'
         'net/haproxy/src/opnsense/mvc/app/models/OPNsense/HAProxy/HAProxy.xml'),
@@ -110,9 +120,17 @@ def core(**kwargs):
 )
 @click.option(
     '--tag', '-t',
-    help='The xml tag from the model.xml e.g. servers for haproxy backend server command',
+    help='The xml tag from the model.xml e.g. servers for haproxy server command',
     show_default=True,
     required=True
+)
+@click.option(
+    '--form-url', '-f',
+    help=(
+        'The url to the form xml for parsing the help texts. For net/haproxy server e.g. https://raw.githubusercontent.com/opnsense/plugins/'
+        'master/net/haproxy/src/opnsense/mvc/app/controllers/OPNsense/HAProxy/forms/dialogServer.xml'
+    ),
+    show_default=True,
 )
 @click.option(
     '--template-basedir', '-tb',
@@ -164,27 +182,29 @@ def plugin(**kwargs):
 
     https://docs.opnsense.org/development/api.html#plugins-api
 
-    Search for model.xml under this url:
+    Search for model.xml and form.xml files here:
 
     https://github.com/opnsense/plugins
 
     Example:
 
     $ opn-cli new command plugin haproxy server --tag servers \
-    --url https://raw.githubusercontent.com/opnsense/plugins/master/net/haproxy/src/opnsense/mvc/app/models/OPNsense/
-    HAProxy/HAProxy.xml
+    -m https://raw.githubusercontent.com/opnsense/plugins/master/net/haproxy/src/opnsense/mvc/app/models/OPNsense/
+    HAProxy/HAProxy.xml \
+    -f https://raw.githubusercontent.com/opnsense/plugins/master/net/haproxy/src/opnsense/mvc/app/controllers/OPNsense/
+    HAProxy/forms/dialogServer.xml
 
     """
     generate_command_files('plugin', **kwargs)
 
 
 def generate_command_files(model_type, **kwargs):
-    parser = OpnsenseModelParser(kwargs['url'], kwargs['tag'])
+    model_parser = OpnsenseModelParser(kwargs['model_url'], kwargs['tag'])
     template_engine = Jinja2TemplateEngine(kwargs['template_basedir'])
     option_factory = ClickOptionCodeFactory()
 
     command_code_generator = ClickCommandCodeGenerator(
-        parser,
+        model_parser,
         template_engine,
         option_factory,
         kwargs['template_command'],
@@ -194,8 +214,12 @@ def generate_command_files(model_type, **kwargs):
         model_type,
     )
 
+    if kwargs['form_url']:
+        form_parser = OpnsenseFormParser(kwargs['form_url'], 'form')
+        command_code_generator.help_messages = form_parser.parse()
+
     command_facade_generator = ClickCommandFacadeCodeGenerator(
-        parser,
+        model_parser,
         template_engine,
         option_factory,
         kwargs['template_facade'],
@@ -206,7 +230,7 @@ def generate_command_files(model_type, **kwargs):
     )
 
     command_test_generator = ClickCommandTestCodeGenerator(
-        parser,
+        model_parser,
         template_engine,
         option_factory,
         kwargs['template_test'],
@@ -216,8 +240,12 @@ def generate_command_files(model_type, **kwargs):
         model_type,
     )
 
-    click.echo(command_code_generator.write_code(kwargs['command_output_dir']))
-    click.echo(command_facade_generator.write_code(kwargs['facade_output_dir']))
+    click.echo(
+        command_code_generator.write_code(kwargs['command_output_dir'])
+    )
+    click.echo(
+        command_facade_generator.write_code(kwargs['facade_output_dir'])
+    )
     click.echo(
         command_test_generator.write_code(
             kwargs['test_output_dir'], filename_prefix=f"test_{kwargs['click_group']}_"
