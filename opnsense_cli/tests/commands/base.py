@@ -8,7 +8,7 @@ from pyfakefs.fake_filesystem_unittest import TestCase
 
 
 class CommandTestCase(TestCase):
-    def _read_json_fixture(self, relative_path, fixture_dir='../fixtures'):
+    def _read_json_fixture(self, relative_path, fixture_dir='../../fixtures'):
         path = os.path.join(os.path.dirname(__file__), fixture_dir, relative_path)
         with open(path) as json_file:
             fixture = json.load(json_file)
