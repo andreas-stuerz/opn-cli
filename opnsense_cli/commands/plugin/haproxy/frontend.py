@@ -36,7 +36,7 @@ def frontend(ctx, api_client: ApiClient, **kwargs):
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=(
-        "enabled,name,description,bind,bindOptions,mode,defaultBackend,ssl_enabled,ssl_certificates,ssl_default_certificate,ssl_customOptions,ssl_advancedEnabled,ssl_bindOptions,ssl_minVersion,ssl_maxVersion,ssl_cipherList,ssl_cipherSuites,ssl_hstsEnabled,ssl_hstsIncludeSubDomains,ssl_hstsPreload,ssl_hstsMaxAge,ssl_clientAuthEnabled,ssl_clientAuthVerify,ssl_clientAuthCAs,ssl_clientAuthCRLs,basicAuthEnabled,basicAuthUsers,basicAuthGroups,tuning_maxConnections,tuning_timeoutClient,tuning_timeoutHttpReq,tuning_timeoutHttpKeepAlive,linkedCpuAffinityRules,logging_dontLogNull,logging_dontLogNormal,logging_logSeparateErrors,logging_detailedLog,logging_socketStats,stickiness_pattern,stickiness_dataTypes,stickiness_expire,stickiness_size,stickiness_counter,stickiness_counter_key,stickiness_length,stickiness_connRatePeriod,stickiness_sessRatePeriod,stickiness_httpReqRatePeriod,stickiness_httpErrRatePeriod,stickiness_bytesInRatePeriod,stickiness_bytesOutRatePeriod,http2Enabled,http2Enabled_nontls,advertised_protocols,forwardFor,connectionBehaviour,customOptions,linkedActions,linkedErrorfiles"
+        "uuid,enabled,name,description,bind,bindOptions,mode,Backend,ssl_enabled"
     ),
     show_default=True,
 )
@@ -64,7 +64,18 @@ def list(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=(
-        "enabled,name,description,bind,bindOptions,mode,defaultBackend,ssl_enabled,ssl_certificates,ssl_default_certificate,ssl_customOptions,ssl_advancedEnabled,ssl_bindOptions,ssl_minVersion,ssl_maxVersion,ssl_cipherList,ssl_cipherSuites,ssl_hstsEnabled,ssl_hstsIncludeSubDomains,ssl_hstsPreload,ssl_hstsMaxAge,ssl_clientAuthEnabled,ssl_clientAuthVerify,ssl_clientAuthCAs,ssl_clientAuthCRLs,basicAuthEnabled,basicAuthUsers,basicAuthGroups,tuning_maxConnections,tuning_timeoutClient,tuning_timeoutHttpReq,tuning_timeoutHttpKeepAlive,linkedCpuAffinityRules,logging_dontLogNull,logging_dontLogNormal,logging_logSeparateErrors,logging_detailedLog,logging_socketStats,stickiness_pattern,stickiness_dataTypes,stickiness_expire,stickiness_size,stickiness_counter,stickiness_counter_key,stickiness_length,stickiness_connRatePeriod,stickiness_sessRatePeriod,stickiness_httpReqRatePeriod,stickiness_httpErrRatePeriod,stickiness_bytesInRatePeriod,stickiness_bytesOutRatePeriod,http2Enabled,http2Enabled_nontls,advertised_protocols,forwardFor,connectionBehaviour,customOptions,linkedActions,linkedErrorfiles"
+        "enabled,name,description,bind,bindOptions,mode,Backend,defaultBackend,ssl_enabled,ssl_certificates,"
+        "ssl_default_certificate,ssl_customOptions,ssl_advancedEnabled,ssl_bindOptions,ssl_minVersion,ssl_maxVersion,"
+        "ssl_cipherList,ssl_cipherSuites,ssl_hstsEnabled,ssl_hstsIncludeSubDomains,ssl_hstsPreload,ssl_hstsMaxAge,"
+        "ssl_clientAuthEnabled,ssl_clientAuthVerify,ssl_clientAuthCAs,ssl_clientAuthCRLs,basicAuthEnabled,"
+        "Users,basicAuthUsers,Groups,basicAuthGroups,tuning_maxConnections,tuning_timeoutClient,tuning_timeoutHttpReq,"
+        "tuning_timeoutHttpKeepAlive,Cpus,linkedCpuAffinityRules,logging_dontLogNull,logging_dontLogNormal,"
+        "logging_logSeparateErrors,logging_detailedLog,logging_socketStats,stickiness_pattern,stickiness_dataTypes,"
+        "stickiness_expire,stickiness_size,stickiness_counter,stickiness_counter_key,stickiness_length,"
+        "stickiness_connRatePeriod,stickiness_sessRatePeriod,stickiness_httpReqRatePeriod,stickiness_httpErrRatePeriod,"
+        "stickiness_bytesInRatePeriod,stickiness_bytesOutRatePeriod,http2Enabled,http2Enabled_nontls,"
+        "advertised_protocols,forwardFor,connectionBehaviour,customOptions,Actions,"
+        "linkedActions,Errorfiles,linkedErrorfiles"
     ),
     show_default=True,
 )
