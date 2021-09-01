@@ -17,6 +17,7 @@ from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.commands.plugin.haproxy.config import config as haproxy_config
 from opnsense_cli.commands.plugin.haproxy.server import server as haproxy_server
 from opnsense_cli.commands.plugin.haproxy.backend import backend as haproxy_backend
+from opnsense_cli.commands.plugin.haproxy.frontend import frontend as haproxy_frontend
 
 
 CFG_DIR = f"~/.{__cli_name__}"
@@ -144,6 +145,7 @@ cli.add_command(haproxy)
 haproxy.add_command(haproxy_config)
 haproxy.add_command(haproxy_server)
 haproxy.add_command(haproxy_backend)
+haproxy.add_command(haproxy_frontend)
 
 cli.add_command(firewall)
 firewall.add_command(firewall_alias)

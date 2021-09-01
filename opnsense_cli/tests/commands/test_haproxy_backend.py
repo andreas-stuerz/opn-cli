@@ -186,8 +186,6 @@ class TestHaproxyBackendCommands(CommandTestCase):
             ]
         )
 
-        print(result.output)
-
         self.assertIn(
             (
                 "Error: {'result': 'failed', "
