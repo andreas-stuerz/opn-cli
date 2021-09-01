@@ -561,7 +561,11 @@ def update(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     json_payload = {
         'server': {}
     }
-    options = ['enabled', 'name', 'description', 'address', 'port', 'checkport', 'mode', 'type', 'serviceName', 'number', 'linkedResolver', 'resolverOpts', 'resolvePrefer', 'ssl', 'sslVerify', 'sslCA', 'sslCRL', 'sslClientCertificate', 'weight', 'checkInterval', 'checkDownInterval', 'source', 'advanced']
+    options = [
+        'enabled', 'name', 'description', 'address', 'port', 'checkport', 'mode', 'type', 'serviceName',
+        'number', 'linkedResolver', 'resolverOpts', 'resolvePrefer', 'ssl', 'sslVerify', 'sslCA', 'sslCRL',
+        'sslClientCertificate', 'weight', 'checkInterval', 'checkDownInterval', 'source', 'advanced'
+    ]
     for option in options:
         if kwargs[option.lower()] is not None:
             json_payload['server'][option] = kwargs[option.lower()]

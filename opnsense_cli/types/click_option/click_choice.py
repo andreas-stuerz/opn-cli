@@ -25,6 +25,7 @@ class ClickChoice(ClickOptionCodeFragment):
         default=None
     )
     '''
+
     @property
     def _default(self):
         default_for_multiple = self._get_default_for_multiple()
