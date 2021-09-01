@@ -36,9 +36,10 @@ class CommandCodeGenerator(CodeGenerator):
         self._model_xml_tag = model_xml_tag
         self._module_type = module_type
 
-    def write_code(self, output_dir):
+    def write_code(self, output_dir, filename_prefix='', filename_suffix='.py'):
         code = self.get_code()
-        path = os.path.join(output_dir, f"{self._click_group}/{self._click_command}.py")
+        filename = f"{filename_prefix}{self._click_command}{filename_suffix}"
+        path = os.path.join(output_dir, f"{filename}")
         return self._write_to_file(code, path)
 
     def get_code(self):

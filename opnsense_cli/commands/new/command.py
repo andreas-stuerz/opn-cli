@@ -2,6 +2,7 @@ import click
 import os
 
 from opnsense_cli.facades.code_generator.click_command_facade import ClickCommandFacadeCodeGenerator
+from opnsense_cli.facades.code_generator.click_command_test import ClickCommandTestCodeGenerator
 from opnsense_cli.parser.opnsense_model import OpnsenseModelParser
 from opnsense_cli.factories.code_generator.click_option import ClickOptionCodeFactory
 from opnsense_cli.facades.code_generator.click_command import ClickCommandCodeGenerator
@@ -47,21 +48,33 @@ def command(**kwargs):
 )
 @click.option(
     '--template-facade', '-tf',
-    help='The template for the command relative to the template basedir.',
+    help='The template for the command facade relative to the template basedir.',
     show_default=True,
-    default='code_generator/command/facade.py.j2'
+    default='code_generator/command/command_facade.py.j2'
+)
+@click.option(
+    '--template-test', '-tt',
+    help='The template for the command test relative to the template basedir.',
+    show_default=True,
+    default='code_generator/command/command_test.py.j2'
 )
 @click.option(
     '--command-output-dir', '-cod',
     help='The output directory for the generated command',
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), '../../../output/commands/plugin'),
+    default=os.path.join(os.path.dirname(__file__), '../../../output/commands/core'),
 )
 @click.option(
     '--facade-output-dir', '-fod',
     help='The output directory for the generated facade',
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), '../../../output/facades/command/plugin'),
+    default=os.path.join(os.path.dirname(__file__), '../../../output/facades/command/core'),
+)
+@click.option(
+    '--test-output-dir', '-tod',
+    help='The output directory for the generated test',
+    show_default=True,
+    default=os.path.join(os.path.dirname(__file__), '../../../output/test/core'),
 )
 def core(**kwargs):
     """
@@ -115,9 +128,15 @@ def core(**kwargs):
 )
 @click.option(
     '--template-facade', '-tf',
-    help='The template for the command relative to the template basedir.',
+    help='The template for the command facade relative to the template basedir.',
     show_default=True,
-    default='code_generator/command/facade.py.j2'
+    default='code_generator/command/command_facade.py.j2'
+)
+@click.option(
+    '--template-test', '-tt',
+    help='The template for the command test relative to the template basedir.',
+    show_default=True,
+    default='code_generator/command/command_test.py.j2'
 )
 @click.option(
     '--command-output-dir', '-cod',
@@ -130,6 +149,12 @@ def core(**kwargs):
     help='The output directory for the generated facade',
     show_default=True,
     default=os.path.join(os.path.dirname(__file__), '../../../output/facades/command/plugin'),
+)
+@click.option(
+    '--test-output-dir', '-tod',
+    help='The output directory for the generated test',
+    show_default=True,
+    default=os.path.join(os.path.dirname(__file__), '../../../output/test/commands/plugin'),
 )
 def plugin(**kwargs):
     """
@@ -180,8 +205,24 @@ def generate_command_files(model_type, **kwargs):
         model_type,
     )
 
+    command_test_generator = ClickCommandTestCodeGenerator(
+        parser,
+        template_engine,
+        option_factory,
+        kwargs['template_test'],
+        kwargs['click_group'],
+        kwargs['click_command'],
+        kwargs['tag'],
+        model_type,
+    )
+
     click.echo(command_code_generator.write_code(kwargs['command_output_dir']))
     click.echo(command_facade_generator.write_code(kwargs['facade_output_dir']))
+    click.echo(
+        command_test_generator.write_code(
+            kwargs['test_output_dir'], filename_prefix=f"test_{kwargs['click_group']}_"
+        )
+    )
 
 
 if __name__ == '__main__':

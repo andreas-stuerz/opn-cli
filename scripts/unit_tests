@@ -4,4 +4,4 @@ if [ -n "$1" ]; then
   ARGS=$(printf ' %q' "$@")
 
 fi
-pytest --verbose ${ARGS}
+pytest --ignore=./output --verbose ${ARGS}

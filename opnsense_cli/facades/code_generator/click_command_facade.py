@@ -1,5 +1,5 @@
 from opnsense_cli.facades.code_generator.base import CommandCodeGenerator
-from opnsense_cli.dataclasses.code_generator.command.facade import FacadeTemplateVars
+from opnsense_cli.dataclasses.code_generator.command.command_facade import CommandFacadeTemplateVars
 from bs4.element import Tag
 
 
@@ -12,7 +12,7 @@ class ClickCommandFacadeCodeGenerator(CommandCodeGenerator):
             if resolver_item:
                 resolver_map.update(resolver_item)
 
-        return FacadeTemplateVars(
+        return CommandFacadeTemplateVars(
             click_command=self._click_command,
             click_group=self._click_group,
             model_xml_tag=self._model_xml_tag,

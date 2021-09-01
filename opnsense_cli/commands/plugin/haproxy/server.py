@@ -326,7 +326,6 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
             "advanced": kwargs['advanced'],
         }
     }
-    print(json_payload)
 
     result = haproxy_server_svc.create_server(json_payload)
 

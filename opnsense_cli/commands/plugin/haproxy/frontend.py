@@ -36,7 +36,8 @@ def frontend(ctx, api_client: ApiClient, **kwargs):
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=(
-        "uuid,enabled,name,description,bind,bindOptions,mode,Backend,ssl_enabled"
+        "uuid,enabled,name,description,bind,bindOptions,mode,Backend,"
+        "ssl_enabled,ssl_certificates,ssl_default_certificate"
     ),
     show_default=True,
 )
