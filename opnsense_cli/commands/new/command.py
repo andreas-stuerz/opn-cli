@@ -38,7 +38,8 @@ def command(**kwargs):
 @click.option(
     '--form-url', '-f',
     help=(
-        'The url to the form xml for parsing the help texts. For net/haproxy server e.g. https://raw.githubusercontent.com/opnsense/plugins/'
+        'The url to the form xml for parsing the help texts. '
+        'For net/haproxy server e.g. https://raw.githubusercontent.com/opnsense/plugins/'
         'master/net/haproxy/src/opnsense/mvc/app/controllers/OPNsense/HAProxy/forms/dialogServer.xml'
     ),
     show_default=True,
@@ -127,7 +128,8 @@ def core(**kwargs):
 @click.option(
     '--form-url', '-f',
     help=(
-        'The url to the form xml for parsing the help texts. For net/haproxy server e.g. https://raw.githubusercontent.com/opnsense/plugins/'
+        'The url to the form xml for parsing the help texts. '
+        'For net/haproxy server e.g. https://raw.githubusercontent.com/opnsense/plugins/'
         'master/net/haproxy/src/opnsense/mvc/app/controllers/OPNsense/HAProxy/forms/dialogServer.xml'
     ),
     show_default=True,
