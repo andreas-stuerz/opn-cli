@@ -94,7 +94,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 @click.argument('name')
 @click.option(
     '--enabled/--no-enabled',
-    help='ToDo',
+    help=('Enable or disable frontend.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -103,28 +103,30 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--description',
-    help='ToDo',
+    help=('Description for this public service.'),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
     '--bind',
-    help='ToDo',
+    help=('Configure listen addresses for this public service, i.e. 127.0.0.1:8080 or www.example.com:443. '),
     show_default=True,
     default=None,
     required=True,
 )
 @click.option(
     '--bindOptions',
-    help='ToDo',
+    help=(
+        'A list of parameters that will be appended to every Listen Address line e.g. accept-proxy npn http/1.1'
+    ),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
     '--mode',
-    help='ToDo',
+    help=('Set the running mode or protocol for this public service.'),
     type=click.Choice(['http', 'ssl', 'tcp']),
     multiple=False,
     callback=tuple_to_csv,
@@ -134,14 +136,14 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--defaultBackend',
-    help='ToDo',
+    help=('Set the default backend pool to use for this public service.'),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
     '--ssl_enabled/--no-ssl_enabled',
-    help='ToDo',
+    help=('Enable SSL offloading'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -150,28 +152,36 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_certificates',
-    help='ToDo',
+    help=(
+        'Select certificates to use for SSL offloading.'
+        'HAProxy\'s SNI recognition will determine the correct certificate automatically. '
+        'If no SNI is provided by the client then the first certificate will be presented.'
+    ),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
     '--ssl_default_certificate',
-    help='ToDo',
+    help=(
+        'This certificate will be presented if no SNI is provided by the client or '
+        'if the client provides an SNI hostname which does not match any certificate. '
+        'This parameter is optional to enforce a certain sort order for certificates.'
+    ),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
     '--ssl_customOptions',
-    help='ToDo',
+    help=('Pass additional SSL parameters to the HAProxy configuration.'),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
     '--ssl_advancedEnabled/--no-ssl_advancedEnabled',
-    help='ToDo',
+    help=('Enable or disable advanced SSL settings.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -180,7 +190,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_bindOptions',
-    help='ToDo',
+    help=('Used to enforce or disable certain SSL options.'),
     type=click.Choice(
         [
             '', 'no-sslv3', 'no-tlsv10', 'no-tlsv11', 'no-tlsv12', 'no-tlsv13', 'no-tls-tickets', 'force-sslv3',
@@ -195,7 +205,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_minVersion',
-    help='ToDo',
+    help=('This option enforces use of the specified version (or higher) on SSL connections.'),
     type=click.Choice(['', 'SSLv3', 'TLSv1.0', 'TLSv1.1', 'TLSv1.2', 'TLSv1.3']),
     multiple=False,
     callback=tuple_to_csv,
@@ -205,7 +215,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_maxVersion',
-    help='ToDo',
+    help=('This option enforces use of the specified version (or lower) on SSL connections.'),
     type=click.Choice(['', 'SSLv3', 'TLSv1.0', 'TLSv1.1', 'TLSv1.2', 'TLSv1.3']),
     multiple=False,
     callback=tuple_to_csv,
@@ -215,25 +225,31 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_cipherList',
-    help='ToDo',
+    help=(
+        'It sets the default string describing the list of cipher algorithms ("cipher suite") that are negotiated '
+        'during the SSL/TLS handshake up to TLSv1.2.'
+    ),
     show_default=True,
     default=(
-            'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:'
-            'ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:'
-            'ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256'
+        'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:'
+        'ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:'
+        'ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256'
     ),
     required=False,
 )
 @click.option(
     '--ssl_cipherSuites',
-    help='ToDo',
+    help=(
+        'It sets the default string describing the list of cipher algorithms ("cipher suite") that are negotiated '
+        'during the SSL/TLS handshake for TLSv1.3.'
+    ),
     show_default=True,
     default='TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256',
     required=False,
 )
 @click.option(
     '--ssl_hstsEnabled/--no-ssl_hstsEnabled',
-    help='ToDo',
+    help=('Enable HTTP Strict Transport Security.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -242,7 +258,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_hstsIncludeSubDomains/--no-ssl_hstsIncludeSubDomains',
-    help='ToDo',
+    help=('Enable or disable if all present and future subdomains will be HTTPS.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -251,7 +267,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_hstsPreload/--no-ssl_hstsPreload',
-    help='ToDo',
+    help=('Enable if you like this domain to be included in the HSTS preload list.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -260,7 +276,9 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_hstsMaxAge',
-    help='ToDo',
+    help=(
+        'Future requests to the domain should use only HTTPS for the specified time (in seconds): 15768000 = 6 months'
+    ),
     show_default=True,
     type=int,
     callback=int_as_string,
@@ -269,7 +287,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_clientAuthEnabled/--no-ssl_clientAuthEnabled',
-    help='ToDo',
+    help=('Enable client certificate authentication.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -278,7 +296,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_clientAuthVerify',
-    help='ToDo',
+    help=('If set to \'optional\' or \'required\', client certificate is requested.'),
     type=click.Choice(['', 'none', 'optional', 'required']),
     multiple=False,
     callback=tuple_to_csv,
@@ -288,21 +306,21 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_clientAuthCAs',
-    help='ToDo',
+    help=('Select CA certificates to use for client certificate authentication.'),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
     '--ssl_clientAuthCRLs',
-    help='ToDo',
+    help=('Select CRLs to use for client certificate authentication.'),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
     '--basicAuthEnabled/--no-basicAuthEnabled',
-    help='ToDo',
+    help=('Enable HTTP Basic Authentication.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -311,21 +329,21 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--basicAuthUsers',
-    help='ToDo',
+    help=('Set allowed basic auth users.'),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
     '--basicAuthGroups',
-    help='ToDo',
+    help=('Set allowed basic auth groups.'),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
     '--tuning_maxConnections',
-    help='ToDo',
+    help=('Set the maximum number of concurrent connections for this public service.'),
     show_default=True,
     type=int,
     callback=int_as_string,
@@ -334,35 +352,47 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--tuning_timeoutClient',
-    help='ToDo',
+    help=(
+        'Set the maximum inactivity time on the client side. '
+        'Defaults to milliseconds. Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
     '--tuning_timeoutHttpReq',
-    help='ToDo',
+    help=(
+        'Set the maximum allowed time to wait for a complete HTTP request. '
+        'In order to offer DoS protection, it may be required to lower the maximum accepted time to receive '
+        'a complete HTTP request without affecting the client timeout. '
+        'This helps protecting against established connections on which nothing is sent. Defaults to milliseconds. '
+        'Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
     '--tuning_timeoutHttpKeepAlive',
-    help='ToDo',
+    help=(
+        'Set the maximum allowed time to wait for a new HTTP request to appear. '
+        'Defaults to milliseconds. Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
     '--linkedCpuAffinityRules',
-    help='ToDo',
+    help=('Choose CPU affinity rules that should be applied to this public service.'),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
     '--logging_dontLogNull/--no-logging_dontLogNull',
-    help='ToDo',
+    help=('Enable or disable logging of connections with no data.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -371,7 +401,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--logging_dontLogNormal/--no-logging_dontLogNormal',
-    help='ToDo',
+    help=('Enable or disable logging of normal, successful connections.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -380,7 +410,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--logging_logSeparateErrors/--no-logging_logSeparateErrors',
-    help='ToDo',
+    help=('Allow HAProxy to automatically raise log level for non-completely successful connections to aid debugging.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -389,7 +419,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--logging_detailedLog/--no-logging_detailedLog',
-    help='ToDo',
+    help=('Enable or disable verbose logging. Each log line turns into a much richer format.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -398,7 +428,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--logging_socketStats/--no-logging_socketStats',
-    help='ToDo',
+    help=('Enable or disable collecting & providing separate statistics for each socket.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -407,7 +437,11 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--stickiness_pattern',
-    help='ToDo',
+    help=(
+        'Choose the type of data that should be stored in this stick-table. '
+        'Note that this stick-table cannot be used for session persistence, '
+        'it is only used to store additional per-connection data.'
+    ),
     type=click.Choice(['', 'ipv4', 'ipv6', 'integer', 'string', 'binary']),
     multiple=False,
     callback=tuple_to_csv,
@@ -417,7 +451,12 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--stickiness_dataTypes',
-    help='ToDo',
+    help=(
+        'This is used to store additional information in the stick-table. '
+        'It may be used by ACLs in order to control various criteria related '
+        'to the activity of the client matching the stick-table. '
+        'Note that this directly impacts memory usage.'
+    ),
     type=click.Choice(
         [
             '', 'conn_cnt', 'conn_cur', 'conn_rate', 'sess_cnt', 'sess_rate', 'http_req_cnt', 'http_req_rate',
@@ -432,21 +471,33 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--stickiness_expire',
-    help='ToDo',
+    help=(
+        'Enter a number followed by one of the supported suffixes "d" (days), "h" (hour), "m" (minute), "s" (seconds), '
+        '"ms" (miliseconds). This configures the maximum duration of an entry in the stick-table since it was '
+        'last created, refreshed or matched. The maximum duration is slightly above 24 days.'
+    ),
     show_default=True,
     default='30m',
     required=True,
 )
 @click.option(
     '--stickiness_size',
-    help='ToDo',
+    help=(
+        'Enter a number followed by one of the supported suffixes "k", "m", "g". '
+        'This configures the maximum number of entries that can fit in the table. '
+        'This value directly impacts memory usage. '
+        'Count approximately 50 bytes per entry, plus the size of a string if any.'
+    ),
     show_default=True,
     default='50k',
     required=True,
 )
 @click.option(
     '--stickiness_counter/--no-stickiness_counter',
-    help='ToDo',
+    help=(
+        'Enable to be able to retrieve values from sticky counters. '
+        'If disabled, all values will return 0, rendering many conditions useless.'
+    ),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -455,14 +506,22 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--stickiness_counter_key',
-    help='ToDo',
+    help=(
+        'It describes what elements of the incoming request or connection will be analyzed, extracted, combined, '
+        'and used to select which table entry to update the counters. '
+        'Defaults to "src" to track elements of the source IP.'
+    ),
     show_default=True,
     default='src',
     required=False,
 )
 @click.option(
     '--stickiness_length',
-    help='ToDo',
+    help=(
+        'Specify the maximum length for a value in the stick-table. '
+        'If the value is larger than this value it will be truncated before being stored. '
+        'Depending on the stick-table type this repesents either characters or bytes.'
+    ),
     show_default=True,
     type=int,
     callback=int_as_string,
@@ -471,49 +530,73 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--stickiness_connRatePeriod',
-    help='ToDo',
+    help=(
+        'The length of the period over which the average is measured. '
+        'It reports the average incoming connection rate over that period, in connections per period. '
+        'Defaults to milliseconds. Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default='10s',
     required=False,
 )
 @click.option(
     '--stickiness_sessRatePeriod',
-    help='ToDo',
+    help=(
+        'The length of the period over which the average is measured. '
+        'It reports the average incoming session rate over that period, in sessions per period. '
+        'Defaults to milliseconds. Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default='10s',
     required=False,
 )
 @click.option(
     '--stickiness_httpReqRatePeriod',
-    help='ToDo',
+    help=(
+        'The length of the period over which the average is measured. It reports the average HTTP request rate over '
+        'that period, in requests per period. Defaults to milliseconds. '
+        'Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default='10s',
     required=False,
 )
 @click.option(
     '--stickiness_httpErrRatePeriod',
-    help='ToDo',
+    help=(
+        'The length of the period over which the average is measured. '
+        'It reports the average HTTP request error rate over that period, in requests per period. '
+        'Defaults to milliseconds. Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default='10s',
     required=False,
 )
 @click.option(
     '--stickiness_bytesInRatePeriod',
-    help='ToDo',
+    help=(
+        'The length of the period over which the average is measured. '
+        'It reports the average incoming bytes rate over that period, in bytes per period. '
+        'Defaults to milliseconds. Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default='1m',
     required=False,
 )
 @click.option(
     '--stickiness_bytesOutRatePeriod',
-    help='ToDo',
+    help=(
+        'The length of the period over which the average is measured. '
+        'It reports the average outgoing bytes rate over that period, in bytes per period. '
+        'Defaults to milliseconds. Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default='1m',
     required=False,
 )
 @click.option(
     '--http2Enabled/--no-http2Enabled',
-    help='ToDo',
+    help=('Enable support for HTTP/2.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -522,7 +605,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--http2Enabled_nontls/--no-http2Enabled_nontls',
-    help='ToDo',
+    help=('Enable support for HTTP/2 even if TLS (SSL offloading) is not enabled.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -531,7 +614,10 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--advertised_protocols',
-    help='ToDo',
+    help=(
+        'When using the TLS ALPN extension, HAProxy advertises the specified protocol list as supported on top of ALPN.'
+        ' SSL offloading must be enabled.'
+    ),
     type=click.Choice(['', 'h2', 'http11', 'http10']),
     multiple=True,
     callback=tuple_to_csv,
@@ -541,7 +627,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--forwardFor/--no-forwardFor',
-    help='ToDo',
+    help=('Enable insertion of the X-Forwarded-For header to requests sent to servers.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -550,7 +636,16 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--connectionBehaviour',
-    help='ToDo',
+    help=(
+        'By default HAProxy operates in keep-alive mode with regards to persistent connections. '
+        'Option "http-tunnel" disables any HTTP processing past the first request and the first response. '
+        'Option "httpclose" configures HAProxy to work in HTTP tunnel mode and check '
+        'if a "Connection: close" header is already set in each direction, and will add one if missing. '
+        'Option "http-server-close" enables HTTP connection-close mode on the server side while keeping the ability '
+        'to support HTTP keep-alive and pipelining on the client side. With Option "forceclose" HAProxy will actively '
+        'close the outgoing server channel as soon as the server has finished '
+        'to respond and release some resources earlier.'
+    ),
     type=click.Choice(['http-keep-alive', 'http-tunnel', 'httpclose', 'http-server-close', 'forceclose']),
     multiple=False,
     callback=tuple_to_csv,
@@ -560,21 +655,21 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--customOptions',
-    help='ToDo',
+    help=('These lines will be added to the HAProxy frontend configuration.'),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
     '--linkedActions',
-    help='ToDo',
+    help=('Choose rules to be included in this public service.'),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
     '--linkedErrorfiles',
-    help='ToDo',
+    help=('Choose error messages to be included in this public service.'),
     show_default=True,
     default=None,
     required=False,
@@ -671,7 +766,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 @click.argument('uuid')
 @click.option(
     '--enabled/--no-enabled',
-    help='ToDo',
+    help=('Enable or disable frontend.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -679,31 +774,31 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--name',
-    help='ToDo',
+    help=('Name to identify this public service.'),
     show_default=True,
     default=None
 )
 @click.option(
     '--description',
-    help='ToDo',
+    help=('Description for this public service.'),
     show_default=True,
     default=None
 )
 @click.option(
     '--bind',
-    help='ToDo',
+    help=('Configure listen addresses for this public service, i.e. 127.0.0.1:8080 or www.example.com:443.'),
     show_default=True,
     default=None
 )
 @click.option(
     '--bindOptions',
-    help='ToDo',
+    help=('A list of parameters that will be appended to every Listen Address line e.g. accept-proxy npn http/1.1'),
     show_default=True,
     default=None
 )
 @click.option(
     '--mode',
-    help='ToDo',
+    help=('Set the running mode or protocol for this public service.'),
     type=click.Choice(['http', 'ssl', 'tcp']),
     multiple=False,
     callback=tuple_to_csv,
@@ -712,13 +807,13 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--defaultBackend',
-    help='ToDo',
+    help=('Set the default backend pool to use for this public service.'),
     show_default=True,
     default=None
 )
 @click.option(
     '--ssl_enabled/--no-ssl_enabled',
-    help='ToDo',
+    help=('Enable or disable SSL offloading'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -726,25 +821,33 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_certificates',
-    help='ToDo',
+    help=(
+        'Select certificates to use for SSL offloading.'
+        'HAProxy\'s SNI recognition will determine the correct certificate automatically. '
+        'If no SNI is provided by the client then the first certificate will be presented.'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--ssl_default_certificate',
-    help='ToDo',
+    help=(
+        'This certificate will be presented if no SNI is provided by the client or '
+        'if the client provides an SNI hostname which does not match any certificate. '
+        'This parameter is optional to enforce a certain sort order for certificates.'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--ssl_customOptions',
-    help='ToDo',
+    help=('Pass additional SSL parameters to the HAProxy configuration.'),
     show_default=True,
     default=None
 )
 @click.option(
     '--ssl_advancedEnabled/--no-ssl_advancedEnabled',
-    help='ToDo',
+    help=('Enable or disable advanced SSL settings.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -752,7 +855,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_bindOptions',
-    help='ToDo',
+    help=('Used to enforce or disable certain SSL options.'),
     type=click.Choice(
         [
             '', 'no-sslv3', 'no-tlsv10', 'no-tlsv11', 'no-tlsv12', 'no-tlsv13', 'no-tls-tickets', 'force-sslv3',
@@ -766,7 +869,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_minVersion',
-    help='ToDo',
+    help=('This option enforces use of the specified version (or higher) on SSL connections.'),
     type=click.Choice(['', 'SSLv3', 'TLSv1.0', 'TLSv1.1', 'TLSv1.2', 'TLSv1.3']),
     multiple=False,
     callback=tuple_to_csv,
@@ -775,7 +878,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_maxVersion',
-    help='ToDo',
+    help=('This option enforces use of the specified version (or lower) on SSL connections.'),
     type=click.Choice(['', 'SSLv3', 'TLSv1.0', 'TLSv1.1', 'TLSv1.2', 'TLSv1.3']),
     multiple=False,
     callback=tuple_to_csv,
@@ -784,19 +887,25 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_cipherList',
-    help='ToDo',
+    help=(
+        'It sets the default string describing the list of cipher algorithms ("cipher suite") that are negotiated '
+        'during the SSL/TLS handshake up to TLSv1.2.'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--ssl_cipherSuites',
-    help='ToDo',
+    help=(
+        'It sets the default string describing the list of cipher algorithms ("cipher suite") that are negotiated '
+        'during the SSL/TLS handshake for TLSv1.3.'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--ssl_hstsEnabled/--no-ssl_hstsEnabled',
-    help='ToDo',
+    help=('Enable HTTP Strict Transport Security.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -804,7 +913,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_hstsIncludeSubDomains/--no-ssl_hstsIncludeSubDomains',
-    help='ToDo',
+    help=('Enable or disable if all present and future subdomains will be HTTPS'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -812,7 +921,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_hstsPreload/--no-ssl_hstsPreload',
-    help='ToDo',
+    help=('Enable if you like this domain to be included in the HSTS preload list.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -820,7 +929,9 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_hstsMaxAge',
-    help='ToDo',
+    help=(
+        'Future requests to the domain should use only HTTPS for the specified time (in seconds): 15768000 = 6 months'
+    ),
     show_default=True,
     type=int,
     callback=int_as_string,
@@ -828,7 +939,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_clientAuthEnabled/--no-ssl_clientAuthEnabled',
-    help='ToDo',
+    help=('Enable client certificate authentication.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -836,7 +947,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_clientAuthVerify',
-    help='ToDo',
+    help=('If set to \'optional\' or \'required\', client certificate is requested.'),
     type=click.Choice(['', 'none', 'optional', 'required']),
     multiple=False,
     callback=tuple_to_csv,
@@ -845,19 +956,19 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--ssl_clientAuthCAs',
-    help='ToDo',
+    help=('Select CA certificates to use for client certificate authentication.'),
     show_default=True,
     default=None
 )
 @click.option(
     '--ssl_clientAuthCRLs',
-    help='ToDo',
+    help=('Select CRLs to use for client certificate authentication.'),
     show_default=True,
     default=None
 )
 @click.option(
     '--basicAuthEnabled/--no-basicAuthEnabled',
-    help='ToDo',
+    help=('Enable HTTP Basic Authentication.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -865,19 +976,19 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--basicAuthUsers',
-    help='ToDo',
+    help=('Set allowed basic auth users.'),
     show_default=True,
     default=None
 )
 @click.option(
     '--basicAuthGroups',
-    help='ToDo',
+    help=('Set allowed basic auth groups.'),
     show_default=True,
     default=None
 )
 @click.option(
     '--tuning_maxConnections',
-    help='ToDo',
+    help=('Set the maximum number of concurrent connections for this public service.'),
     show_default=True,
     type=int,
     callback=int_as_string,
@@ -885,31 +996,43 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--tuning_timeoutClient',
-    help='ToDo',
+    help=(
+        'Set the maximum inactivity time on the client side. '
+        'Defaults to milliseconds. Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--tuning_timeoutHttpReq',
-    help='ToDo',
+    help=(
+            'Set the maximum allowed time to wait for a complete HTTP request. '
+            'In order to offer DoS protection, it may be required to lower the maximum accepted time to receive '
+            'a complete HTTP request without affecting the client timeout. '
+            'This helps protecting against established connections on which nothing is sent. Defaults to milliseconds. '
+            'Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--tuning_timeoutHttpKeepAlive',
-    help='ToDo',
+    help=(
+        'Set the maximum allowed time to wait for a new HTTP request to appear. '
+        'Defaults to milliseconds. Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--linkedCpuAffinityRules',
-    help='ToDo',
+    help=('Choose CPU affinity rules that should be applied to this public service.'),
     show_default=True,
     default=None
 )
 @click.option(
     '--logging_dontLogNull/--no-logging_dontLogNull',
-    help='ToDo',
+    help=('Enable or disable logging of connections with no data.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -917,7 +1040,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--logging_dontLogNormal/--no-logging_dontLogNormal',
-    help='ToDo',
+    help=('Enable or disable logging of normal, successful connections.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -925,7 +1048,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--logging_logSeparateErrors/--no-logging_logSeparateErrors',
-    help='ToDo',
+    help=('Allow HAProxy to automatically raise log level for non-completely successful connections to aid debugging.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -933,7 +1056,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--logging_detailedLog/--no-logging_detailedLog',
-    help='ToDo',
+    help=('Enable or disable verbose logging. Each log line turns into a much richer format.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -941,7 +1064,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--logging_socketStats/--no-logging_socketStats',
-    help='ToDo',
+    help=('Enable or disable collecting & providing separate statistics for each socket.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -949,7 +1072,11 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--stickiness_pattern',
-    help='ToDo',
+    help=(
+        'Choose the type of data that should be stored in this stick-table. '
+        'Note that this stick-table cannot be used for session persistence, '
+        'it is only used to store additional per-connection data.'
+    ),
     type=click.Choice(['', 'ipv4', 'ipv6', 'integer', 'string', 'binary']),
     multiple=False,
     callback=tuple_to_csv,
@@ -958,7 +1085,12 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--stickiness_dataTypes',
-    help='ToDo',
+    help=(
+            'This is used to store additional information in the stick-table. '
+            'It may be used by ACLs in order to control various criteria related '
+            'to the activity of the client matching the stick-table. '
+            'Note that this directly impacts memory usage.'
+    ),
     type=click.Choice(
         [
             '', 'conn_cnt', 'conn_cur', 'conn_rate', 'sess_cnt', 'sess_rate', 'http_req_cnt', 'http_req_rate',
@@ -972,19 +1104,31 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--stickiness_expire',
-    help='ToDo',
+    help=(
+        'Enter a number followed by one of the supported suffixes "d" (days), "h" (hour), "m" (minute), "s" (seconds), '
+        '"ms" (miliseconds). This configures the maximum duration of an entry in the stick-table since it was '
+        'last created, refreshed or matched. The maximum duration is slightly above 24 days.'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--stickiness_size',
-    help='ToDo',
+    help=(
+            'Enter a number followed by one of the supported suffixes "k", "m", "g". '
+            'This configures the maximum number of entries that can fit in the table. '
+            'This value directly impacts memory usage. '
+            'Count approximately 50 bytes per entry, plus the size of a string if any.'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--stickiness_counter/--no-stickiness_counter',
-    help='ToDo',
+    help=(
+            'Enable to be able to retrieve values from sticky counters. '
+            'If disabled, all values will return 0, rendering many conditions useless.'
+    ),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -992,13 +1136,21 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--stickiness_counter_key',
-    help='ToDo',
+    help=(
+        'It describes what elements of the incoming request or connection will be analyzed, extracted, combined, '
+        'and used to select which table entry to update the counters. '
+        'Defaults to "src" to track elements of the source IP.'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--stickiness_length',
-    help='ToDo',
+    help=(
+        'Specify the maximum length for a value in the stick-table. '
+        'If the value is larger than this value it will be truncated before being stored. '
+        'Depending on the stick-table type this repesents either characters or bytes.'
+    ),
     show_default=True,
     type=int,
     callback=int_as_string,
@@ -1006,43 +1158,67 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--stickiness_connRatePeriod',
-    help='ToDo',
+    help=(
+        'The length of the period over which the average is measured. '
+        'It reports the average incoming connection rate over that period, in connections per period. '
+        'Defaults to milliseconds. Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--stickiness_sessRatePeriod',
-    help='ToDo',
+    help=(
+        'The length of the period over which the average is measured. '
+        'It reports the average incoming session rate over that period, in sessions per period. '
+        'Defaults to milliseconds. Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--stickiness_httpReqRatePeriod',
-    help='ToDo',
+    help=(
+            'The length of the period over which the average is measured. It reports the average HTTP request rate over '
+            'that period, in requests per period. Defaults to milliseconds. '
+            'Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--stickiness_httpErrRatePeriod',
-    help='ToDo',
+    help=(
+        'The length of the period over which the average is measured. '
+        'It reports the average HTTP request error rate over that period, in requests per period. '
+        'Defaults to milliseconds. Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--stickiness_bytesInRatePeriod',
-    help='ToDo',
+    help=(
+        'The length of the period over which the average is measured. '
+        'It reports the average incoming bytes rate over that period, in bytes per period. '
+        'Defaults to milliseconds. Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--stickiness_bytesOutRatePeriod',
-    help='ToDo',
+    help=(
+        'The length of the period over which the average is measured. '
+        'It reports the average outgoing bytes rate over that period, in bytes per period. '
+        'Defaults to milliseconds. Optionally the unit may be specified as either "d", "h", "m", "s", "ms" or "us".'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--http2Enabled/--no-http2Enabled',
-    help='ToDo',
+    help=('Enable support for HTTP/2.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -1050,7 +1226,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--http2Enabled_nontls/--no-http2Enabled_nontls',
-    help='ToDo',
+    help=('Enable support for HTTP/2 even if TLS (SSL offloading) is not enabled.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -1058,7 +1234,10 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--advertised_protocols',
-    help='ToDo',
+    help=(
+        'When using the TLS ALPN extension, HAProxy advertises the specified protocol list as supported on top of ALPN.'
+        ' SSL offloading must be enabled.'
+    ),
     type=click.Choice(['', 'h2', 'http11', 'http10']),
     multiple=True,
     callback=tuple_to_csv,
@@ -1067,7 +1246,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--forwardFor/--no-forwardFor',
-    help='ToDo',
+    help=('Enable insertion of the X-Forwarded-For header to requests sent to servers.'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -1075,7 +1254,16 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--connectionBehaviour',
-    help='ToDo',
+    help=(
+        'By default HAProxy operates in keep-alive mode with regards to persistent connections. '
+        'Option "http-tunnel" disables any HTTP processing past the first request and the first response. '
+        'Option "httpclose" configures HAProxy to work in HTTP tunnel mode and check '
+        'if a "Connection: close" header is already set in each direction, and will add one if missing. '
+        'Option "http-server-close" enables HTTP connection-close mode on the server side while keeping the ability '
+        'to support HTTP keep-alive and pipelining on the client side. With Option "forceclose" HAProxy will actively '
+        'close the outgoing server channel as soon as the server has finished '
+        'to respond and release some resources earlier.'
+    ),
     type=click.Choice(['http-keep-alive', 'http-tunnel', 'httpclose', 'http-server-close', 'forceclose']),
     multiple=False,
     callback=tuple_to_csv,
@@ -1084,19 +1272,19 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
 )
 @click.option(
     '--customOptions',
-    help='ToDo',
+    help=('These lines will be added to the HAProxy frontend configuration.'),
     show_default=True,
     default=None
 )
 @click.option(
     '--linkedActions',
-    help='ToDo',
+    help=('Choose rules to be included in this public service.'),
     show_default=True,
     default=None
 )
 @click.option(
     '--linkedErrorfiles',
-    help='ToDo',
+    help=('Choose error messages to be included in this public service.'),
     show_default=True,
     default=None
 )
