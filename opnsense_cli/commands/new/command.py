@@ -8,6 +8,10 @@ from opnsense_cli.parser.opnsense_model import OpnsenseModelParser
 from opnsense_cli.factories.code_generator.click_option import ClickOptionCodeFactory
 from opnsense_cli.facades.code_generator.click_command import ClickCommandCodeGenerator
 from opnsense_cli.facades.template_engines.jinja2 import Jinja2TemplateEngine
+from jinja2 import Template, Environment, FileSystemLoader, BaseLoader
+
+
+from bs4.element import Tag
 
 
 @click.group()
@@ -73,19 +77,19 @@ def command(**kwargs):
     '--command-output-dir', '-cod',
     help='The output directory for the generated command',
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), '../../../output/commands/core'),
+    default=os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../output/commands/core')),
 )
 @click.option(
     '--facade-output-dir', '-fod',
     help='The output directory for the generated facade',
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), '../../../output/facades/command/core'),
+    default=os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../output/facades/command/core')),
 )
 @click.option(
     '--test-output-dir', '-tod',
     help='The output directory for the generated test',
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), '../../../output/test/core'),
+    default=os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../output/test/core')),
 )
 def core(**kwargs):
     """
@@ -105,7 +109,7 @@ def core(**kwargs):
 
     --url https://raw.githubusercontent.com/opnsense/core/master/src/opnsense/mvc/app/models/OPNsense/Unbound/Unbound.xml
     """
-    generate_command_files('plugin', **kwargs)
+    generate_command_files('core', **kwargs)
 
 
 @command.command()
@@ -162,19 +166,19 @@ def core(**kwargs):
     '--command-output-dir', '-cod',
     help='The output directory for the generated command',
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), '../../../output/commands/plugin'),
+    default=os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../output/commands/plugin')),
 )
 @click.option(
     '--facade-output-dir', '-fod',
     help='The output directory for the generated facade',
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), '../../../output/facades/command/plugin'),
+    default=os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../output/facades/command/plugin')),
 )
 @click.option(
     '--test-output-dir', '-tod',
     help='The output directory for the generated test',
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), '../../../output/test/commands/plugin'),
+    default=os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../output/test/commands/plugin')),
 )
 def plugin(**kwargs):
     """
@@ -200,53 +204,63 @@ def plugin(**kwargs):
     generate_command_files('plugin', **kwargs)
 
 
-def generate_command_files(model_type, **kwargs):
-    model_parser = OpnsenseModelParser(kwargs['model_url'], kwargs['tag'])
+def generate_command_files(type, **kwargs):
+    model_tag = OpnsenseModelParser(kwargs['model_url'], kwargs['tag']).parse()
     template_engine = Jinja2TemplateEngine(kwargs['template_basedir'])
     option_factory = ClickOptionCodeFactory()
 
+    write_command(type, model_tag, template_engine, option_factory, **kwargs)
+    write_command_facade(type, model_tag, template_engine, option_factory, **kwargs)
+    write_command_test(type, model_tag, template_engine, option_factory, **kwargs)
+
+
+def write_command(type, model_tag: Tag, template_engine, option_factory, **kwargs):
     command_code_generator = ClickCommandCodeGenerator(
-        model_parser,
+        model_tag,
         template_engine,
         option_factory,
         kwargs['template_command'],
         kwargs['click_group'],
         kwargs['click_command'],
         kwargs['tag'],
-        model_type,
+        type,
     )
 
     if kwargs['form_url']:
         form_parser = OpnsenseFormParser(kwargs['form_url'], 'form')
         command_code_generator.help_messages = form_parser.parse()
 
+    click.echo(
+        command_code_generator.write_code(kwargs['command_output_dir'])
+    )
+
+
+def write_command_facade(type, model_tag: Tag, template_engine, option_factory, **kwargs):
     command_facade_generator = ClickCommandFacadeCodeGenerator(
-        model_parser,
+        model_tag,
         template_engine,
         option_factory,
         kwargs['template_facade'],
         kwargs['click_group'],
         kwargs['click_command'],
         kwargs['tag'],
-        model_type,
+        type,
+    )
+    click.echo(
+        command_facade_generator.write_code(kwargs['facade_output_dir'])
     )
 
+
+def write_command_test(type, model_tag: Tag, template_engine, option_factory, **kwargs):
     command_test_generator = ClickCommandTestCodeGenerator(
-        model_parser,
+        model_tag,
         template_engine,
         option_factory,
         kwargs['template_test'],
         kwargs['click_group'],
         kwargs['click_command'],
         kwargs['tag'],
-        model_type,
-    )
-
-    click.echo(
-        command_code_generator.write_code(kwargs['command_output_dir'])
-    )
-    click.echo(
-        command_facade_generator.write_code(kwargs['facade_output_dir'])
+        type,
     )
     click.echo(
         command_test_generator.write_code(

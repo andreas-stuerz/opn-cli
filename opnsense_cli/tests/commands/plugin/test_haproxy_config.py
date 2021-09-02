@@ -1,7 +1,7 @@
+import os
 from unittest.mock import patch, Mock
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.tests.commands.base import CommandTestCase
-import os
 
 
 class TestHaproxyConfigCommands(CommandTestCase):

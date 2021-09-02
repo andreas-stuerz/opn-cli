@@ -44,7 +44,7 @@ class Test{{ vars.click_group.capitalize() }}{{ vars.click_command.capitalize() 
                 }
             }
         }
-        self._api_data_fixtures_list = self._read_json_fixture('{{ vars.click_group }}/model_data.json')
+        self._api_data_fixtures_list = self._read_json_fixture('{{ vars.module_type }}/{{ vars.click_group }}/model_data.json')
         self._api_client_args_fixtures = [
             'api_key',
             'api_secret',

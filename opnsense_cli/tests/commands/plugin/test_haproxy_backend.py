@@ -44,7 +44,7 @@ class TestHaproxyBackendCommands(CommandTestCase):
                 }
             }
         }
-        self._api_data_fixtures_list = self._read_json_fixture('haproxy/model_data.json')
+        self._api_data_fixtures_list = self._read_json_fixture('plugin/haproxy/model_data.json')
         self._api_client_args_fixtures = [
             'api_key',
             'api_secret',

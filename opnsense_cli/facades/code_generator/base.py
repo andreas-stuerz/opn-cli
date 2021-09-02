@@ -17,7 +17,7 @@ class CodeGenerator(ABC):
 class CommandCodeGenerator(CodeGenerator):
     def __init__(
             self,
-            parser: Parser,
+            tag_content: Tag,
             template_engine: TemplateEngine,
             option_factory: ObjectTypeFromDataFactory,
             template,
@@ -25,10 +25,8 @@ class CommandCodeGenerator(CodeGenerator):
             command,
             model_xml_tag,
             module_type,
-            help_messages=None
     ):
-        self._parser = parser
-        self._tag_content: Tag = parser.parse()
+        self._tag_content: Tag = tag_content
         self._template_engine = template_engine
         self._template = template
         self._click_group = group
@@ -36,7 +34,6 @@ class CommandCodeGenerator(CodeGenerator):
         self._click_option_factory = option_factory
         self._model_xml_tag = model_xml_tag
         self._module_type = module_type
-        self.__help_messages = help_messages
 
     def write_code(self, output_dir, filename_prefix='', filename_suffix='.py'):
         code = self.get_code()

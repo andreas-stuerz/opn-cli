@@ -8,6 +8,10 @@ class ClickCommandCodeGenerator(CommandCodeGenerator):
     IGNORED_TAG_NAMES_CREATE = ['name']
     IGNORED_TAG_NAMES_UPDATE = []
 
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.__help_messages = None
+
     @property
     def _help_messages(self):
         if self.__help_messages is None:
