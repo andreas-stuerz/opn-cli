@@ -11,7 +11,7 @@ class Jinja2TemplateEngine(TemplateEngine):
         try:
             template_content = self._read_file(path)
             self.set_template_from_string(template_content)
-        except (TemplateNotFound, TemplatesNotFound):
+        except (TemplateNotFound, TemplatesNotFound, FileNotFoundError):
             basedir = os.path.abspath(self.template_basedir)
             template_path = os.path.join(basedir, template)
             raise TemplateNotFoundException(template_path)

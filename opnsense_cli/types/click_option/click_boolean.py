@@ -26,9 +26,9 @@ class ClickBoolean(ClickOptionCodeFragment):
 
     @property
     def _default(self):
-        if self._tag_content.find('default'):
-            return bool(self._tag_content.default.string)
-        return None
+        default = super()._default
+        if default:
+            return bool(default)
 
     def _render_template(self):
         return self._template.substitute(

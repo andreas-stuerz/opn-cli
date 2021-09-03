@@ -1,6 +1,5 @@
-from abc import ABC, abstractmethod
 import os
-from opnsense_cli.parser.base import Parser
+from abc import ABC, abstractmethod
 from opnsense_cli.factories.base import ObjectTypeFromDataFactory
 from opnsense_cli.facades.template_engines.base import TemplateEngine
 from bs4.element import Tag

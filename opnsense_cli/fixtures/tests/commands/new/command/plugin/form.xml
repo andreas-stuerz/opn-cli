@@ -431,6 +431,14 @@
         <type>header</type>
     </field>
     <field>
+        <label>fieldShouldBeSkipped</label>
+        <type>fieldShouldBeSkipped</type>
+        <style>fieldShouldBeSkipped</style>
+        <sortable>true</sortable>
+        <help><![CDATA[Choose rules to be included in this Public Service.]]></help>
+        <hint>Choose rules.</hint>
+    </field>
+    <field>
         <id>frontend.linkedActions</id>
         <label>Select Rules</label>
         <type>select_multiple</type>

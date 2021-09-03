@@ -1,14 +1,14 @@
-from bs4.element import Tag
 from opnsense_cli.parser.xml import XmlParser
 
 
 class OpnsenseFormParser(XmlParser):
-    def _parse_content(self) -> Tag:
-        return self.get_help_messages_with_id()
+    def _parse_content(self):
+        base_tag = super()._parse_content()
+        return self.get_help_messages_with_id(base_tag)
 
-    def get_help_messages_with_id(self):
+    def get_help_messages_with_id(self, base_tag):
         messages = {}
-        for field in self._content.find(self._tag).findChildren(recursive=False):
+        for field in base_tag.findChildren(recursive=False):
             if self._skip_field(field):
                 continue
 

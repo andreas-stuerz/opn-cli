@@ -3,6 +3,7 @@ from unittest.mock import patch, Mock
 from opnsense_cli.commands.new.command import command
 from opnsense_cli.tests.commands.base import CommandTestCase
 from click.testing import CliRunner
+import textwrap
 
 
 class TestNewCommandCommands(CommandTestCase):
@@ -19,7 +20,7 @@ class TestNewCommandCommands(CommandTestCase):
         self._facade_template = self._read_template_file('code_generator/command/command_facade.py.j2')
         self._test_template = self._read_template_file('code_generator/command/command.py.j2')
 
-        self._output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../output'))
+        self._output_dir = self._get_output_path('')
         self._generated_command_path = f"{self._output_dir}/commands/plugin/frontend.py"
         self._generated_facade_path = f"{self._output_dir}/facades/command/plugin/frontend.py"
         self._generated_test_path = f"{self._output_dir}/test/commands/plugin/test_haproxy_frontend.py"
@@ -41,7 +42,7 @@ class TestNewCommandCommands(CommandTestCase):
             ],
             catch_exceptions=False
         )
-        self._show_fakefs_contents()
+
         self.assertIn(
             f"generate new code: {self._generated_command_path}\n"
             f"generate new code: {self._generated_facade_path}\n"
@@ -53,6 +54,82 @@ class TestNewCommandCommands(CommandTestCase):
         self.assertTrue(os.path.exists(self._generated_facade_path))
         self.assertTrue(os.path.exists(self._generated_test_path))
 
+        command_file_content = self._read_file(self._generated_command_path)
+        facade_file_content = self._read_file(self._generated_facade_path)
+        test_file_content = self._read_file(self._generated_test_path)
+
+        self.assertIn(
+            "enabled,name,description,bind,bindOptions,mode,defaultBackend,ssl_enabled,ssl_certificates",
+            command_file_content
+        )
+
+        self.assertIn(
+            textwrap.dedent("""
+                @click.option(
+                    '--linkedCpuAffinityRules',
+                    help=('Choose CPU affinity rules that should be applied to this Public Service.'),
+                    show_default=True,
+                    default=None
+                )
+            """),
+            command_file_content
+        )
+        self.assertIn(
+            textwrap.dedent("""
+                @click.option(
+                    '--linkedCpuAffinityRules',
+                    help=('Choose CPU affinity rules that should be applied to this Public Service.'),
+                    show_default=True,
+                    default=None,
+                    required=False,
+                )
+            """),
+            command_file_content
+        )
+
+        self.assertIn(
+            "class HaproxyFrontendFacade(HaproxyFacade):",
+            facade_file_content
+        )
+
+        self.assertIn(
+            "'defaultBackend': {'template': '$.haproxy.backends.backend[{uuids}].name', 'insert_as_key': 'Backend'},",
+            facade_file_content
+        )
+
+        self.assertIn(
+            "class TestHaproxyFrontendCommands(CommandTestCase):",
+            test_file_content
+        )
+
+        self.assertIn(
+            "@patch('opnsense_cli.commands.plugin.haproxy.frontend.ApiClient.execute')",
+            test_file_content
+        )
+
     @patch('opnsense_cli.parser.xml.requests.get')
     def test_plugin_without_form_url(self, mock_model_get: Mock):
-        pass
+        mock_model_get.side_effect = [
+            self._mock_model_resp,
+        ]
+
+        runner = CliRunner()
+        result = runner.invoke(
+            command,
+            [
+                'plugin', 'haproxy', 'frontend', '--tag', 'frontends',
+                '--model-url', 'https://fake.githubusercontent.com/model.xml',
+            ],
+            catch_exceptions=False
+        )
+
+        self.assertIn(
+            f"generate new code: {self._generated_command_path}\n"
+            f"generate new code: {self._generated_facade_path}\n"
+            f"generate new code: {self._generated_test_path}\n",
+            result.output
+        )
+
+        self.assertTrue(os.path.exists(self._generated_command_path))
+        self.assertTrue(os.path.exists(self._generated_facade_path))
+        self.assertTrue(os.path.exists(self._generated_test_path))

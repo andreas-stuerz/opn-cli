@@ -4,7 +4,7 @@ from opnsense_cli.commands.new import new
 
 
 class TestNewCommands(unittest.TestCase):
-    def test_firewall(self):
+    def test_new(self):
         runner = CliRunner()
         result = runner.invoke(new)
 

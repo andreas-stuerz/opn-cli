@@ -6,7 +6,6 @@ from opnsense_cli.dataclasses.code_generator.command.command import CommandTempl
 class ClickCommandCodeGenerator(CommandCodeGenerator):
     IGNORED_TYPES = ['UniqueIdField']
     IGNORED_TAG_NAMES_CREATE = ['name']
-    IGNORED_TAG_NAMES_UPDATE = []
 
     def __init__(self, *args):
         super().__init__(*args)
@@ -40,7 +39,7 @@ class ClickCommandCodeGenerator(CommandCodeGenerator):
             if create_option_code:
                 click_options_create.append(create_option_code)
 
-            update_option_code = self._get_click_option_update_code(tag, click_option_type)
+            update_option_code = self._get_click_option_update_code(click_option_type)
             if update_option_code:
                 click_options_update.append(update_option_code)
 
@@ -60,8 +59,5 @@ class ClickCommandCodeGenerator(CommandCodeGenerator):
 
         return click_option_type.get_code_for_create()
 
-    def _get_click_option_update_code(self, tag, click_option_type: ClickOptionCodeFragment):
-        if tag.name in self.IGNORED_TAG_NAMES_UPDATE:
-            return None
-
+    def _get_click_option_update_code(self, click_option_type: ClickOptionCodeFragment):
         return click_option_type.get_code_for_update()

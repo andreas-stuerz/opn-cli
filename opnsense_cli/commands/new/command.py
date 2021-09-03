@@ -1,16 +1,12 @@
 import click
 import os
-
 from opnsense_cli.facades.code_generator.click_command_facade import ClickCommandFacadeCodeGenerator
 from opnsense_cli.facades.code_generator.click_command_test import ClickCommandTestCodeGenerator
 from opnsense_cli.parser.opnsense_form import OpnsenseFormParser
 from opnsense_cli.parser.opnsense_model import OpnsenseModelParser
-from opnsense_cli.factories.code_generator.click_option import ClickOptionCodeFactory
+from opnsense_cli.factories.code_generator.click_option import ClickOptionCodeTypeFactory
 from opnsense_cli.facades.code_generator.click_command import ClickCommandCodeGenerator
 from opnsense_cli.facades.template_engines.jinja2 import Jinja2TemplateEngine
-from jinja2 import Template, Environment, FileSystemLoader, BaseLoader
-
-
 from bs4.element import Tag
 
 
@@ -207,7 +203,7 @@ def plugin(**kwargs):
 def generate_command_files(type, **kwargs):
     model_tag = OpnsenseModelParser(kwargs['model_url'], kwargs['tag']).parse()
     template_engine = Jinja2TemplateEngine(kwargs['template_basedir'])
-    option_factory = ClickOptionCodeFactory()
+    option_factory = ClickOptionCodeTypeFactory()
 
     write_command(type, model_tag, template_engine, option_factory, **kwargs)
     write_command_facade(type, model_tag, template_engine, option_factory, **kwargs)

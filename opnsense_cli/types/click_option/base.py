@@ -7,8 +7,8 @@ import textwrap
 class ClickOptionCodeFragment(ABC):
     def __init__(self, tag: Tag):
         self._tag_content = tag
-        self.__name = tag.name
-        self.__template = Template(textwrap.dedent(self.TEMPLATE_CREATE))
+        self._name = tag.name
+        self._template = self.TEMPLATE_CREATE
         self.__help = 'ToDo'
 
     @property
@@ -38,8 +38,8 @@ class ClickOptionCodeFragment(ABC):
         return self.__template
 
     @_template.setter
-    def _template(self, _template):
-        self.__template = Template(textwrap.dedent(_template))
+    def _template(self, template):
+        self.__template = Template(textwrap.dedent(template))
 
     @property
     def _name(self):

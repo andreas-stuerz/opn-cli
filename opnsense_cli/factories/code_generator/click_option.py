@@ -1,14 +1,14 @@
+from bs4.element import Tag
 from opnsense_cli.types.click_option.base import ClickOptionCodeFragment
 from opnsense_cli.factories.base import ObjectTypeFromDataFactory
 from opnsense_cli.exceptions.factory import FactoryException
-from bs4.element import Tag
 from opnsense_cli.types.click_option.click_boolean import ClickBoolean
 from opnsense_cli.types.click_option.click_text import ClickText
 from opnsense_cli.types.click_option.click_integer import ClickInteger
 from opnsense_cli.types.click_option.click_choice import ClickChoice
 
 
-class ClickOptionCodeFactory(ObjectTypeFromDataFactory):
+class ClickOptionCodeTypeFactory(ObjectTypeFromDataFactory):
     _keymap = {
         'BooleanField': ClickBoolean,
         'TextField': ClickText,

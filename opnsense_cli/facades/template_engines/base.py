@@ -21,7 +21,6 @@ class TemplateEngine(ABC):
     def template(self):
         if not self.__template:
             raise TemplateEngineException('missing template')
-
         return self.__template
 
     @template.setter
@@ -32,7 +31,6 @@ class TemplateEngine(ABC):
     def vars(self):
         if not self.__vars:
             raise TemplateEngineException('missing template vars')
-
         return self.__vars
 
     @vars.setter
