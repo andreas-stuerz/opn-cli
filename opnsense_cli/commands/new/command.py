@@ -1,7 +1,7 @@
 import click
 import os
 from opnsense_cli.facades.code_generator.click_command_facade import ClickCommandFacadeCodeGenerator
-from opnsense_cli.facades.code_generator.click_command_test import ClickCommandTestCodeGenerator
+from opnsense_cli.facades.code_generator.click_command_test_unit import ClickCommandTestCodeGenerator
 from opnsense_cli.parser.opnsense_form import OpnsenseFormParser
 from opnsense_cli.parser.opnsense_model import OpnsenseModelParser
 from opnsense_cli.factories.code_generator.click_option import ClickOptionCodeTypeFactory
