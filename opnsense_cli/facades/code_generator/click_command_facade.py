@@ -1,5 +1,5 @@
 from opnsense_cli.facades.code_generator.base import CommandCodeGenerator
-from opnsense_cli.dataclasses.code_generator.command.command_facade import CommandFacadeTemplateVars
+from opnsense_cli.dataclasses.code_generator.command.command_facade_vars import CommandFacadeTemplateVars
 from bs4.element import Tag
 
 

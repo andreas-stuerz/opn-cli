@@ -1,6 +1,6 @@
 from opnsense_cli.facades.code_generator.base import CommandCodeGenerator
 from opnsense_cli.types.click_option.base import ClickOptionCodeFragment
-from opnsense_cli.dataclasses.code_generator.command.command import CommandTemplateVars
+from opnsense_cli.dataclasses.code_generator.command.command_vars import CommandTemplateVars
 
 
 class ClickCommandCodeGenerator(CommandCodeGenerator):

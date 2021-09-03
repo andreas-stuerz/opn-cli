@@ -1,5 +1,5 @@
 from opnsense_cli.facades.code_generator.base import CommandCodeGenerator
-from opnsense_cli.dataclasses.code_generator.command.command_test import CommandTestTemplateVars
+from opnsense_cli.dataclasses.code_generator.command.command_test_vars import CommandTestTemplateVars
 
 
 class ClickCommandTestCodeGenerator(CommandCodeGenerator):
