@@ -85,7 +85,7 @@ def command(**kwargs):
     '--test-output-dir', '-tod',
     help='The output directory for the generated test',
     show_default=True,
-    default=os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../output/test/core')),
+    default=os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../output/test/commands/core')),
 )
 def core(**kwargs):
     """
