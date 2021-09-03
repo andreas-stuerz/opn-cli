@@ -1,32 +1,29 @@
-{% set facade = "{g}{c}Facade".format(g=vars.click_group.capitalize(), c=vars.click_command.capitalize()) -%}
-{% set service = "{g}_{c}_svc".format(g=vars.click_group, c=vars.click_command) -%}
-
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
     formatter_from_formatter_name, bool_as_string, available_formats, int_as_string, tuple_to_csv
-from opnsense_cli.commands.{{ vars.module_type }}.{{ vars.click_group }} import {{ vars.click_group }}
+from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
-from opnsense_cli.api.{{ vars.module_type }}.{{ vars.click_group }} import Settings, Service
-from opnsense_cli.facades.commands.{{ vars.module_type }}.{{ vars.click_group }}.{{ vars.click_command }} import {{ facade }}
+from opnsense_cli.api.plugin.haproxy import Settings, Service
+from opnsense_cli.facades.commands.plugin.haproxy.mapfile import HaproxyMapfileFacade
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_{{ vars.click_group }}_{{ vars.click_command }}_svc = click.make_pass_decorator({{ facade }})
+pass_haproxy_mapfile_svc = click.make_pass_decorator(HaproxyMapfileFacade)
 
 
-@{{ vars.click_group }}.group()
+@haproxy.group()
 @pass_api_client
 @click.pass_context
-def {{ vars.click_command }}(ctx, api_client: ApiClient, **kwargs):
+def mapfile(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage {{ vars.click_group }} {{ vars.click_command }}
+    Manage haproxy mapfile
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = {{ facade }}(settings_api, service_api)
+    ctx.obj = HaproxyMapfileFacade(settings_api, service_api)
 
 
-@{{ vars.click_command }}.command()
+@mapfile.command()
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -39,21 +36,21 @@ def {{ vars.click_command }}(ctx, api_client: ApiClient, **kwargs):
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=(
-        "uuid,{{ ",".join(vars.column_names) }}"
+        "name,description,content"
     ),
     show_default=True,
 )
-@pass_{{ service }}
-def list({{ service }}: {{ facade }}, **kwargs):
+@pass_haproxy_mapfile_svc
+def list(haproxy_mapfile_svc: HaproxyMapfileFacade, **kwargs):
     """
-    Show all {{ vars.click_command }}
+    Show all mapfile
     """
-    result = {{ service }}.list_{{ vars.click_command }}s()
+    result = haproxy_mapfile_svc.list_mapfiles()
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
-@{{ vars.click_command }}.command()
+@mapfile.command()
 @click.argument('uuid')
 @click.option(
     '--output', '-o',
@@ -67,25 +64,37 @@ def list({{ service }}: {{ facade }}, **kwargs):
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=(
-        "{{ ",".join(vars.column_names) }}"
+        "name,description,content"
     ),
     show_default=True,
 )
-@pass_{{ service }}
-def show({{ service }}: {{ facade }}, **kwargs):
+@pass_haproxy_mapfile_svc
+def show(haproxy_mapfile_svc: HaproxyMapfileFacade, **kwargs):
     """
-    Show details for {{ vars.click_command }}
+    Show details for mapfile
     """
-    result = {{ service }}.show_{{ vars.click_command }}(kwargs['uuid'])
+    result = haproxy_mapfile_svc.show_mapfile(kwargs['uuid'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
-@{{ vars.click_command }}.command()
+@mapfile.command()
 @click.argument('name')
-{% for option in vars.click_options_create -%}
-    {{ option }}
-{% endfor %}
+@click.option(
+    '--description',
+    help=('Description for this map file.'),
+    show_default=True,
+    default=None,
+    required=False,
+)
+@click.option(
+    '--content',
+    help=('Paste the content of your map file here. See the <a target="_blank" href="http://cbonte.github.io/haproxy-dconv/2.2/configuration.html#map">HAProxy documentation</a> for a full description.'),
+    show_default=True,
+    default=None,
+    required=True,
+)
+
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -100,29 +109,46 @@ def show({{ service }}: {{ facade }}, **kwargs):
     default="result,validations",
     show_default=True,
 )
-@pass_{{ service }}
-def create({{ service }}: {{ facade }}, **kwargs):
+@pass_haproxy_mapfile_svc
+def create(haproxy_mapfile_svc: HaproxyMapfileFacade, **kwargs):
     """
-    Create a new {{ vars.click_command }}
+    Create a new mapfile
     """
     json_payload = {
-        '{{ vars.click_command }}': {
-            {% for column in vars.column_names -%}
-                "{{ column }}": kwargs['{{ column.lower() }}'],
-            {% endfor %}
+        'mapfile': {
+            "name": kwargs['name'],
+            "description": kwargs['description'],
+            "content": kwargs['content'],
+            
         }
     }
 
-    result = {{ service }}.create_{{ vars.click_command }}(json_payload)
+    result = haproxy_mapfile_svc.create_mapfile(json_payload)
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
-@{{ vars.click_command }}.command()
+@mapfile.command()
 @click.argument('uuid')
-{% for option in vars.click_options_update -%}
-    {{ option }}
-{% endfor %}
+@click.option(
+    '--name',
+    help=('Name to identify this map file.'),
+    show_default=True,
+    default=None
+)
+@click.option(
+    '--description',
+    help=('Description for this map file.'),
+    show_default=True,
+    default=None
+)
+@click.option(
+    '--content',
+    help=('Paste the content of your map file here. See the <a target="_blank" href="http://cbonte.github.io/haproxy-dconv/2.2/configuration.html#map">HAProxy documentation</a> for a full description.'),
+    show_default=True,
+    default=None
+)
+
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -137,25 +163,25 @@ def create({{ service }}: {{ facade }}, **kwargs):
     default="result,validations",
     show_default=True,
 )
-@pass_{{ service }}
-def update({{ service }}: {{ facade }}, **kwargs):
+@pass_haproxy_mapfile_svc
+def update(haproxy_mapfile_svc: HaproxyMapfileFacade, **kwargs):
     """
-    Update a {{ vars.click_command }}.
+    Update a mapfile.
     """
     json_payload = {
-        '{{ vars.click_command }}': {}
+        'mapfile': {}
     }
-    options = {{ vars.column_list }}
+    options = ['name', 'description', 'content']
     for option in options:
         if kwargs[option.lower()] is not None:
-            json_payload['{{ vars.click_command }}'][option] = kwargs[option.lower()]
+            json_payload['mapfile'][option] = kwargs[option.lower()]
 
-    result = {{ service }}.update_{{ vars.click_command }}(kwargs['uuid'], json_payload)
+    result = haproxy_mapfile_svc.update_mapfile(kwargs['uuid'], json_payload)
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
-@{{ vars.click_command }}.command()
+@mapfile.command()
 @click.argument('uuid')
 @click.option(
     '--output', '-o',
@@ -171,11 +197,11 @@ def update({{ service }}: {{ facade }}, **kwargs):
     default="result,validations",
     show_default=True,
 )
-@pass_{{ service }}
-def delete({{ service }}: {{ facade }}, **kwargs):
+@pass_haproxy_mapfile_svc
+def delete(haproxy_mapfile_svc: HaproxyMapfileFacade, **kwargs):
     """
-    Delete {{ vars.click_command }}
+    Delete mapfile
     """
-    result = {{ service }}.delete_{{ vars.click_command }}(kwargs['uuid'])
+    result = haproxy_mapfile_svc.delete_mapfile(kwargs['uuid'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()

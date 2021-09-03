@@ -4474,10 +4474,43 @@
       }
     },
     "groups": {
-      "group": []
+      "group": {
+        "741e1c18-ba34-4fab-823a-7017fc3af1ec": {
+          "id": "613220c5e25cb8.98533797",
+          "enabled": "1",
+          "name": "my_group",
+          "description": "",
+          "members": {
+            "36965ef4-d1cd-42e6-8e3e-6f1a9acb37ac": {
+              "value": "user1",
+              "selected": 1
+            },
+            "d99f0f32-7cab-49df-a2f8-a4fa6edab03f": {
+              "value": "user2",
+              "selected": 1
+            }
+          },
+          "add_userlist": "1"
+        }
+      }
     },
     "users": {
-      "user": []
+      "user": {
+        "36965ef4-d1cd-42e6-8e3e-6f1a9acb37ac": {
+          "id": "613220fe6005d2.28407094",
+          "enabled": "1",
+          "name": "user1",
+          "description": "",
+          "password": "123"
+        },
+        "d99f0f32-7cab-49df-a2f8-a4fa6edab03f": {
+          "id": "613231463ed0d2.31157213",
+          "enabled": "1",
+          "name": "user2",
+          "description": "test",
+          "password": "unencrypted"
+        }
+      }
     },
     "cpus": {
       "cpu": {

@@ -18,6 +18,16 @@ from opnsense_cli.commands.plugin.haproxy.config import config as haproxy_config
 from opnsense_cli.commands.plugin.haproxy.server import server as haproxy_server
 from opnsense_cli.commands.plugin.haproxy.backend import backend as haproxy_backend
 from opnsense_cli.commands.plugin.haproxy.frontend import frontend as haproxy_frontend
+from opnsense_cli.commands.plugin.haproxy.healthcheck import healthcheck as haproxy_healthcheck
+from opnsense_cli.commands.plugin.haproxy.acl import acl as haproxy_acl
+from opnsense_cli.commands.plugin.haproxy.user import user as haproxy_user
+from opnsense_cli.commands.plugin.haproxy.group import group as haproxy_group
+from opnsense_cli.commands.plugin.haproxy.errorfile import errorfile as haproxy_errorfile
+from opnsense_cli.commands.plugin.haproxy.lua import lua as haproxy_lua
+from opnsense_cli.commands.plugin.haproxy.mapfile import mapfile as haproxy_mapfile
+from opnsense_cli.commands.plugin.haproxy.cpu import cpu as haproxy_cpu
+from opnsense_cli.commands.plugin.haproxy.resolver import resolver as haproxy_resolver
+from opnsense_cli.commands.plugin.haproxy.mailer import mailer as haproxy_mailer
 
 
 CFG_DIR = f"~/.{__cli_name__}"
@@ -146,6 +156,16 @@ haproxy.add_command(haproxy_config)
 haproxy.add_command(haproxy_server)
 haproxy.add_command(haproxy_backend)
 haproxy.add_command(haproxy_frontend)
+haproxy.add_command(haproxy_healthcheck)
+haproxy.add_command(haproxy_acl)
+haproxy.add_command(haproxy_user)
+haproxy.add_command(haproxy_group)
+haproxy.add_command(haproxy_errorfile)
+haproxy.add_command(haproxy_lua)
+haproxy.add_command(haproxy_mapfile)
+haproxy.add_command(haproxy_cpu)
+haproxy.add_command(haproxy_resolver)
+haproxy.add_command(haproxy_mailer)
 
 cli.add_command(firewall)
 firewall.add_command(firewall_alias)

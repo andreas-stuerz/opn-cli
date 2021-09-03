@@ -1,32 +1,29 @@
-{% set facade = "{g}{c}Facade".format(g=vars.click_group.capitalize(), c=vars.click_command.capitalize()) -%}
-{% set service = "{g}_{c}_svc".format(g=vars.click_group, c=vars.click_command) -%}
-
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
     formatter_from_formatter_name, bool_as_string, available_formats, int_as_string, tuple_to_csv
-from opnsense_cli.commands.{{ vars.module_type }}.{{ vars.click_group }} import {{ vars.click_group }}
+from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
-from opnsense_cli.api.{{ vars.module_type }}.{{ vars.click_group }} import Settings, Service
-from opnsense_cli.facades.commands.{{ vars.module_type }}.{{ vars.click_group }}.{{ vars.click_command }} import {{ facade }}
+from opnsense_cli.api.plugin.haproxy import Settings, Service
+from opnsense_cli.facades.commands.plugin.haproxy.lua import HaproxyLuaFacade
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_{{ vars.click_group }}_{{ vars.click_command }}_svc = click.make_pass_decorator({{ facade }})
+pass_haproxy_lua_svc = click.make_pass_decorator(HaproxyLuaFacade)
 
 
-@{{ vars.click_group }}.group()
+@haproxy.group()
 @pass_api_client
 @click.pass_context
-def {{ vars.click_command }}(ctx, api_client: ApiClient, **kwargs):
+def lua(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage {{ vars.click_group }} {{ vars.click_command }}
+    Manage haproxy lua
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = {{ facade }}(settings_api, service_api)
+    ctx.obj = HaproxyLuaFacade(settings_api, service_api)
 
 
-@{{ vars.click_command }}.command()
+@lua.command()
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -39,21 +36,21 @@ def {{ vars.click_command }}(ctx, api_client: ApiClient, **kwargs):
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=(
-        "uuid,{{ ",".join(vars.column_names) }}"
+        "enabled,name,description,content"
     ),
     show_default=True,
 )
-@pass_{{ service }}
-def list({{ service }}: {{ facade }}, **kwargs):
+@pass_haproxy_lua_svc
+def list(haproxy_lua_svc: HaproxyLuaFacade, **kwargs):
     """
-    Show all {{ vars.click_command }}
+    Show all lua
     """
-    result = {{ service }}.list_{{ vars.click_command }}s()
+    result = haproxy_lua_svc.list_luas()
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
-@{{ vars.click_command }}.command()
+@lua.command()
 @click.argument('uuid')
 @click.option(
     '--output', '-o',
@@ -67,25 +64,46 @@ def list({{ service }}: {{ facade }}, **kwargs):
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=(
-        "{{ ",".join(vars.column_names) }}"
+        "enabled,name,description,content"
     ),
     show_default=True,
 )
-@pass_{{ service }}
-def show({{ service }}: {{ facade }}, **kwargs):
+@pass_haproxy_lua_svc
+def show(haproxy_lua_svc: HaproxyLuaFacade, **kwargs):
     """
-    Show details for {{ vars.click_command }}
+    Show details for lua
     """
-    result = {{ service }}.show_{{ vars.click_command }}(kwargs['uuid'])
+    result = haproxy_lua_svc.show_lua(kwargs['uuid'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
-@{{ vars.click_command }}.command()
+@lua.command()
 @click.argument('name')
-{% for option in vars.click_options_create -%}
-    {{ option }}
-{% endfor %}
+@click.option(
+    '--enabled/--no-enabled',
+    help=('Enable this Lua script.'),
+    show_default=True,
+    is_flag=True,
+    callback=bool_as_string,
+    default=True,
+    required=True,
+)
+@click.option(
+    '--description',
+    help=('Description for this Lua script.'),
+    show_default=True,
+    default=None,
+    required=False,
+)
+@click.option(
+    '--content',
+    help=('Paste the content of your Lua script here.'),
+    show_default=True,
+    default=None,
+    required=True,
+)
+
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -100,29 +118,55 @@ def show({{ service }}: {{ facade }}, **kwargs):
     default="result,validations",
     show_default=True,
 )
-@pass_{{ service }}
-def create({{ service }}: {{ facade }}, **kwargs):
+@pass_haproxy_lua_svc
+def create(haproxy_lua_svc: HaproxyLuaFacade, **kwargs):
     """
-    Create a new {{ vars.click_command }}
+    Create a new lua
     """
     json_payload = {
-        '{{ vars.click_command }}': {
-            {% for column in vars.column_names -%}
-                "{{ column }}": kwargs['{{ column.lower() }}'],
-            {% endfor %}
+        'lua': {
+            "enabled": kwargs['enabled'],
+            "name": kwargs['name'],
+            "description": kwargs['description'],
+            "content": kwargs['content'],
+            
         }
     }
 
-    result = {{ service }}.create_{{ vars.click_command }}(json_payload)
+    result = haproxy_lua_svc.create_lua(json_payload)
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
-@{{ vars.click_command }}.command()
+@lua.command()
 @click.argument('uuid')
-{% for option in vars.click_options_update -%}
-    {{ option }}
-{% endfor %}
+@click.option(
+    '--enabled/--no-enabled',
+    help=('Enable this Lua script.'),
+    show_default=True,
+    is_flag=True,
+    callback=bool_as_string,
+    default=None
+)
+@click.option(
+    '--name',
+    help=('Name to identify this Lua script.'),
+    show_default=True,
+    default=None
+)
+@click.option(
+    '--description',
+    help=('Description for this Lua script.'),
+    show_default=True,
+    default=None
+)
+@click.option(
+    '--content',
+    help=('Paste the content of your Lua script here.'),
+    show_default=True,
+    default=None
+)
+
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -137,25 +181,25 @@ def create({{ service }}: {{ facade }}, **kwargs):
     default="result,validations",
     show_default=True,
 )
-@pass_{{ service }}
-def update({{ service }}: {{ facade }}, **kwargs):
+@pass_haproxy_lua_svc
+def update(haproxy_lua_svc: HaproxyLuaFacade, **kwargs):
     """
-    Update a {{ vars.click_command }}.
+    Update a lua.
     """
     json_payload = {
-        '{{ vars.click_command }}': {}
+        'lua': {}
     }
-    options = {{ vars.column_list }}
+    options = ['enabled', 'name', 'description', 'content']
     for option in options:
         if kwargs[option.lower()] is not None:
-            json_payload['{{ vars.click_command }}'][option] = kwargs[option.lower()]
+            json_payload['lua'][option] = kwargs[option.lower()]
 
-    result = {{ service }}.update_{{ vars.click_command }}(kwargs['uuid'], json_payload)
+    result = haproxy_lua_svc.update_lua(kwargs['uuid'], json_payload)
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
-@{{ vars.click_command }}.command()
+@lua.command()
 @click.argument('uuid')
 @click.option(
     '--output', '-o',
@@ -171,11 +215,11 @@ def update({{ service }}: {{ facade }}, **kwargs):
     default="result,validations",
     show_default=True,
 )
-@pass_{{ service }}
-def delete({{ service }}: {{ facade }}, **kwargs):
+@pass_haproxy_lua_svc
+def delete(haproxy_lua_svc: HaproxyLuaFacade, **kwargs):
     """
-    Delete {{ vars.click_command }}
+    Delete lua
     """
-    result = {{ service }}.delete_{{ vars.click_command }}(kwargs['uuid'])
+    result = haproxy_lua_svc.delete_lua(kwargs['uuid'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()

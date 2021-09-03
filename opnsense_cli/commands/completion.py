@@ -5,7 +5,7 @@ import textwrap
 @click.command()
 def completion():
     """
-    Output Instructions for shell completion
+    Output instructions for shell completion
     """
     instructions = '''
 Instructions for shell completion:

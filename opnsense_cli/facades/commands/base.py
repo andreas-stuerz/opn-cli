@@ -6,6 +6,9 @@ from jsonpath_ng import parse
 class CommandFacade(ABC):
     def _api_mutable_model_get(self, complete_model_data, jsonpath_base, resolver_map, sort_by='name'):
         raw_items = self._get_model_data_slice_with_jsonpath(jsonpath_base, complete_model_data)
+        #import json
+        #print(json.dumps(complete_model_data))
+        #exit()
 
         items = []
 
@@ -14,6 +17,7 @@ class CommandFacade(ABC):
 
         for uuid, item_raw in raw_items.items():
             item = self._api_mutable_model_get_items_to_json(item_raw)
+
             item.update({'uuid': uuid})
 
             for jsonpath_resolve_key, jsonpath in resolver_map.items():

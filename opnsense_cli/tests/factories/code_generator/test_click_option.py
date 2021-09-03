@@ -19,6 +19,8 @@ class TestClickOptionCodeTypeFactory(BaseTestCase):
         self._ModelRelationField = self._model_content.find(type="ModelRelationField")
         self._CertificateField = self._model_content.find(type="CertificateField")
         self._CSVListField = self._model_content.find(type="CSVListField")
+        self._EmailField = self._model_content.find(type="EmailField")
+        self._HostnameField = self._model_content.find(type="HostnameField")
 
     def test_UnkownField(self):
         self.assertRaises(FactoryException, self._factory.get_type_for_data, self._UnkownField)
@@ -49,4 +51,12 @@ class TestClickOptionCodeTypeFactory(BaseTestCase):
 
     def test_CSVListField(self):
         click_option_type_obj = self._factory.get_type_for_data(self._CSVListField)
+        self.assertIsInstance(click_option_type_obj, ClickText)
+
+    def test_EmailField(self):
+        click_option_type_obj = self._factory.get_type_for_data(self._EmailField)
+        self.assertIsInstance(click_option_type_obj, ClickText)
+
+    def test_HostnameField(self):
+        click_option_type_obj = self._factory.get_type_for_data(self._HostnameField)
         self.assertIsInstance(click_option_type_obj, ClickText)
