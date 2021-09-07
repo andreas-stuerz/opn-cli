@@ -1,5 +1,14 @@
 # Changelog
 
+## [v.0.7.0](https://github.com/andeman/opn-cli/tree/v.0.7.0) (2021-09-07)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.6...v.0.7.0)
+
+**Merged pull requests:**
+
+- add HAProxy commands and code generator for commands [\#14](https://github.com/andeman/opn-cli/pull/14) ([andeman](https://github.com/andeman))
+- split api classes in folders core/ and plugin/ [\#13](https://github.com/andeman/opn-cli/pull/13) ([andeman](https://github.com/andeman))
+
 ## [v0.6.6](https://github.com/andeman/opn-cli/tree/v0.6.6) (2021-08-03)
 
 [Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.5...v0.6.6)

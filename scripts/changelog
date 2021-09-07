@@ -1,9 +1,17 @@
 #!/bin/bash
-user=${1-andeman}
-project=${2- opn-cli}
+version=${1:-}
+user=${2-andeman}
+project=${3- opn-cli}
+
+if [ -z "${version}" ]; then
+  echo "Please provide the version to release as argument to the script"
+  echo "$0 v1.0.0"
+  exit 1
+fi
 
 docker run -it --rm  -v "$(pwd)":/usr/local/src/your-app \
 githubchangeloggenerator/github-changelog-generator \
 -t ${CHANGELOG_GITHUB_TOKEN} \
 --user ${user} \
---project ${project}
+--project ${project} \
+--future-release ${version} \
