@@ -16,7 +16,10 @@ pass_haproxy_acl_svc = click.make_pass_decorator(HaproxyAclFacade)
 @click.pass_context
 def acl(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage haproxy acl
+    Specify various conditions.
+
+    Define custom rules for blocking malicious requests, choosing backends, redirecting to HTTPS and
+    using cached objects.
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)

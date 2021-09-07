@@ -16,7 +16,7 @@ pass_haproxy_mailer_svc = click.make_pass_decorator(HaproxyMailerFacade)
 @click.pass_context
 def mailer(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage haproxy mailer
+    Email alerts when the state of servers changes.
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)

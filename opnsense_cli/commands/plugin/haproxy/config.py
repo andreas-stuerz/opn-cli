@@ -16,7 +16,7 @@ pass_haproxy_config_svc = click.make_pass_decorator(HaproxyConfigFacade)
 @click.pass_context
 def config(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage haproxy configuration
+    Debug haproxy configuration.
     """
     settings_api = Settings(api_client)
     export_api = Export(api_client)

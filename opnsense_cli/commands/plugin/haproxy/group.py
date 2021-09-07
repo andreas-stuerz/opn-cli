@@ -16,7 +16,7 @@ pass_haproxy_group_svc = click.make_pass_decorator(HaproxyGroupFacade)
 @click.pass_context
 def group(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage haproxy group
+    HTTP basic authentication groups.
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)

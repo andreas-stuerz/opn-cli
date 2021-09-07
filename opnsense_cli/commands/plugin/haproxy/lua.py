@@ -16,7 +16,7 @@ pass_haproxy_lua_svc = click.make_pass_decorator(HaproxyLuaFacade)
 @click.pass_context
 def lua(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage haproxy lua
+    Lua code/scripts to extend HAProxy's functionality.
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)

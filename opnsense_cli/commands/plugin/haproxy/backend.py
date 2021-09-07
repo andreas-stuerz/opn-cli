@@ -16,7 +16,7 @@ pass_haproxy_backend_svc = click.make_pass_decorator(HaproxyBackendFacade)
 @click.pass_context
 def backend(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage haproxy backend
+    Health monitoring and load distribution for servers.
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)

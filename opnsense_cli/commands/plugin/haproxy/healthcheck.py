@@ -16,7 +16,7 @@ pass_haproxy_healthcheck_svc = click.make_pass_decorator(HaproxyHealthcheckFacad
 @click.pass_context
 def healthcheck(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage haproxy healthcheck
+    Determine if a server is able to respond to client request.
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)

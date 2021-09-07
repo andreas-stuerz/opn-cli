@@ -16,7 +16,7 @@ pass_haproxy_frontend_svc = click.make_pass_decorator(HaproxyFrontendFacade)
 @click.pass_context
 def frontend(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage haproxy frontend
+    Listens for client connections and forwards client requests.
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)

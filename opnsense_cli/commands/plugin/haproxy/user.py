@@ -16,7 +16,7 @@ pass_haproxy_user_svc = click.make_pass_decorator(HaproxyUserFacade)
 @click.pass_context
 def user(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage haproxy user
+    HTTP basic authentication users.
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)

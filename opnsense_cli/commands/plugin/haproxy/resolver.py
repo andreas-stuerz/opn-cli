@@ -16,7 +16,11 @@ pass_haproxy_resolver_svc = click.make_pass_decorator(HaproxyResolverFacade)
 @click.pass_context
 def resolver(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage haproxy resolver
+    Individual name resolution configurations for backends.
+
+    This feature allows in-depth configuration of how HAProxy handles name resolution and interacts with
+    name resolvers (DNS). Each resolver configuration can be used in Backend Pools to apply individual
+    name resolution configurations.
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)

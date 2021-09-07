@@ -16,7 +16,7 @@ pass_haproxy_action_svc = click.make_pass_decorator(HaproxyActionFacade)
 @click.pass_context
 def action(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage haproxy action
+    Perform a set of actions if one or more conditions match.
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)

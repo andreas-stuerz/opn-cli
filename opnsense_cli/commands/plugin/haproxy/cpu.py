@@ -16,7 +16,7 @@ pass_haproxy_cpu_svc = click.make_pass_decorator(HaproxyCpuFacade)
 @click.pass_context
 def cpu(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage haproxy cpu
+    CPU affinity rules.
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)

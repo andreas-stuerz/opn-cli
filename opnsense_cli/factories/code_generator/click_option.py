@@ -19,6 +19,8 @@ class ClickOptionCodeTypeFactory(ObjectTypeFromDataFactory):
         'CSVListField': ClickText,
         'EmailField': ClickText,
         'HostnameField': ClickText,
+        'NetworkField': ClickText,
+        'PortField': ClickText,
     }
 
     def _get_class(self, key) -> ClickOptionCodeFragment:

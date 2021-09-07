@@ -16,7 +16,7 @@ pass_haproxy_server_svc = click.make_pass_decorator(HaproxyServerFacade)
 @click.pass_context
 def server(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage haproxy server
+    Server which serves content.
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)

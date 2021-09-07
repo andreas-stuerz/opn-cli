@@ -16,7 +16,11 @@ pass_haproxy_mapfile_svc = click.make_pass_decorator(HaproxyMapfileFacade)
 @click.pass_context
 def mapfile(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage haproxy mapfile
+    Map a large number of domains to backend pools.
+
+    A map allows to map a data in input to an other one on output. For example, this makes it possible to map a large
+    number of domains to backend pools without using the GUI. Map files need to be used in Rules, otherwise
+    they are ignored.
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)

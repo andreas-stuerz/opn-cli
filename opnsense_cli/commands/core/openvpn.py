@@ -14,7 +14,7 @@ pass_openvpn_svc = click.make_pass_decorator(Openvpn)
 @click.pass_context
 def openvpn(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage OpenVPN
+    Export OpenVPN configuration.
     """
     ctx.obj = Openvpn(api_client)
 
