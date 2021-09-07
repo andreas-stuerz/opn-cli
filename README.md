@@ -18,8 +18,28 @@ opn-cli - the OPNsense CLI written in python.
       - [json_filter](#json-filter)
       - [plain](#plain)
       - [yaml](#yaml)
-    + [Firewall aliases](#firewall-aliases)
-    + [Firewall rules](#firewall-rules)
+    + [Code Generator](#code-generator)
+      - [API code](#api-code)
+      - [Core command code](#core-command-code)
+      - [Plugin command code](#plugin-command-code)
+  * [Commands](#commands)
+    + [Firewall](#firewall)
+      - [Aliases](#aliases)
+      - [Rules](#rules)
+    + [Haproxy](#haproxy)
+      - [Acl](#acl)
+      - [Action](#action)
+      - [Backend](#backend)
+      - [Config](#config)
+      - [CPU](#cpu)
+      - [Errorfile](#errorfile)
+      - [Healthcheck](#healthcheck)
+      - [Lua](#lua)
+      - [Mailer](#mailer)
+      - [Mapfile](#mapfile)
+      - [Resolver](#resolver)
+      - [Server](#server)
+      - [User](#user)
     + [OpenVPN](#openvpn)
     + [Plugins](#plugins)
   * [Development](#development)
@@ -36,17 +56,25 @@ pip install opn-cli
 1. Generate an api_key and api_secret. See: https://docs.opnsense.org/development/how-tos/api.html#creating-keys.
 
 2. Create the default config file `~/.opn-cli/conf.yaml`
-```
----
-api_key: your_api_key
-api_secret: your_api_secret
-url: https://opnsense.example.com/api
-timeout: 60
-ssl_verify: true
-ca: ~/.opn-cli/ca.pem
-```
-
+    ```
+    ---
+    api_key: your_api_key
+    api_secret: your_api_secret
+    url: https://opnsense.example.com/api
+    timeout: 60
+    ssl_verify: true
+    ca: ~/.opn-cli/ca.pem
+    ```
+3. Install required opnsense plugins
+    ```
+    opn-cli plugin install os-firewall
+    opn-cli plugin install os-haproxy
+    ```
+   
 ## Usage
+
+Each command and subcommand support the `-h` or `--help option to show help for the current command.
+
 ```
 $ opn-cli --help
 
@@ -121,8 +149,10 @@ Options:
   -h, --help                      Show this message and exit.
 
 Commands:
-  completion  Output Instructions for shell completion
+  completion  Output instructions for shell completion
   firewall    Execute firewall operations
+  haproxy     Manage haproxy loadbalancer operations
+  new         Generate scaffolding code
   openvpn     Manage OpenVPN
   plugin      Manage OPNsense plugins
   version     Show the CLI version and exit.
@@ -197,6 +227,7 @@ $ opn-cli plugin installed -o json
 
 #### json_filter
 Filter the json output and return the columns specified with the `-c` output.
+
 ```
 $ opn-cli plugin installed -o json_filter -c name,version
 [{"name": "os-firewall", "version": "1.0_2"}, {"name": "os-virtualbox", "version": "1.0_1"},
@@ -235,9 +266,101 @@ $ opn-cli plugin installed -o yaml
 
 ```
 
+### Code Generator
+To assist the rapid development of new opn-cli commands, the code generator generates scaffolding code which could be 
+used as a **starting point** for opnsense core or plugin modules.
+
+```
+$  opn-cli new -h
+Usage: opn-cli new [OPTIONS] COMMAND [ARGS]...
+
+Generate scaffolding code
+
+Options:
+-h, --help  Show this message and exit.
+
+Commands:
+command  Generate code for a new command
+```
+
+#### API code
+tbd.
+
+#### Core command code
+This generates all necessary code and tests to implement a new command from a core module.
+
+For a list of core modules see: 
+
+https://docs.opnsense.org/development/api.html#core-api
+
+Search model.xml files here: 
+
+https://github.com/opnsense/core/tree/master/src/opnsense/mvc/app/models/OPNsense
+
+To add help texts, you need to specify a form.xml for the module. For Unbound dot the form.xml url is:
+
+https://raw.githubusercontent.com/opnsense/core/master/src/opnsense/mvc/app/controllers/OPNsense/Unbound/forms/dialogDot.xml
+
+Make sure to pass text/plain content from raw.githubusercontent.com instead of github.com.
+
+Examples:
+```
+$ opn-cli new command core unbound dot --tag dots \
+-m https://raw.githubusercontent.com/opnsense/core/master/src/opnsense/mvc/app/models/OPNsense/Unbound/Unbound.xml \
+-f https://raw.githubusercontent.com/opnsense/core/master/src/opnsense/mvc/app/controllers/OPNsense/Unbound/forms/dialogDot.xml
+
+```
+
+This generates a command class, facade class and a integration test. 
+
+Please move them from the output dir to the destination folders under opnsense_cli/, import the files in "cli.py" and register the commands groups and commands there.
+
+The facade use API classes which should be generated with "opn-cli new api plugin" command. 
+Make sure to remove all unnecessary API classes and methods to have a proper code coverage.
+
+After some tweaks you should be able to use the new command.
 
 
-### Firewall aliases
+#### Plugin command code
+This generates all necessary code and tests to implement a new command from a plugin module.
+
+For a list of plugin modules see:
+
+https://docs.opnsense.org/development/api.html#plugins-api
+
+Search for model.xml and form.xml files here: 
+
+https://github.com/opnsense/plugins
+
+Make sure to pass text/plain content from raw.githubusercontent.com instead of github.com.
+
+Examples:
+```
+$ opn-cli new command plugin haproxy server --tag servers \
+-m https://raw.githubusercontent.com/opnsense/plugins/master/net/haproxy/src/opnsense/mvc/app/models/OPNsense/HAProxy/HAProxy.xml \
+-f https://raw.githubusercontent.com/opnsense/plugins/master/net/haproxy/src/opnsense/mvc/app/controllers/OPNsense/HAProxy/forms/dialogServer.xml
+
+```
+This generates a command class, facade class and a integration test. 
+
+Please move them from the output dir to the destination folders under opnsense_cli/, import the files in "cli.py" and register the commands groups and commands there.
+
+The facade use API classes which should be generated with "opn-cli new api plugin" command. 
+Make sure to remove all unnecessary API classes and methods to have a proper code coverage.
+
+After some tweaks you should be able to use the new command.
+
+## Commands
+
+### Firewall
+This feature needs the opnsense plugin os-firewall.
+```
+$ opn-cli plugin install os-firewall
+```
+
+#### Aliases
+See: https://wiki.opnsense.org/manual/aliases.html
+
 ```
 Usage: opn-cli firewall alias [OPTIONS] COMMAND [ARGS]...
 
@@ -257,7 +380,9 @@ Commands:
   update  Update an alias.
 ```
 
-### Firewall rules
+#### Rules
+See: https://docs.opnsense.org/manual/firewall.htm
+
 ```
 Usage: opn-cli firewall rule [OPTIONS] COMMAND [ARGS]...
 
@@ -293,11 +418,250 @@ Commands:
 
 ```
 
+### Haproxy
+This feature needs the opnsense plugin os-haproxy.
+```
+$ opn-cli plugin install os-haproxy
+```
+
+#### Acl
+```
+Usage: opn-cli haproxy acl [OPTIONS] COMMAND [ARGS]...
+
+  Specify various conditions.
+
+  Define custom rules for blocking malicious requests, choosing backends,
+  redirecting to HTTPS and using cached objects.
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new acl
+  delete  Delete acl
+  list    Show all acl
+  show    Show details for acl
+  update  Update a acl.
+```
+
+#### Action
+```
+Usage: opn-cli haproxy action [OPTIONS] COMMAND [ARGS]...
+
+  Perform a set of actions if one or more conditions match.
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new action
+  delete  Delete action
+  list    Show all action
+  show    Show details for action
+  update  Update a action.
+```
+
+#### Backend
+```
+Usage: opn-cli haproxy backend [OPTIONS] COMMAND [ARGS]...
+
+  Health monitoring and load distribution for servers.
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new backend
+  delete  Delete backend
+  list    Show all backend
+  show    Show details for backend
+  update  Update a backend.
+```
+#### Config
+```
+Usage: opn-cli haproxy config [OPTIONS] COMMAND [ARGS]...
+
+  Debug haproxy configuration.
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  apply     Test and apply the haproxy configuration
+  diff      Diff of running and staging config
+  download  Download complete haproxy config as zip
+  show      Show the running haproxy config
+  test      Test current haproxy staging config
+```
+
+#### CPU
+```
+Usage: opn-cli haproxy cpu [OPTIONS] COMMAND [ARGS]...
+
+  CPU affinity rules.
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new cpu
+  delete  Delete cpu
+  list    Show all cpu
+  show    Show details for cpu
+  update  Update a cpu.
+```
+
+#### Errorfile
+```
+Usage: opn-cli haproxy errorfile [OPTIONS] COMMAND [ARGS]...
+
+  Custom messages instead of errors generated by haproxy.
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new errorfile
+  delete  Delete errorfile
+  list    Show all errorfile
+  show    Show details for errorfile
+  update  Update a errorfile.
+```
+
+#### Healthcheck
+```
+Usage: opn-cli haproxy healthcheck [OPTIONS] COMMAND [ARGS]...
+
+  Determine if a server is able to respond to client request.
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new healthcheck
+  delete  Delete healthcheck
+  list    Show all healthcheck
+  show    Show details for healthcheck
+  update  Update a healthcheck.
+```
+
+#### Lua
+```
+Usage: opn-cli haproxy lua [OPTIONS] COMMAND [ARGS]...
+
+  Lua code/scripts to extend HAProxy's functionality.
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new lua
+  delete  Delete lua
+  list    Show all lua
+  show    Show details for lua
+  update  Update a lua.
+```
+
+#### Mailer
+```
+Usage: opn-cli haproxy mailer [OPTIONS] COMMAND [ARGS]...
+
+  Email alerts when the state of servers changes.
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new mailer
+  delete  Delete mailer
+  list    Show all mailer
+  show    Show details for mailer
+  update  Update a mailer.
+```
+
+#### Mapfile
+```
+Usage: opn-cli haproxy mapfile [OPTIONS] COMMAND [ARGS]...
+
+  Map a large number of domains to backend pools.
+
+  A map allows to map a data in input to an other one on output. For example,
+  this makes it possible to map a large number of domains to backend pools
+  without using the GUI. Map files need to be used in Rules, otherwise they
+  are ignored.
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new mapfile
+  delete  Delete mapfile
+  list    Show all mapfile
+  show    Show details for mapfile
+  update  Update a mapfile.
+```
+
+#### Resolver
+```
+Usage: opn-cli haproxy resolver [OPTIONS] COMMAND [ARGS]...
+
+  Individual name resolution configurations for backends.
+
+  This feature allows in-depth configuration of how HAProxy handles name
+  resolution and interacts with name resolvers (DNS). Each resolver
+  configuration can be used in Backend Pools to apply individual name
+  resolution configurations.
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new resolver
+  delete  Delete resolver
+  list    Show all resolver
+  show    Show details for resolver
+  update  Update a resolver.
+```
+
+#### Server
+```
+Usage: opn-cli haproxy server [OPTIONS] COMMAND [ARGS]...
+
+  Server which serves content.
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new server
+  delete  Delete server
+  list    Show all server
+  show    Show details for server
+  update  Update a server.
+```
+
+#### User
+```
+Usage: opn-cli haproxy user [OPTIONS] COMMAND [ARGS]...
+
+  HTTP basic authentication users.
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new user
+  delete  Delete user
+  list    Show all user
+  show    Show details for user
+  update  Update a user.
+```
+
 ### OpenVPN
 ```
 Usage: opn-cli openvpn [OPTIONS] COMMAND [ARGS]...
 
-  Manage OpenVPN
+  Export OpenVPN configuration.
 
 Options:
   -h, --help  Show this message and exit.
@@ -313,7 +677,7 @@ Commands:
 ```
 Usage: opn-cli plugin [OPTIONS] COMMAND [ARGS]...
 
-  Manage OPNsense plugins
+  OPNsense plugins management
 
 Options:
   -h, --help  Show this message and exit.
@@ -357,7 +721,7 @@ scripts/lint
 # execute all unit tests
 scripts/unit_tests
 
-# execute the TestFormatter tests
+# execute a single test
 scripts/unit_tests opnsense_cli/tests/command/tests/test_format.py::TestFormatter
 
 # execute tests with coverage report

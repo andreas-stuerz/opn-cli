@@ -1,0 +1,43 @@
+{% set facade = "{g}{c}Facade".format(g=vars.click_group.capitalize(), c=vars.click_command.capitalize()) -%}
+from opnsense_cli.facades.commands.{{ vars.module_type }}.{{ vars.click_group }}.base import {{ vars.click_group.capitalize() }}Facade
+from opnsense_cli.api.{{ vars.module_type }}.{{ vars.click_group }} import Settings, Service
+
+
+class {{ facade }}({{ vars.click_group.capitalize() }}Facade):
+    def __init__(self, settings_api: Settings, service_api: Service):
+        self._settings_api = settings_api
+        self._service_api = service_api
+
+    def list_{{ vars.click_command }}s(self):
+        return self._get_{{ vars.click_command }}s_list()
+
+    def show_{{ vars.click_command }}(self, uuid):
+        {{ vars.click_command }}s = self._get_{{ vars.click_command }}s_list()
+        {{ vars.click_command }} = next((item for item in {{ vars.click_command }}s if item["uuid"] == uuid), {})
+        return {{ vars.click_command }}
+
+    def _get_{{ vars.click_command }}s_list(self):
+        complete_model_data = self._settings_api.get()
+        jsonpath_base = '$.{{ vars.click_group }}.{{ vars.model_xml_tag }}.{{ vars.click_command }}'
+        uuid_resolver_map = {
+            {% for key, config in vars.resolver_map.items() -%}
+                '{{ key }}': {{ config }},
+            {% endfor %}
+        }
+
+        return self._api_mutable_model_get(complete_model_data, jsonpath_base, uuid_resolver_map)
+
+    def create_{{ vars.click_command }}(self, json_payload: dict):
+        result = self._settings_api.add{{ vars.click_command.capitalize() }}(json=json_payload)
+        self._apply(result)
+        return result
+
+    def update_{{ vars.click_command }}(self, uuid, json_payload: dict):
+        result = self._settings_api.set{{ vars.click_command.capitalize() }}(uuid, json=json_payload)
+        self._apply(result)
+        return result
+
+    def delete_{{ vars.click_command }}(self, uuid):
+        result = self._settings_api.del{{ vars.click_command.capitalize() }}(uuid)
+        self._apply(result)
+        return result

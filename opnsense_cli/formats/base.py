@@ -9,11 +9,8 @@ class Format(ABC):
         self._cols = self.get_all_cols() if cols == [''] else cols
 
     def get_all_cols(self):
-        result = []
-        for row in self._json_data:
-            result = list(row.keys())
-            break
-        return result
+        json_type = self.get_json_type()
+        return json_type.get_all_columns()
 
     def get_json_type(self):
         return self._json_type_factory.get_type_for_data(self._json_data)

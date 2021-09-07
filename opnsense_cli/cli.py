@@ -4,13 +4,31 @@ import click
 from opnsense_cli import __cli_name__
 from opnsense_cli.callbacks.click import defaults_from_configfile, expand_path
 from opnsense_cli.api.client import ApiClient
+from opnsense_cli.commands.new import new
+from opnsense_cli.commands.new.command import command as new_command
 from opnsense_cli.commands.version import version
 from opnsense_cli.commands.completion import completion
-from opnsense_cli.commands.plugin import plugin
-from opnsense_cli.commands.openvpn import openvpn
-from opnsense_cli.commands.firewall import firewall
-from opnsense_cli.commands.firewall.alias import alias
-from opnsense_cli.commands.firewall.rule import rule
+from opnsense_cli.commands.core.plugin import plugin
+from opnsense_cli.commands.core.openvpn import openvpn
+from opnsense_cli.commands.core.firewall import firewall
+from opnsense_cli.commands.core.firewall.alias import alias as firewall_alias
+from opnsense_cli.commands.plugin.firewall.rule import rule as firewall_rule
+from opnsense_cli.commands.plugin.haproxy import haproxy
+from opnsense_cli.commands.plugin.haproxy.config import config as haproxy_config
+from opnsense_cli.commands.plugin.haproxy.server import server as haproxy_server
+from opnsense_cli.commands.plugin.haproxy.backend import backend as haproxy_backend
+from opnsense_cli.commands.plugin.haproxy.frontend import frontend as haproxy_frontend
+from opnsense_cli.commands.plugin.haproxy.healthcheck import healthcheck as haproxy_healthcheck
+from opnsense_cli.commands.plugin.haproxy.acl import acl as haproxy_acl
+from opnsense_cli.commands.plugin.haproxy.user import user as haproxy_user
+from opnsense_cli.commands.plugin.haproxy.group import group as haproxy_group
+from opnsense_cli.commands.plugin.haproxy.errorfile import errorfile as haproxy_errorfile
+from opnsense_cli.commands.plugin.haproxy.lua import lua as haproxy_lua
+from opnsense_cli.commands.plugin.haproxy.mapfile import mapfile as haproxy_mapfile
+from opnsense_cli.commands.plugin.haproxy.cpu import cpu as haproxy_cpu
+from opnsense_cli.commands.plugin.haproxy.resolver import resolver as haproxy_resolver
+from opnsense_cli.commands.plugin.haproxy.mailer import mailer as haproxy_mailer
+from opnsense_cli.commands.plugin.haproxy.action import action as haproxy_action
 
 
 CFG_DIR = f"~/.{__cli_name__}"
@@ -134,9 +152,30 @@ def cli(ctx, **kwargs):
 
 
 # register commands groups and commands
+cli.add_command(haproxy)
+haproxy.add_command(haproxy_config)
+haproxy.add_command(haproxy_server)
+haproxy.add_command(haproxy_backend)
+haproxy.add_command(haproxy_frontend)
+haproxy.add_command(haproxy_healthcheck)
+haproxy.add_command(haproxy_acl)
+haproxy.add_command(haproxy_user)
+haproxy.add_command(haproxy_group)
+haproxy.add_command(haproxy_errorfile)
+haproxy.add_command(haproxy_lua)
+haproxy.add_command(haproxy_mapfile)
+haproxy.add_command(haproxy_cpu)
+haproxy.add_command(haproxy_resolver)
+haproxy.add_command(haproxy_mailer)
+haproxy.add_command(haproxy_action)
+
+
 cli.add_command(firewall)
-firewall.add_command(alias)
-firewall.add_command(rule)
+firewall.add_command(firewall_alias)
+firewall.add_command(firewall_rule)
+
+cli.add_command(new)
+new.add_command(new_command)
 
 cli.add_command(plugin)
 cli.add_command(openvpn)

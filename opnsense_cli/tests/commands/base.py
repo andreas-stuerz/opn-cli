@@ -1,11 +1,11 @@
-import unittest
 from unittest.mock import Mock
 from click.testing import CliRunner, Result
 from click.core import Group
 from opnsense_cli.api.client import ApiClient
+from opnsense_cli.tests.base import BaseTestCase
 
 
-class CommandTestCase(unittest.TestCase):
+class CommandTestCase(BaseTestCase):
     def _opn_cli_command_result(self, api_mock: Mock, api_return_values: list, click_group: Group,
                                 click_params: list, catch_exceptions=False) -> Result:
         """

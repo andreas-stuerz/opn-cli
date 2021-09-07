@@ -1,0 +1,5433 @@
+{
+  "haproxy": {
+    "general": {
+      "enabled": "1",
+      "gracefulStop": "0",
+      "seamlessReload": "0",
+      "storeOcsp": "0",
+      "showIntro": "1",
+      "peers": {
+        "enabled": "0",
+        "name1": "",
+        "listen1": "",
+        "port1": "1024",
+        "name2": "",
+        "listen2": "",
+        "port2": "1024"
+      },
+      "tuning": {
+        "root": "0",
+        "maxConnections": "",
+        "nbproc": "1",
+        "nbthread": "1",
+        "sslServerVerify": {
+          "ignore": {
+            "value": "no preference [default]",
+            "selected": 1
+          },
+          "required": {
+            "value": "enforce verify",
+            "selected": 0
+          },
+          "none": {
+            "value": "disable verify",
+            "selected": 0
+          }
+        },
+        "maxDHSize": "2048",
+        "bufferSize": "16384",
+        "checkBufferSize": "16384",
+        "spreadChecks": "2",
+        "bogusProxyEnabled": "0",
+        "luaMaxMem": "0",
+        "customOptions": "",
+        "ssl_defaultsEnabled": "0",
+        "ssl_bindOptions": {
+          "no-sslv3": {
+            "value": "no-sslv3",
+            "selected": 0
+          },
+          "no-tlsv10": {
+            "value": "no-tlsv10",
+            "selected": 0
+          },
+          "no-tlsv11": {
+            "value": "no-tlsv11",
+            "selected": 0
+          },
+          "no-tlsv12": {
+            "value": "no-tlsv12",
+            "selected": 0
+          },
+          "no-tlsv13": {
+            "value": "no-tlsv13",
+            "selected": 0
+          },
+          "no-tls-tickets": {
+            "value": "no-tls-tickets",
+            "selected": 0
+          },
+          "force-sslv3": {
+            "value": "force-sslv3",
+            "selected": 0
+          },
+          "force-tlsv10": {
+            "value": "force-tlsv10",
+            "selected": 0
+          },
+          "force-tlsv11": {
+            "value": "force-tlsv11",
+            "selected": 0
+          },
+          "force-tlsv12": {
+            "value": "force-tlsv12",
+            "selected": 0
+          },
+          "force-tlsv13": {
+            "value": "force-tlsv13",
+            "selected": 0
+          },
+          "prefer-client-ciphers": {
+            "value": "prefer-client-ciphers",
+            "selected": 1
+          },
+          "strict-sni": {
+            "value": "strict-sni",
+            "selected": 0
+          }
+        },
+        "ssl_minVersion": {
+          "": {
+            "value": "none",
+            "selected": false
+          },
+          "SSLv3": {
+            "value": "SSLv3",
+            "selected": 0
+          },
+          "TLSv1.0": {
+            "value": "TLSv1.0",
+            "selected": 0
+          },
+          "TLSv1.1": {
+            "value": "TLSv1.1",
+            "selected": 0
+          },
+          "TLSv1.2": {
+            "value": "TLSv1.2",
+            "selected": 1
+          },
+          "TLSv1.3": {
+            "value": "TLSv1.3",
+            "selected": 0
+          }
+        },
+        "ssl_maxVersion": {
+          "": {
+            "value": "none",
+            "selected": true
+          },
+          "SSLv3": {
+            "value": "SSLv3",
+            "selected": 0
+          },
+          "TLSv1.0": {
+            "value": "TLSv1.0",
+            "selected": 0
+          },
+          "TLSv1.1": {
+            "value": "TLSv1.1",
+            "selected": 0
+          },
+          "TLSv1.2": {
+            "value": "TLSv1.2",
+            "selected": 0
+          },
+          "TLSv1.3": {
+            "value": "TLSv1.3",
+            "selected": 0
+          }
+        },
+        "ssl_cipherList": "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256",
+        "ssl_cipherSuites": "TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256"
+      },
+      "defaults": {
+        "maxConnections": "",
+        "timeoutClient": "30s",
+        "timeoutConnect": "30s",
+        "timeoutCheck": "",
+        "timeoutServer": "30s",
+        "retries": "3",
+        "redispatch": {
+          "": {
+            "value": "none",
+            "selected": false
+          },
+          "x3": {
+            "value": "redispatch on every 3rd retry",
+            "selected": 0
+          },
+          "x2": {
+            "value": "redispatch on every 2nd retry",
+            "selected": 0
+          },
+          "x1": {
+            "value": "redispatch on every retry",
+            "selected": 0
+          },
+          "x0": {
+            "value": "Disable redispatching",
+            "selected": 0
+          },
+          "x-1": {
+            "value": "redispatch on the last retry [default]",
+            "selected": 1
+          },
+          "x-2": {
+            "value": "redispatch on the 2nd retry prior to the last retry",
+            "selected": 0
+          },
+          "x-3": {
+            "value": "redispatch on the 3rd retry prior to the last retry",
+            "selected": 0
+          }
+        },
+        "init_addr": {
+          "last": {
+            "value": "last",
+            "selected": 1
+          },
+          "libc": {
+            "value": "libc",
+            "selected": 1
+          },
+          "none": {
+            "value": "none",
+            "selected": 0
+          }
+        },
+        "customOptions": ""
+      },
+      "logging": {
+        "host": "127.0.0.1",
+        "facility": {
+          "alert": {
+            "value": "alert",
+            "selected": 0
+          },
+          "audit": {
+            "value": "audit",
+            "selected": 0
+          },
+          "auth2": {
+            "value": "auth2",
+            "selected": 0
+          },
+          "auth": {
+            "value": "auth",
+            "selected": 0
+          },
+          "cron2": {
+            "value": "cron2",
+            "selected": 0
+          },
+          "cron": {
+            "value": "cron",
+            "selected": 0
+          },
+          "daemon": {
+            "value": "daemon",
+            "selected": 0
+          },
+          "ftp": {
+            "value": "ftp",
+            "selected": 0
+          },
+          "kern": {
+            "value": "kern",
+            "selected": 0
+          },
+          "local0": {
+            "value": "local0 [default]",
+            "selected": 1
+          },
+          "local1": {
+            "value": "local1",
+            "selected": 0
+          },
+          "local2": {
+            "value": "local2",
+            "selected": 0
+          },
+          "local3": {
+            "value": "local3",
+            "selected": 0
+          },
+          "local4": {
+            "value": "local4",
+            "selected": 0
+          },
+          "local5": {
+            "value": "local5",
+            "selected": 0
+          },
+          "local6": {
+            "value": "local6",
+            "selected": 0
+          },
+          "local7": {
+            "value": "local7",
+            "selected": 0
+          },
+          "lpr": {
+            "value": "lpr",
+            "selected": 0
+          },
+          "mail": {
+            "value": "mail",
+            "selected": 0
+          },
+          "news": {
+            "value": "news",
+            "selected": 0
+          },
+          "ntp": {
+            "value": "ntp",
+            "selected": 0
+          },
+          "syslog": {
+            "value": "syslog",
+            "selected": 0
+          },
+          "user": {
+            "value": "user",
+            "selected": 0
+          },
+          "uucp": {
+            "value": "uucp",
+            "selected": 0
+          }
+        },
+        "level": {
+          "": {
+            "value": "none",
+            "selected": false
+          },
+          "alert": {
+            "value": "alert",
+            "selected": 0
+          },
+          "crit": {
+            "value": "crit",
+            "selected": 0
+          },
+          "debug": {
+            "value": "debug",
+            "selected": 0
+          },
+          "emerg": {
+            "value": "emerg",
+            "selected": 0
+          },
+          "err": {
+            "value": "err",
+            "selected": 0
+          },
+          "info": {
+            "value": "info [default]",
+            "selected": 1
+          },
+          "notice": {
+            "value": "notice",
+            "selected": 0
+          },
+          "warning": {
+            "value": "warning",
+            "selected": 0
+          }
+        },
+        "length": ""
+      },
+      "stats": {
+        "enabled": "0",
+        "port": "8822",
+        "remoteEnabled": "0",
+        "remoteBind": [],
+        "authEnabled": "0",
+        "users": [],
+        "allowedUsers": [],
+        "allowedGroups": [],
+        "customOptions": ""
+      },
+      "cache": {
+        "enabled": "0",
+        "totalMaxSize": "4",
+        "maxAge": "60",
+        "maxObjectSize": ""
+      }
+    },
+    "frontends": {
+      "frontend": {
+        "fe29d032-ea4c-4b2c-99a7-18250322eceb": {
+          "id": "61126a353cf423.43172066",
+          "enabled": "1",
+          "name": "frontend_1",
+          "description": "bla",
+          "bind": {
+            "127.0.0.1:8080": {
+              "value": "127.0.0.1:8080",
+              "selected": 1
+            }
+          },
+          "bindOptions": "",
+          "mode": {
+            "http": {
+              "value": "HTTP / HTTPS (SSL offloading) [default]",
+              "selected": 1
+            },
+            "ssl": {
+              "value": "SSL / HTTPS (TCP mode)",
+              "selected": 0
+            },
+            "tcp": {
+              "value": "TCP",
+              "selected": 0
+            }
+          },
+          "defaultBackend": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "5d17779f-1407-4cdf-a616-b7024bea4448": {
+              "value": "pool1",
+              "selected": 0
+            },
+            "2c57ff97-10df-41a1-8a02-ab2fd1a4a651": {
+              "value": "pool2",
+              "selected": 1
+            },
+            "fee6bae9-8168-46bc-a6d1-c88838a1b3ec": {
+              "value": "pool3",
+              "selected": 0
+            },
+            "45e81a82-0c52-4739-a660-0cb0dcd1f409": {
+              "value": "pool4",
+              "selected": 0
+            }
+          },
+          "ssl_enabled": "1",
+          "ssl_certificates": {
+            "610d37950266d": {
+              "value": "special-cert",
+              "selected": 0
+            },
+            "60cc4641eb577": {
+              "value": "Web Gui Certificate",
+              "selected": 1
+            },
+            "5eba6f0f352e3": {
+              "value": "Web GUI SSL certificate",
+              "selected": 0
+            }
+          },
+          "ssl_default_certificate": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "610d37950266d": {
+              "value": "special-cert",
+              "selected": 0
+            },
+            "60cc4641eb577": {
+              "value": "Web Gui Certificate",
+              "selected": 0
+            },
+            "5eba6f0f352e3": {
+              "value": "Web GUI SSL certificate",
+              "selected": 1
+            }
+          },
+          "ssl_customOptions": "",
+          "ssl_advancedEnabled": "0",
+          "ssl_bindOptions": {
+            "no-sslv3": {
+              "value": "no-sslv3",
+              "selected": 0
+            },
+            "no-tlsv10": {
+              "value": "no-tlsv10",
+              "selected": 0
+            },
+            "no-tlsv11": {
+              "value": "no-tlsv11",
+              "selected": 0
+            },
+            "no-tlsv12": {
+              "value": "no-tlsv12",
+              "selected": 0
+            },
+            "no-tlsv13": {
+              "value": "no-tlsv13",
+              "selected": 0
+            },
+            "no-tls-tickets": {
+              "value": "no-tls-tickets",
+              "selected": 0
+            },
+            "force-sslv3": {
+              "value": "force-sslv3",
+              "selected": 0
+            },
+            "force-tlsv10": {
+              "value": "force-tlsv10",
+              "selected": 0
+            },
+            "force-tlsv11": {
+              "value": "force-tlsv11",
+              "selected": 0
+            },
+            "force-tlsv12": {
+              "value": "force-tlsv12",
+              "selected": 0
+            },
+            "force-tlsv13": {
+              "value": "force-tlsv13",
+              "selected": 0
+            },
+            "prefer-client-ciphers": {
+              "value": "prefer-client-ciphers",
+              "selected": 1
+            },
+            "strict-sni": {
+              "value": "strict-sni",
+              "selected": 0
+            }
+          },
+          "ssl_minVersion": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "SSLv3": {
+              "value": "SSLv3",
+              "selected": 0
+            },
+            "TLSv1.0": {
+              "value": "TLSv1.0",
+              "selected": 0
+            },
+            "TLSv1.1": {
+              "value": "TLSv1.1",
+              "selected": 0
+            },
+            "TLSv1.2": {
+              "value": "TLSv1.2",
+              "selected": 1
+            },
+            "TLSv1.3": {
+              "value": "TLSv1.3",
+              "selected": 0
+            }
+          },
+          "ssl_maxVersion": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "SSLv3": {
+              "value": "SSLv3",
+              "selected": 0
+            },
+            "TLSv1.0": {
+              "value": "TLSv1.0",
+              "selected": 0
+            },
+            "TLSv1.1": {
+              "value": "TLSv1.1",
+              "selected": 0
+            },
+            "TLSv1.2": {
+              "value": "TLSv1.2",
+              "selected": 0
+            },
+            "TLSv1.3": {
+              "value": "TLSv1.3",
+              "selected": 0
+            }
+          },
+          "ssl_cipherList": "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256",
+          "ssl_cipherSuites": "TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256",
+          "ssl_hstsEnabled": "1",
+          "ssl_hstsIncludeSubDomains": "0",
+          "ssl_hstsPreload": "0",
+          "ssl_hstsMaxAge": "15768000",
+          "ssl_clientAuthEnabled": "0",
+          "ssl_clientAuthVerify": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "none": {
+              "value": "none",
+              "selected": 0
+            },
+            "optional": {
+              "value": "optional",
+              "selected": 0
+            },
+            "required": {
+              "value": "required",
+              "selected": 1
+            }
+          },
+          "ssl_clientAuthCAs": {
+            "60cc45d3d7530": {
+              "value": "internal ca",
+              "selected": 0
+            },
+            "610d3779926d6": {
+              "value": "special-ca",
+              "selected": 0
+            }
+          },
+          "ssl_clientAuthCRLs": {
+            "": {
+              "value": "",
+              "selected": 1
+            }
+          },
+          "basicAuthEnabled": "0",
+          "basicAuthUsers": [],
+          "basicAuthGroups": [],
+          "tuning_maxConnections": "",
+          "tuning_timeoutClient": "",
+          "tuning_timeoutHttpReq": "",
+          "tuning_timeoutHttpKeepAlive": "",
+          "linkedCpuAffinityRules": {
+            "1ce4a03b-e69c-4ea7-a506-59b9b074e644": {
+              "value": "my_affinit_rule",
+              "selected": 1
+            }
+          },
+          "logging_dontLogNull": "0",
+          "logging_dontLogNormal": "0",
+          "logging_logSeparateErrors": "0",
+          "logging_detailedLog": "0",
+          "logging_socketStats": "0",
+          "stickiness_pattern": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "ipv4": {
+              "value": "only store IPv4 addresses [default]",
+              "selected": 0
+            },
+            "ipv6": {
+              "value": "only store IPv6 addresses",
+              "selected": 0
+            },
+            "integer": {
+              "value": "store 32bit integers",
+              "selected": 0
+            },
+            "string": {
+              "value": "store substrings",
+              "selected": 1
+            },
+            "binary": {
+              "value": "store binary blocks",
+              "selected": 0
+            }
+          },
+          "stickiness_dataTypes": {
+            "conn_cnt": {
+              "value": "Connection count",
+              "selected": 0
+            },
+            "conn_cur": {
+              "value": "Current connections",
+              "selected": 0
+            },
+            "conn_rate": {
+              "value": "Connection rate",
+              "selected": 0
+            },
+            "sess_cnt": {
+              "value": "Session count",
+              "selected": 0
+            },
+            "sess_rate": {
+              "value": "Session rate",
+              "selected": 0
+            },
+            "http_req_cnt": {
+              "value": "HTTP request count",
+              "selected": 0
+            },
+            "http_req_rate": {
+              "value": "HTTP request rate",
+              "selected": 0
+            },
+            "http_err_cnt": {
+              "value": "HTTP error count",
+              "selected": 0
+            },
+            "http_err_rate": {
+              "value": "HTTP error rate",
+              "selected": 0
+            },
+            "bytes_in_cnt": {
+              "value": "Bytes in count (client to server)",
+              "selected": 0
+            },
+            "bytes_in_rate": {
+              "value": "Bytes in rate (client to server)",
+              "selected": 0
+            },
+            "bytes_out_cnt": {
+              "value": "Bytes out count (server to client)",
+              "selected": 0
+            },
+            "bytes_out_rate": {
+              "value": "Bytes out rate (server to client)",
+              "selected": 0
+            }
+          },
+          "stickiness_expire": "30m",
+          "stickiness_size": "50k",
+          "stickiness_counter": "1",
+          "stickiness_counter_key": "src",
+          "stickiness_length": "",
+          "stickiness_connRatePeriod": "10s",
+          "stickiness_sessRatePeriod": "10s",
+          "stickiness_httpReqRatePeriod": "10s",
+          "stickiness_httpErrRatePeriod": "10s",
+          "stickiness_bytesInRatePeriod": "1m",
+          "stickiness_bytesOutRatePeriod": "1m",
+          "http2Enabled": "0",
+          "http2Enabled_nontls": "0",
+          "advertised_protocols": {
+            "h2": {
+              "value": "HTTP/2",
+              "selected": 1
+            },
+            "http11": {
+              "value": "HTTP/1.1",
+              "selected": 1
+            },
+            "http10": {
+              "value": "HTTP/1.0",
+              "selected": 0
+            }
+          },
+          "forwardFor": "0",
+          "connectionBehaviour": {
+            "http-keep-alive": {
+              "value": "http-keep-alive [default]",
+              "selected": 1
+            },
+            "http-tunnel": {
+              "value": "http-tunnel",
+              "selected": 0
+            },
+            "httpclose": {
+              "value": "httpclose",
+              "selected": 0
+            },
+            "http-server-close": {
+              "value": "http-server-close",
+              "selected": 0
+            },
+            "forceclose": {
+              "value": "forceclose",
+              "selected": 0
+            }
+          },
+          "customOptions": "",
+          "linkedActions": {
+            "b1b621ba-e4fc-4f13-bf76-34a2c78a8980": {
+              "value": "my_rule",
+              "selected": 1
+            }
+          },
+          "linkedErrorfiles": {
+            "a7dc8e54-c7c3-4aa4-a3de-b37d159a9c7a": {
+              "value": "custom_error_500",
+              "selected": 1
+            }
+          }
+        },
+        "6c19c893-2c38-4944-9540-a2af1eb2b7d3": {
+          "id": "61126b8b149c81.35025399",
+          "enabled": "1",
+          "name": "frontend_custom",
+          "description": "testb",
+          "bind": {
+            "127.0.0.1:8080": {
+              "value": "127.0.0.1:8080",
+              "selected": 1
+            }
+          },
+          "bindOptions": "",
+          "mode": {
+            "http": {
+              "value": "HTTP / HTTPS (SSL offloading) [default]",
+              "selected": 1
+            },
+            "ssl": {
+              "value": "SSL / HTTPS (TCP mode)",
+              "selected": 0
+            },
+            "tcp": {
+              "value": "TCP",
+              "selected": 0
+            }
+          },
+          "defaultBackend": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "5d17779f-1407-4cdf-a616-b7024bea4448": {
+              "value": "pool1",
+              "selected": 0
+            },
+            "2c57ff97-10df-41a1-8a02-ab2fd1a4a651": {
+              "value": "pool2",
+              "selected": 1
+            },
+            "fee6bae9-8168-46bc-a6d1-c88838a1b3ec": {
+              "value": "pool3",
+              "selected": 0
+            },
+            "45e81a82-0c52-4739-a660-0cb0dcd1f409": {
+              "value": "pool4",
+              "selected": 0
+            }
+          },
+          "ssl_enabled": "1",
+          "ssl_certificates": {
+            "610d37950266d": {
+              "value": "special-cert",
+              "selected": 0
+            },
+            "60cc4641eb577": {
+              "value": "Web Gui Certificate",
+              "selected": 1
+            },
+            "5eba6f0f352e3": {
+              "value": "Web GUI SSL certificate",
+              "selected": 0
+            }
+          },
+          "ssl_default_certificate": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "610d37950266d": {
+              "value": "special-cert",
+              "selected": 0
+            },
+            "60cc4641eb577": {
+              "value": "Web Gui Certificate",
+              "selected": 0
+            },
+            "5eba6f0f352e3": {
+              "value": "Web GUI SSL certificate",
+              "selected": 0
+            }
+          },
+          "ssl_customOptions": "",
+          "ssl_advancedEnabled": "0",
+          "ssl_bindOptions": {
+            "no-sslv3": {
+              "value": "no-sslv3",
+              "selected": 0
+            },
+            "no-tlsv10": {
+              "value": "no-tlsv10",
+              "selected": 0
+            },
+            "no-tlsv11": {
+              "value": "no-tlsv11",
+              "selected": 0
+            },
+            "no-tlsv12": {
+              "value": "no-tlsv12",
+              "selected": 0
+            },
+            "no-tlsv13": {
+              "value": "no-tlsv13",
+              "selected": 0
+            },
+            "no-tls-tickets": {
+              "value": "no-tls-tickets",
+              "selected": 0
+            },
+            "force-sslv3": {
+              "value": "force-sslv3",
+              "selected": 0
+            },
+            "force-tlsv10": {
+              "value": "force-tlsv10",
+              "selected": 0
+            },
+            "force-tlsv11": {
+              "value": "force-tlsv11",
+              "selected": 0
+            },
+            "force-tlsv12": {
+              "value": "force-tlsv12",
+              "selected": 0
+            },
+            "force-tlsv13": {
+              "value": "force-tlsv13",
+              "selected": 0
+            },
+            "prefer-client-ciphers": {
+              "value": "prefer-client-ciphers",
+              "selected": 1
+            },
+            "strict-sni": {
+              "value": "strict-sni",
+              "selected": 0
+            }
+          },
+          "ssl_minVersion": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "SSLv3": {
+              "value": "SSLv3",
+              "selected": 0
+            },
+            "TLSv1.0": {
+              "value": "TLSv1.0",
+              "selected": 0
+            },
+            "TLSv1.1": {
+              "value": "TLSv1.1",
+              "selected": 0
+            },
+            "TLSv1.2": {
+              "value": "TLSv1.2",
+              "selected": 1
+            },
+            "TLSv1.3": {
+              "value": "TLSv1.3",
+              "selected": 0
+            }
+          },
+          "ssl_maxVersion": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "SSLv3": {
+              "value": "SSLv3",
+              "selected": 0
+            },
+            "TLSv1.0": {
+              "value": "TLSv1.0",
+              "selected": 0
+            },
+            "TLSv1.1": {
+              "value": "TLSv1.1",
+              "selected": 0
+            },
+            "TLSv1.2": {
+              "value": "TLSv1.2",
+              "selected": 0
+            },
+            "TLSv1.3": {
+              "value": "TLSv1.3",
+              "selected": 0
+            }
+          },
+          "ssl_cipherList": "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256",
+          "ssl_cipherSuites": "TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256",
+          "ssl_hstsEnabled": "1",
+          "ssl_hstsIncludeSubDomains": "0",
+          "ssl_hstsPreload": "0",
+          "ssl_hstsMaxAge": "15768000",
+          "ssl_clientAuthEnabled": "0",
+          "ssl_clientAuthVerify": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "none": {
+              "value": "none",
+              "selected": 0
+            },
+            "optional": {
+              "value": "optional",
+              "selected": 0
+            },
+            "required": {
+              "value": "required",
+              "selected": 1
+            }
+          },
+          "ssl_clientAuthCAs": {
+            "60cc45d3d7530": {
+              "value": "internal ca",
+              "selected": 0
+            },
+            "610d3779926d6": {
+              "value": "special-ca",
+              "selected": 0
+            }
+          },
+          "ssl_clientAuthCRLs": {
+            "": {
+              "value": "",
+              "selected": 1
+            }
+          },
+          "basicAuthEnabled": "0",
+          "basicAuthUsers": [],
+          "basicAuthGroups": [],
+          "tuning_maxConnections": "",
+          "tuning_timeoutClient": "",
+          "tuning_timeoutHttpReq": "",
+          "tuning_timeoutHttpKeepAlive": "",
+          "linkedCpuAffinityRules": {
+            "1ce4a03b-e69c-4ea7-a506-59b9b074e644": {
+              "value": "my_affinit_rule",
+              "selected": 0
+            }
+          },
+          "logging_dontLogNull": "0",
+          "logging_dontLogNormal": "0",
+          "logging_logSeparateErrors": "0",
+          "logging_detailedLog": "0",
+          "logging_socketStats": "0",
+          "stickiness_pattern": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "ipv4": {
+              "value": "only store IPv4 addresses [default]",
+              "selected": 0
+            },
+            "ipv6": {
+              "value": "only store IPv6 addresses",
+              "selected": 0
+            },
+            "integer": {
+              "value": "store 32bit integers",
+              "selected": 0
+            },
+            "string": {
+              "value": "store substrings",
+              "selected": 0
+            },
+            "binary": {
+              "value": "store binary blocks",
+              "selected": 0
+            }
+          },
+          "stickiness_dataTypes": {
+            "conn_cnt": {
+              "value": "Connection count",
+              "selected": 0
+            },
+            "conn_cur": {
+              "value": "Current connections",
+              "selected": 0
+            },
+            "conn_rate": {
+              "value": "Connection rate",
+              "selected": 0
+            },
+            "sess_cnt": {
+              "value": "Session count",
+              "selected": 0
+            },
+            "sess_rate": {
+              "value": "Session rate",
+              "selected": 0
+            },
+            "http_req_cnt": {
+              "value": "HTTP request count",
+              "selected": 0
+            },
+            "http_req_rate": {
+              "value": "HTTP request rate",
+              "selected": 0
+            },
+            "http_err_cnt": {
+              "value": "HTTP error count",
+              "selected": 0
+            },
+            "http_err_rate": {
+              "value": "HTTP error rate",
+              "selected": 0
+            },
+            "bytes_in_cnt": {
+              "value": "Bytes in count (client to server)",
+              "selected": 0
+            },
+            "bytes_in_rate": {
+              "value": "Bytes in rate (client to server)",
+              "selected": 0
+            },
+            "bytes_out_cnt": {
+              "value": "Bytes out count (server to client)",
+              "selected": 0
+            },
+            "bytes_out_rate": {
+              "value": "Bytes out rate (server to client)",
+              "selected": 0
+            }
+          },
+          "stickiness_expire": "30m",
+          "stickiness_size": "50k",
+          "stickiness_counter": "1",
+          "stickiness_counter_key": "src",
+          "stickiness_length": "",
+          "stickiness_connRatePeriod": "10s",
+          "stickiness_sessRatePeriod": "10s",
+          "stickiness_httpReqRatePeriod": "10s",
+          "stickiness_httpErrRatePeriod": "10s",
+          "stickiness_bytesInRatePeriod": "1m",
+          "stickiness_bytesOutRatePeriod": "1m",
+          "http2Enabled": "0",
+          "http2Enabled_nontls": "0",
+          "advertised_protocols": {
+            "h2": {
+              "value": "HTTP/2",
+              "selected": 1
+            },
+            "http11": {
+              "value": "HTTP/1.1",
+              "selected": 1
+            },
+            "http10": {
+              "value": "HTTP/1.0",
+              "selected": 0
+            }
+          },
+          "forwardFor": "0",
+          "connectionBehaviour": {
+            "http-keep-alive": {
+              "value": "http-keep-alive [default]",
+              "selected": 1
+            },
+            "http-tunnel": {
+              "value": "http-tunnel",
+              "selected": 0
+            },
+            "httpclose": {
+              "value": "httpclose",
+              "selected": 0
+            },
+            "http-server-close": {
+              "value": "http-server-close",
+              "selected": 0
+            },
+            "forceclose": {
+              "value": "forceclose",
+              "selected": 0
+            }
+          },
+          "customOptions": "",
+          "linkedActions": {
+            "b1b621ba-e4fc-4f13-bf76-34a2c78a8980": {
+              "value": "my_rule",
+              "selected": 0
+            }
+          },
+          "linkedErrorfiles": {
+            "a7dc8e54-c7c3-4aa4-a3de-b37d159a9c7a": {
+              "value": "custom_error_500",
+              "selected": 0
+            }
+          }
+        }
+      }
+    },
+    "backends": {
+      "backend": {
+        "5d17779f-1407-4cdf-a616-b7024bea4448": {
+          "id": "61126a12ad99b5.56124864",
+          "enabled": "1",
+          "name": "pool1",
+          "description": "",
+          "mode": {
+            "http": {
+              "value": "HTTP (Layer 7) [default]",
+              "selected": 0
+            },
+            "tcp": {
+              "value": "TCP (Layer 4)",
+              "selected": 1
+            }
+          },
+          "algorithm": {
+            "source": {
+              "value": "Source-IP Hash [default]",
+              "selected": 0
+            },
+            "roundrobin": {
+              "value": "Round Robin",
+              "selected": 1
+            },
+            "static-rr": {
+              "value": "Static Round Robin",
+              "selected": 0
+            },
+            "leastconn": {
+              "value": "Least Connections",
+              "selected": 0
+            },
+            "uri": {
+              "value": "URI Hash (only HTTP mode)",
+              "selected": 0
+            },
+            "random": {
+              "value": "Random Algorithm",
+              "selected": 0
+            }
+          },
+          "random_draws": "2",
+          "proxyProtocol": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "v1": {
+              "value": "Version 1",
+              "selected": 0
+            },
+            "v2": {
+              "value": "Version 2",
+              "selected": 0
+            }
+          },
+          "linkedServers": {
+            "15e47988-d6fd-498f-9583-cd13a37408bd": {
+              "value": "my_new_testserver",
+              "selected": 0
+            },
+            "cbb43680-dd44-4f3d-b64b-8ef64c97be96": {
+              "value": "my_new_testserver",
+              "selected": 0
+            },
+            "dd74172b-d5c7-4d44-9ce3-667675a1e780": {
+              "value": "server1",
+              "selected": 1
+            },
+            "28cfa25d-74b2-4a22-9f4a-d5923fb1394d": {
+              "value": "server2",
+              "selected": 1
+            },
+            "46e159c3-c96d-45a1-8c81-f963c40e1e9f": {
+              "value": "server4",
+              "selected": 0
+            },
+            "0f2f3bfd-8661-4e86-b2a6-2ce6a3420a48": {
+              "value": "server50",
+              "selected": 0
+            }
+          },
+          "linkedResolver": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
+              "value": "my_resolver",
+              "selected": 1
+            }
+          },
+          "resolverOpts": {
+            "allow-dup-ip": {
+              "value": "allow-dup-ip",
+              "selected": 0
+            },
+            "ignore-weight": {
+              "value": "ignore-weight",
+              "selected": 0
+            },
+            "prevent-dup-ip": {
+              "value": "prevent-dup-ip",
+              "selected": 0
+            }
+          },
+          "resolvePrefer": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "ipv4": {
+              "value": "prefer IPv4",
+              "selected": 0
+            },
+            "ipv6": {
+              "value": "prefer IPv6 [default]",
+              "selected": 0
+            }
+          },
+          "source": "",
+          "healthCheckEnabled": "1",
+          "healthCheck": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "5fc21dc7-5a0e-48ba-bc17-a7d41f5dadde": {
+              "value": "http_head",
+              "selected": 1
+            }
+          },
+          "healthCheckLogStatus": "0",
+          "checkInterval": "",
+          "checkDownInterval": "",
+          "healthCheckFall": "",
+          "healthCheckRise": "",
+          "linkedMailer": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "30701b82-a255-4566-9a3e-04e52bb46b9a": {
+              "value": "alert_to_myself",
+              "selected": 1
+            }
+          },
+          "http2Enabled": "0",
+          "http2Enabled_nontls": "0",
+          "ba_advertised_protocols": {
+            "h2": {
+              "value": "HTTP/2",
+              "selected": 0
+            },
+            "http11": {
+              "value": "HTTP/1.1",
+              "selected": 0
+            },
+            "http10": {
+              "value": "HTTP/1.0",
+              "selected": 0
+            }
+          },
+          "persistence": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "sticktable": {
+              "value": "Stick-table persistence [default]",
+              "selected": 0
+            },
+            "cookie": {
+              "value": "Cookie-based persistence (HTTP/HTTPS only)",
+              "selected": 1
+            }
+          },
+          "persistence_cookiemode": {
+            "piggyback": {
+              "value": "Piggyback on existing cookie",
+              "selected": 1
+            },
+            "new": {
+              "value": "Insert new cookie",
+              "selected": 0
+            }
+          },
+          "persistence_cookiename": "SRVCOOKIE",
+          "persistence_stripquotes": "1",
+          "stickiness_pattern": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "sourceipv4": {
+              "value": "Source-IP [default]",
+              "selected": 1
+            },
+            "sourceipv6": {
+              "value": "Source-IPv6",
+              "selected": 0
+            },
+            "cookievalue": {
+              "value": "Existing cookie value",
+              "selected": 0
+            },
+            "rdpcookie": {
+              "value": "RDP-Cookie",
+              "selected": 0
+            }
+          },
+          "stickiness_dataTypes": {
+            "conn_cnt": {
+              "value": "Connection count",
+              "selected": 0
+            },
+            "conn_cur": {
+              "value": "Current connections",
+              "selected": 0
+            },
+            "conn_rate": {
+              "value": "Connection rate",
+              "selected": 0
+            },
+            "sess_cnt": {
+              "value": "Session count",
+              "selected": 0
+            },
+            "sess_rate": {
+              "value": "Session rate",
+              "selected": 0
+            },
+            "http_req_cnt": {
+              "value": "HTTP request count",
+              "selected": 0
+            },
+            "http_req_rate": {
+              "value": "HTTP request rate",
+              "selected": 0
+            },
+            "http_err_cnt": {
+              "value": "HTTP error count",
+              "selected": 0
+            },
+            "http_err_rate": {
+              "value": "HTTP error rate",
+              "selected": 0
+            },
+            "bytes_in_cnt": {
+              "value": "Bytes in count (client to server)",
+              "selected": 0
+            },
+            "bytes_in_rate": {
+              "value": "Bytes in rate (client to server)",
+              "selected": 0
+            },
+            "bytes_out_cnt": {
+              "value": "Bytes out count (server to client)",
+              "selected": 0
+            },
+            "bytes_out_rate": {
+              "value": "Bytes out rate (server to client)",
+              "selected": 0
+            }
+          },
+          "stickiness_expire": "30m",
+          "stickiness_size": "50k",
+          "stickiness_cookiename": "",
+          "stickiness_cookielength": "",
+          "stickiness_connRatePeriod": "10s",
+          "stickiness_sessRatePeriod": "10s",
+          "stickiness_httpReqRatePeriod": "10s",
+          "stickiness_httpErrRatePeriod": "10s",
+          "stickiness_bytesInRatePeriod": "1m",
+          "stickiness_bytesOutRatePeriod": "1m",
+          "basicAuthEnabled": "0",
+          "basicAuthUsers": [],
+          "basicAuthGroups": [],
+          "tuning_timeoutConnect": "",
+          "tuning_timeoutCheck": "",
+          "tuning_timeoutServer": "",
+          "tuning_retries": "",
+          "customOptions": "",
+          "tuning_defaultserver": "",
+          "tuning_noport": "0",
+          "tuning_httpreuse": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "never": {
+              "value": "Never",
+              "selected": 0
+            },
+            "safe": {
+              "value": "Safe [default]",
+              "selected": 1
+            },
+            "aggressive": {
+              "value": "Aggressive",
+              "selected": 0
+            },
+            "always": {
+              "value": "Always",
+              "selected": 0
+            }
+          },
+          "tuning_caching": "0",
+          "linkedActions": {
+            "b1b621ba-e4fc-4f13-bf76-34a2c78a8980": {
+              "value": "my_rule",
+              "selected": 1
+            }
+          },
+          "linkedErrorfiles": {
+            "a7dc8e54-c7c3-4aa4-a3de-b37d159a9c7a": {
+              "value": "custom_error_500",
+              "selected": 1
+            }
+          }
+        },
+        "2c57ff97-10df-41a1-8a02-ab2fd1a4a651": {
+          "id": "61126b6c8569d3.01898398",
+          "enabled": "1",
+          "name": "pool2",
+          "description": "",
+          "mode": {
+            "http": {
+              "value": "HTTP (Layer 7) [default]",
+              "selected": 1
+            },
+            "tcp": {
+              "value": "TCP (Layer 4)",
+              "selected": 0
+            }
+          },
+          "algorithm": {
+            "source": {
+              "value": "Source-IP Hash [default]",
+              "selected": 0
+            },
+            "roundrobin": {
+              "value": "Round Robin",
+              "selected": 0
+            },
+            "static-rr": {
+              "value": "Static Round Robin",
+              "selected": 0
+            },
+            "leastconn": {
+              "value": "Least Connections",
+              "selected": 1
+            },
+            "uri": {
+              "value": "URI Hash (only HTTP mode)",
+              "selected": 0
+            },
+            "random": {
+              "value": "Random Algorithm",
+              "selected": 0
+            }
+          },
+          "random_draws": "2",
+          "proxyProtocol": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "v1": {
+              "value": "Version 1",
+              "selected": 0
+            },
+            "v2": {
+              "value": "Version 2",
+              "selected": 0
+            }
+          },
+          "linkedServers": {
+            "15e47988-d6fd-498f-9583-cd13a37408bd": {
+              "value": "my_new_testserver",
+              "selected": 0
+            },
+            "cbb43680-dd44-4f3d-b64b-8ef64c97be96": {
+              "value": "my_new_testserver",
+              "selected": 0
+            },
+            "dd74172b-d5c7-4d44-9ce3-667675a1e780": {
+              "value": "server1",
+              "selected": 0
+            },
+            "28cfa25d-74b2-4a22-9f4a-d5923fb1394d": {
+              "value": "server2",
+              "selected": 1
+            },
+            "46e159c3-c96d-45a1-8c81-f963c40e1e9f": {
+              "value": "server4",
+              "selected": 1
+            },
+            "0f2f3bfd-8661-4e86-b2a6-2ce6a3420a48": {
+              "value": "server50",
+              "selected": 0
+            }
+          },
+          "linkedResolver": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
+              "value": "my_resolver",
+              "selected": 0
+            }
+          },
+          "resolverOpts": {
+            "allow-dup-ip": {
+              "value": "allow-dup-ip",
+              "selected": 1
+            },
+            "ignore-weight": {
+              "value": "ignore-weight",
+              "selected": 1
+            },
+            "prevent-dup-ip": {
+              "value": "prevent-dup-ip",
+              "selected": 1
+            }
+          },
+          "resolvePrefer": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "ipv4": {
+              "value": "prefer IPv4",
+              "selected": 0
+            },
+            "ipv6": {
+              "value": "prefer IPv6 [default]",
+              "selected": 0
+            }
+          },
+          "source": "",
+          "healthCheckEnabled": "1",
+          "healthCheck": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "5fc21dc7-5a0e-48ba-bc17-a7d41f5dadde": {
+              "value": "http_head",
+              "selected": 1
+            }
+          },
+          "healthCheckLogStatus": "0",
+          "checkInterval": "",
+          "checkDownInterval": "",
+          "healthCheckFall": "",
+          "healthCheckRise": "",
+          "linkedMailer": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "30701b82-a255-4566-9a3e-04e52bb46b9a": {
+              "value": "alert_to_myself",
+              "selected": 0
+            }
+          },
+          "http2Enabled": "0",
+          "http2Enabled_nontls": "0",
+          "ba_advertised_protocols": {
+            "h2": {
+              "value": "HTTP/2",
+              "selected": 1
+            },
+            "http11": {
+              "value": "HTTP/1.1",
+              "selected": 1
+            },
+            "http10": {
+              "value": "HTTP/1.0",
+              "selected": 0
+            }
+          },
+          "persistence": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "sticktable": {
+              "value": "Stick-table persistence [default]",
+              "selected": 1
+            },
+            "cookie": {
+              "value": "Cookie-based persistence (HTTP/HTTPS only)",
+              "selected": 0
+            }
+          },
+          "persistence_cookiemode": {
+            "piggyback": {
+              "value": "Piggyback on existing cookie",
+              "selected": 1
+            },
+            "new": {
+              "value": "Insert new cookie",
+              "selected": 0
+            }
+          },
+          "persistence_cookiename": "SRVCOOKIE",
+          "persistence_stripquotes": "1",
+          "stickiness_pattern": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "sourceipv4": {
+              "value": "Source-IP [default]",
+              "selected": 1
+            },
+            "sourceipv6": {
+              "value": "Source-IPv6",
+              "selected": 0
+            },
+            "cookievalue": {
+              "value": "Existing cookie value",
+              "selected": 0
+            },
+            "rdpcookie": {
+              "value": "RDP-Cookie",
+              "selected": 0
+            }
+          },
+          "stickiness_dataTypes": {
+            "conn_cnt": {
+              "value": "Connection count",
+              "selected": 0
+            },
+            "conn_cur": {
+              "value": "Current connections",
+              "selected": 0
+            },
+            "conn_rate": {
+              "value": "Connection rate",
+              "selected": 0
+            },
+            "sess_cnt": {
+              "value": "Session count",
+              "selected": 0
+            },
+            "sess_rate": {
+              "value": "Session rate",
+              "selected": 0
+            },
+            "http_req_cnt": {
+              "value": "HTTP request count",
+              "selected": 0
+            },
+            "http_req_rate": {
+              "value": "HTTP request rate",
+              "selected": 0
+            },
+            "http_err_cnt": {
+              "value": "HTTP error count",
+              "selected": 0
+            },
+            "http_err_rate": {
+              "value": "HTTP error rate",
+              "selected": 0
+            },
+            "bytes_in_cnt": {
+              "value": "Bytes in count (client to server)",
+              "selected": 0
+            },
+            "bytes_in_rate": {
+              "value": "Bytes in rate (client to server)",
+              "selected": 0
+            },
+            "bytes_out_cnt": {
+              "value": "Bytes out count (server to client)",
+              "selected": 0
+            },
+            "bytes_out_rate": {
+              "value": "Bytes out rate (server to client)",
+              "selected": 0
+            }
+          },
+          "stickiness_expire": "30m",
+          "stickiness_size": "50k",
+          "stickiness_cookiename": "",
+          "stickiness_cookielength": "",
+          "stickiness_connRatePeriod": "10s",
+          "stickiness_sessRatePeriod": "10s",
+          "stickiness_httpReqRatePeriod": "10s",
+          "stickiness_httpErrRatePeriod": "10s",
+          "stickiness_bytesInRatePeriod": "1m",
+          "stickiness_bytesOutRatePeriod": "1m",
+          "basicAuthEnabled": "0",
+          "basicAuthUsers": [],
+          "basicAuthGroups": [],
+          "tuning_timeoutConnect": "",
+          "tuning_timeoutCheck": "",
+          "tuning_timeoutServer": "",
+          "tuning_retries": "",
+          "customOptions": "",
+          "tuning_defaultserver": "",
+          "tuning_noport": "0",
+          "tuning_httpreuse": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "never": {
+              "value": "Never",
+              "selected": 0
+            },
+            "safe": {
+              "value": "Safe [default]",
+              "selected": 1
+            },
+            "aggressive": {
+              "value": "Aggressive",
+              "selected": 0
+            },
+            "always": {
+              "value": "Always",
+              "selected": 0
+            }
+          },
+          "tuning_caching": "0",
+          "linkedActions": {
+            "b1b621ba-e4fc-4f13-bf76-34a2c78a8980": {
+              "value": "my_rule",
+              "selected": 0
+            }
+          },
+          "linkedErrorfiles": {
+            "a7dc8e54-c7c3-4aa4-a3de-b37d159a9c7a": {
+              "value": "custom_error_500",
+              "selected": 0
+            }
+          }
+        },
+        "fee6bae9-8168-46bc-a6d1-c88838a1b3ec": {
+          "id": "61138d6f7b96a7.97779822",
+          "enabled": "1",
+          "name": "pool3",
+          "description": "",
+          "mode": {
+            "http": {
+              "value": "HTTP (Layer 7) [default]",
+              "selected": 1
+            },
+            "tcp": {
+              "value": "TCP (Layer 4)",
+              "selected": 0
+            }
+          },
+          "algorithm": {
+            "source": {
+              "value": "Source-IP Hash [default]",
+              "selected": 1
+            },
+            "roundrobin": {
+              "value": "Round Robin",
+              "selected": 0
+            },
+            "static-rr": {
+              "value": "Static Round Robin",
+              "selected": 0
+            },
+            "leastconn": {
+              "value": "Least Connections",
+              "selected": 0
+            },
+            "uri": {
+              "value": "URI Hash (only HTTP mode)",
+              "selected": 0
+            },
+            "random": {
+              "value": "Random Algorithm",
+              "selected": 0
+            }
+          },
+          "random_draws": "2",
+          "proxyProtocol": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "v1": {
+              "value": "Version 1",
+              "selected": 0
+            },
+            "v2": {
+              "value": "Version 2",
+              "selected": 0
+            }
+          },
+          "linkedServers": {
+            "15e47988-d6fd-498f-9583-cd13a37408bd": {
+              "value": "my_new_testserver",
+              "selected": 1
+            },
+            "cbb43680-dd44-4f3d-b64b-8ef64c97be96": {
+              "value": "my_new_testserver",
+              "selected": 1
+            },
+            "dd74172b-d5c7-4d44-9ce3-667675a1e780": {
+              "value": "server1",
+              "selected": 0
+            },
+            "28cfa25d-74b2-4a22-9f4a-d5923fb1394d": {
+              "value": "server2",
+              "selected": 0
+            },
+            "46e159c3-c96d-45a1-8c81-f963c40e1e9f": {
+              "value": "server4",
+              "selected": 0
+            },
+            "0f2f3bfd-8661-4e86-b2a6-2ce6a3420a48": {
+              "value": "server50",
+              "selected": 0
+            }
+          },
+          "linkedResolver": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
+              "value": "my_resolver",
+              "selected": 0
+            }
+          },
+          "resolverOpts": {
+            "allow-dup-ip": {
+              "value": "allow-dup-ip",
+              "selected": 0
+            },
+            "ignore-weight": {
+              "value": "ignore-weight",
+              "selected": 0
+            },
+            "prevent-dup-ip": {
+              "value": "prevent-dup-ip",
+              "selected": 0
+            }
+          },
+          "resolvePrefer": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "ipv4": {
+              "value": "prefer IPv4",
+              "selected": 0
+            },
+            "ipv6": {
+              "value": "prefer IPv6 [default]",
+              "selected": 0
+            }
+          },
+          "source": "",
+          "healthCheckEnabled": "1",
+          "healthCheck": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "5fc21dc7-5a0e-48ba-bc17-a7d41f5dadde": {
+              "value": "http_head",
+              "selected": 0
+            }
+          },
+          "healthCheckLogStatus": "0",
+          "checkInterval": "",
+          "checkDownInterval": "",
+          "healthCheckFall": "",
+          "healthCheckRise": "",
+          "linkedMailer": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "30701b82-a255-4566-9a3e-04e52bb46b9a": {
+              "value": "alert_to_myself",
+              "selected": 0
+            }
+          },
+          "http2Enabled": "0",
+          "http2Enabled_nontls": "0",
+          "ba_advertised_protocols": {
+            "h2": {
+              "value": "HTTP/2",
+              "selected": 1
+            },
+            "http11": {
+              "value": "HTTP/1.1",
+              "selected": 1
+            },
+            "http10": {
+              "value": "HTTP/1.0",
+              "selected": 0
+            }
+          },
+          "persistence": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "sticktable": {
+              "value": "Stick-table persistence [default]",
+              "selected": 1
+            },
+            "cookie": {
+              "value": "Cookie-based persistence (HTTP/HTTPS only)",
+              "selected": 0
+            }
+          },
+          "persistence_cookiemode": {
+            "piggyback": {
+              "value": "Piggyback on existing cookie",
+              "selected": 1
+            },
+            "new": {
+              "value": "Insert new cookie",
+              "selected": 0
+            }
+          },
+          "persistence_cookiename": "SRVCOOKIE",
+          "persistence_stripquotes": "1",
+          "stickiness_pattern": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "sourceipv4": {
+              "value": "Source-IP [default]",
+              "selected": 1
+            },
+            "sourceipv6": {
+              "value": "Source-IPv6",
+              "selected": 0
+            },
+            "cookievalue": {
+              "value": "Existing cookie value",
+              "selected": 0
+            },
+            "rdpcookie": {
+              "value": "RDP-Cookie",
+              "selected": 0
+            }
+          },
+          "stickiness_dataTypes": {
+            "conn_cnt": {
+              "value": "Connection count",
+              "selected": 0
+            },
+            "conn_cur": {
+              "value": "Current connections",
+              "selected": 0
+            },
+            "conn_rate": {
+              "value": "Connection rate",
+              "selected": 0
+            },
+            "sess_cnt": {
+              "value": "Session count",
+              "selected": 0
+            },
+            "sess_rate": {
+              "value": "Session rate",
+              "selected": 0
+            },
+            "http_req_cnt": {
+              "value": "HTTP request count",
+              "selected": 0
+            },
+            "http_req_rate": {
+              "value": "HTTP request rate",
+              "selected": 0
+            },
+            "http_err_cnt": {
+              "value": "HTTP error count",
+              "selected": 0
+            },
+            "http_err_rate": {
+              "value": "HTTP error rate",
+              "selected": 0
+            },
+            "bytes_in_cnt": {
+              "value": "Bytes in count (client to server)",
+              "selected": 0
+            },
+            "bytes_in_rate": {
+              "value": "Bytes in rate (client to server)",
+              "selected": 0
+            },
+            "bytes_out_cnt": {
+              "value": "Bytes out count (server to client)",
+              "selected": 0
+            },
+            "bytes_out_rate": {
+              "value": "Bytes out rate (server to client)",
+              "selected": 0
+            }
+          },
+          "stickiness_expire": "30m",
+          "stickiness_size": "50k",
+          "stickiness_cookiename": "",
+          "stickiness_cookielength": "",
+          "stickiness_connRatePeriod": "10s",
+          "stickiness_sessRatePeriod": "10s",
+          "stickiness_httpReqRatePeriod": "10s",
+          "stickiness_httpErrRatePeriod": "10s",
+          "stickiness_bytesInRatePeriod": "1m",
+          "stickiness_bytesOutRatePeriod": "1m",
+          "basicAuthEnabled": "0",
+          "basicAuthUsers": [],
+          "basicAuthGroups": [],
+          "tuning_timeoutConnect": "",
+          "tuning_timeoutCheck": "",
+          "tuning_timeoutServer": "",
+          "tuning_retries": "",
+          "customOptions": "",
+          "tuning_defaultserver": "",
+          "tuning_noport": "0",
+          "tuning_httpreuse": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "never": {
+              "value": "Never",
+              "selected": 0
+            },
+            "safe": {
+              "value": "Safe [default]",
+              "selected": 1
+            },
+            "aggressive": {
+              "value": "Aggressive",
+              "selected": 0
+            },
+            "always": {
+              "value": "Always",
+              "selected": 0
+            }
+          },
+          "tuning_caching": "0",
+          "linkedActions": {
+            "b1b621ba-e4fc-4f13-bf76-34a2c78a8980": {
+              "value": "my_rule",
+              "selected": 0
+            }
+          },
+          "linkedErrorfiles": {
+            "a7dc8e54-c7c3-4aa4-a3de-b37d159a9c7a": {
+              "value": "custom_error_500",
+              "selected": 0
+            }
+          }
+        },
+        "45e81a82-0c52-4739-a660-0cb0dcd1f409": {
+          "id": "612e38139a9869.09326613",
+          "enabled": "1",
+          "name": "pool4",
+          "description": "",
+          "mode": {
+            "http": {
+              "value": "HTTP (Layer 7) [default]",
+              "selected": 1
+            },
+            "tcp": {
+              "value": "TCP (Layer 4)",
+              "selected": 0
+            }
+          },
+          "algorithm": {
+            "source": {
+              "value": "Source-IP Hash [default]",
+              "selected": 1
+            },
+            "roundrobin": {
+              "value": "Round Robin",
+              "selected": 0
+            },
+            "static-rr": {
+              "value": "Static Round Robin",
+              "selected": 0
+            },
+            "leastconn": {
+              "value": "Least Connections",
+              "selected": 0
+            },
+            "uri": {
+              "value": "URI Hash (only HTTP mode)",
+              "selected": 0
+            },
+            "random": {
+              "value": "Random Algorithm",
+              "selected": 0
+            }
+          },
+          "random_draws": "2",
+          "proxyProtocol": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "v1": {
+              "value": "Version 1",
+              "selected": 0
+            },
+            "v2": {
+              "value": "Version 2",
+              "selected": 0
+            }
+          },
+          "linkedServers": {
+            "15e47988-d6fd-498f-9583-cd13a37408bd": {
+              "value": "my_new_testserver",
+              "selected": 0
+            },
+            "cbb43680-dd44-4f3d-b64b-8ef64c97be96": {
+              "value": "my_new_testserver",
+              "selected": 0
+            },
+            "dd74172b-d5c7-4d44-9ce3-667675a1e780": {
+              "value": "server1",
+              "selected": 0
+            },
+            "28cfa25d-74b2-4a22-9f4a-d5923fb1394d": {
+              "value": "server2",
+              "selected": 0
+            },
+            "46e159c3-c96d-45a1-8c81-f963c40e1e9f": {
+              "value": "server4",
+              "selected": 0
+            },
+            "0f2f3bfd-8661-4e86-b2a6-2ce6a3420a48": {
+              "value": "server50",
+              "selected": 0
+            }
+          },
+          "linkedResolver": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
+              "value": "my_resolver",
+              "selected": 0
+            }
+          },
+          "resolverOpts": {
+            "allow-dup-ip": {
+              "value": "allow-dup-ip",
+              "selected": 0
+            },
+            "ignore-weight": {
+              "value": "ignore-weight",
+              "selected": 0
+            },
+            "prevent-dup-ip": {
+              "value": "prevent-dup-ip",
+              "selected": 0
+            }
+          },
+          "resolvePrefer": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "ipv4": {
+              "value": "prefer IPv4",
+              "selected": 0
+            },
+            "ipv6": {
+              "value": "prefer IPv6 [default]",
+              "selected": 0
+            }
+          },
+          "source": "",
+          "healthCheckEnabled": "1",
+          "healthCheck": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "5fc21dc7-5a0e-48ba-bc17-a7d41f5dadde": {
+              "value": "http_head",
+              "selected": 0
+            }
+          },
+          "healthCheckLogStatus": "1",
+          "checkInterval": "",
+          "checkDownInterval": "",
+          "healthCheckFall": "",
+          "healthCheckRise": "",
+          "linkedMailer": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "30701b82-a255-4566-9a3e-04e52bb46b9a": {
+              "value": "alert_to_myself",
+              "selected": 0
+            }
+          },
+          "http2Enabled": "1",
+          "http2Enabled_nontls": "1",
+          "ba_advertised_protocols": {
+            "h2": {
+              "value": "HTTP/2",
+              "selected": 1
+            },
+            "http11": {
+              "value": "HTTP/1.1",
+              "selected": 1
+            },
+            "http10": {
+              "value": "HTTP/1.0",
+              "selected": 0
+            }
+          },
+          "persistence": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "sticktable": {
+              "value": "Stick-table persistence [default]",
+              "selected": 1
+            },
+            "cookie": {
+              "value": "Cookie-based persistence (HTTP/HTTPS only)",
+              "selected": 0
+            }
+          },
+          "persistence_cookiemode": {
+            "piggyback": {
+              "value": "Piggyback on existing cookie",
+              "selected": 1
+            },
+            "new": {
+              "value": "Insert new cookie",
+              "selected": 0
+            }
+          },
+          "persistence_cookiename": "SRVCOOKIE",
+          "persistence_stripquotes": "1",
+          "stickiness_pattern": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "sourceipv4": {
+              "value": "Source-IP [default]",
+              "selected": 1
+            },
+            "sourceipv6": {
+              "value": "Source-IPv6",
+              "selected": 0
+            },
+            "cookievalue": {
+              "value": "Existing cookie value",
+              "selected": 0
+            },
+            "rdpcookie": {
+              "value": "RDP-Cookie",
+              "selected": 0
+            }
+          },
+          "stickiness_dataTypes": {
+            "conn_cnt": {
+              "value": "Connection count",
+              "selected": 0
+            },
+            "conn_cur": {
+              "value": "Current connections",
+              "selected": 0
+            },
+            "conn_rate": {
+              "value": "Connection rate",
+              "selected": 0
+            },
+            "sess_cnt": {
+              "value": "Session count",
+              "selected": 0
+            },
+            "sess_rate": {
+              "value": "Session rate",
+              "selected": 0
+            },
+            "http_req_cnt": {
+              "value": "HTTP request count",
+              "selected": 0
+            },
+            "http_req_rate": {
+              "value": "HTTP request rate",
+              "selected": 0
+            },
+            "http_err_cnt": {
+              "value": "HTTP error count",
+              "selected": 0
+            },
+            "http_err_rate": {
+              "value": "HTTP error rate",
+              "selected": 0
+            },
+            "bytes_in_cnt": {
+              "value": "Bytes in count (client to server)",
+              "selected": 0
+            },
+            "bytes_in_rate": {
+              "value": "Bytes in rate (client to server)",
+              "selected": 0
+            },
+            "bytes_out_cnt": {
+              "value": "Bytes out count (server to client)",
+              "selected": 0
+            },
+            "bytes_out_rate": {
+              "value": "Bytes out rate (server to client)",
+              "selected": 0
+            }
+          },
+          "stickiness_expire": "30m",
+          "stickiness_size": "50k",
+          "stickiness_cookiename": "",
+          "stickiness_cookielength": "",
+          "stickiness_connRatePeriod": "10s",
+          "stickiness_sessRatePeriod": "10s",
+          "stickiness_httpReqRatePeriod": "10s",
+          "stickiness_httpErrRatePeriod": "10s",
+          "stickiness_bytesInRatePeriod": "1m",
+          "stickiness_bytesOutRatePeriod": "1m",
+          "basicAuthEnabled": "1",
+          "basicAuthUsers": [],
+          "basicAuthGroups": [],
+          "tuning_timeoutConnect": "",
+          "tuning_timeoutCheck": "",
+          "tuning_timeoutServer": "",
+          "tuning_retries": "",
+          "customOptions": "",
+          "tuning_defaultserver": "",
+          "tuning_noport": "1",
+          "tuning_httpreuse": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "never": {
+              "value": "Never",
+              "selected": 0
+            },
+            "safe": {
+              "value": "Safe [default]",
+              "selected": 1
+            },
+            "aggressive": {
+              "value": "Aggressive",
+              "selected": 0
+            },
+            "always": {
+              "value": "Always",
+              "selected": 0
+            }
+          },
+          "tuning_caching": "1",
+          "linkedActions": {
+            "b1b621ba-e4fc-4f13-bf76-34a2c78a8980": {
+              "value": "my_rule",
+              "selected": 0
+            }
+          },
+          "linkedErrorfiles": {
+            "a7dc8e54-c7c3-4aa4-a3de-b37d159a9c7a": {
+              "value": "custom_error_500",
+              "selected": 0
+            }
+          }
+        }
+      }
+    },
+    "servers": {
+      "server": {
+        "dd74172b-d5c7-4d44-9ce3-667675a1e780": {
+          "id": "61126a6eaa9e37.48182479",
+          "enabled": "1",
+          "name": "server1",
+          "description": "",
+          "address": "192.168.56.1",
+          "port": "8081",
+          "checkport": "",
+          "mode": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "active": {
+              "value": "active [default]",
+              "selected": 1
+            },
+            "backup": {
+              "value": "backup",
+              "selected": 0
+            },
+            "disabled": {
+              "value": "disabled",
+              "selected": 0
+            }
+          },
+          "type": {
+            "static": {
+              "value": "static",
+              "selected": 0
+            },
+            "template": {
+              "value": "template",
+              "selected": 1
+            }
+          },
+          "serviceName": "",
+          "number": "",
+          "linkedResolver": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
+              "value": "my_resolver",
+              "selected": 0
+            }
+          },
+          "resolverOpts": {
+            "allow-dup-ip": {
+              "value": "allow-dup-ip",
+              "selected": 1
+            },
+            "ignore-weight": {
+              "value": "ignore-weight",
+              "selected": 0
+            },
+            "prevent-dup-ip": {
+              "value": "prevent-dup-ip",
+              "selected": 1
+            }
+          },
+          "resolvePrefer": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "ipv4": {
+              "value": "prefer IPv4",
+              "selected": 0
+            },
+            "ipv6": {
+              "value": "prefer IPv6 [default]",
+              "selected": 0
+            }
+          },
+          "ssl": "1",
+          "sslVerify": "1",
+          "sslCA": {
+            "60cc45d3d7530": {
+              "value": "internal ca",
+              "selected": 0
+            },
+            "610d3779926d6": {
+              "value": "special-ca",
+              "selected": 0
+            }
+          },
+          "sslCRL": {
+            "": {
+              "value": "",
+              "selected": 1
+            }
+          },
+          "sslClientCertificate": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "610d37950266d": {
+              "value": "special-cert",
+              "selected": 0
+            },
+            "60cc4641eb577": {
+              "value": "Web Gui Certificate",
+              "selected": 0
+            },
+            "5eba6f0f352e3": {
+              "value": "Web GUI SSL certificate",
+              "selected": 0
+            }
+          },
+          "weight": "",
+          "checkInterval": "",
+          "checkDownInterval": "",
+          "source": "",
+          "advanced": ""
+        },
+        "28cfa25d-74b2-4a22-9f4a-d5923fb1394d": {
+          "id": "61126a714a0045.92956936",
+          "enabled": "1",
+          "name": "server2",
+          "description": "",
+          "address": "",
+          "port": "",
+          "checkport": "",
+          "mode": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "active": {
+              "value": "active [default]",
+              "selected": 1
+            },
+            "backup": {
+              "value": "backup",
+              "selected": 0
+            },
+            "disabled": {
+              "value": "disabled",
+              "selected": 0
+            }
+          },
+          "type": {
+            "static": {
+              "value": "static",
+              "selected": 1
+            },
+            "template": {
+              "value": "template",
+              "selected": 0
+            }
+          },
+          "serviceName": "",
+          "number": "",
+          "linkedResolver": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
+              "value": "my_resolver",
+              "selected": 0
+            }
+          },
+          "resolverOpts": {
+            "allow-dup-ip": {
+              "value": "allow-dup-ip",
+              "selected": 0
+            },
+            "ignore-weight": {
+              "value": "ignore-weight",
+              "selected": 0
+            },
+            "prevent-dup-ip": {
+              "value": "prevent-dup-ip",
+              "selected": 0
+            }
+          },
+          "resolvePrefer": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "ipv4": {
+              "value": "prefer IPv4",
+              "selected": 0
+            },
+            "ipv6": {
+              "value": "prefer IPv6 [default]",
+              "selected": 0
+            }
+          },
+          "ssl": "0",
+          "sslVerify": "1",
+          "sslCA": {
+            "60cc45d3d7530": {
+              "value": "internal ca",
+              "selected": 0
+            },
+            "610d3779926d6": {
+              "value": "special-ca",
+              "selected": 0
+            }
+          },
+          "sslCRL": {
+            "": {
+              "value": "",
+              "selected": 1
+            }
+          },
+          "sslClientCertificate": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "610d37950266d": {
+              "value": "special-cert",
+              "selected": 0
+            },
+            "60cc4641eb577": {
+              "value": "Web Gui Certificate",
+              "selected": 0
+            },
+            "5eba6f0f352e3": {
+              "value": "Web GUI SSL certificate",
+              "selected": 0
+            }
+          },
+          "weight": "",
+          "checkInterval": "",
+          "checkDownInterval": "",
+          "source": "",
+          "advanced": ""
+        },
+        "46e159c3-c96d-45a1-8c81-f963c40e1e9f": {
+          "id": "61126a743fa570.29363631",
+          "enabled": "1",
+          "name": "server4",
+          "description": "",
+          "address": "10.0.0.1",
+          "port": "9000",
+          "checkport": "",
+          "mode": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "active": {
+              "value": "active [default]",
+              "selected": 1
+            },
+            "backup": {
+              "value": "backup",
+              "selected": 0
+            },
+            "disabled": {
+              "value": "disabled",
+              "selected": 0
+            }
+          },
+          "type": {
+            "static": {
+              "value": "static",
+              "selected": 1
+            },
+            "template": {
+              "value": "template",
+              "selected": 0
+            }
+          },
+          "serviceName": "",
+          "number": "",
+          "linkedResolver": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
+              "value": "my_resolver",
+              "selected": 0
+            }
+          },
+          "resolverOpts": {
+            "allow-dup-ip": {
+              "value": "allow-dup-ip",
+              "selected": 0
+            },
+            "ignore-weight": {
+              "value": "ignore-weight",
+              "selected": 0
+            },
+            "prevent-dup-ip": {
+              "value": "prevent-dup-ip",
+              "selected": 0
+            }
+          },
+          "resolvePrefer": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "ipv4": {
+              "value": "prefer IPv4",
+              "selected": 0
+            },
+            "ipv6": {
+              "value": "prefer IPv6 [default]",
+              "selected": 0
+            }
+          },
+          "ssl": "1",
+          "sslVerify": "1",
+          "sslCA": {
+            "60cc45d3d7530": {
+              "value": "internal ca",
+              "selected": 0
+            },
+            "610d3779926d6": {
+              "value": "special-ca",
+              "selected": 0
+            }
+          },
+          "sslCRL": {
+            "": {
+              "value": "",
+              "selected": 1
+            }
+          },
+          "sslClientCertificate": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "610d37950266d": {
+              "value": "special-cert",
+              "selected": 0
+            },
+            "60cc4641eb577": {
+              "value": "Web Gui Certificate",
+              "selected": 0
+            },
+            "5eba6f0f352e3": {
+              "value": "Web GUI SSL certificate",
+              "selected": 0
+            }
+          },
+          "weight": "15",
+          "checkInterval": "",
+          "checkDownInterval": "",
+          "source": "",
+          "advanced": ""
+        },
+        "15e47988-d6fd-498f-9583-cd13a37408bd": {
+          "id": "611285e4a471d2.77596072",
+          "enabled": "0",
+          "name": "my_new_testserver",
+          "description": "test",
+          "address": "10.0.0.1",
+          "port": "9091",
+          "checkport": "",
+          "mode": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "active": {
+              "value": "active [default]",
+              "selected": 0
+            },
+            "backup": {
+              "value": "backup",
+              "selected": 1
+            },
+            "disabled": {
+              "value": "disabled",
+              "selected": 0
+            }
+          },
+          "type": {
+            "static": {
+              "value": "static",
+              "selected": 0
+            },
+            "template": {
+              "value": "template",
+              "selected": 1
+            }
+          },
+          "serviceName": "service_1",
+          "number": "1",
+          "linkedResolver": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
+              "value": "my_resolver",
+              "selected": 1
+            }
+          },
+          "resolverOpts": {
+            "allow-dup-ip": {
+              "value": "allow-dup-ip",
+              "selected": 1
+            },
+            "ignore-weight": {
+              "value": "ignore-weight",
+              "selected": 0
+            },
+            "prevent-dup-ip": {
+              "value": "prevent-dup-ip",
+              "selected": 1
+            }
+          },
+          "resolvePrefer": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "ipv4": {
+              "value": "prefer IPv4",
+              "selected": 0
+            },
+            "ipv6": {
+              "value": "prefer IPv6 [default]",
+              "selected": 0
+            }
+          },
+          "ssl": "0",
+          "sslVerify": "0",
+          "sslCA": {
+            "60cc45d3d7530": {
+              "value": "internal ca",
+              "selected": 0
+            },
+            "610d3779926d6": {
+              "value": "special-ca",
+              "selected": 0
+            }
+          },
+          "sslCRL": {
+            "": {
+              "value": "",
+              "selected": 1
+            }
+          },
+          "sslClientCertificate": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "610d37950266d": {
+              "value": "special-cert",
+              "selected": 0
+            },
+            "60cc4641eb577": {
+              "value": "Web Gui Certificate",
+              "selected": 0
+            },
+            "5eba6f0f352e3": {
+              "value": "Web GUI SSL certificate",
+              "selected": 0
+            }
+          },
+          "weight": "10",
+          "checkInterval": "10",
+          "checkDownInterval": "",
+          "source": "",
+          "advanced": ""
+        },
+        "cbb43680-dd44-4f3d-b64b-8ef64c97be96": {
+          "id": "6112860b47d315.05478015",
+          "enabled": "0",
+          "name": "my_new_testserver",
+          "description": "test",
+          "address": "10.0.0.1",
+          "port": "9091",
+          "checkport": "",
+          "mode": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "active": {
+              "value": "active [default]",
+              "selected": 0
+            },
+            "backup": {
+              "value": "backup",
+              "selected": 1
+            },
+            "disabled": {
+              "value": "disabled",
+              "selected": 0
+            }
+          },
+          "type": {
+            "static": {
+              "value": "static",
+              "selected": 0
+            },
+            "template": {
+              "value": "template",
+              "selected": 1
+            }
+          },
+          "serviceName": "",
+          "number": "",
+          "linkedResolver": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
+              "value": "my_resolver",
+              "selected": 0
+            }
+          },
+          "resolverOpts": {
+            "allow-dup-ip": {
+              "value": "allow-dup-ip",
+              "selected": 0
+            },
+            "ignore-weight": {
+              "value": "ignore-weight",
+              "selected": 0
+            },
+            "prevent-dup-ip": {
+              "value": "prevent-dup-ip",
+              "selected": 0
+            }
+          },
+          "resolvePrefer": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "ipv4": {
+              "value": "prefer IPv4",
+              "selected": 0
+            },
+            "ipv6": {
+              "value": "prefer IPv6 [default]",
+              "selected": 0
+            }
+          },
+          "ssl": "1",
+          "sslVerify": "0",
+          "sslCA": {
+            "60cc45d3d7530": {
+              "value": "internal ca",
+              "selected": 0
+            },
+            "610d3779926d6": {
+              "value": "special-ca",
+              "selected": 0
+            }
+          },
+          "sslCRL": {
+            "": {
+              "value": "",
+              "selected": 1
+            }
+          },
+          "sslClientCertificate": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "610d37950266d": {
+              "value": "special-cert",
+              "selected": 0
+            },
+            "60cc4641eb577": {
+              "value": "Web Gui Certificate",
+              "selected": 0
+            },
+            "5eba6f0f352e3": {
+              "value": "Web GUI SSL certificate",
+              "selected": 0
+            }
+          },
+          "weight": "10",
+          "checkInterval": "10",
+          "checkDownInterval": "",
+          "source": "10.0.0.5",
+          "advanced": ""
+        },
+        "0f2f3bfd-8661-4e86-b2a6-2ce6a3420a48": {
+          "id": "612e320c293962.90268651",
+          "enabled": "1",
+          "name": "server50",
+          "description": "",
+          "address": "",
+          "port": "",
+          "checkport": "",
+          "mode": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "active": {
+              "value": "active [default]",
+              "selected": 1
+            },
+            "backup": {
+              "value": "backup",
+              "selected": 0
+            },
+            "disabled": {
+              "value": "disabled",
+              "selected": 0
+            }
+          },
+          "type": {
+            "static": {
+              "value": "static",
+              "selected": 1
+            },
+            "template": {
+              "value": "template",
+              "selected": 0
+            }
+          },
+          "serviceName": "",
+          "number": "",
+          "linkedResolver": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
+              "value": "my_resolver",
+              "selected": 0
+            }
+          },
+          "resolverOpts": {
+            "allow-dup-ip": {
+              "value": "allow-dup-ip",
+              "selected": 1
+            },
+            "ignore-weight": {
+              "value": "ignore-weight",
+              "selected": 0
+            },
+            "prevent-dup-ip": {
+              "value": "prevent-dup-ip",
+              "selected": 1
+            }
+          },
+          "resolvePrefer": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "ipv4": {
+              "value": "prefer IPv4",
+              "selected": 0
+            },
+            "ipv6": {
+              "value": "prefer IPv6 [default]",
+              "selected": 0
+            }
+          },
+          "ssl": "1",
+          "sslVerify": "1",
+          "sslCA": {
+            "60cc45d3d7530": {
+              "value": "internal ca",
+              "selected": 0
+            },
+            "610d3779926d6": {
+              "value": "special-ca",
+              "selected": 0
+            }
+          },
+          "sslCRL": {
+            "": {
+              "value": "",
+              "selected": 1
+            }
+          },
+          "sslClientCertificate": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "610d37950266d": {
+              "value": "special-cert",
+              "selected": 0
+            },
+            "60cc4641eb577": {
+              "value": "Web Gui Certificate",
+              "selected": 0
+            },
+            "5eba6f0f352e3": {
+              "value": "Web GUI SSL certificate",
+              "selected": 0
+            }
+          },
+          "weight": "",
+          "checkInterval": "",
+          "checkDownInterval": "",
+          "source": "",
+          "advanced": ""
+        }
+      }
+    },
+    "healthchecks": {
+      "healthcheck": {
+        "5fc21dc7-5a0e-48ba-bc17-a7d41f5dadde": {
+          "name": "http_head",
+          "description": "Monitor http",
+          "type": {
+            "tcp": {
+              "value": "TCP",
+              "selected": 0
+            },
+            "http": {
+              "value": "HTTP [default]",
+              "selected": 1
+            },
+            "agent": {
+              "value": "Agent",
+              "selected": 0
+            },
+            "ldap": {
+              "value": "LDAP",
+              "selected": 0
+            },
+            "mysql": {
+              "value": "MySQL",
+              "selected": 0
+            },
+            "pgsql": {
+              "value": "PostgreSQL",
+              "selected": 0
+            },
+            "redis": {
+              "value": "Redis",
+              "selected": 0
+            },
+            "smtp": {
+              "value": "SMTP",
+              "selected": 0
+            },
+            "esmtp": {
+              "value": "ESMTP",
+              "selected": 0
+            },
+            "ssl": {
+              "value": "SSL",
+              "selected": 0
+            }
+          },
+          "interval": "2s",
+          "force_ssl": "0",
+          "checkport": "",
+          "http_method": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "options": {
+              "value": "OPTIONS [default]",
+              "selected": 0
+            },
+            "head": {
+              "value": "HEAD",
+              "selected": 1
+            },
+            "get": {
+              "value": "GET",
+              "selected": 0
+            },
+            "put": {
+              "value": "PUT",
+              "selected": 0
+            },
+            "post": {
+              "value": "POST",
+              "selected": 0
+            },
+            "delete": {
+              "value": "DELETE",
+              "selected": 0
+            },
+            "trace": {
+              "value": "TRACE",
+              "selected": 0
+            }
+          },
+          "http_uri": "/",
+          "http_version": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "http10": {
+              "value": "HTTP/1.0 [default]",
+              "selected": 1
+            },
+            "http11": {
+              "value": "HTTP/1.1",
+              "selected": 0
+            },
+            "http2": {
+              "value": "HTTP/2",
+              "selected": 0
+            }
+          },
+          "http_host": "localhost",
+          "http_expressionEnabled": "0",
+          "http_expression": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "status": {
+              "value": "test the exact string match for the HTTP status code",
+              "selected": 0
+            },
+            "rstatus": {
+              "value": "test a regular expression for the HTTP status code",
+              "selected": 0
+            },
+            "string": {
+              "value": "test the exact string match in the HTTP response body",
+              "selected": 0
+            },
+            "rstring": {
+              "value": "test a regular expression on the HTTP response body",
+              "selected": 0
+            }
+          },
+          "http_negate": "0",
+          "http_value": "",
+          "tcp_enabled": "0",
+          "tcp_sendValue": "",
+          "tcp_matchType": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "string": {
+              "value": "test the exact string match in the response buffer [default]",
+              "selected": 1
+            },
+            "rstring": {
+              "value": "test a regular expression on the response buffer",
+              "selected": 0
+            },
+            "binary": {
+              "value": "test the exact string in its hexadecimal form matches in the response buffer",
+              "selected": 0
+            }
+          },
+          "tcp_negate": "0",
+          "tcp_matchValue": "",
+          "agent_port": "",
+          "mysql_user": "",
+          "mysql_post41": "0",
+          "pgsql_user": "",
+          "smtp_domain": "",
+          "esmtp_domain": "",
+          "agentPort": "",
+          "dbUser": "",
+          "smtpDomain": ""
+        }
+      }
+    },
+    "acls": {
+      "acl": {
+        "0a5b6c77-7a3a-4cb1-9a38-9ace2756c68e": {
+          "id": "611a3ce518a182.02292764",
+          "name": "my_condition",
+          "description": "",
+          "expression": {
+            "http_auth": {
+              "value": "HTTP Basic Auth: username/password from client matches selected User/Group",
+              "selected": 1
+            },
+            "hdr_beg": {
+              "value": "Host starts with",
+              "selected": 0
+            },
+            "hdr_end": {
+              "value": "Host ends with",
+              "selected": 0
+            },
+            "hdr": {
+              "value": "Host matches",
+              "selected": 0
+            },
+            "hdr_reg": {
+              "value": "Host regex",
+              "selected": 0
+            },
+            "hdr_sub": {
+              "value": "Host contains",
+              "selected": 0
+            },
+            "path_beg": {
+              "value": "Path starts with",
+              "selected": 0
+            },
+            "path_end": {
+              "value": "Path ends with",
+              "selected": 0
+            },
+            "path": {
+              "value": "Path matches",
+              "selected": 0
+            },
+            "path_reg": {
+              "value": "Path regex",
+              "selected": 0
+            },
+            "path_dir": {
+              "value": "Path contains subdir",
+              "selected": 0
+            },
+            "path_sub": {
+              "value": "Path contains string",
+              "selected": 0
+            },
+            "cust_hdr_beg": {
+              "value": "HTTP Header starts with",
+              "selected": 0
+            },
+            "cust_hdr_end": {
+              "value": "HTTP Header ends with",
+              "selected": 0
+            },
+            "cust_hdr": {
+              "value": "HTTP Header matches",
+              "selected": 0
+            },
+            "cust_hdr_reg": {
+              "value": "HTTP Header regex",
+              "selected": 0
+            },
+            "cust_hdr_sub": {
+              "value": "HTTP Header contains",
+              "selected": 0
+            },
+            "url_param": {
+              "value": "URL parameter contains",
+              "selected": 0
+            },
+            "ssl_c_verify": {
+              "value": "SSL Client certificate is valid",
+              "selected": 0
+            },
+            "ssl_c_verify_code": {
+              "value": "SSL Client certificate verify error result",
+              "selected": 0
+            },
+            "ssl_c_ca_commonname": {
+              "value": "SSL Client certificate issued by CA common-name",
+              "selected": 0
+            },
+            "src": {
+              "value": "Source IP matches specified IP",
+              "selected": 0
+            },
+            "src_is_local": {
+              "value": "Source IP is local",
+              "selected": 0
+            },
+            "src_port": {
+              "value": "Source IP: TCP source port",
+              "selected": 0
+            },
+            "src_bytes_in_rate": {
+              "value": "Source IP: incoming bytes rate",
+              "selected": 0
+            },
+            "src_bytes_out_rate": {
+              "value": "Source IP: outgoing bytes rate",
+              "selected": 0
+            },
+            "src_kbytes_in": {
+              "value": "Source IP: amount of data received (in kilobytes)",
+              "selected": 0
+            },
+            "src_kbytes_out": {
+              "value": "Source IP: amount of data sent (in kilobytes)",
+              "selected": 0
+            },
+            "src_conn_cnt": {
+              "value": "Source IP: cumulative number of connections",
+              "selected": 0
+            },
+            "src_conn_cur": {
+              "value": "Source IP: concurrent connections",
+              "selected": 0
+            },
+            "src_conn_rate": {
+              "value": "Source IP: connection rate",
+              "selected": 0
+            },
+            "src_http_err_cnt": {
+              "value": "Source IP: cumulative number of HTTP errors",
+              "selected": 0
+            },
+            "src_http_err_rate": {
+              "value": "Source IP: rate of HTTP errors",
+              "selected": 0
+            },
+            "src_http_req_cnt": {
+              "value": "Source IP: number of HTTP requests",
+              "selected": 0
+            },
+            "src_http_req_rate": {
+              "value": "Source IP: rate of HTTP requests",
+              "selected": 0
+            },
+            "src_sess_cnt": {
+              "value": "Source IP: cumulative number of sessions",
+              "selected": 0
+            },
+            "src_sess_rate": {
+              "value": "Source IP: session rate",
+              "selected": 0
+            },
+            "nbsrv": {
+              "value": "Minimum number of usable servers in backend",
+              "selected": 0
+            },
+            "traffic_is_http": {
+              "value": "Traffic is HTTP",
+              "selected": 0
+            },
+            "traffic_is_ssl": {
+              "value": "Traffic is SSL (TCP request content inspection)",
+              "selected": 0
+            },
+            "ssl_fc": {
+              "value": "Traffic is SSL (locally deciphered)",
+              "selected": 0
+            },
+            "ssl_fc_sni": {
+              "value": "SNI TLS extension matches (locally deciphered)",
+              "selected": 0
+            },
+            "ssl_sni": {
+              "value": "SNI TLS extension matches (TCP request content inspection)",
+              "selected": 0
+            },
+            "ssl_sni_sub": {
+              "value": "SNI TLS extension contains (TCP request content inspection)",
+              "selected": 0
+            },
+            "ssl_sni_beg": {
+              "value": "SNI TLS extension starts with (TCP request content inspection)",
+              "selected": 0
+            },
+            "ssl_sni_end": {
+              "value": "SNI TLS extension ends with (TCP request content inspection)",
+              "selected": 0
+            },
+            "ssl_sni_reg": {
+              "value": "SNI TLS extension regex (TCP request content inspection)",
+              "selected": 0
+            },
+            "custom_acl": {
+              "value": "Custom condition (option pass-through)",
+              "selected": 0
+            }
+          },
+          "negate": "0",
+          "hdr_beg": "",
+          "hdr_end": "",
+          "hdr": "",
+          "hdr_reg": "",
+          "hdr_sub": "",
+          "path_beg": "",
+          "path_end": "",
+          "path": "",
+          "path_reg": "",
+          "path_dir": "",
+          "path_sub": "",
+          "cust_hdr_beg_name": "",
+          "cust_hdr_beg": "",
+          "cust_hdr_end_name": "",
+          "cust_hdr_end": "",
+          "cust_hdr_name": "",
+          "cust_hdr": "",
+          "cust_hdr_reg_name": "",
+          "cust_hdr_reg": "",
+          "cust_hdr_sub_name": "",
+          "cust_hdr_sub": "",
+          "url_param": "",
+          "url_param_value": "",
+          "ssl_c_verify_code": "",
+          "ssl_c_ca_commonname": "",
+          "src": "",
+          "src_bytes_in_rate_comparison": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "gt": {
+              "value": "greater than",
+              "selected": 1
+            },
+            "ge": {
+              "value": "greater equal",
+              "selected": 0
+            },
+            "eq": {
+              "value": "equal",
+              "selected": 0
+            },
+            "lt": {
+              "value": "less than",
+              "selected": 0
+            },
+            "le": {
+              "value": "less equal",
+              "selected": 0
+            }
+          },
+          "src_bytes_in_rate": "",
+          "src_bytes_out_rate_comparison": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "gt": {
+              "value": "greater than",
+              "selected": 1
+            },
+            "ge": {
+              "value": "greater equal",
+              "selected": 0
+            },
+            "eq": {
+              "value": "equal",
+              "selected": 0
+            },
+            "lt": {
+              "value": "less than",
+              "selected": 0
+            },
+            "le": {
+              "value": "less equal",
+              "selected": 0
+            }
+          },
+          "src_bytes_out_rate": "",
+          "src_conn_cnt_comparison": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "gt": {
+              "value": "greater than",
+              "selected": 1
+            },
+            "ge": {
+              "value": "greater equal",
+              "selected": 0
+            },
+            "eq": {
+              "value": "equal",
+              "selected": 0
+            },
+            "lt": {
+              "value": "less than",
+              "selected": 0
+            },
+            "le": {
+              "value": "less equal",
+              "selected": 0
+            }
+          },
+          "src_conn_cnt": "",
+          "src_conn_cur_comparison": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "gt": {
+              "value": "greater than",
+              "selected": 1
+            },
+            "ge": {
+              "value": "greater equal",
+              "selected": 0
+            },
+            "eq": {
+              "value": "equal",
+              "selected": 0
+            },
+            "lt": {
+              "value": "less than",
+              "selected": 0
+            },
+            "le": {
+              "value": "less equal",
+              "selected": 0
+            }
+          },
+          "src_conn_cur": "",
+          "src_conn_rate_comparison": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "gt": {
+              "value": "greater than",
+              "selected": 1
+            },
+            "ge": {
+              "value": "greater equal",
+              "selected": 0
+            },
+            "eq": {
+              "value": "equal",
+              "selected": 0
+            },
+            "lt": {
+              "value": "less than",
+              "selected": 0
+            },
+            "le": {
+              "value": "less equal",
+              "selected": 0
+            }
+          },
+          "src_conn_rate": "",
+          "src_http_err_cnt_comparison": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "gt": {
+              "value": "greater than",
+              "selected": 1
+            },
+            "ge": {
+              "value": "greater equal",
+              "selected": 0
+            },
+            "eq": {
+              "value": "equal",
+              "selected": 0
+            },
+            "lt": {
+              "value": "less than",
+              "selected": 0
+            },
+            "le": {
+              "value": "less equal",
+              "selected": 0
+            }
+          },
+          "src_http_err_cnt": "",
+          "src_http_err_rate_comparison": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "gt": {
+              "value": "greater than",
+              "selected": 1
+            },
+            "ge": {
+              "value": "greater equal",
+              "selected": 0
+            },
+            "eq": {
+              "value": "equal",
+              "selected": 0
+            },
+            "lt": {
+              "value": "less than",
+              "selected": 0
+            },
+            "le": {
+              "value": "less equal",
+              "selected": 0
+            }
+          },
+          "src_http_err_rate": "",
+          "src_http_req_cnt_comparison": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "gt": {
+              "value": "greater than",
+              "selected": 1
+            },
+            "ge": {
+              "value": "greater equal",
+              "selected": 0
+            },
+            "eq": {
+              "value": "equal",
+              "selected": 0
+            },
+            "lt": {
+              "value": "less than",
+              "selected": 0
+            },
+            "le": {
+              "value": "less equal",
+              "selected": 0
+            }
+          },
+          "src_http_req_cnt": "",
+          "src_http_req_rate_comparison": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "gt": {
+              "value": "greater than",
+              "selected": 1
+            },
+            "ge": {
+              "value": "greater equal",
+              "selected": 0
+            },
+            "eq": {
+              "value": "equal",
+              "selected": 0
+            },
+            "lt": {
+              "value": "less than",
+              "selected": 0
+            },
+            "le": {
+              "value": "less equal",
+              "selected": 0
+            }
+          },
+          "src_http_req_rate": "",
+          "src_kbytes_in_comparison": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "gt": {
+              "value": "greater than",
+              "selected": 1
+            },
+            "ge": {
+              "value": "greater equal",
+              "selected": 0
+            },
+            "eq": {
+              "value": "equal",
+              "selected": 0
+            },
+            "lt": {
+              "value": "less than",
+              "selected": 0
+            },
+            "le": {
+              "value": "less equal",
+              "selected": 0
+            }
+          },
+          "src_kbytes_in": "",
+          "src_kbytes_out_comparison": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "gt": {
+              "value": "greater than",
+              "selected": 1
+            },
+            "ge": {
+              "value": "greater equal",
+              "selected": 0
+            },
+            "eq": {
+              "value": "equal",
+              "selected": 0
+            },
+            "lt": {
+              "value": "less than",
+              "selected": 0
+            },
+            "le": {
+              "value": "less equal",
+              "selected": 0
+            }
+          },
+          "src_kbytes_out": "",
+          "src_port_comparison": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "gt": {
+              "value": "greater than",
+              "selected": 1
+            },
+            "ge": {
+              "value": "greater equal",
+              "selected": 0
+            },
+            "eq": {
+              "value": "equal",
+              "selected": 0
+            },
+            "lt": {
+              "value": "less than",
+              "selected": 0
+            },
+            "le": {
+              "value": "less equal",
+              "selected": 0
+            }
+          },
+          "src_port": "",
+          "src_sess_cnt_comparison": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "gt": {
+              "value": "greater than",
+              "selected": 1
+            },
+            "ge": {
+              "value": "greater equal",
+              "selected": 0
+            },
+            "eq": {
+              "value": "equal",
+              "selected": 0
+            },
+            "lt": {
+              "value": "less than",
+              "selected": 0
+            },
+            "le": {
+              "value": "less equal",
+              "selected": 0
+            }
+          },
+          "src_sess_cnt": "",
+          "src_sess_rate_comparison": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "gt": {
+              "value": "greater than",
+              "selected": 1
+            },
+            "ge": {
+              "value": "greater equal",
+              "selected": 0
+            },
+            "eq": {
+              "value": "equal",
+              "selected": 0
+            },
+            "lt": {
+              "value": "less than",
+              "selected": 0
+            },
+            "le": {
+              "value": "less equal",
+              "selected": 0
+            }
+          },
+          "src_sess_rate": "",
+          "nbsrv": "",
+          "nbsrv_backend": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "5d17779f-1407-4cdf-a616-b7024bea4448": {
+              "value": "pool1",
+              "selected": 0
+            },
+            "2c57ff97-10df-41a1-8a02-ab2fd1a4a651": {
+              "value": "pool2",
+              "selected": 0
+            },
+            "fee6bae9-8168-46bc-a6d1-c88838a1b3ec": {
+              "value": "pool3",
+              "selected": 0
+            },
+            "45e81a82-0c52-4739-a660-0cb0dcd1f409": {
+              "value": "pool4",
+              "selected": 0
+            }
+          },
+          "ssl_fc_sni": "",
+          "ssl_sni": "",
+          "ssl_sni_sub": "",
+          "ssl_sni_beg": "",
+          "ssl_sni_end": "",
+          "ssl_sni_reg": "",
+          "custom_acl": "",
+          "value": "",
+          "urlparam": "",
+          "queryBackend": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "5d17779f-1407-4cdf-a616-b7024bea4448": {
+              "value": "pool1",
+              "selected": 0
+            },
+            "2c57ff97-10df-41a1-8a02-ab2fd1a4a651": {
+              "value": "pool2",
+              "selected": 0
+            },
+            "fee6bae9-8168-46bc-a6d1-c88838a1b3ec": {
+              "value": "pool3",
+              "selected": 0
+            },
+            "45e81a82-0c52-4739-a660-0cb0dcd1f409": {
+              "value": "pool4",
+              "selected": 0
+            }
+          },
+          "allowedUsers": [],
+          "allowedGroups": []
+        }
+      }
+    },
+    "actions": {
+      "action": {
+        "b1b621ba-e4fc-4f13-bf76-34a2c78a8980": {
+          "name": "my_rule",
+          "description": "custom rule",
+          "testType": {
+            "if": {
+              "value": "IF [default]",
+              "selected": 1
+            },
+            "unless": {
+              "value": "UNLESS",
+              "selected": 0
+            }
+          },
+          "linkedAcls": {
+            "0a5b6c77-7a3a-4cb1-9a38-9ace2756c68e": {
+              "value": "my_condition",
+              "selected": 0
+            }
+          },
+          "operator": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "and": {
+              "value": "AND [default]",
+              "selected": 1
+            },
+            "or": {
+              "value": "OR",
+              "selected": 0
+            }
+          },
+          "type": {
+            "use_backend": {
+              "value": "Use specified Backend Pool",
+              "selected": 1
+            },
+            "use_server": {
+              "value": "Override server in Backend Pool",
+              "selected": 0
+            },
+            "map_use_backend": {
+              "value": "Map domains to backend pools using a map file",
+              "selected": 0
+            },
+            "http-request_allow": {
+              "value": "http-request allow",
+              "selected": 0
+            },
+            "http-request_deny": {
+              "value": "http-request deny",
+              "selected": 0
+            },
+            "http-request_tarpit": {
+              "value": "http-request tarpit",
+              "selected": 0
+            },
+            "http-request_auth": {
+              "value": "http-request auth",
+              "selected": 0
+            },
+            "http-request_redirect": {
+              "value": "http-request redirect",
+              "selected": 0
+            },
+            "http-request_lua": {
+              "value": "http-request lua action",
+              "selected": 0
+            },
+            "http-request_use-service": {
+              "value": "http-request lua service",
+              "selected": 0
+            },
+            "http-request_add-header": {
+              "value": "http-request header add",
+              "selected": 0
+            },
+            "http-request_set-header": {
+              "value": "http-request header set",
+              "selected": 0
+            },
+            "http-request_del-header": {
+              "value": "http-request header delete",
+              "selected": 0
+            },
+            "http-request_replace-header": {
+              "value": "http-request header replace",
+              "selected": 0
+            },
+            "http-request_replace-value": {
+              "value": "http-request header replace value",
+              "selected": 0
+            },
+            "http-request_set-path": {
+              "value": "http-request set-path",
+              "selected": 0
+            },
+            "http-request_set-var": {
+              "value": "http-request set-var",
+              "selected": 0
+            },
+            "http-response_allow": {
+              "value": "http-response allow",
+              "selected": 0
+            },
+            "http-response_deny": {
+              "value": "http-response deny",
+              "selected": 0
+            },
+            "http-response_lua": {
+              "value": "http-response lua script",
+              "selected": 0
+            },
+            "http-response_add-header": {
+              "value": "http-response header add",
+              "selected": 0
+            },
+            "http-response_set-header": {
+              "value": "http-response header set",
+              "selected": 0
+            },
+            "http-response_del-header": {
+              "value": "http-response header delete",
+              "selected": 0
+            },
+            "http-response_replace-header": {
+              "value": "http-response header replace",
+              "selected": 0
+            },
+            "http-response_replace-value": {
+              "value": "http-response header replace value",
+              "selected": 0
+            },
+            "http-response_set-status": {
+              "value": "http-response set-status",
+              "selected": 0
+            },
+            "http-response_set-var": {
+              "value": "http-response set-var",
+              "selected": 0
+            },
+            "tcp-request_connection_accept": {
+              "value": "tcp-request connection accept",
+              "selected": 0
+            },
+            "tcp-request_connection_reject": {
+              "value": "tcp-request connection reject",
+              "selected": 0
+            },
+            "tcp-request_content_accept": {
+              "value": "tcp-request content accept",
+              "selected": 0
+            },
+            "tcp-request_content_reject": {
+              "value": "tcp-request content reject",
+              "selected": 0
+            },
+            "tcp-request_content_lua": {
+              "value": "tcp-request content lua script",
+              "selected": 0
+            },
+            "tcp-request_content_use-service": {
+              "value": "tcp-request content use-service",
+              "selected": 0
+            },
+            "tcp-request_inspect-delay": {
+              "value": "tcp-request inspect-delay",
+              "selected": 0
+            },
+            "tcp-response_content_accept": {
+              "value": "tcp-response content accept",
+              "selected": 0
+            },
+            "tcp-response_content_close": {
+              "value": "tcp-response content close",
+              "selected": 0
+            },
+            "tcp-response_content_reject": {
+              "value": "tcp-response content reject",
+              "selected": 0
+            },
+            "tcp-response_content_lua": {
+              "value": "tcp-response content lua script",
+              "selected": 0
+            },
+            "tcp-response_inspect-delay": {
+              "value": "tcp-response inspect-delay",
+              "selected": 0
+            },
+            "custom": {
+              "value": "Custom rule (option pass-through)",
+              "selected": 0
+            }
+          },
+          "use_backend": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "5d17779f-1407-4cdf-a616-b7024bea4448": {
+              "value": "pool1",
+              "selected": 0
+            },
+            "2c57ff97-10df-41a1-8a02-ab2fd1a4a651": {
+              "value": "pool2",
+              "selected": 0
+            },
+            "fee6bae9-8168-46bc-a6d1-c88838a1b3ec": {
+              "value": "pool3",
+              "selected": 0
+            },
+            "45e81a82-0c52-4739-a660-0cb0dcd1f409": {
+              "value": "pool4",
+              "selected": 0
+            }
+          },
+          "use_server": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "15e47988-d6fd-498f-9583-cd13a37408bd": {
+              "value": "my_new_testserver",
+              "selected": 0
+            },
+            "cbb43680-dd44-4f3d-b64b-8ef64c97be96": {
+              "value": "my_new_testserver",
+              "selected": 0
+            },
+            "dd74172b-d5c7-4d44-9ce3-667675a1e780": {
+              "value": "server1",
+              "selected": 0
+            },
+            "28cfa25d-74b2-4a22-9f4a-d5923fb1394d": {
+              "value": "server2",
+              "selected": 0
+            },
+            "46e159c3-c96d-45a1-8c81-f963c40e1e9f": {
+              "value": "server4",
+              "selected": 0
+            },
+            "0f2f3bfd-8661-4e86-b2a6-2ce6a3420a48": {
+              "value": "server50",
+              "selected": 0
+            }
+          },
+          "http_request_auth": "",
+          "http_request_redirect": "",
+          "http_request_lua": "",
+          "http_request_use_service": "",
+          "http_request_add_header_name": "",
+          "http_request_add_header_content": "",
+          "http_request_set_header_name": "",
+          "http_request_set_header_content": "",
+          "http_request_del_header_name": "",
+          "http_request_replace_header_name": "",
+          "http_request_replace_header_regex": "",
+          "http_request_replace_value_name": "",
+          "http_request_replace_value_regex": "",
+          "http_request_set_path": "",
+          "http_request_set_var_scope": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "proc": {
+              "value": "variable is shared with the whole process",
+              "selected": 0
+            },
+            "sess": {
+              "value": "variable is shared with the whole session",
+              "selected": 0
+            },
+            "txn": {
+              "value": "variable is shared with the transaction (request/response)",
+              "selected": 1
+            },
+            "req": {
+              "value": "variable is shared only during request processing",
+              "selected": 0
+            },
+            "res": {
+              "value": "variable is shared only during response processing",
+              "selected": 0
+            }
+          },
+          "http_request_set_var_name": "",
+          "http_request_set_var_expr": "",
+          "http_response_lua": "",
+          "http_response_add_header_name": "",
+          "http_response_add_header_content": "",
+          "http_response_set_header_name": "",
+          "http_response_set_header_content": "",
+          "http_response_del_header_name": "",
+          "http_response_replace_header_name": "",
+          "http_response_replace_header_regex": "",
+          "http_response_replace_value_name": "",
+          "http_response_replace_value_regex": "",
+          "http_response_set_status_code": "",
+          "http_response_set_status_reason": "",
+          "http_response_set_var_scope": {
+            "": {
+              "value": "none",
+              "selected": false
+            },
+            "proc": {
+              "value": "variable is shared with the whole process",
+              "selected": 0
+            },
+            "sess": {
+              "value": "variable is shared with the whole session",
+              "selected": 0
+            },
+            "txn": {
+              "value": "variable is shared with the transaction (request/response)",
+              "selected": 1
+            },
+            "req": {
+              "value": "variable is shared only during request processing",
+              "selected": 0
+            },
+            "res": {
+              "value": "variable is shared only during response processing",
+              "selected": 0
+            }
+          },
+          "http_response_set_var_name": "",
+          "http_response_set_var_expr": "",
+          "tcp_request_content_lua": "",
+          "tcp_request_content_use_service": "",
+          "tcp_request_inspect_delay": "",
+          "tcp_response_content_lua": "",
+          "tcp_response_inspect_delay": "",
+          "custom": "",
+          "useBackend": {
+            "5d17779f-1407-4cdf-a616-b7024bea4448": {
+              "value": "pool1",
+              "selected": 0
+            },
+            "2c57ff97-10df-41a1-8a02-ab2fd1a4a651": {
+              "value": "pool2",
+              "selected": 0
+            },
+            "fee6bae9-8168-46bc-a6d1-c88838a1b3ec": {
+              "value": "pool3",
+              "selected": 0
+            },
+            "45e81a82-0c52-4739-a660-0cb0dcd1f409": {
+              "value": "pool4",
+              "selected": 0
+            }
+          },
+          "useServer": {
+            "15e47988-d6fd-498f-9583-cd13a37408bd": {
+              "value": "my_new_testserver",
+              "selected": 0
+            },
+            "cbb43680-dd44-4f3d-b64b-8ef64c97be96": {
+              "value": "my_new_testserver",
+              "selected": 0
+            },
+            "dd74172b-d5c7-4d44-9ce3-667675a1e780": {
+              "value": "server1",
+              "selected": 0
+            },
+            "28cfa25d-74b2-4a22-9f4a-d5923fb1394d": {
+              "value": "server2",
+              "selected": 0
+            },
+            "46e159c3-c96d-45a1-8c81-f963c40e1e9f": {
+              "value": "server4",
+              "selected": 0
+            },
+            "0f2f3bfd-8661-4e86-b2a6-2ce6a3420a48": {
+              "value": "server50",
+              "selected": 0
+            }
+          },
+          "actionName": "",
+          "actionFind": "",
+          "actionValue": "",
+          "map_use_backend_file": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "9a7e6b2d-66fe-487f-9ac4-541dd8f2f639": {
+              "value": "my_mapped_files",
+              "selected": 0
+            }
+          },
+          "map_use_backend_default": {
+            "": {
+              "value": "none",
+              "selected": 0
+            },
+            "5d17779f-1407-4cdf-a616-b7024bea4448": {
+              "value": "pool1",
+              "selected": 0
+            },
+            "2c57ff97-10df-41a1-8a02-ab2fd1a4a651": {
+              "value": "pool2",
+              "selected": 0
+            },
+            "fee6bae9-8168-46bc-a6d1-c88838a1b3ec": {
+              "value": "pool3",
+              "selected": 0
+            },
+            "45e81a82-0c52-4739-a660-0cb0dcd1f409": {
+              "value": "pool4",
+              "selected": 0
+            }
+          }
+        }
+      }
+    },
+    "luas": {
+      "lua": {
+        "ffe95743-837c-4a38-98bd-6beafcbd6fa5": {
+          "id": "611a3c9a6fd6b1.37815539",
+          "enabled": "1",
+          "name": "my_lua_script",
+          "description": "test",
+          "content": "core.register_action(\"verify_request\", { \"http-req\" }, function(txn)\n   -- Verify that the request is authorized\n   -- Obviously stupid in this case without additional information being sent\n   local s = core.tcp()\n\n   -- Should be pointing to an HAProxy frontend with balancing/health checks/etc.\n   s:connect(\"127.0.0.1:8080\")\n\n   -- We use HTTP 1.0 because we don't support keepalive or any other advanced features in this script.\n   s:send(\"GET /verify.php?url=\" .. txn.sf:path() .. \" HTTP/1.1\\r\\nHost: veriy.example.com\\r\\n\\r\\n\")\n   local msg = s:receive(\"*l\")\n\n   -- Indicates a connection failure\n   if msg == nil then\n      -- This leave txn.request_verified unset for potentially diffrent handling\n      return\n   end\n\n   msg = tonumber(string.sub(msg, 9, 12)) -- Read code from 'HTTP/1.0 XXX'\n\n   -- Makes it easy to test by making any file to be denied.\n   if msg == 404 then\n      txn.set_var(txn,\"txn.request_verified\",true)\n   else\n      txn.set_var(txn,\"txn.request_verified\",false)\n   end\n\n   -- Read the response body, though in this example we aren't using it.\n   msg = s:receive(\"*l\")\nend)"
+        }
+      }
+    },
+    "errorfiles": {
+      "errorfile": {
+        "a7dc8e54-c7c3-4aa4-a3de-b37d159a9c7a": {
+          "id": "611a3c8398d4d3.46784708",
+          "name": "custom_error_500",
+          "description": "My custom error messae",
+          "code": {
+            "x200": {
+              "value": "200",
+              "selected": 0
+            },
+            "x400": {
+              "value": "400",
+              "selected": 0
+            },
+            "x403": {
+              "value": "403",
+              "selected": 0
+            },
+            "x405": {
+              "value": "405",
+              "selected": 0
+            },
+            "x408": {
+              "value": "408",
+              "selected": 0
+            },
+            "x429": {
+              "value": "429",
+              "selected": 0
+            },
+            "x500": {
+              "value": "500",
+              "selected": 1
+            },
+            "x502": {
+              "value": "502",
+              "selected": 0
+            },
+            "x503": {
+              "value": "503",
+              "selected": 0
+            },
+            "x504": {
+              "value": "504",
+              "selected": 0
+            }
+          },
+          "content": "HTTP/1.0 503 Service Unavailable\nCache-Control: no-cache\nConnection: close\nContent-Type: text/html\n\n<html> \n  <head>\n    <title>RARRR!!!!!</title>\n  </head> \n  <body style=\"font-family:Arial,Helvetica,sans-serif;\">\n    <div style=\"margin: 0 auto; width: 960px;\"> \n          <h2 >RAWR RAWR RAWR</h2>\n    </div>\n  </body> \n</html>"
+        }
+      }
+    },
+    "mapfiles": {
+      "mapfile": {
+        "9a7e6b2d-66fe-487f-9ac4-541dd8f2f639": {
+          "id": "611a3cae837a10.69862420",
+          "name": "my_mapped_files",
+          "description": "custom mapped files",
+          "content": "."
+        }
+      }
+    },
+    "groups": {
+      "group": {
+        "741e1c18-ba34-4fab-823a-7017fc3af1ec": {
+          "id": "613220c5e25cb8.98533797",
+          "enabled": "1",
+          "name": "my_group",
+          "description": "",
+          "members": {
+            "36965ef4-d1cd-42e6-8e3e-6f1a9acb37ac": {
+              "value": "user1",
+              "selected": 1
+            },
+            "d99f0f32-7cab-49df-a2f8-a4fa6edab03f": {
+              "value": "user2",
+              "selected": 1
+            }
+          },
+          "add_userlist": "1"
+        }
+      }
+    },
+    "users": {
+      "user": {
+        "36965ef4-d1cd-42e6-8e3e-6f1a9acb37ac": {
+          "id": "613220fe6005d2.28407094",
+          "enabled": "1",
+          "name": "user1",
+          "description": "",
+          "password": "123"
+        },
+        "d99f0f32-7cab-49df-a2f8-a4fa6edab03f": {
+          "id": "613231463ed0d2.31157213",
+          "enabled": "1",
+          "name": "user2",
+          "description": "test",
+          "password": "unencrypted"
+        }
+      }
+    },
+    "cpus": {
+      "cpu": {
+        "1ce4a03b-e69c-4ea7-a506-59b9b074e644": {
+          "id": "611a3cc4a2a3b2.25853258",
+          "enabled": "1",
+          "name": "my_affinit_rule",
+          "process_id": {
+            "all": {
+              "value": "All HAProxy processes",
+              "selected": 1
+            },
+            "odd": {
+              "value": "Processes with odd ID",
+              "selected": 0
+            },
+            "even": {
+              "value": "Processes with even ID",
+              "selected": 0
+            },
+            "x1": {
+              "value": "Process 1",
+              "selected": 0
+            },
+            "x2": {
+              "value": "Process 2",
+              "selected": 0
+            },
+            "x3": {
+              "value": "Process 3",
+              "selected": 0
+            },
+            "x4": {
+              "value": "Process 4",
+              "selected": 0
+            },
+            "x5": {
+              "value": "Process 5",
+              "selected": 0
+            },
+            "x6": {
+              "value": "Process 6",
+              "selected": 0
+            },
+            "x7": {
+              "value": "Process 7",
+              "selected": 0
+            },
+            "x8": {
+              "value": "Process 8",
+              "selected": 0
+            },
+            "x9": {
+              "value": "Process 9",
+              "selected": 0
+            },
+            "x10": {
+              "value": "Process 10",
+              "selected": 0
+            },
+            "x11": {
+              "value": "Process 11",
+              "selected": 0
+            },
+            "x12": {
+              "value": "Process 12",
+              "selected": 0
+            },
+            "x13": {
+              "value": "Process 13",
+              "selected": 0
+            },
+            "x14": {
+              "value": "Process 14",
+              "selected": 0
+            },
+            "x15": {
+              "value": "Process 15",
+              "selected": 0
+            },
+            "x16": {
+              "value": "Process 16",
+              "selected": 0
+            },
+            "x17": {
+              "value": "Process 17",
+              "selected": 0
+            },
+            "x18": {
+              "value": "Process 18",
+              "selected": 0
+            },
+            "x19": {
+              "value": "Process 19",
+              "selected": 0
+            },
+            "x20": {
+              "value": "Process 20",
+              "selected": 0
+            },
+            "x21": {
+              "value": "Process 21",
+              "selected": 0
+            },
+            "x22": {
+              "value": "Process 22",
+              "selected": 0
+            },
+            "x23": {
+              "value": "Process 23",
+              "selected": 0
+            },
+            "x24": {
+              "value": "Process 24",
+              "selected": 0
+            },
+            "x25": {
+              "value": "Process 25",
+              "selected": 0
+            },
+            "x26": {
+              "value": "Process 26",
+              "selected": 0
+            },
+            "x27": {
+              "value": "Process 27",
+              "selected": 0
+            },
+            "x28": {
+              "value": "Process 28",
+              "selected": 0
+            },
+            "x29": {
+              "value": "Process 29",
+              "selected": 0
+            },
+            "x30": {
+              "value": "Process 30",
+              "selected": 0
+            },
+            "x31": {
+              "value": "Process 31",
+              "selected": 0
+            },
+            "x32": {
+              "value": "Process 32",
+              "selected": 0
+            },
+            "x33": {
+              "value": "Process 33",
+              "selected": 0
+            },
+            "x34": {
+              "value": "Process 34",
+              "selected": 0
+            },
+            "x35": {
+              "value": "Process 35",
+              "selected": 0
+            },
+            "x36": {
+              "value": "Process 36",
+              "selected": 0
+            },
+            "x37": {
+              "value": "Process 37",
+              "selected": 0
+            },
+            "x38": {
+              "value": "Process 38",
+              "selected": 0
+            },
+            "x39": {
+              "value": "Process 39",
+              "selected": 0
+            },
+            "x40": {
+              "value": "Process 40",
+              "selected": 0
+            },
+            "x41": {
+              "value": "Process 41",
+              "selected": 0
+            },
+            "x42": {
+              "value": "Process 42",
+              "selected": 0
+            },
+            "x43": {
+              "value": "Process 43",
+              "selected": 0
+            },
+            "x44": {
+              "value": "Process 44",
+              "selected": 0
+            },
+            "x45": {
+              "value": "Process 45",
+              "selected": 0
+            },
+            "x46": {
+              "value": "Process 46",
+              "selected": 0
+            },
+            "x47": {
+              "value": "Process 47",
+              "selected": 0
+            },
+            "x48": {
+              "value": "Process 48",
+              "selected": 0
+            },
+            "x49": {
+              "value": "Process 49",
+              "selected": 0
+            },
+            "x50": {
+              "value": "Process 50",
+              "selected": 0
+            },
+            "x51": {
+              "value": "Process 51",
+              "selected": 0
+            },
+            "x52": {
+              "value": "Process 52",
+              "selected": 0
+            },
+            "x53": {
+              "value": "Process 53",
+              "selected": 0
+            },
+            "x54": {
+              "value": "Process 54",
+              "selected": 0
+            },
+            "x55": {
+              "value": "Process 55",
+              "selected": 0
+            },
+            "x56": {
+              "value": "Process 56",
+              "selected": 0
+            },
+            "x57": {
+              "value": "Process 57",
+              "selected": 0
+            },
+            "x58": {
+              "value": "Process 58",
+              "selected": 0
+            },
+            "x59": {
+              "value": "Process 59",
+              "selected": 0
+            },
+            "x60": {
+              "value": "Process 60",
+              "selected": 0
+            },
+            "x61": {
+              "value": "Process 61",
+              "selected": 0
+            },
+            "x62": {
+              "value": "Process 62",
+              "selected": 0
+            },
+            "x63": {
+              "value": "Process 63",
+              "selected": 0
+            }
+          },
+          "thread_id": {
+            "all": {
+              "value": "All HAProxy threads ",
+              "selected": 1
+            },
+            "odd": {
+              "value": "Threads with odd ID",
+              "selected": 0
+            },
+            "even": {
+              "value": "Threads with even ID",
+              "selected": 0
+            },
+            "x1": {
+              "value": "Thread 1",
+              "selected": 0
+            },
+            "x2": {
+              "value": "Thread 2",
+              "selected": 0
+            },
+            "x3": {
+              "value": "Thread 3",
+              "selected": 0
+            },
+            "x4": {
+              "value": "Thread 4",
+              "selected": 0
+            },
+            "x5": {
+              "value": "Thread 5",
+              "selected": 0
+            },
+            "x6": {
+              "value": "Thread 6",
+              "selected": 0
+            },
+            "x7": {
+              "value": "Thread 7",
+              "selected": 0
+            },
+            "x8": {
+              "value": "Thread 8",
+              "selected": 0
+            },
+            "x9": {
+              "value": "Thread 9",
+              "selected": 0
+            },
+            "x10": {
+              "value": "Thread 10",
+              "selected": 0
+            },
+            "x11": {
+              "value": "Thread 11",
+              "selected": 0
+            },
+            "x12": {
+              "value": "Thread 12",
+              "selected": 0
+            },
+            "x13": {
+              "value": "Thread 13",
+              "selected": 0
+            },
+            "x14": {
+              "value": "Thread 14",
+              "selected": 0
+            },
+            "x15": {
+              "value": "Thread 15",
+              "selected": 0
+            },
+            "x16": {
+              "value": "Thread 16",
+              "selected": 0
+            },
+            "x17": {
+              "value": "Thread 17",
+              "selected": 0
+            },
+            "x18": {
+              "value": "Thread 18",
+              "selected": 0
+            },
+            "x19": {
+              "value": "Thread 19",
+              "selected": 0
+            },
+            "x20": {
+              "value": "Thread 20",
+              "selected": 0
+            },
+            "x21": {
+              "value": "Thread 21",
+              "selected": 0
+            },
+            "x22": {
+              "value": "Thread 22",
+              "selected": 0
+            },
+            "x23": {
+              "value": "Thread 23",
+              "selected": 0
+            },
+            "x24": {
+              "value": "Thread 24",
+              "selected": 0
+            },
+            "x25": {
+              "value": "Thread 25",
+              "selected": 0
+            },
+            "x26": {
+              "value": "Thread 26",
+              "selected": 0
+            },
+            "x27": {
+              "value": "Thread 27",
+              "selected": 0
+            },
+            "x28": {
+              "value": "Thread 28",
+              "selected": 0
+            },
+            "x29": {
+              "value": "Thread 29",
+              "selected": 0
+            },
+            "x30": {
+              "value": "Thread 30",
+              "selected": 0
+            },
+            "x31": {
+              "value": "Thread 31",
+              "selected": 0
+            },
+            "x32": {
+              "value": "Thread 32",
+              "selected": 0
+            },
+            "x33": {
+              "value": "Thread 33",
+              "selected": 0
+            },
+            "x34": {
+              "value": "Thread 34",
+              "selected": 0
+            },
+            "x35": {
+              "value": "Thread 35",
+              "selected": 0
+            },
+            "x36": {
+              "value": "Thread 36",
+              "selected": 0
+            },
+            "x37": {
+              "value": "Thread 37",
+              "selected": 0
+            },
+            "x38": {
+              "value": "Thread 38",
+              "selected": 0
+            },
+            "x39": {
+              "value": "Thread 39",
+              "selected": 0
+            },
+            "x40": {
+              "value": "Thread 40",
+              "selected": 0
+            },
+            "x41": {
+              "value": "Thread 41",
+              "selected": 0
+            },
+            "x42": {
+              "value": "Thread 42",
+              "selected": 0
+            },
+            "x43": {
+              "value": "Thread 43",
+              "selected": 0
+            },
+            "x44": {
+              "value": "Thread 44",
+              "selected": 0
+            },
+            "x45": {
+              "value": "Thread 45",
+              "selected": 0
+            },
+            "x46": {
+              "value": "Thread 46",
+              "selected": 0
+            },
+            "x47": {
+              "value": "Thread 47",
+              "selected": 0
+            },
+            "x48": {
+              "value": "Thread 48",
+              "selected": 0
+            },
+            "x49": {
+              "value": "Thread 49",
+              "selected": 0
+            },
+            "x50": {
+              "value": "Thread 50",
+              "selected": 0
+            },
+            "x51": {
+              "value": "Thread 51",
+              "selected": 0
+            },
+            "x52": {
+              "value": "Thread 52",
+              "selected": 0
+            },
+            "x53": {
+              "value": "Thread 53",
+              "selected": 0
+            },
+            "x54": {
+              "value": "Thread 54",
+              "selected": 0
+            },
+            "x55": {
+              "value": "Thread 55",
+              "selected": 0
+            },
+            "x56": {
+              "value": "Thread 56",
+              "selected": 0
+            },
+            "x57": {
+              "value": "Thread 57",
+              "selected": 0
+            },
+            "x58": {
+              "value": "Thread 58",
+              "selected": 0
+            },
+            "x59": {
+              "value": "Thread 59",
+              "selected": 0
+            },
+            "x60": {
+              "value": "Thread 60",
+              "selected": 0
+            },
+            "x61": {
+              "value": "Thread 61",
+              "selected": 0
+            },
+            "x62": {
+              "value": "Thread 62",
+              "selected": 0
+            },
+            "x63": {
+              "value": "Thread 63",
+              "selected": 0
+            }
+          },
+          "cpu_id": {
+            "all": {
+              "value": "All CPUs",
+              "selected": 0
+            },
+            "odd": {
+              "value": "CPUs with odd ID",
+              "selected": 0
+            },
+            "even": {
+              "value": "CPUs with even ID",
+              "selected": 0
+            },
+            "x0": {
+              "value": "CPU 0",
+              "selected": 1
+            },
+            "x1": {
+              "value": "CPU 1",
+              "selected": 0
+            },
+            "x2": {
+              "value": "CPU 2",
+              "selected": 0
+            },
+            "x3": {
+              "value": "CPU 3",
+              "selected": 0
+            },
+            "x4": {
+              "value": "CPU 4",
+              "selected": 0
+            },
+            "x5": {
+              "value": "CPU 5",
+              "selected": 0
+            },
+            "x6": {
+              "value": "CPU 6",
+              "selected": 0
+            },
+            "x7": {
+              "value": "CPU 7",
+              "selected": 0
+            },
+            "x8": {
+              "value": "CPU 8",
+              "selected": 0
+            },
+            "x9": {
+              "value": "CPU 9",
+              "selected": 0
+            },
+            "x10": {
+              "value": "CPU 10",
+              "selected": 0
+            },
+            "x11": {
+              "value": "CPU 11",
+              "selected": 0
+            },
+            "x12": {
+              "value": "CPU 12",
+              "selected": 0
+            },
+            "x13": {
+              "value": "CPU 13",
+              "selected": 0
+            },
+            "x14": {
+              "value": "CPU 14",
+              "selected": 0
+            },
+            "x15": {
+              "value": "CPU 15",
+              "selected": 0
+            },
+            "x16": {
+              "value": "CPU 16",
+              "selected": 0
+            },
+            "x17": {
+              "value": "CPU 17",
+              "selected": 0
+            },
+            "x18": {
+              "value": "CPU 18",
+              "selected": 0
+            },
+            "x19": {
+              "value": "CPU 19",
+              "selected": 0
+            },
+            "x20": {
+              "value": "CPU 20",
+              "selected": 0
+            },
+            "x21": {
+              "value": "CPU 21",
+              "selected": 0
+            },
+            "x22": {
+              "value": "CPU 22",
+              "selected": 0
+            },
+            "x23": {
+              "value": "CPU 23",
+              "selected": 0
+            },
+            "x24": {
+              "value": "CPU 24",
+              "selected": 0
+            },
+            "x25": {
+              "value": "CPU 25",
+              "selected": 0
+            },
+            "x26": {
+              "value": "CPU 26",
+              "selected": 0
+            },
+            "x27": {
+              "value": "CPU 27",
+              "selected": 0
+            },
+            "x28": {
+              "value": "CPU 28",
+              "selected": 0
+            },
+            "x29": {
+              "value": "CPU 29",
+              "selected": 0
+            },
+            "x30": {
+              "value": "CPU 30",
+              "selected": 0
+            },
+            "x31": {
+              "value": "CPU 31",
+              "selected": 0
+            },
+            "x32": {
+              "value": "CPU 32",
+              "selected": 0
+            },
+            "x33": {
+              "value": "CPU 33",
+              "selected": 0
+            },
+            "x34": {
+              "value": "CPU 34",
+              "selected": 0
+            },
+            "x35": {
+              "value": "CPU 35",
+              "selected": 0
+            },
+            "x36": {
+              "value": "CPU 36",
+              "selected": 0
+            },
+            "x37": {
+              "value": "CPU 37",
+              "selected": 0
+            },
+            "x38": {
+              "value": "CPU 38",
+              "selected": 0
+            },
+            "x39": {
+              "value": "CPU 39",
+              "selected": 0
+            },
+            "x40": {
+              "value": "CPU 40",
+              "selected": 0
+            },
+            "x41": {
+              "value": "CPU 41",
+              "selected": 0
+            },
+            "x42": {
+              "value": "CPU 42",
+              "selected": 0
+            },
+            "x43": {
+              "value": "CPU 43",
+              "selected": 0
+            },
+            "x44": {
+              "value": "CPU 44",
+              "selected": 0
+            },
+            "x45": {
+              "value": "CPU 45",
+              "selected": 0
+            },
+            "x46": {
+              "value": "CPU 46",
+              "selected": 0
+            },
+            "x47": {
+              "value": "CPU 47",
+              "selected": 0
+            },
+            "x48": {
+              "value": "CPU 48",
+              "selected": 0
+            },
+            "x49": {
+              "value": "CPU 49",
+              "selected": 0
+            },
+            "x50": {
+              "value": "CPU 50",
+              "selected": 0
+            },
+            "x51": {
+              "value": "CPU 51",
+              "selected": 0
+            },
+            "x52": {
+              "value": "CPU 52",
+              "selected": 0
+            },
+            "x53": {
+              "value": "CPU 53",
+              "selected": 0
+            },
+            "x54": {
+              "value": "CPU 54",
+              "selected": 0
+            },
+            "x55": {
+              "value": "CPU 55",
+              "selected": 0
+            },
+            "x56": {
+              "value": "CPU 56",
+              "selected": 0
+            },
+            "x57": {
+              "value": "CPU 57",
+              "selected": 0
+            },
+            "x58": {
+              "value": "CPU 58",
+              "selected": 0
+            },
+            "x59": {
+              "value": "CPU 59",
+              "selected": 0
+            },
+            "x60": {
+              "value": "CPU 60",
+              "selected": 0
+            },
+            "x61": {
+              "value": "CPU 61",
+              "selected": 0
+            },
+            "x62": {
+              "value": "CPU 62",
+              "selected": 0
+            },
+            "x63": {
+              "value": "CPU 63",
+              "selected": 0
+            }
+          }
+        }
+      }
+    },
+    "resolvers": {
+      "resolver": {
+        "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
+          "id": "610d3f740c60f9.50846688",
+          "enabled": "1",
+          "name": "my_resolver",
+          "description": "my special resolver",
+          "nameservers": {
+            "127.0.0.1:53": {
+              "value": "127.0.0.1:53",
+              "selected": 1
+            }
+          },
+          "parse_resolv_conf": "0",
+          "resolve_retries": "3",
+          "timeout_resolve": "1s",
+          "timeout_retry": "1s"
+        }
+      }
+    },
+    "mailers": {
+      "mailer": {
+        "30701b82-a255-4566-9a3e-04e52bb46b9a": {
+          "id": "611a2f4f6f4280.22425731",
+          "enabled": "1",
+          "name": "alert_to_myself",
+          "description": "Alert to myself",
+          "mailservers": {
+            "192.168.1.1:25": {
+              "value": "192.168.1.1:25",
+              "selected": 1
+            }
+          },
+          "sender": "as@test.de",
+          "recipient": "as@test.de",
+          "loglevel": {
+            "emerg": {
+              "value": "emerg",
+              "selected": 0
+            },
+            "alert": {
+              "value": "alert",
+              "selected": 1
+            },
+            "crit": {
+              "value": "crit",
+              "selected": 0
+            },
+            "err": {
+              "value": "err",
+              "selected": 0
+            },
+            "warning": {
+              "value": "warning",
+              "selected": 0
+            },
+            "notice": {
+              "value": "notice",
+              "selected": 0
+            },
+            "info": {
+              "value": "info",
+              "selected": 0
+            },
+            "debug": {
+              "value": "debug",
+              "selected": 0
+            }
+          },
+          "timeout": "30",
+          "hostname": ""
+        }
+      }
+    },
+    "maintenance": {
+      "cronjobs": {
+        "syncCerts": "0",
+        "syncCertsCron": {
+          "": {
+            "value": "none",
+            "selected": 0
+          }
+        },
+        "updateOcsp": "0",
+        "updateOcspCron": {
+          "": {
+            "value": "none",
+            "selected": 0
+          }
+        },
+        "reloadService": "0",
+        "reloadServiceCron": {
+          "": {
+            "value": "none",
+            "selected": 0
+          }
+        },
+        "restartService": "0",
+        "restartServiceCron": {
+          "": {
+            "value": "none",
+            "selected": 0
+          }
+        }
+      }
+    }
+  }
+}

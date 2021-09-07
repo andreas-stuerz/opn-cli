@@ -17,4 +17,4 @@ class ClassFromKeymapFactory(ABC):
 class ObjectTypeFromDataFactory(ABC):
     @abstractmethod
     def get_type_for_data(self, data):
-        """" This property should be implemented. """
+        """" This method should be implemented. """

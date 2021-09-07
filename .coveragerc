@@ -2,6 +2,8 @@
 omit =
     */local/*
     *venv*
+    *opnsense_cli/tests/*
+    *opnsense_cli/fixtures/*
 
 [report]
 exclude_lines =

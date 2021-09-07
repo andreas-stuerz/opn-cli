@@ -37,6 +37,12 @@ def bool_as_string(ctx, param, value):
     return value
 
 
+def tuple_to_csv(ctx, param, value):
+    if type(value) == tuple:
+        return ",".join(value)
+    return value
+
+
 def comma_to_newline(ctx, param, value):
     if type(value) == str and "," in value:
         return value.replace(",", "\n")

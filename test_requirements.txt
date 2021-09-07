@@ -1,0 +1,7 @@
+#
+####### test_requirements.txt #######
+#
+flake8
+pytest
+pytest-cov
+pyfakefs

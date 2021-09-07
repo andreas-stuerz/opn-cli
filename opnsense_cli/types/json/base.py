@@ -15,3 +15,10 @@ class JsonType(ABC):
                 row = [str(item[column]) for column in filter_columns]
             result.append(row)
         return result
+
+    def get_all_columns(self):
+        result = []
+        for row in self._json_data:
+            result = list(row.keys())
+            break
+        return result
