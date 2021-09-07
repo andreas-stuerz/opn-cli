@@ -1,7 +1,7 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
-    formatter_from_formatter_name, bool_as_string, available_formats, int_as_string, tuple_to_csv
+    formatter_from_formatter_name, bool_as_string, available_formats, int_as_string
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
@@ -145,7 +145,6 @@ def show(haproxy_resolver_svc: HaproxyResolverFacade, **kwargs):
     default='1s',
     required=False,
 )
-
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -175,7 +174,6 @@ def create(haproxy_resolver_svc: HaproxyResolverFacade, **kwargs):
             "resolve_retries": kwargs['resolve_retries'],
             "timeout_resolve": kwargs['timeout_resolve'],
             "timeout_retry": kwargs['timeout_retry'],
-            
         }
     }
 
@@ -250,7 +248,6 @@ def create(haproxy_resolver_svc: HaproxyResolverFacade, **kwargs):
     show_default=True,
     default=None
 )
-
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',

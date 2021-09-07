@@ -6,4 +6,3 @@ def haproxy(**kwargs):
     """
     Manage haproxy loadbalancer operations
     """
-

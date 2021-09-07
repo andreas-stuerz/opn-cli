@@ -20,7 +20,6 @@ class HaproxyGroupFacade(HaproxyFacade):
         jsonpath_base = '$.haproxy.groups.group'
         uuid_resolver_map = {
             'members': {'template': '$.haproxy.users.user[{uuids}].name', 'insert_as_key': 'Users'},
-            
         }
 
         return self._api_mutable_model_get(complete_model_data, jsonpath_base, uuid_resolver_map)

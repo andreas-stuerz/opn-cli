@@ -170,7 +170,7 @@ class TestHaproxyResolverCommands(CommandTestCase):
             resolver,
             [
                 "create", "my_test_resolver",
-                 "--timeout_retry", "5x"
+                "--timeout_retry", "5x"
             ]
         )
 

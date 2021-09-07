@@ -168,7 +168,7 @@ class TestHaproxyHealthcheckCommands(CommandTestCase):
             healthcheck,
             [
                 "create", "my_test_healthcheck",
-                 "--checkport", 100000
+                "--checkport", 100000
             ]
         )
 

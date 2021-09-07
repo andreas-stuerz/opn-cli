@@ -1,7 +1,7 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
-    formatter_from_formatter_name, bool_as_string, available_formats, int_as_string, tuple_to_csv
+    formatter_from_formatter_name, bool_as_string, available_formats, tuple_to_csv
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
@@ -119,7 +119,10 @@ def show(haproxy_mailer_svc: HaproxyMailerFacade, **kwargs):
 )
 @click.option(
     '--loglevel',
-    help=('Declare the maximum log level of messages for which email alerts will be sent. This acts as a filter on the sending of email alerts.'),
+    help=(
+        'Declare the maximum log level of messages for which email alerts will be sent. '
+        'This acts as a filter on the sending of email alerts.'
+    ),
     type=click.Choice(['emerg', 'alert', 'crit', 'err', 'warning', 'notice', 'info', 'debug']),
     multiple=False,
     callback=tuple_to_csv,
@@ -141,7 +144,6 @@ def show(haproxy_mailer_svc: HaproxyMailerFacade, **kwargs):
     default=None,
     required=False,
 )
-
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -172,7 +174,6 @@ def create(haproxy_mailer_svc: HaproxyMailerFacade, **kwargs):
             "loglevel": kwargs['loglevel'],
             "timeout": kwargs['timeout'],
             "hostname": kwargs['hostname'],
-            
         }
     }
 
@@ -223,7 +224,10 @@ def create(haproxy_mailer_svc: HaproxyMailerFacade, **kwargs):
 )
 @click.option(
     '--loglevel',
-    help=('Declare the maximum log level of messages for which email alerts will be sent. This acts as a filter on the sending of email alerts.'),
+    help=(
+        'Declare the maximum log level of messages for which email alerts will be sent. '
+        'This acts as a filter on the sending of email alerts.'
+    ),
     type=click.Choice(['emerg', 'alert', 'crit', 'err', 'warning', 'notice', 'info', 'debug']),
     multiple=False,
     callback=tuple_to_csv,
@@ -242,7 +246,6 @@ def create(haproxy_mailer_svc: HaproxyMailerFacade, **kwargs):
     show_default=True,
     default=None
 )
-
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',

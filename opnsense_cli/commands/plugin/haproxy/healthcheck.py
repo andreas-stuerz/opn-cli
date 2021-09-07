@@ -370,7 +370,6 @@ def create(haproxy_healthcheck_svc: HaproxyHealthcheckFacade, **kwargs):
             "agentPort": kwargs['agentport'],
             "dbUser": kwargs['dbuser'],
             "smtpDomain": kwargs['smtpdomain'],
-            
         }
     }
 
@@ -596,7 +595,6 @@ def create(haproxy_healthcheck_svc: HaproxyHealthcheckFacade, **kwargs):
     show_default=True,
     default=None
 )
-
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',

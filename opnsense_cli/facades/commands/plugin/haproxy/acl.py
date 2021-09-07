@@ -23,7 +23,6 @@ class HaproxyAclFacade(HaproxyFacade):
             'queryBackend': {'template': '$.haproxy.backends.backend[{uuids}].name', 'insert_as_key': 'BackendQuery'},
             'allowedUsers': {'template': '$.haproxy.users.user[{uuids}].name', 'insert_as_key': 'Users'},
             'allowedGroups': {'template': '$.haproxy.groups.group[{uuids}].name', 'insert_as_key': 'Groups'},
-            
         }
 
         return self._api_mutable_model_get(complete_model_data, jsonpath_base, uuid_resolver_map)

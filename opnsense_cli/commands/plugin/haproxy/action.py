@@ -1,7 +1,7 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
-    formatter_from_formatter_name, bool_as_string, available_formats, int_as_string, tuple_to_csv
+    formatter_from_formatter_name, available_formats, int_as_string, tuple_to_csv
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
@@ -542,7 +542,6 @@ def show(haproxy_action_svc: HaproxyActionFacade, **kwargs):
     default=None,
     required=False,
 )
-
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -617,7 +616,6 @@ def create(haproxy_action_svc: HaproxyActionFacade, **kwargs):
             "actionValue": kwargs['actionvalue'],
             "map_use_backend_file": kwargs['map_use_backend_file'],
             "map_use_backend_default": kwargs['map_use_backend_default'],
-            
         }
     }
 
@@ -1031,7 +1029,6 @@ def create(haproxy_action_svc: HaproxyActionFacade, **kwargs):
     show_default=True,
     default=None
 )
-
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',

@@ -19,7 +19,6 @@ class HaproxyMapfileFacade(HaproxyFacade):
         complete_model_data = self._settings_api.get()
         jsonpath_base = '$.haproxy.mapfiles.mapfile'
         uuid_resolver_map = {
-            
         }
 
         return self._api_mutable_model_get(complete_model_data, jsonpath_base, uuid_resolver_map)

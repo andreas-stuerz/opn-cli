@@ -28,7 +28,6 @@ class HaproxyActionFacade(HaproxyFacade):
                 {'template': '$.haproxy.mapfiles.mapfile[{uuids}].name', 'insert_as_key': 'Mapfile'},
             'map_use_backend_default':
                 {'template': '$.haproxy.backends.backend[{uuids}].name', 'insert_as_key': 'BackendDefault'},
-            
         }
 
         return self._api_mutable_model_get(complete_model_data, jsonpath_base, uuid_resolver_map)

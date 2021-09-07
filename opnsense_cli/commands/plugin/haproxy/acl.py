@@ -690,7 +690,6 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     default=None,
     required=False,
 )
-
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -784,7 +783,6 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
             "queryBackend": kwargs['querybackend'],
             "allowedUsers": kwargs['allowedusers'],
             "allowedGroups": kwargs['allowedgroups'],
-            
         }
     }
 
@@ -1329,7 +1327,6 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     show_default=True,
     default=None
 )
-
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
