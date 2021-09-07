@@ -28,6 +28,7 @@ from opnsense_cli.commands.plugin.haproxy.mapfile import mapfile as haproxy_mapf
 from opnsense_cli.commands.plugin.haproxy.cpu import cpu as haproxy_cpu
 from opnsense_cli.commands.plugin.haproxy.resolver import resolver as haproxy_resolver
 from opnsense_cli.commands.plugin.haproxy.mailer import mailer as haproxy_mailer
+from opnsense_cli.commands.plugin.haproxy.action import action as haproxy_action
 
 
 CFG_DIR = f"~/.{__cli_name__}"
@@ -166,6 +167,8 @@ haproxy.add_command(haproxy_mapfile)
 haproxy.add_command(haproxy_cpu)
 haproxy.add_command(haproxy_resolver)
 haproxy.add_command(haproxy_mailer)
+haproxy.add_command(haproxy_action)
+
 
 cli.add_command(firewall)
 firewall.add_command(firewall_alias)
