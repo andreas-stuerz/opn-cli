@@ -23,7 +23,8 @@ class TestHaproxyResolverCommands(CommandTestCase):
         }
         self._api_data_fixtures_create_ERROR = {
             "result": "failed",
-            "validations": {'<TODO>': ['Please specify a value between 1 and 100.']}
+            "validations": {'resolver.timeout_retry': 'Should be a number between 1 and 8 characters, '
+                                                      'optionally followed by either "d", "h", "m", "s", "ms" or "us".'}
         }
         self._api_data_fixtures_update_OK = {
             "result": "saved"
@@ -64,13 +65,14 @@ class TestHaproxyResolverCommands(CommandTestCase):
             resolver,
             [
                 'list', '-o', 'plain', '-c',
-                'uuid,TODO_specifiy_columns'
+                'uuid,enabled,name,description,nameservers,parse_resolv_conf,resolve_retries,'
+                'timeout_resolve,timeout_retry'
             ]
         )
 
         self.assertIn(
             (
-                "<TODO match to command output>\n"
+                "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8 1 my_resolver my special resolver 127.0.0.1:53 0 3 1s 1s\n"
             ),
             result.output
         )
@@ -121,14 +123,14 @@ class TestHaproxyResolverCommands(CommandTestCase):
             ],
             resolver,
             [
-                'show', '2c57ff97-10df-41a1-8a02-ab2fd1a4a651', '-o', 'plain', '-c',
-                'uuid,name,Servers,Resolver,Healthcheck,Mailer,Users,Groups,Actions,Errorfiles'
+                'show', 'cea8f031-9aba-4f6e-86c2-f5f5f27a10b8', '-o', 'plain', '-c',
+                'enabled,name,description,nameservers,parse_resolv_conf,resolve_retries,timeout_resolve,timeout_retry'
             ]
         )
 
         self.assertIn(
             (
-                "2c57ff97-10df-41a1-8a02-ab2fd1a4a651 pool2 server2,server4  http_head     \n"
+                "1 my_resolver my special resolver 127.0.0.1:53 0 3 1s 1s\n"
             ),
             result.output
         )
@@ -145,7 +147,7 @@ class TestHaproxyResolverCommands(CommandTestCase):
             resolver,
             [
                 "create", "my_test_resolver",
-                "--TODO", "<customize with create options>"
+                "--timeout_retry", "5d",
             ]
         )
 
@@ -168,14 +170,15 @@ class TestHaproxyResolverCommands(CommandTestCase):
             resolver,
             [
                 "create", "my_test_resolver",
-                 "--TODO", "<customize and trigger a validation error>"
+                 "--timeout_retry", "5x"
             ]
         )
 
         self.assertIn(
             (
                 "Error: {'result': 'failed', 'validations': "
-                "{'todo.click_option': ['Please specify a value between 1 and 100.']}}\n"
+                "{'resolver.timeout_retry': 'Should be a number between 1 and 8 characters, optionally followed by "
+                "either \"d\", \"h\", \"m\", \"s\", \"ms\" or \"us\".'}}\n"
             ),
             result.output
         )
@@ -192,8 +195,8 @@ class TestHaproxyResolverCommands(CommandTestCase):
             ],
             resolver,
             [
-                "update", "<TODO customize uuid>",
-                "--TODO", "<customize with create options>"
+                "update", "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8",
+                "--timeout_retry", "5s",
             ]
         )
 
@@ -239,7 +242,7 @@ class TestHaproxyResolverCommands(CommandTestCase):
             ],
             resolver,
             [
-                "delete", "85282721-934c-42be-ba4d-a93cbfda26af",
+                "delete", "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8",
             ]
         )
 

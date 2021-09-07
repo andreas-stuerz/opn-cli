@@ -36,7 +36,7 @@ def group(ctx, api_client: ApiClient, **kwargs):
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=(
-        "uuid,enabled,name,description,members,add_userlist"
+        "uuid,enabled,name,description,Users,add_userlist"
     ),
     show_default=True,
 )
@@ -64,7 +64,7 @@ def list(haproxy_group_svc: HaproxyGroupFacade, **kwargs):
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=(
-        "enabled,name,description,members,add_userlist"
+        "enabled,name,description,Users,add_userlist"
     ),
     show_default=True,
 )
@@ -98,14 +98,18 @@ def show(haproxy_group_svc: HaproxyGroupFacade, **kwargs):
 )
 @click.option(
     '--members',
-    help=('None'),
+    help=('The comma seperated user uuids of the group.'),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
     '--add_userlist/--no-add_userlist',
-    help=('Usually HAproxy userlists are created automatically in a context sensitive way. This option adds this group as userlist, so that it can be referenced in rules/conditions. All special and non-alphanumeric characters will be removed from the userlist name.'),
+    help=(
+        'Usually HAproxy userlists are created automatically in a context sensitive way. "'
+        '"This option adds this group as userlist, so that it can be referenced in rules/conditions. "'
+        '"All special and non-alphanumeric characters will be removed from the userlist name.'
+    ),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -172,13 +176,17 @@ def create(haproxy_group_svc: HaproxyGroupFacade, **kwargs):
 )
 @click.option(
     '--members',
-    help=('None'),
+    help=('The comma seperated user uuids of the group'),
     show_default=True,
     default=None
 )
 @click.option(
     '--add_userlist/--no-add_userlist',
-    help=('Usually HAproxy userlists are created automatically in a context sensitive way. This option adds this group as userlist, so that it can be referenced in rules/conditions. All special and non-alphanumeric characters will be removed from the userlist name.'),
+    help=(
+        'Usually HAproxy userlists are created automatically in a context sensitive way. "'
+        '"This option adds this group as userlist, so that it can be referenced in rules/conditions. "'
+        '"All special and non-alphanumeric characters will be removed from the userlist name.'
+    ),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,

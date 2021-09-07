@@ -36,7 +36,7 @@ def resolver(ctx, api_client: ApiClient, **kwargs):
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=(
-        "enabled,name,description,nameservers,parse_resolv_conf,resolve_retries,timeout_resolve,timeout_retry"
+        "uuid,enabled,name,description,nameservers,parse_resolv_conf,resolve_retries,timeout_resolve,timeout_retry"
     ),
     show_default=True,
 )
@@ -98,7 +98,9 @@ def show(haproxy_resolver_svc: HaproxyResolverFacade, **kwargs):
 )
 @click.option(
     '--nameservers',
-    help=('Add nameservers to this resolver configuration, i.e. 127.0.0.1:53 or 192.168.1.1:53. Use TAB key to complete typing.'),
+    help=(
+        'Add nameservers to this resolver configuration, i.e. 127.0.0.1:53 or 192.168.1.1:53.'
+    ),
     show_default=True,
     default=None,
     required=False,
@@ -123,14 +125,22 @@ def show(haproxy_resolver_svc: HaproxyResolverFacade, **kwargs):
 )
 @click.option(
     '--timeout_resolve',
-    help=('This configures the default time to trigger name resolutions when no other time applied. Enter a number followed by one of the supported suffixes "d" (days), "h" (hour), "m" (minute), "s" (seconds), "ms" (miliseconds).'),
+    help=(
+        'This configures the default time to trigger name resolutions when no other time applied. '
+        'Enter a number followed by one of the supported suffixes '
+        '"d" (days), "h" (hour), "m" (minute), "s" (seconds), "ms" (miliseconds).'
+    ),
     show_default=True,
     default='1s',
     required=False,
 )
 @click.option(
     '--timeout_retry',
-    help=('This configures the default time between two DNS queries, when no valid response has been received. Enter a number followed by one of the supported suffixes "d" (days), "h" (hour), "m" (minute), "s" (seconds), "ms" (miliseconds).'),
+    help=(
+        'This configures the default time between two DNS queries, when no valid response has been received. '
+        'Enter a number followed by one of the supported suffixes '
+        '"d" (days), "h" (hour), "m" (minute), "s" (seconds), "ms" (miliseconds).'
+    ),
     show_default=True,
     default='1s',
     required=False,
@@ -198,7 +208,9 @@ def create(haproxy_resolver_svc: HaproxyResolverFacade, **kwargs):
 )
 @click.option(
     '--nameservers',
-    help=('Add nameservers to this resolver configuration, i.e. 127.0.0.1:53 or 192.168.1.1:53. Use TAB key to complete typing.'),
+    help=(
+        'Add nameservers to this resolver configuration, i.e. 127.0.0.1:53 or 192.168.1.1:53.'
+    ),
     show_default=True,
     default=None
 )
@@ -220,13 +232,21 @@ def create(haproxy_resolver_svc: HaproxyResolverFacade, **kwargs):
 )
 @click.option(
     '--timeout_resolve',
-    help=('This configures the default time to trigger name resolutions when no other time applied. Enter a number followed by one of the supported suffixes "d" (days), "h" (hour), "m" (minute), "s" (seconds), "ms" (miliseconds).'),
+    help=(
+        'This configures the default time to trigger name resolutions when no other time applied. '
+        'Enter a number followed by one of the supported suffixes '
+        '"d" (days), "h" (hour), "m" (minute), "s" (seconds), "ms" (miliseconds).'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--timeout_retry',
-    help=('This configures the default time between two DNS queries, when no valid response has been received. Enter a number followed by one of the supported suffixes "d" (days), "h" (hour), "m" (minute), "s" (seconds), "ms" (miliseconds).'),
+    help=(
+        'This configures the default time between two DNS queries, when no valid response has been received. '
+        'Enter a number followed by one of the supported suffixes '
+        '"d" (days), "h" (hour), "m" (minute), "s" (seconds), "ms" (miliseconds).'
+    ),
     show_default=True,
     default=None
 )
@@ -253,7 +273,10 @@ def update(haproxy_resolver_svc: HaproxyResolverFacade, **kwargs):
     json_payload = {
         'resolver': {}
     }
-    options = ['enabled', 'name', 'description', 'nameservers', 'parse_resolv_conf', 'resolve_retries', 'timeout_resolve', 'timeout_retry']
+    options = [
+        'enabled', 'name', 'description', 'nameservers', 'parse_resolv_conf', 'resolve_retries', 'timeout_resolve',
+        'timeout_retry'
+    ]
     for option in options:
         if kwargs[option.lower()] is not None:
             json_payload['resolver'][option] = kwargs[option.lower()]

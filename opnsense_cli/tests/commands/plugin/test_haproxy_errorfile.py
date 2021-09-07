@@ -23,7 +23,7 @@ class TestHaproxyErrorfileCommands(CommandTestCase):
         }
         self._api_data_fixtures_create_ERROR = {
             "result": "failed",
-            "validations": {'<TODO>': ['Please specify a value between 1 and 100.']}
+            "validations": {'errorfile.description': 'Should be a string between 1 and 255 characters.'}
         }
         self._api_data_fixtures_update_OK = {
             "result": "saved"
@@ -64,13 +64,27 @@ class TestHaproxyErrorfileCommands(CommandTestCase):
             errorfile,
             [
                 'list', '-o', 'plain', '-c',
-                'uuid,TODO_specifiy_columns'
+                'uuid,name,description,code,content'
             ]
         )
 
         self.assertIn(
             (
-                "<TODO match to command output>\n"
+                "a7dc8e54-c7c3-4aa4-a3de-b37d159a9c7a custom_error_500 My custom error messae x500 HTTP/1.0 503 "
+                "Service Unavailable\n"
+                "Cache-Control: no-cache\n"
+                "Connection: close\n"
+                "Content-Type: text/html\n\n"
+                "<html> \n"
+                "  <head>\n"
+                "    <title>RARRR!!!!!</title>\n"
+                "  </head> \n"
+                "  <body style=\"font-family:Arial,Helvetica,sans-serif;\">\n"
+                "    <div style=\"margin: 0 auto; width: 960px;\"> \n"
+                "          <h2 >RAWR RAWR RAWR</h2>\n"
+                "    </div>\n"
+                "  </body> \n"
+                "</html>\n"
             ),
             result.output
         )
@@ -121,14 +135,28 @@ class TestHaproxyErrorfileCommands(CommandTestCase):
             ],
             errorfile,
             [
-                'show', '2c57ff97-10df-41a1-8a02-ab2fd1a4a651', '-o', 'plain', '-c',
-                'uuid,name,Servers,Resolver,Healthcheck,Mailer,Users,Groups,Actions,Errorfiles'
+                'show', 'a7dc8e54-c7c3-4aa4-a3de-b37d159a9c7a', '-o', 'plain', '-c',
+                'name,description,code,content'
             ]
         )
 
         self.assertIn(
             (
-                "2c57ff97-10df-41a1-8a02-ab2fd1a4a651 pool2 server2,server4  http_head     \n"
+                "custom_error_500 My custom error messae x500 HTTP/1.0 503 "
+                "Service Unavailable\n"
+                "Cache-Control: no-cache\n"
+                "Connection: close\n"
+                "Content-Type: text/html\n\n"
+                "<html> \n"
+                "  <head>\n"
+                "    <title>RARRR!!!!!</title>\n"
+                "  </head> \n"
+                "  <body style=\"font-family:Arial,Helvetica,sans-serif;\">\n"
+                "    <div style=\"margin: 0 auto; width: 960px;\"> \n"
+                "          <h2 >RAWR RAWR RAWR</h2>\n"
+                "    </div>\n"
+                "  </body> \n"
+                "</html>\n"
             ),
             result.output
         )
@@ -145,7 +173,23 @@ class TestHaproxyErrorfileCommands(CommandTestCase):
             errorfile,
             [
                 "create", "my_test_errorfile",
-                "--TODO", "<customize with create options>"
+                "--code", "x400",
+                "--description", "bad request",
+                "--content",
+                "Bad Request\n"
+                "Cache-Control: no-cache\n"
+                "Connection: close\n"
+                "Content-Type: text/html\n\n"
+                "<html> \n"
+                "  <head>\n"
+                "    <title>very bad request</title>\n"
+                "  </head> \n"
+                "  <body style=\"font-family:Arial,Helvetica,sans-serif;\">\n"
+                "    <div style=\"margin: 0 auto; width: 960px;\"> \n"
+                "          <h2>Bad Request</h2>\n"
+                "    </div>\n"
+                "  </body> \n"
+                "</html>\n",
             ]
         )
 
@@ -168,14 +212,20 @@ class TestHaproxyErrorfileCommands(CommandTestCase):
             errorfile,
             [
                 "create", "my_test_errorfile",
-                 "--TODO", "<customize and trigger a validation error>"
+                "--code", "x400",
+                "--content", "400",
+                "--description",
+                "12001201200201200210202100210210201032183902140479314713905734095703457043570347503927504325702"
+                "43957032457023475092357034257024357042375042382374t385784735238562586853498573957340957035734059"
+                "7430573405943709750439754039754035974035743057403957403570439574390570435704397504375094375043975"
+
             ]
         )
 
         self.assertIn(
             (
                 "Error: {'result': 'failed', 'validations': "
-                "{'todo.click_option': ['Please specify a value between 1 and 100.']}}\n"
+                "{'errorfile.description': 'Should be a string between 1 and 255 characters.'}}\n"
             ),
             result.output
         )
@@ -192,8 +242,8 @@ class TestHaproxyErrorfileCommands(CommandTestCase):
             ],
             errorfile,
             [
-                "update", "<TODO customize uuid>",
-                "--TODO", "<customize with create options>"
+                "update", "a7dc8e54-c7c3-4aa4-a3de-b37d159a9c7a",
+                "--description", "modified"
             ]
         )
 
@@ -216,7 +266,7 @@ class TestHaproxyErrorfileCommands(CommandTestCase):
             errorfile,
             [
                 "update", "99282721-934c-42be-ba4d-a93cbfda2644",
-                "--no-enabled",
+                "--description", "modified"
             ]
         )
 
@@ -239,7 +289,7 @@ class TestHaproxyErrorfileCommands(CommandTestCase):
             ],
             errorfile,
             [
-                "delete", "85282721-934c-42be-ba4d-a93cbfda26af",
+                "delete", "a7dc8e54-c7c3-4aa4-a3de-b37d159a9c7a",
             ]
         )
 

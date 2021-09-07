@@ -23,7 +23,7 @@ class TestHaproxyMailerCommands(CommandTestCase):
         }
         self._api_data_fixtures_create_ERROR = {
             "result": "failed",
-            "validations": {'<TODO>': ['Please specify a value between 1 and 100.']}
+            "validations": {'mailer.mailservers': 'Please provide mailserver addresses, i.e. 192.168.1.1:25.'}
         }
         self._api_data_fixtures_update_OK = {
             "result": "saved"
@@ -64,13 +64,14 @@ class TestHaproxyMailerCommands(CommandTestCase):
             mailer,
             [
                 'list', '-o', 'plain', '-c',
-                'uuid,TODO_specifiy_columns'
+                'uuid,enabled,name,description,mailservers,sender,recipient,loglevel,timeout,hostname'
             ]
         )
 
         self.assertIn(
             (
-                "<TODO match to command output>\n"
+                "30701b82-a255-4566-9a3e-04e52bb46b9a 1 alert_to_myself Alert to myself 192.168.1.1:25 "
+                "as@test.de as@test.de alert 30 \n"
             ),
             result.output
         )
@@ -121,14 +122,14 @@ class TestHaproxyMailerCommands(CommandTestCase):
             ],
             mailer,
             [
-                'show', '2c57ff97-10df-41a1-8a02-ab2fd1a4a651', '-o', 'plain', '-c',
-                'uuid,name,Servers,Resolver,Healthcheck,Mailer,Users,Groups,Actions,Errorfiles'
+                'show', '30701b82-a255-4566-9a3e-04e52bb46b9a', '-o', 'plain', '-c',
+                'enabled,name,description,mailservers,sender,recipient,loglevel,timeout,hostname'
             ]
         )
 
         self.assertIn(
             (
-                "2c57ff97-10df-41a1-8a02-ab2fd1a4a651 pool2 server2,server4  http_head     \n"
+                "1 alert_to_myself Alert to myself 192.168.1.1:25 as@test.de as@test.de alert 30 \n"
             ),
             result.output
         )
@@ -145,7 +146,9 @@ class TestHaproxyMailerCommands(CommandTestCase):
             mailer,
             [
                 "create", "my_test_mailer",
-                "--TODO", "<customize with create options>"
+                "--mailservers", "10.0.0.1:25",
+                "--sender", "mail@example.de",
+                "--recipient", "person@example.de",
             ]
         )
 
@@ -168,14 +171,16 @@ class TestHaproxyMailerCommands(CommandTestCase):
             mailer,
             [
                 "create", "my_test_mailer",
-                 "--TODO", "<customize and trigger a validation error>"
+                "--mailservers", "10.0.0.1",
+                "--sender", "mail@example.de",
+                "--recipient", "person@example.de",
             ]
         )
 
         self.assertIn(
             (
                 "Error: {'result': 'failed', 'validations': "
-                "{'todo.click_option': ['Please specify a value between 1 and 100.']}}\n"
+                "{'mailer.mailservers': 'Please provide mailserver addresses, i.e. 192.168.1.1:25.'}}\n"
             ),
             result.output
         )
@@ -192,8 +197,10 @@ class TestHaproxyMailerCommands(CommandTestCase):
             ],
             mailer,
             [
-                "update", "<TODO customize uuid>",
-                "--TODO", "<customize with create options>"
+                "update", "30701b82-a255-4566-9a3e-04e52bb46b9a",
+                "--mailservers", "10.0.0.2:25",
+                "--sender", "mail2@example.de",
+                "--recipient", "person2@example.de",
             ]
         )
 
@@ -239,7 +246,7 @@ class TestHaproxyMailerCommands(CommandTestCase):
             ],
             mailer,
             [
-                "delete", "85282721-934c-42be-ba4d-a93cbfda26af",
+                "delete", "30701b82-a255-4566-9a3e-04e52bb46b9a",
             ]
         )
 

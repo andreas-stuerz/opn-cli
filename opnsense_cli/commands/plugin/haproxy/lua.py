@@ -36,7 +36,7 @@ def lua(ctx, api_client: ApiClient, **kwargs):
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=(
-        "enabled,name,description,content"
+        "uuid,enabled,name,description,content"
     ),
     show_default=True,
 )

@@ -36,7 +36,7 @@ def errorfile(ctx, api_client: ApiClient, **kwargs):
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=(
-        "name,description,code,content"
+        "uuid,name,description,code,content"
     ),
     show_default=True,
 )
@@ -89,7 +89,11 @@ def show(haproxy_errorfile_svc: HaproxyErrorfileFacade, **kwargs):
 )
 @click.option(
     '--code',
-    help=('The HTTP status code.<br/><div class="text-info"><b>NOTE:</b> It is important to understand that error messages are NOT meant to rewrite errors returned by the server, but errors detected and returned by HAProxy. This is why the list of supported errors is limited to a small set.</div>'),
+    help=(
+        'The HTTP status code. NOTE: It is important to understand that error messages are NOT meant to '
+        'rewrite errors returned by the server, but errors detected and returned by HAProxy. '
+        'This is why the list of supported errors is limited to a small set.'
+    ),
     type=click.Choice(['x200', 'x400', 'x403', 'x405', 'x408', 'x429', 'x500', 'x502', 'x503', 'x504']),
     multiple=False,
     callback=tuple_to_csv,
@@ -99,7 +103,11 @@ def show(haproxy_errorfile_svc: HaproxyErrorfileFacade, **kwargs):
 )
 @click.option(
     '--content',
-    help=('Paste the content of your error messages here. The message must represent the full HTTP response and include required HTTP headers. It should not exceed the configured buffer size, which generally is 8 or 16 kB.'),
+    help=(
+        'Paste the content of your error messages here. The message must represent the full HTTP response and '
+        'include required HTTP headers. '
+        'It should not exceed the configured buffer size, which generally is 8 or 16 kB.'
+    ),
     show_default=True,
     default=None,
     required=True,
@@ -155,7 +163,11 @@ def create(haproxy_errorfile_svc: HaproxyErrorfileFacade, **kwargs):
 )
 @click.option(
     '--code',
-    help=('The HTTP status code.<br/><div class="text-info"><b>NOTE:</b> It is important to understand that error messages are NOT meant to rewrite errors returned by the server, but errors detected and returned by HAProxy. This is why the list of supported errors is limited to a small set.</div>'),
+    help=(
+        'The HTTP status code. NOTE: It is important to understand that error messages are NOT meant to '
+        'rewrite errors returned by the server, but errors detected and returned by HAProxy. '
+        'This is why the list of supported errors is limited to a small set.'
+    ),
     type=click.Choice(['x200', 'x400', 'x403', 'x405', 'x408', 'x429', 'x500', 'x502', 'x503', 'x504']),
     multiple=False,
     callback=tuple_to_csv,
@@ -164,7 +176,11 @@ def create(haproxy_errorfile_svc: HaproxyErrorfileFacade, **kwargs):
 )
 @click.option(
     '--content',
-    help=('Paste the content of your error messages here. The message must represent the full HTTP response and include required HTTP headers. It should not exceed the configured buffer size, which generally is 8 or 16 kB.'),
+    help=(
+        'Paste the content of your error messages here. The message must represent the full HTTP response and '
+        'include required HTTP headers. '
+        'It should not exceed the configured buffer size, which generally is 8 or 16 kB.'
+    ),
     show_default=True,
     default=None
 )

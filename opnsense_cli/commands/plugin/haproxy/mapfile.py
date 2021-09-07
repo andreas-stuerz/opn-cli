@@ -36,7 +36,7 @@ def mapfile(ctx, api_client: ApiClient, **kwargs):
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=(
-        "name,description,content"
+        "uuid,name,description,content"
     ),
     show_default=True,
 )
@@ -89,7 +89,7 @@ def show(haproxy_mapfile_svc: HaproxyMapfileFacade, **kwargs):
 )
 @click.option(
     '--content',
-    help=('Paste the content of your map file here. See the <a target="_blank" href="http://cbonte.github.io/haproxy-dconv/2.2/configuration.html#map">HAProxy documentation</a> for a full description.'),
+    help=('Paste the content of your map file here.'),
     show_default=True,
     default=None,
     required=True,
@@ -144,7 +144,7 @@ def create(haproxy_mapfile_svc: HaproxyMapfileFacade, **kwargs):
 )
 @click.option(
     '--content',
-    help=('Paste the content of your map file here. See the <a target="_blank" href="http://cbonte.github.io/haproxy-dconv/2.2/configuration.html#map">HAProxy documentation</a> for a full description.'),
+    help=('Paste the content of your map file here.'),
     show_default=True,
     default=None
 )

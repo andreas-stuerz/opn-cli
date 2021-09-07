@@ -36,7 +36,7 @@ def mailer(ctx, api_client: ApiClient, **kwargs):
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=(
-        "enabled,name,description,mailservers,sender,recipient,loglevel,timeout,hostname"
+        "uuid,enabled,name,description,mailservers,sender,recipient,loglevel,timeout,hostname"
     ),
     show_default=True,
 )

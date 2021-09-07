@@ -23,7 +23,7 @@ class TestHaproxyMapfileCommands(CommandTestCase):
         }
         self._api_data_fixtures_create_ERROR = {
             "result": "failed",
-            "validations": {'<TODO>': ['Please specify a value between 1 and 100.']}
+            "validations": {'mapfile.description': 'Should be a string between 1 and 255 characters.'}
         }
         self._api_data_fixtures_update_OK = {
             "result": "saved"
@@ -64,13 +64,13 @@ class TestHaproxyMapfileCommands(CommandTestCase):
             mapfile,
             [
                 'list', '-o', 'plain', '-c',
-                'uuid,TODO_specifiy_columns'
+                'uuid,name,description,content'
             ]
         )
 
         self.assertIn(
             (
-                "<TODO match to command output>\n"
+                "9a7e6b2d-66fe-487f-9ac4-541dd8f2f639 my_mapped_files custom mapped files .\n"
             ),
             result.output
         )
@@ -121,14 +121,14 @@ class TestHaproxyMapfileCommands(CommandTestCase):
             ],
             mapfile,
             [
-                'show', '2c57ff97-10df-41a1-8a02-ab2fd1a4a651', '-o', 'plain', '-c',
-                'uuid,name,Servers,Resolver,Healthcheck,Mailer,Users,Groups,Actions,Errorfiles'
+                'show', '9a7e6b2d-66fe-487f-9ac4-541dd8f2f639', '-o', 'plain', '-c',
+                'name,description,content'
             ]
         )
 
         self.assertIn(
             (
-                "2c57ff97-10df-41a1-8a02-ab2fd1a4a651 pool2 server2,server4  http_head     \n"
+                "my_mapped_files custom mapped files .\n"
             ),
             result.output
         )
@@ -145,7 +145,7 @@ class TestHaproxyMapfileCommands(CommandTestCase):
             mapfile,
             [
                 "create", "my_test_mapfile",
-                "--TODO", "<customize with create options>"
+                "--content", ".."
             ]
         )
 
@@ -168,14 +168,19 @@ class TestHaproxyMapfileCommands(CommandTestCase):
             mapfile,
             [
                 "create", "my_test_mapfile",
-                 "--TODO", "<customize and trigger a validation error>"
+                "--content", "..",
+                "--description",
+                "12001201200201200210202100210210201032183902140479314713905734095703457043570347503927504325702"
+                "43957032457023475092357034257024357042375042382374t385784735238562586853498573957340957035734059"
+                "7430573405943709750439754039754035974035743057403957403570439574390570435704397504375094375043975"
+
             ]
         )
 
         self.assertIn(
             (
                 "Error: {'result': 'failed', 'validations': "
-                "{'todo.click_option': ['Please specify a value between 1 and 100.']}}\n"
+                "{'mapfile.description': 'Should be a string between 1 and 255 characters.'}}\n"
             ),
             result.output
         )
@@ -192,8 +197,8 @@ class TestHaproxyMapfileCommands(CommandTestCase):
             ],
             mapfile,
             [
-                "update", "<TODO customize uuid>",
-                "--TODO", "<customize with create options>"
+                "update", "9a7e6b2d-66fe-487f-9ac4-541dd8f2f639",
+                "--content", "."
             ]
         )
 
@@ -216,7 +221,7 @@ class TestHaproxyMapfileCommands(CommandTestCase):
             mapfile,
             [
                 "update", "99282721-934c-42be-ba4d-a93cbfda2644",
-                "--no-enabled",
+                "--content", ".",
             ]
         )
 
@@ -239,7 +244,7 @@ class TestHaproxyMapfileCommands(CommandTestCase):
             ],
             mapfile,
             [
-                "delete", "85282721-934c-42be-ba4d-a93cbfda26af",
+                "delete", "9a7e6b2d-66fe-487f-9ac4-541dd8f2f639",
             ]
         )
 

@@ -23,7 +23,7 @@ class TestHaproxyCpuCommands(CommandTestCase):
         }
         self._api_data_fixtures_create_ERROR = {
             "result": "failed",
-            "validations": {'<TODO>': ['Please specify a value between 1 and 100.']}
+            "validations": {'cpu.name': 'Should be a string between 1 and 255 characters.'}
         }
         self._api_data_fixtures_update_OK = {
             "result": "saved"
@@ -64,13 +64,13 @@ class TestHaproxyCpuCommands(CommandTestCase):
             cpu,
             [
                 'list', '-o', 'plain', '-c',
-                'uuid,TODO_specifiy_columns'
+                'uuid,enabled,name,process_id,thread_id,cpu_id'
             ]
         )
 
         self.assertIn(
             (
-                "<TODO match to command output>\n"
+                "1ce4a03b-e69c-4ea7-a506-59b9b074e644 1 my_affinit_rule all all x0\n"
             ),
             result.output
         )
@@ -121,14 +121,14 @@ class TestHaproxyCpuCommands(CommandTestCase):
             ],
             cpu,
             [
-                'show', '2c57ff97-10df-41a1-8a02-ab2fd1a4a651', '-o', 'plain', '-c',
-                'uuid,name,Servers,Resolver,Healthcheck,Mailer,Users,Groups,Actions,Errorfiles'
+                'show', '1ce4a03b-e69c-4ea7-a506-59b9b074e644', '-o', 'plain', '-c',
+                'uuid,enabled,name,process_id,thread_id,cpu_id'
             ]
         )
 
         self.assertIn(
             (
-                "2c57ff97-10df-41a1-8a02-ab2fd1a4a651 pool2 server2,server4  http_head     \n"
+                "1ce4a03b-e69c-4ea7-a506-59b9b074e644 1 my_affinit_rule all all x0\n"
             ),
             result.output
         )
@@ -145,7 +145,9 @@ class TestHaproxyCpuCommands(CommandTestCase):
             cpu,
             [
                 "create", "my_test_cpu",
-                "--TODO", "<customize with create options>"
+                "--process_id", "all",
+                "--thread_id", "all",
+                "--cpu_id", "x0",
             ]
         )
 
@@ -167,15 +169,20 @@ class TestHaproxyCpuCommands(CommandTestCase):
             ],
             cpu,
             [
-                "create", "my_test_cpu",
-                 "--TODO", "<customize and trigger a validation error>"
+                "create",
+                "12001201200201200210202100210210201032183902140479314713905734095703457043570347503927504325702"
+                "43957032457023475092357034257024357042375042382374t385784735238562586853498573957340957035734059"
+                "7430573405943709750439754039754035974035743057403957403570439574390570435704397504375094375043975",
+                "--process_id", "all",
+                "--thread_id", "all",
+                "--cpu_id", "x0",
             ]
         )
 
         self.assertIn(
             (
                 "Error: {'result': 'failed', 'validations': "
-                "{'todo.click_option': ['Please specify a value between 1 and 100.']}}\n"
+                "{'cpu.name': 'Should be a string between 1 and 255 characters.'}}\n"
             ),
             result.output
         )
@@ -192,8 +199,10 @@ class TestHaproxyCpuCommands(CommandTestCase):
             ],
             cpu,
             [
-                "update", "<TODO customize uuid>",
-                "--TODO", "<customize with create options>"
+                "update", "1ce4a03b-e69c-4ea7-a506-59b9b074e644",
+                "--process_id", "all",
+                "--thread_id", "all",
+                "--cpu_id", "x1",
             ]
         )
 
@@ -239,7 +248,7 @@ class TestHaproxyCpuCommands(CommandTestCase):
             ],
             cpu,
             [
-                "delete", "85282721-934c-42be-ba4d-a93cbfda26af",
+                "delete", "1ce4a03b-e69c-4ea7-a506-59b9b074e644",
             ]
         )
 

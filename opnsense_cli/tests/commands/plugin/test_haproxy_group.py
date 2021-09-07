@@ -23,7 +23,7 @@ class TestHaproxyGroupCommands(CommandTestCase):
         }
         self._api_data_fixtures_create_ERROR = {
             "result": "failed",
-            "validations": {'<TODO>': ['Please specify a value between 1 and 100.']}
+            "validations": {'group.members': 'Related user not found'}
         }
         self._api_data_fixtures_update_OK = {
             "result": "saved"
@@ -64,13 +64,13 @@ class TestHaproxyGroupCommands(CommandTestCase):
             group,
             [
                 'list', '-o', 'plain', '-c',
-                'uuid,TODO_specifiy_columns'
+                'uuid,enabled,name,description,Users,add_userlist'
             ]
         )
 
         self.assertIn(
             (
-                "<TODO match to command output>\n"
+                "741e1c18-ba34-4fab-823a-7017fc3af1ec 1 my_group  user1,user2 1\n"
             ),
             result.output
         )
@@ -121,14 +121,14 @@ class TestHaproxyGroupCommands(CommandTestCase):
             ],
             group,
             [
-                'show', '2c57ff97-10df-41a1-8a02-ab2fd1a4a651', '-o', 'plain', '-c',
-                'uuid,name,Servers,Resolver,Healthcheck,Mailer,Users,Groups,Actions,Errorfiles'
+                'show', '741e1c18-ba34-4fab-823a-7017fc3af1ec', '-o', 'plain', '-c',
+                'enabled,name,description,Users,add_userlist'
             ]
         )
 
         self.assertIn(
             (
-                "2c57ff97-10df-41a1-8a02-ab2fd1a4a651 pool2 server2,server4  http_head     \n"
+                "1 my_group  user1,user2 1\n"
             ),
             result.output
         )
@@ -145,7 +145,8 @@ class TestHaproxyGroupCommands(CommandTestCase):
             group,
             [
                 "create", "my_test_group",
-                "--TODO", "<customize with create options>"
+                "--members", "d99f0f32-7cab-49df-a2f8-a4fa6edab03f",
+                "--description", "the gang",
             ]
         )
 
@@ -168,14 +169,15 @@ class TestHaproxyGroupCommands(CommandTestCase):
             group,
             [
                 "create", "my_test_group",
-                 "--TODO", "<customize and trigger a validation error>"
+                "--members", "a99f0f32-7cab-49df-a2f8-a4fa6edab03f",
+                "--description", "the gang",
             ]
         )
 
         self.assertIn(
             (
                 "Error: {'result': 'failed', 'validations': "
-                "{'todo.click_option': ['Please specify a value between 1 and 100.']}}\n"
+                "{'group.members': 'Related user not found'}}\n"
             ),
             result.output
         )
@@ -192,8 +194,8 @@ class TestHaproxyGroupCommands(CommandTestCase):
             ],
             group,
             [
-                "update", "<TODO customize uuid>",
-                "--TODO", "<customize with create options>"
+                "update", "d99f0f32-7cab-49df-a2f8-a4fa6edab03f",
+                "--description", "the cool gang"
             ]
         )
 
