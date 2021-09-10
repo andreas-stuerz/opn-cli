@@ -166,28 +166,3 @@ class TestNewCommandCommands(CommandTestCase):
             f"generate new code: {self._generated_core_test_path}\n",
             result.output
         )
-
-    @patch('opnsense_cli.parser.xml.requests.get')
-    def test_core_ERROR(self, mock_model_get: Mock):
-        mock_model_get.side_effect = [
-            self._mock_model_core_resp,
-            self._mock_form_core_resp
-        ]
-
-        runner = CliRunner()
-        result = runner.invoke(
-            command,
-            [
-                'core', 'firewall', 'category', '--tag', 'categories',
-                '--model-url', 'https://fake.githubusercontent.com/model.xml',
-                '--form-url', 'https://fake.githubusercontent.com/form.xml'
-            ],
-            catch_exceptions=False
-        )
-
-        self.assertIn(
-            f"generate new code: {self._generated_core_command_path}\n"
-            f"generate new code: {self._generated_core_facade_path}\n"
-            f"generate new code: {self._generated_core_test_path}\n",
-            result.output
-        )
