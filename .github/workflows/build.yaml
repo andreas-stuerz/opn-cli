@@ -33,7 +33,7 @@ jobs:
           flake8 . --count --max-complexity=10 --max-line-length=127 --statistics
       - name: Test with pytest
         run: |
-          pytest --exitfirst --verbose --failed-first --cov opnsense_cli --cov-config .coveragerc -rx
+          pytest --exitfirst --verbose --failed-first --cov opnsense_cli --cov-config .coveragerc -s
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v1
       - name: smoke test
