@@ -1,8 +1,16 @@
 # Changelog
 
-## [v.0.7.0](https://github.com/andeman/opn-cli/tree/v.0.7.0) (2021-09-07)
+## [v.0.7.1](https://github.com/andeman/opn-cli/tree/v.0.7.1) (2021-09-10)
 
-[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.6...v.0.7.0)
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.7.0...v.0.7.1)
+
+**Merged pull requests:**
+
+- Fix opn-cli missing imports [\#15](https://github.com/andeman/opn-cli/pull/15) ([andeman](https://github.com/andeman))
+
+## [v0.7.0](https://github.com/andeman/opn-cli/tree/v0.7.0) (2021-09-07)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.6...v0.7.0)
 
 **Merged pull requests:**
 
