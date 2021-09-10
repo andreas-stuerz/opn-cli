@@ -58,11 +58,10 @@ class ClickOptionCodeFragment(ABC):
     @property
     def _default(self):
         if self._tag_content.find(name='default'):
-            print(self._tag_content.prettify())
-            print(self._tag_content.find(name='default'))
-            print(self._tag_content.default.string)
-            exit(1)
-            return self._tag_content.default.string
+            try:
+                return self._tag_content.default.string
+            except AttributeError:
+                pass
         return None
 
     @property
