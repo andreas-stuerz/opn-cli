@@ -4,6 +4,7 @@ omit =
     *venv*
     *opnsense_cli/tests/*
     *opnsense_cli/fixtures/*
+    *output*
 
 [report]
 exclude_lines =

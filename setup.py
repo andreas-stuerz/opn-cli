@@ -36,6 +36,7 @@ setup(
         [console_scripts]
         opn-cli=opnsense_cli.cli:cli
     ''',
+    include_package_data=True,
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
