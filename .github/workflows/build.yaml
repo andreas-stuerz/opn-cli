@@ -35,3 +35,7 @@ jobs:
           pytest --exitfirst --verbose --failed-first --cov opnsense_cli --cov-config .coveragerc
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v1
+      - name: smoke test
+        run: |
+          pip install .
+          opn-cli version
