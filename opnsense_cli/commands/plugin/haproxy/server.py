@@ -274,7 +274,7 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
 @click.option(
     '--advanced', '-adv',
     help=(
-            "list of parameters that will be appended to the server line in every backend where this server will be used."
+        "list of parameters that will be appended to the server line in every backend where this server will be used."
     ),
     show_default=True,
     default=None,
