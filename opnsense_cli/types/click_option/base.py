@@ -61,6 +61,7 @@ class ClickOptionCodeFragment(ABC):
             print(self._tag_content.prettify())
             print(self._tag_content.find(name='default'))
             print(self._tag_content.default.string)
+            exit(1)
             return self._tag_content.default.string
         return None
 
