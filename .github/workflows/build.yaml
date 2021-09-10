@@ -33,10 +33,13 @@ jobs:
           flake8 . --count --max-complexity=10 --max-line-length=127 --statistics
       - name: Test with pytest
         run: |
-          pytest --exitfirst --verbose --failed-first --cov opnsense_cli --cov-config .coveragerc -s
+          pytest --exitfirst --verbose --failed-first --cov opnsense_cli --cov-config .coveragerc
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v1
       - name: smoke test
         run: |
           pip install .
+          mkdir -p /home/runner/.opn-cli
+          touch conf.yaml
           opn-cli version
+          opn-cli new command core firewall category --tag categories -m https://raw.githubusercontent.com/opnsense/core/master/src/opnsense/mvc/app/models/OPNsense/Firewall/Category.xml -f https://raw.githubusercontent.com/opnsense/core/master/src/opnsense/mvc/app/controllers/OPNsense/Firewall/forms/categoryEdit.xml
