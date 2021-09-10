@@ -4,4 +4,5 @@ if [ -n "$1" ]; then
   ARGS=$(printf ' %q' "$@")
 
 fi
+pytest --exitfirst --verbose --failed-first --cov opnsense_cli --cov-config .coveragerc
 pytest --ignore=./output --verbose ${ARGS}
