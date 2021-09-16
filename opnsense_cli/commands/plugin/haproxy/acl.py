@@ -2,6 +2,7 @@ import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
     formatter_from_formatter_name, bool_as_string, available_formats, int_as_string, tuple_to_csv
+from opnsense_cli.types.click_param_type.int_or_empty import INT_OR_EMPTY
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
@@ -299,7 +300,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
         'Please refer to your SSL library\'s documentation for an exhaustive list of error codes.'
     ),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -332,7 +333,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_bytes_in_rate',
     help=('The average bytes rate from the incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -351,7 +352,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_bytes_out_rate',
     help=('The average bytes rate to the incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -370,7 +371,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_conn_cnt',
     help=('The cumulative number of connections initiated from the current incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -391,7 +392,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
         'The current amount of concurrent connections initiated from the current incoming connection\'s source address.'
     ),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -410,7 +411,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_conn_rate',
     help=('The average connection rate from the incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -429,7 +430,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_http_err_cnt',
     help=('The cumulative number of HTTP errors from the incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -448,7 +449,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_http_err_rate',
     help=('The average rate of HTTP errors from the incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -467,7 +468,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_http_req_cnt',
     help=('The cumulative number of HTTP requests from the incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -486,7 +487,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_http_req_rate',
     help=('The average rate of HTTP requests from the incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -505,7 +506,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_kbytes_in',
     help=('The total amount of data received from the incoming connection\'s source address (in kilobytes).'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -524,7 +525,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_kbytes_out',
     help=('The total amount of data sent to the incoming connection\'s source address (in kilobytes).'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -546,7 +547,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
         'which is the port the client connected from.'
     ),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -565,7 +566,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_sess_cnt',
     help=('The cumulative number of connections initiated from the incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -584,7 +585,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_sess_rate',
     help=('None'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -593,7 +594,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--nbsrv',
     help=('Verify the minimum number of usable servers in the named backend matches the specified value.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -981,7 +982,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
         'Please refer to your SSL library\'s documentation for an exhaustive list of error codes.'
     ),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -1010,7 +1011,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_bytes_in_rate',
     help=('The average bytes rate from the incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -1027,7 +1028,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_bytes_out_rate',
     help=('The average bytes rate to the incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -1044,7 +1045,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_conn_cnt',
     help=('The cumulative number of connections initiated from the current incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -1063,7 +1064,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
         'The current amount of concurrent connections initiated from the current incoming connection\'s source address.'
     ),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -1080,7 +1081,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_conn_rate',
     help=('The average connection rate from the incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -1097,7 +1098,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_http_err_cnt',
     help=('The cumulative number of HTTP errors from the incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -1114,7 +1115,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_http_err_rate',
     help=('The average rate of HTTP errors from the incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -1131,7 +1132,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_http_req_cnt',
     help=('The cumulative number of HTTP requests from the incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -1148,7 +1149,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_http_req_rate',
     help=('The average rate of HTTP requests from the incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -1165,7 +1166,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_kbytes_in',
     help=('The total amount of data received from the incoming connection\'s source address (in kilobytes).'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -1182,7 +1183,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_kbytes_out',
     help=('The total amount of data sent to the incoming connection\'s source address (in kilobytes).'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -1202,7 +1203,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
         'which is the port the client connected from.'
     ),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -1219,7 +1220,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_sess_cnt',
     help=('The cumulative number of connections initiated from the incoming connection\'s source address.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -1236,7 +1237,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--src_sess_rate',
     help=('None'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -1244,7 +1245,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--nbsrv',
     help=('Verify the minimum number of usable servers in the named backend matches the specified value.'),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )

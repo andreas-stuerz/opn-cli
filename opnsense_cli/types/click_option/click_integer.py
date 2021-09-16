@@ -7,7 +7,7 @@ class ClickInteger(ClickOptionCodeFragment):
         '--${name}',
         help=('${help}'),
         show_default=True,
-        type=int,
+        type=INT_OR_EMPTY,
         callback=int_as_string,
         default=${default},
         ${required}
@@ -18,7 +18,7 @@ class ClickInteger(ClickOptionCodeFragment):
         '--${name}',
         help=('${help}'),
         show_default=True,
-        type=int,
+        type=INT_OR_EMPTY,
         callback=int_as_string,
         default=None
     )
