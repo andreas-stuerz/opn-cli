@@ -2,6 +2,7 @@ import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
     formatter_from_formatter_name, bool_as_string, available_formats, int_as_string, tuple_to_csv
+from opnsense_cli.types.click_param_type.int_or_empty import INT_OR_EMPTY
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
@@ -112,7 +113,7 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
             'If unset, the same port the client connected to will be used'
     ),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -121,7 +122,7 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     '--checkport', '--cp',
     help="Provide the TCP communication port to use during check.",
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -245,7 +246,7 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     '--weight', '-w',
     help="Adjust the server's weight relative to other servers.",
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -370,7 +371,7 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
         'If unset, the same port the client connected to will be used'
     ),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -379,7 +380,7 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     '--checkport', '-cp',
     help="Provide the TCP communication port to use during check.",
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -503,7 +504,7 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     '--weight', '-w',
     help="Adjust the server's weight relative to other servers.",
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,

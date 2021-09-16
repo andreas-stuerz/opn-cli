@@ -2,6 +2,7 @@ import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
     formatter_from_formatter_name, bool_as_string, available_formats, int_as_string, tuple_to_csv
+from opnsense_cli.types.click_param_type.int_or_empty import INT_OR_EMPTY
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
@@ -134,7 +135,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
         'before selecting the least loaded of these servers.'
     ),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=2,
     required=True,
@@ -242,7 +243,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     '--healthCheckFall',
     help='The number of consecutive unsuccessful health checks before a server is considered as unavailable.',
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -251,7 +252,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     '--healthCheckRise',
     help='The number of consecutive successful health checks before a server is considered as available.',
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -400,7 +401,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     '--stickiness_cookielength',
     help='The maximum number of characters that will be stored in the stick table.',
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -531,7 +532,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
         'Set the number of retries to perform on a server after a connection failure.'
     ),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None,
     required=False,
@@ -734,7 +735,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
         'before selecting the least loaded of these servers.'
     ),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -830,7 +831,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     '--healthCheckFall',
     help='The number of consecutive unsuccessful health checks before a server is considered as unavailable.',
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -838,7 +839,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     '--healthCheckRise',
     help='The number of consecutive successful health checks before a server is considered as available.',
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -973,7 +974,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
     '--stickiness_cookielength',
     help='The maximum number of characters that will be stored in the stick table.',
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
@@ -1091,7 +1092,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
         'Set the number of retries to perform on a server after a connection failure.'
     ),
     show_default=True,
-    type=int,
+    type=INT_OR_EMPTY,
     callback=int_as_string,
     default=None
 )
