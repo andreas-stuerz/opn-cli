@@ -1,5 +1,6 @@
 import click
 
+
 class IntOrEmptyClickParamType(click.ParamType):
     name = 'int_or_empty'
 
@@ -10,5 +11,6 @@ class IntOrEmptyClickParamType(click.ParamType):
             return int(value)
         except ValueError:
             self.fail('%s is not a valid integerXXX' % value, param, ctx)
+
 
 INT_OR_EMPTY = IntOrEmptyClickParamType()
