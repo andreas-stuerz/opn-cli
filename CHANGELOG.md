@@ -1,8 +1,16 @@
 # Changelog
 
-## [v.0.7.1](https://github.com/andeman/opn-cli/tree/v.0.7.1) (2021-09-10)
+## [v.0.7.2](https://github.com/andeman/opn-cli/tree/v.0.7.2) (2021-09-16)
 
-[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.7.0...v.0.7.1)
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.7.1...v.0.7.2)
+
+**Merged pull requests:**
+
+- delete int values with an empty string '' [\#16](https://github.com/andeman/opn-cli/pull/16) ([andeman](https://github.com/andeman))
+
+## [v0.7.1](https://github.com/andeman/opn-cli/tree/v0.7.1) (2021-09-10)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.7.0...v0.7.1)
 
 **Merged pull requests:**
 
