@@ -10,7 +10,7 @@ class IntOrEmptyClickParamType(click.ParamType):
         try:
             return int(value)
         except ValueError:
-            self.fail('%s is not a valid integerXXX' % value, param, ctx)
+            self.fail('%s is not a valid integer' % value, param, ctx)
 
 
 INT_OR_EMPTY = IntOrEmptyClickParamType()
