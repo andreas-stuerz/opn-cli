@@ -3,6 +3,10 @@ from opnsense_cli.api.plugin.haproxy import Settings, Service
 
 
 class HaproxyErrorfileFacade(HaproxyFacade):
+    jsonpath_base = '$.haproxy.errorfiles.errorfile'
+    uuid_resolver_map = {
+    }
+
     def __init__(self, settings_api: Settings, service_api: Service):
         self._settings_api = settings_api
         self._service_api = service_api
@@ -17,11 +21,7 @@ class HaproxyErrorfileFacade(HaproxyFacade):
 
     def _get_errorfiles_list(self):
         complete_model_data = self._settings_api.get()
-        jsonpath_base = '$.haproxy.errorfiles.errorfile'
-        uuid_resolver_map = {
-        }
-
-        return self._api_mutable_model_get(complete_model_data, jsonpath_base, uuid_resolver_map)
+        return self._api_mutable_model_get(complete_model_data, self.jsonpath_base, self.uuid_resolver_map)
 
     def create_errorfile(self, json_payload: dict):
         result = self._settings_api.addErrorfile(json=json_payload)

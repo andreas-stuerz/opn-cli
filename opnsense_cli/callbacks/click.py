@@ -1,5 +1,7 @@
 import yaml
 import os
+
+from opnsense_cli.facades.commands.base import CommandFacade
 from opnsense_cli.factories.cli_output_format import CliOutputFormatFactory
 from opnsense_cli.formats.base import Format
 
@@ -38,6 +40,8 @@ def bool_as_string(ctx, param, value):
 
 
 def tuple_to_csv(ctx, param, value):
+    if param.multiple and not value:
+        return None
     if type(value) == tuple:
         return ",".join(value)
     return value
@@ -53,3 +57,43 @@ def int_as_string(ctx, param, value):
     if type(value) == int:
         return str(value)
     return value
+
+# TODO: für show
+def resolve_self_names_to_uuids(ctx, param, value):
+    option_name = param.opts[0].replace("--", "")
+    resolve_map = ctx.obj.uuid_resolver_map[option_name]
+    if isinstance(ctx.obj, CommandFacade):
+        return ctx.obj.resolve_linked_uuids(resolve_map, value)
+    return value
+
+
+def resolve_linked_names_to_uuids(ctx, param, value):
+    option_name = param.opts[0].replace("--", "")
+    resolve_map = ctx.obj.uuid_resolver_map[option_name]
+    if isinstance(ctx.obj, CommandFacade):
+        return ctx.obj.resolve_linked_uuids(resolve_map, value)
+    return value
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
