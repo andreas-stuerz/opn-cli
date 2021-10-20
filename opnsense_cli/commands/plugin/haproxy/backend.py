@@ -162,6 +162,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
 @click.option(
     '--linkedResolver',
     help='Select the custom resolver configuration that should be used for all servers in this backend.',
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None,
     required=False,
@@ -208,6 +209,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
 @click.option(
     '--healthCheck',
     help='Select health check for servers in this backend.',
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None,
     required=False,
@@ -262,6 +264,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
 @click.option(
     '--linkedMailer',
     help='Select an e-mail alert configuration. An e-mail is sent when the state of a server changes.',
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None,
     required=False,
@@ -487,6 +490,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
 @click.option(
     '--basicAuthUsers',
     help='Basic auth users.',
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None,
     required=False,
@@ -494,6 +498,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
 @click.option(
     '--basicAuthGroups',
     help='Basic auth groups.',
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None,
     required=False,
@@ -596,6 +601,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
 @click.option(
     '--linkedActions',
     help='Choose rules to be included in this backend pool.',
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None,
     required=False,
@@ -603,6 +609,7 @@ def show(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
 @click.option(
     '--linkedErrorfiles',
     help='Choose error messages to be included in this backend pool.',
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None,
     required=False,
@@ -759,6 +766,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
 @click.option(
     '--linkedResolver',
     help='Select the custom resolver configuration that should be used for all servers in this backend.',
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None
 )
@@ -800,6 +808,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
 @click.option(
     '--healthCheck',
     help='Select health check for servers in this backend.',
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None
 )
@@ -848,6 +857,7 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
 @click.option(
     '--linkedMailer',
     help='Select an e-mail alert configuration. An e-mail is sent when the state of a server changes.',
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None
 )
@@ -1052,12 +1062,14 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
 @click.option(
     '--basicAuthUsers',
     help='Basic auth users.',
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None
 )
 @click.option(
     '--basicAuthGroups',
     help='Basic auth groups.',
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None
 )
@@ -1150,12 +1162,14 @@ def create(haproxy_backend_svc: HaproxyBackendFacade, **kwargs):
 @click.option(
     '--linkedActions',
     help='Choose rules to be included in this backend pool.',
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None
 )
 @click.option(
     '--linkedErrorfiles',
     help='Choose error messages to be included in this backend pool.',
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None
 )
