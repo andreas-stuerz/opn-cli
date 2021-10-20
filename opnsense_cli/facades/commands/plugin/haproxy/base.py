@@ -3,6 +3,9 @@ from opnsense_cli.facades.commands.base import CommandFacade
 
 
 class HaproxyFacade(CommandFacade):
+    def __init__(self):
+      super().__init__()
+
     def _apply(self, result_admin_action=None):
         if result_admin_action and result_admin_action['result'] not in ['saved', 'deleted']:
             raise CommandException(result_admin_action)

@@ -9,6 +9,8 @@ class HaproxyGroupFacade(HaproxyFacade):
     }
 
     def __init__(self, settings_api: Settings, service_api: Service):
+        super().__init__()
+        self._complete_model_data_cache = None
         self._settings_api = settings_api
         self._service_api = service_api
 
@@ -21,8 +23,7 @@ class HaproxyGroupFacade(HaproxyFacade):
         return group
 
     def _get_groups_list(self):
-        complete_model_data = self._settings_api.get()
-        return self._api_mutable_model_get(complete_model_data, self.jsonpath_base, self.uuid_resolver_map)
+        return self._api_mutable_model_get(self._complete_model_data, self.jsonpath_base, self.uuid_resolver_map)
 
     def create_group(self, json_payload: dict):
         result = self._settings_api.addGroup(json=json_payload)

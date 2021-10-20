@@ -7,8 +7,7 @@ class HaproxyBackendFacade(HaproxyFacade):
     uuid_resolver_map = dict(
         linkedServers={'template': '$.haproxy.servers.server[{uuids}].name', 'insert_as_key': 'Servers'},
         linkedResolver={'template': '$.haproxy.resolvers.resolver[{uuids}].name', 'insert_as_key': 'Resolver'},
-        healthCheck={'template': '$.haproxy.healthchecks.healthcheck[{uuids}].name',
-                     'insert_as_key': 'Healthcheck'},
+        healthCheck={'template': '$.haproxy.healthchecks.healthcheck[{uuids}].name','insert_as_key': 'Healthcheck'},
         linkedMailer={'template': '$.haproxy.mailers.mailer[{uuids}].name', 'insert_as_key': 'Mailer'},
         basicAuthUsers={'template': '$.haproxy.users.user[{uuids}].name', 'insert_as_key': 'Users'},
         basicAuthGroups={'template': '$.haproxy.groups.group[{uuids}].name', 'insert_as_key': 'Groups'},
@@ -17,6 +16,8 @@ class HaproxyBackendFacade(HaproxyFacade):
                           'insert_as_key': 'Errorfiles'})
 
     def __init__(self, settings_api: Settings, service_api: Service):
+        super().__init__()
+        self._complete_model_data_cache = None
         self._settings_api = settings_api
         self._service_api = service_api
 
@@ -29,8 +30,7 @@ class HaproxyBackendFacade(HaproxyFacade):
         return backend
 
     def _get_backends_list(self):
-        complete_model_data = self._settings_api.get()
-        return self._api_mutable_model_get(complete_model_data, self.jsonpath_base, self.uuid_resolver_map)
+        return self._api_mutable_model_get(self._complete_model_data, self.jsonpath_base, self.uuid_resolver_map)
 
     def create_backend(self, json_payload: dict):
         result = self._settings_api.addBackend(json=json_payload)

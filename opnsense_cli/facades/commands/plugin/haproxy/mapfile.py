@@ -8,6 +8,8 @@ class HaproxyMapfileFacade(HaproxyFacade):
     }
 
     def __init__(self, settings_api: Settings, service_api: Service):
+        super().__init__()
+        self._complete_model_data_cache = None
         self._settings_api = settings_api
         self._service_api = service_api
 
@@ -20,8 +22,7 @@ class HaproxyMapfileFacade(HaproxyFacade):
         return mapfile
 
     def _get_mapfiles_list(self):
-        complete_model_data = self._settings_api.get()
-        return self._api_mutable_model_get(complete_model_data, self.jsonpath_base, self.uuid_resolver_map)
+        return self._api_mutable_model_get(self._complete_model_data, self.jsonpath_base, self.uuid_resolver_map)
 
     def create_mapfile(self, json_payload: dict):
         result = self._settings_api.addMapfile(json=json_payload)
