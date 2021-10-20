@@ -1,7 +1,8 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
-    formatter_from_formatter_name, available_formats, int_as_string, tuple_to_csv
+    formatter_from_formatter_name, available_formats, int_as_string, tuple_to_csv, \
+    resolve_linked_names_to_uuids
 from opnsense_cli.types.click_param_type.int_or_empty import INT_OR_EMPTY
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
