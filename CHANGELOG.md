@@ -1,10 +1,18 @@
 # Changelog
 
-## [v0.8.0](https://github.com/andeman/opn-cli/tree/v0.8.0) (2021-10-21)
+## [v0.8.1](https://github.com/andeman/opn-cli/tree/v0.8.1) (2021-10-21)
 
-[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.7.2...v0.8.0)
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v.0.8.0...v0.8.1)
 
-**Merged pull requests:**
+**Fixed bugs:**
+
+- update Readme for resolving names to uuids [\#18](https://github.com/andeman/opn-cli/pull/18) ([andeman](https://github.com/andeman))
+
+## [v.0.8.0](https://github.com/andeman/opn-cli/tree/v.0.8.0) (2021-10-21)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.7.2...v.0.8.0)
+
+**Implemented enhancements:**
 
 - Resolve linked items options names to uuids [\#17](https://github.com/andeman/opn-cli/pull/17) ([andeman](https://github.com/andeman))
 
@@ -12,7 +20,7 @@
 
 [Full Changelog](https://github.com/andeman/opn-cli/compare/v0.7.1...v0.7.2)
 
-**Merged pull requests:**
+**Implemented enhancements:**
 
 - delete int values with an empty string '' [\#16](https://github.com/andeman/opn-cli/pull/16) ([andeman](https://github.com/andeman))
 
@@ -20,7 +28,7 @@
 
 [Full Changelog](https://github.com/andeman/opn-cli/compare/v0.7.0...v0.7.1)
 
-**Merged pull requests:**
+**Fixed bugs:**
 
 - Fix opn-cli missing imports [\#15](https://github.com/andeman/opn-cli/pull/15) ([andeman](https://github.com/andeman))
 
@@ -28,9 +36,12 @@
 
 [Full Changelog](https://github.com/andeman/opn-cli/compare/v0.6.6...v0.7.0)
 
-**Merged pull requests:**
+**Implemented enhancements:**
 
 - add HAProxy commands and code generator for commands [\#14](https://github.com/andeman/opn-cli/pull/14) ([andeman](https://github.com/andeman))
+
+**Merged pull requests:**
+
 - split api classes in folders core/ and plugin/ [\#13](https://github.com/andeman/opn-cli/pull/13) ([andeman](https://github.com/andeman))
 
 ## [v0.6.6](https://github.com/andeman/opn-cli/tree/v0.6.6) (2021-08-03)
