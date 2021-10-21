@@ -23,7 +23,7 @@ class TestHaproxyActionCommands(CommandTestCase):
         }
         self._api_data_fixtures_create_ERROR = {
             "result": "failed",
-            "validations": {'action.use_backend': 'Related backend item not found'}
+            "validations": {'action.http_response_set_status_code': 'Please specify a value between 100 and 999.'}
         }
         self._api_data_fixtures_update_OK = {
             "result": "saved"
@@ -138,6 +138,7 @@ class TestHaproxyActionCommands(CommandTestCase):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
+                self._api_data_fixtures_list,
                 self._api_data_fixtures_create_OK,
                 self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
@@ -146,7 +147,12 @@ class TestHaproxyActionCommands(CommandTestCase):
             [
                 "create", "my_test_action",
                 "--type", "use_backend",
-                "--use_backend", "5d17779f-1407-4cdf-a616-b7024bea4448",
+                "--use_backend", "pool1",
+                "--use_server", "server1",
+                "--useBackend", "pool1",
+                "--useServer", "server1",
+                "--map_use_backend_file", "mapped_file1",
+                "--map_use_backend_default", "pool1",
             ]
         )
 
@@ -168,16 +174,17 @@ class TestHaproxyActionCommands(CommandTestCase):
             ],
             action,
             [
-                "create", "my_test_action",
+                "create", "my_test_action2",
                 "--type", "use_backend",
-                "--use_backend", "xxxxx",
+                "--http_response_set_status_code", "700000"
             ]
         )
+        print(result.output)
 
         self.assertIn(
             (
                 "Error: {'result': 'failed', 'validations': "
-                "{'action.use_backend': 'Related backend item not found'}}\n"
+                "{'action.http_response_set_status_code': 'Please specify a value between 100 and 999.'}}\n"
             ),
             result.output
         )
@@ -188,6 +195,7 @@ class TestHaproxyActionCommands(CommandTestCase):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
+                self._api_data_fixtures_list,
                 self._api_data_fixtures_update_OK,
                 self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
@@ -197,6 +205,7 @@ class TestHaproxyActionCommands(CommandTestCase):
                 "update", "b1b621ba-e4fc-4f13-bf76-34a2c78a8980",
                 "--type", "custom",
                 "--custom", "",
+                "--use_backend", "pool1",
             ]
         )
 

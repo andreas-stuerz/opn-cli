@@ -58,14 +58,6 @@ def int_as_string(ctx, param, value):
         return str(value)
     return value
 
-# TODO: für show
-def resolve_self_names_to_uuids(ctx, param, value):
-    option_name = param.opts[0].replace("--", "")
-    resolve_map = ctx.obj.uuid_resolver_map[option_name]
-    if isinstance(ctx.obj, CommandFacade):
-        return ctx.obj.resolve_linked_uuids(resolve_map, value)
-    return value
-
 
 def resolve_linked_names_to_uuids(ctx, param, value):
     option_name = param.opts[0].replace("--", "")

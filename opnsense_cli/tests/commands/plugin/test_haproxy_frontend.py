@@ -139,6 +139,7 @@ class TestHaproxyFrontendCommands(CommandTestCase):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
+                self._api_data_fixtures_list,
                 self._api_data_fixtures_create_OK,
                 self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
@@ -147,7 +148,12 @@ class TestHaproxyFrontendCommands(CommandTestCase):
             [
                 "create", "my_test_frontend",
                 "--bind", "127.0.0.1:8080",
-                "--defaultBackend", "5d17779f-1407-4cdf-a616-b7024bea4448",
+                "--defaultBackend", "pool1",
+                "--basicAuthUsers", "user1",
+                "--basicAuthGroups", "group1",
+                "--linkedCpuAffinityRules", "my_affinit_rule",
+                "--linkedActions", "my_rule",
+                "--linkedErrorfiles", "custom_error_500",
                 "--ssl_enabled",
                 "--ssl_certificates", "60cc4641eb577,610d37950266d"
             ]
@@ -165,6 +171,7 @@ class TestHaproxyFrontendCommands(CommandTestCase):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
+                self._api_data_fixtures_list,
                 self._api_data_fixtures_create_ERROR,
                 self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,

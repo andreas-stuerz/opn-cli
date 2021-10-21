@@ -70,7 +70,7 @@ class TestHaproxyMapfileCommands(CommandTestCase):
 
         self.assertIn(
             (
-                "9a7e6b2d-66fe-487f-9ac4-541dd8f2f639 my_mapped_files custom mapped files .\n"
+                "9a7e6b2d-66fe-487f-9ac4-541dd8f2f639 mapped_file1 custom mapped files .\n"
             ),
             result.output
         )
@@ -128,7 +128,7 @@ class TestHaproxyMapfileCommands(CommandTestCase):
 
         self.assertIn(
             (
-                "my_mapped_files custom mapped files .\n"
+                "mapped_file1 custom mapped files .\n"
             ),
             result.output
         )

@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from opnsense_cli.factories.code_generator.click_option import ClickOptionCodeTypeFactory, ClickText, ClickBoolean, \
-    ClickInteger, ClickChoice
+    ClickInteger, ClickChoice, ClickTextLinkedItem
 from opnsense_cli.tests.base import BaseTestCase
 from opnsense_cli.exceptions.factory import FactoryException
 
@@ -43,7 +43,7 @@ class TestClickOptionCodeTypeFactory(BaseTestCase):
 
     def test_ModelRelationField(self):
         click_option_type_obj = self._factory.get_type_for_data(self._ModelRelationField)
-        self.assertIsInstance(click_option_type_obj, ClickText)
+        self.assertIsInstance(click_option_type_obj, ClickTextLinkedItem)
 
     def test_CertificateField(self):
         click_option_type_obj = self._factory.get_type_for_data(self._CertificateField)

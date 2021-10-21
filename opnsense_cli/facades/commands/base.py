@@ -4,16 +4,17 @@ from jsonpath_ng.ext import parse
 from opnsense_cli.exceptions.command import CommandException
 from uuid import UUID
 
+
 class CommandFacade(ABC):
     def __init__(self):
-      self._complete_model_data_cache = None
+        self._complete_model_data_cache = None
 
     @property
     def _complete_model_data(self):
-      if self._complete_model_data_cache is None:
-        self._complete_model_data_cache = self._settings_api.get()
+        if self._complete_model_data_cache is None:
+            self._complete_model_data_cache = self._settings_api.get()
 
-      return self._complete_model_data_cache
+        return self._complete_model_data_cache
 
     def _api_mutable_model_get(self, complete_model_data, jsonpath_base, resolver_map, sort_by='name'):
         raw_items = self._get_model_data_slice_with_jsonpath(jsonpath_base, complete_model_data)
