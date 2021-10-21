@@ -22,6 +22,7 @@ opn-cli - the OPNsense CLI written in python.
       - [API code](#api-code)
       - [Core command code](#core-command-code)
       - [Plugin command code](#plugin-command-code)
+    + [Resolving of names to uuids](#resolving-of-names-to-uuids)      
   * [Commands](#commands)
     + [Firewall](#firewall)
       - [Aliases](#aliases)
@@ -183,7 +184,6 @@ Zsh (current shell):
 _OPN_CLI_COMPLETE=zsh_source opn-cli >! ~/.opn-cli/opn-cli-complete.zsh
 source ~/.opn-cli/opn-cli-complete.zsh
 ```
-
 ### Output formats
 Each command has a default output format. For lists and details the table output format and for create / update / delete the plain output formatis used.
 
@@ -349,6 +349,58 @@ The facade use API classes which should be generated with "opn-cli new api plugi
 Make sure to remove all unnecessary API classes and methods to have a proper code coverage.
 
 After some tweaks you should be able to use the new command.
+
+### Resolving of names to uuids
+If you want to link items with options, you could link them with uuids or with their names. 
+
+If the name exists mulitple times, the uuid from the first match is used.
+
+**Example:**
+```
+$ opn-cli haproxy server list -c 'uuid,name'
+
++--------------------------------------+----------+
+|                 uuid                 |   name   |
++--------------------------------------+----------+
+| 162e7c70-dbea-4813-8676-33c506e1b1e2 | server1  |
+| a293d23f-5fa5-46e5-b724-47f0031d8e9b | server2  |
++--------------------------------------+----------+
+
+$ opn-cli haproxy backend list -c 'uuid,name,Servers'
+
++--------------------------------------+--------+-----------------+
+|                 uuid                 |  name  |     Servers     |
++--------------------------------------+--------+-----------------+
+| 54def7b3-93a8-4ea9-8858-22131948fb91 | pool1  |                 |
+| c30cf40b-e026-4316-ad81-32affe0c1d85 | pool2  |                 |
++--------------------------------------+--------+-----------------+
+
+# update linked item with names
+$ opn-cli haproxy backend update 54def7b3-93a8-4ea9-8858-22131948fb91 --linkedServers server1,server2
+
+# or update linked items with uuids
+$ opn-cli haproxy backend update c30cf40b-e026-4316-ad81-32affe0c1d85 --linkedServers a293d23f-5fa5-46e5-b724-47f0031d8e9b
+
++--------------------------------------+--------+-----------------+
+|                 uuid                 |  name  |     Servers     |
++--------------------------------------+--------+-----------------+
+| 54def7b3-93a8-4ea9-8858-22131948fb91 | pool1  | server1,server2 |
+| c30cf40b-e026-4316-ad81-32affe0c1d85 | pool2  |     server2     |
++--------------------------------------+--------+-----------------+
+
+# delete linked items
+$ opn-cli haproxy backend update c30cf40b-e026-4316-ad81-32affe0c1d85 --linkedServers ''
+
++--------------------------------------+--------+-----------------+
+|                 uuid                 |  name  |     Servers     |
++--------------------------------------+--------+-----------------+
+| 54def7b3-93a8-4ea9-8858-22131948fb91 | pool1  | server1,server2 |
+| c30cf40b-e026-4316-ad81-32affe0c1d85 | pool2  |                 |
++--------------------------------------+--------+-----------------+
+```
+
+
+
 
 ## Commands
 
