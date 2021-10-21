@@ -1,8 +1,16 @@
 # Changelog
 
-## [v.0.7.2](https://github.com/andeman/opn-cli/tree/v.0.7.2) (2021-09-16)
+## [v0.8.0](https://github.com/andeman/opn-cli/tree/v0.8.0) (2021-10-21)
 
-[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.7.1...v.0.7.2)
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.7.2...v0.8.0)
+
+**Merged pull requests:**
+
+- Resolve linked items options names to uuids [\#17](https://github.com/andeman/opn-cli/pull/17) ([andeman](https://github.com/andeman))
+
+## [v0.7.2](https://github.com/andeman/opn-cli/tree/v0.7.2) (2021-09-16)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v0.7.1...v0.7.2)
 
 **Merged pull requests:**
 
