@@ -70,7 +70,7 @@ class TestHaproxyGroupCommands(CommandTestCase):
 
         self.assertIn(
             (
-                "741e1c18-ba34-4fab-823a-7017fc3af1ec 1 my_group  user1,user2 1\n"
+                "741e1c18-ba34-4fab-823a-7017fc3af1ec 1 group1  user1,user2 1\n"
             ),
             result.output
         )
@@ -128,7 +128,7 @@ class TestHaproxyGroupCommands(CommandTestCase):
 
         self.assertIn(
             (
-                "1 my_group  user1,user2 1\n"
+                "1 group1  user1,user2 1\n"
             ),
             result.output
         )
@@ -138,6 +138,7 @@ class TestHaproxyGroupCommands(CommandTestCase):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
+                self._api_data_fixtures_list,
                 self._api_data_fixtures_create_OK,
                 self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
@@ -145,7 +146,7 @@ class TestHaproxyGroupCommands(CommandTestCase):
             group,
             [
                 "create", "my_test_group",
-                "--members", "d99f0f32-7cab-49df-a2f8-a4fa6edab03f",
+                "--members", "user1",
                 "--description", "the gang",
             ]
         )
@@ -162,6 +163,7 @@ class TestHaproxyGroupCommands(CommandTestCase):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
+                self._api_data_fixtures_list,
                 self._api_data_fixtures_create_ERROR,
                 self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,

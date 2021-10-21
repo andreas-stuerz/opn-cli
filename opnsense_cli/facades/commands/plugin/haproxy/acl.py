@@ -3,7 +3,17 @@ from opnsense_cli.api.plugin.haproxy import Settings, Service
 
 
 class HaproxyAclFacade(HaproxyFacade):
+    jsonpath_base = '$.haproxy.acls.acl'
+    uuid_resolver_map = {
+        'nbsrv_backend': {'template': '$.haproxy.backends.backend[{uuids}].name', 'insert_as_key': 'BackendNrSrv'},
+        'queryBackend': {'template': '$.haproxy.backends.backend[{uuids}].name', 'insert_as_key': 'BackendQuery'},
+        'allowedUsers': {'template': '$.haproxy.users.user[{uuids}].name', 'insert_as_key': 'Users'},
+        'allowedGroups': {'template': '$.haproxy.groups.group[{uuids}].name', 'insert_as_key': 'Groups'},
+    }
+
     def __init__(self, settings_api: Settings, service_api: Service):
+        super().__init__()
+        self._complete_model_data_cache = None
         self._settings_api = settings_api
         self._service_api = service_api
 
@@ -16,16 +26,7 @@ class HaproxyAclFacade(HaproxyFacade):
         return acl
 
     def _get_acls_list(self):
-        complete_model_data = self._settings_api.get()
-        jsonpath_base = '$.haproxy.acls.acl'
-        uuid_resolver_map = {
-            'nbsrv_backend': {'template': '$.haproxy.backends.backend[{uuids}].name', 'insert_as_key': 'BackendNrSrv'},
-            'queryBackend': {'template': '$.haproxy.backends.backend[{uuids}].name', 'insert_as_key': 'BackendQuery'},
-            'allowedUsers': {'template': '$.haproxy.users.user[{uuids}].name', 'insert_as_key': 'Users'},
-            'allowedGroups': {'template': '$.haproxy.groups.group[{uuids}].name', 'insert_as_key': 'Groups'},
-        }
-
-        return self._api_mutable_model_get(complete_model_data, jsonpath_base, uuid_resolver_map)
+        return self._api_mutable_model_get(self._complete_model_data, self.jsonpath_base, self.uuid_resolver_map)
 
     def create_acl(self, json_payload: dict):
         result = self._settings_api.addAcl(json=json_payload)

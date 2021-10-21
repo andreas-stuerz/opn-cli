@@ -76,6 +76,7 @@ class TestNewCommandCommands(CommandTestCase):
                 @click.option(
                     '--linkedCpuAffinityRules',
                     help=('Choose CPU affinity rules that should be applied to this Public Service.'),
+                    callback=resolve_linked_names_to_uuids,
                     show_default=True,
                     default=None
                 )
@@ -87,6 +88,7 @@ class TestNewCommandCommands(CommandTestCase):
                 @click.option(
                     '--linkedCpuAffinityRules',
                     help=('Choose CPU affinity rules that should be applied to this Public Service.'),
+                    callback=resolve_linked_names_to_uuids,
                     show_default=True,
                     default=None,
                     required=False,

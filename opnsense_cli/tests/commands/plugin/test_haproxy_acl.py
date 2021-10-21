@@ -138,6 +138,7 @@ class TestHaproxyAclCommands(CommandTestCase):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
+                self._api_data_fixtures_list,
                 self._api_data_fixtures_create_OK,
                 self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
@@ -147,7 +148,11 @@ class TestHaproxyAclCommands(CommandTestCase):
                 "create", "my_test_acl",
                 "--expression", "hdr_beg",
                 "--hdr_beg", "preifx_",
-                "--no-negate"
+                "--no-negate",
+                "--nbsrv_backend", "pool1",
+                "--queryBackend", "pool1",
+                "--allowedUsers", "user1",
+                "--allowedGroups", "group1",
             ]
         )
 

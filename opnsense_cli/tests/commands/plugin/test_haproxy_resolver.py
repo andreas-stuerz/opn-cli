@@ -72,7 +72,7 @@ class TestHaproxyResolverCommands(CommandTestCase):
 
         self.assertIn(
             (
-                "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8 1 my_resolver my special resolver 127.0.0.1:53 0 3 1s 1s\n"
+                "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8 1 resolver1 my special resolver 127.0.0.1:53 0 3 1s 1s\n"
             ),
             result.output
         )
@@ -130,7 +130,7 @@ class TestHaproxyResolverCommands(CommandTestCase):
 
         self.assertIn(
             (
-                "1 my_resolver my special resolver 127.0.0.1:53 0 3 1s 1s\n"
+                "1 resolver1 my special resolver 127.0.0.1:53 0 3 1s 1s\n"
             ),
             result.output
         )

@@ -6,6 +6,7 @@ from opnsense_cli.types.click_option.click_boolean import ClickBoolean
 from opnsense_cli.types.click_option.click_text import ClickText
 from opnsense_cli.types.click_option.click_integer import ClickInteger
 from opnsense_cli.types.click_option.click_choice import ClickChoice
+from opnsense_cli.types.click_option.click_text_linked_item import ClickTextLinkedItem
 
 
 class ClickOptionCodeTypeFactory(ObjectTypeFromDataFactory):
@@ -14,7 +15,7 @@ class ClickOptionCodeTypeFactory(ObjectTypeFromDataFactory):
         'TextField': ClickText,
         'IntegerField': ClickInteger,
         'OptionField': ClickChoice,
-        'ModelRelationField': ClickText,
+        'ModelRelationField': ClickTextLinkedItem,
         'CertificateField': ClickText,
         'CSVListField': ClickText,
         'EmailField': ClickText,

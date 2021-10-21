@@ -1,7 +1,7 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
-    formatter_from_formatter_name, bool_as_string, available_formats
+    formatter_from_formatter_name, bool_as_string, available_formats, resolve_linked_names_to_uuids
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
@@ -99,6 +99,7 @@ def show(haproxy_group_svc: HaproxyGroupFacade, **kwargs):
 @click.option(
     '--members',
     help=('The comma seperated user uuids of the group.'),
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None,
     required=False,
@@ -175,6 +176,7 @@ def create(haproxy_group_svc: HaproxyGroupFacade, **kwargs):
 @click.option(
     '--members',
     help=('The comma seperated user uuids of the group'),
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None
 )

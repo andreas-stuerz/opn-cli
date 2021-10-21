@@ -128,7 +128,7 @@ class TestHaproxyServerCommands(CommandTestCase):
 
         self.assertIn(
             (
-                "0 my_new_testserver my_resolver\n"
+                "0 my_new_testserver resolver1\n"
             ),
             result.output
         )
@@ -138,6 +138,7 @@ class TestHaproxyServerCommands(CommandTestCase):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
+                self._api_data_fixtures_list,
                 self._api_data_fixtures_create_OK,
                 self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
@@ -156,6 +157,7 @@ class TestHaproxyServerCommands(CommandTestCase):
                 "--weight", "10",
                 "--checkInterval", "10",
                 "--source", "10.0.0.5",
+                "--linkedResolver", "resolver1",
             ]
         )
 
@@ -196,6 +198,7 @@ class TestHaproxyServerCommands(CommandTestCase):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
+                self._api_data_fixtures_list,
                 self._api_data_fixtures_update_OK,
                 self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
@@ -203,6 +206,7 @@ class TestHaproxyServerCommands(CommandTestCase):
             server,
             [
                 "update", "85282721-934c-42be-ba4d-a93cbfda26af",
+                "--linkedResolver", "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8",
                 "--enabled",
             ]
         )

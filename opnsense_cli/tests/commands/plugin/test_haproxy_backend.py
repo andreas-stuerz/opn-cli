@@ -70,7 +70,7 @@ class TestHaproxyBackendCommands(CommandTestCase):
 
         self.assertIn(
             (
-                "5d17779f-1407-4cdf-a616-b7024bea4448 pool1 server1,server2 my_resolver http_head alert_to_myself   "
+                "5d17779f-1407-4cdf-a616-b7024bea4448 pool1 server1,server2 resolver1 http_head alert_to_myself   "
                 "my_rule custom_error_500\n"
                 "2c57ff97-10df-41a1-8a02-ab2fd1a4a651 pool2 server2,server4  http_head     \n"
                 "fee6bae9-8168-46bc-a6d1-c88838a1b3ec pool3 my_new_testserver,my_new_testserver       \n"
@@ -142,6 +142,7 @@ class TestHaproxyBackendCommands(CommandTestCase):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
+                self._api_data_fixtures_list,
                 self._api_data_fixtures_create_OK,
                 self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
@@ -154,7 +155,14 @@ class TestHaproxyBackendCommands(CommandTestCase):
                 "--mode", "tcp",
                 "--algorithm", "roundrobin",
                 "--proxyProtocol", "v2",
-                "--linkedServers", "dd74172b-d5c7-4d44-9ce3-667675a1e780,28cfa25d-74b2-4a22-9f4a-d5923fb1394d",
+                "--linkedServers", "server1,server2",
+                "--linkedResolver", "resolver1",
+                "--healthCheck", "http_head",
+                "--linkedMailer", "alert_to_myself",
+                "--basicAuthUsers", "user1",
+                "--basicAuthGroups", "group1",
+                "--linkedActions", "my_rule",
+                "--linkedErrorfiles", "custom_error_500",
                 "--resolverOpts", "allow-dup-ip",
                 "--resolverOpts", "prevent-dup-ip",
                 "--ba_advertised_protocols", "h2",
@@ -190,6 +198,31 @@ class TestHaproxyBackendCommands(CommandTestCase):
             (
                 "Error: {'result': 'failed', "
                 "'validations': {'backend.tuning_retries': ['Please specify a value between 1 and 100.']}}\n"
+            ),
+            result.output
+        )
+        self.assertEqual(1, result.exit_code)
+
+    @patch('opnsense_cli.commands.plugin.haproxy.backend.ApiClient.execute')
+    def test_create_UNRESOLVED(self, api_response_mock: Mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                self._api_data_fixtures_list,
+                self._api_data_fixtures_create_ERROR,
+                self._api_data_fixtures_configtest_OK,
+                self._api_data_fixtures_reconfigure_OK,
+            ],
+            backend,
+            [
+                "create", "my_test_backend",
+                "--linkedServers", "non_existing_server",
+            ]
+        )
+
+        self.assertIn(
+            (
+                "Error: Could not find uuid for $.haproxy.servers.server: ['non_existing_server']\n"
             ),
             result.output
         )

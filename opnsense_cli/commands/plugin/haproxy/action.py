@@ -1,7 +1,8 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
-    formatter_from_formatter_name, available_formats, int_as_string, tuple_to_csv
+    formatter_from_formatter_name, available_formats, int_as_string, tuple_to_csv, \
+    resolve_linked_names_to_uuids
 from opnsense_cli.types.click_param_type.int_or_empty import INT_OR_EMPTY
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
@@ -118,6 +119,7 @@ def show(haproxy_action_svc: HaproxyActionFacade, **kwargs):
 @click.option(
     '--linkedAcls',
     help=('Select one or more conditions to be used for this rule.'),
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None,
     required=False,
@@ -160,6 +162,7 @@ def show(haproxy_action_svc: HaproxyActionFacade, **kwargs):
 @click.option(
     '--use_backend',
     help=('HAProxy will use this backend pool if the condition evaluates to true.'),
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None,
     required=False,
@@ -170,6 +173,7 @@ def show(haproxy_action_svc: HaproxyActionFacade, **kwargs):
         'HAProxy will use this server instead of other servers that are specified in the Backend Pool. '
         'The server must exist in the context where this rule is applied.'
     ),
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None,
     required=False,
@@ -494,6 +498,7 @@ def show(haproxy_action_svc: HaproxyActionFacade, **kwargs):
 @click.option(
     '--useBackend',
     help=('None'),
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None,
     required=False,
@@ -501,6 +506,7 @@ def show(haproxy_action_svc: HaproxyActionFacade, **kwargs):
 @click.option(
     '--useServer',
     help=('None'),
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None,
     required=False,
@@ -532,6 +538,7 @@ def show(haproxy_action_svc: HaproxyActionFacade, **kwargs):
         'HAProxy will extract the Host header from the HTTP request and search the map file for a match. '
         'If a match is found, the backend pool from the map file will be used.'
     ),
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None,
     required=False,
@@ -539,6 +546,7 @@ def show(haproxy_action_svc: HaproxyActionFacade, **kwargs):
 @click.option(
     '--map_use_backend_default',
     help=('HAProxy will use this backend pool if no match is found in the map file.'),
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None,
     required=False,
@@ -654,6 +662,7 @@ def create(haproxy_action_svc: HaproxyActionFacade, **kwargs):
 @click.option(
     '--linkedAcls',
     help=('Select one or more conditions to be used for this rule.'),
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None
 )
@@ -693,6 +702,7 @@ def create(haproxy_action_svc: HaproxyActionFacade, **kwargs):
 @click.option(
     '--use_backend',
     help=('HAProxy will use this backend pool if the condition evaluates to true.'),
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None
 )
@@ -702,6 +712,7 @@ def create(haproxy_action_svc: HaproxyActionFacade, **kwargs):
         'HAProxy will use this server instead of other servers that are specified in the Backend Pool. '
         'The server must exist in the context where this rule is applied.'
     ),
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None
 )
@@ -988,12 +999,14 @@ def create(haproxy_action_svc: HaproxyActionFacade, **kwargs):
 @click.option(
     '--useBackend',
     help=('None'),
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None
 )
 @click.option(
     '--useServer',
     help=('None'),
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None
 )
@@ -1021,12 +1034,14 @@ def create(haproxy_action_svc: HaproxyActionFacade, **kwargs):
         'HAProxy will extract the Host header from the HTTP request and search the map file for a match. '
         'If a match is found, the backend pool from the map file will be used.'
     ),
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None
 )
 @click.option(
     '--map_use_backend_default',
     help=('HAProxy will use this backend pool if no match is found in the map file.'),
+    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None
 )

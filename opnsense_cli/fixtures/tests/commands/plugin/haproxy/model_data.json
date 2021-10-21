@@ -1244,7 +1244,7 @@
               "selected": 0
             },
             "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
-              "value": "my_resolver",
+              "value": "resolver1",
               "selected": 1
             }
           },
@@ -1565,7 +1565,7 @@
               "selected": 0
             },
             "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
-              "value": "my_resolver",
+              "value": "resolver1",
               "selected": 0
             }
           },
@@ -1886,7 +1886,7 @@
               "selected": 0
             },
             "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
-              "value": "my_resolver",
+              "value": "resolver1",
               "selected": 0
             }
           },
@@ -2207,7 +2207,7 @@
               "selected": 0
             },
             "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
-              "value": "my_resolver",
+              "value": "resolver1",
               "selected": 0
             }
           },
@@ -2488,7 +2488,7 @@
               "selected": 0
             },
             "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
-              "value": "my_resolver",
+              "value": "resolver1",
               "selected": 0
             }
           },
@@ -2606,7 +2606,7 @@
               "selected": 0
             },
             "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
-              "value": "my_resolver",
+              "value": "resolver1",
               "selected": 0
             }
           },
@@ -2724,7 +2724,7 @@
               "selected": 0
             },
             "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
-              "value": "my_resolver",
+              "value": "resolver1",
               "selected": 0
             }
           },
@@ -2842,7 +2842,7 @@
               "selected": 0
             },
             "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
-              "value": "my_resolver",
+              "value": "resolver1",
               "selected": 1
             }
           },
@@ -2960,7 +2960,7 @@
               "selected": 0
             },
             "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
-              "value": "my_resolver",
+              "value": "resolver1",
               "selected": 0
             }
           },
@@ -3078,7 +3078,7 @@
               "selected": 0
             },
             "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
-              "value": "my_resolver",
+              "value": "resolver1",
               "selected": 0
             }
           },
@@ -4467,7 +4467,7 @@
       "mapfile": {
         "9a7e6b2d-66fe-487f-9ac4-541dd8f2f639": {
           "id": "611a3cae837a10.69862420",
-          "name": "my_mapped_files",
+          "name": "mapped_file1",
           "description": "custom mapped files",
           "content": "."
         }
@@ -4478,7 +4478,7 @@
         "741e1c18-ba34-4fab-823a-7017fc3af1ec": {
           "id": "613220c5e25cb8.98533797",
           "enabled": "1",
-          "name": "my_group",
+          "name": "group1",
           "description": "",
           "members": {
             "36965ef4-d1cd-42e6-8e3e-6f1a9acb37ac": {
@@ -5328,7 +5328,7 @@
         "cea8f031-9aba-4f6e-86c2-f5f5f27a10b8": {
           "id": "610d3f740c60f9.50846688",
           "enabled": "1",
-          "name": "my_resolver",
+          "name": "resolver1",
           "description": "my special resolver",
           "nameservers": {
             "127.0.0.1:53": {
