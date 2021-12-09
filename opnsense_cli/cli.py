@@ -5,6 +5,7 @@ from opnsense_cli import __cli_name__
 from opnsense_cli.callbacks.click import defaults_from_configfile, expand_path
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.commands.new import new
+from opnsense_cli.commands.new.api import api as new_api
 from opnsense_cli.commands.new.command import command as new_command
 from opnsense_cli.commands.version import version
 from opnsense_cli.commands.completion import completion
@@ -175,6 +176,7 @@ firewall.add_command(firewall_alias)
 firewall.add_command(firewall_rule)
 
 cli.add_command(new)
+new.add_command(new_api)
 new.add_command(new_command)
 
 cli.add_command(plugin)

@@ -283,8 +283,55 @@ Commands:
 command  Generate code for a new command
 ```
 
-#### API code
-tbd.
+#### API code core
+This generates all necessary code to implement api calls to a core module.
+
+For a list of all plugin api endpoints see:
+
+https://github.com/opnsense/docs/tree/master/source/development/api/core
+
+Or:
+
+```
+$ opn-cli new api list --module-type core
+```
+Example that generates code for the core module 'cron':
+
+```
+$ opn-cli new api core cron
+```
+
+This generates a class for every controller of the core module.
+Every class contains methodes to call all api endpoints of the corresponding controller. 
+
+Please move the file from the output dir to the destination folders under opnsense_cli/.
+The default output path is opnsense_cli/output/api/core/ .
+
+#### API code plugin
+This generates all necessary code to implement api calls to a plugin module.
+
+For a list of all plugin api endpoints see:
+
+https://github.com/opnsense/docs/tree/master/source/development/api/plugins
+
+Or:
+
+```
+$ opn-cli new api list --module-type plugin
+```
+
+Example that generates code for the plugin module 'haproxy':
+
+```
+$ opn-cli new api plugin haproxy
+```
+
+This generates a class for every controller of the plugin module.
+Every class contains methodes to call all api endpoints of the corresponding controller.
+
+Please move the file from the output dir to the destination folders under opnsense_cli/.
+The default output path is opnsense_cli/output/api/plugins/ .
+
 
 #### Core command code
 This generates all necessary code and tests to implement a new command from a core module.
