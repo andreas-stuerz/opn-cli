@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 ARGS="opnsense_cli"
+MIN_COVERAGE=${1:-100}
 if [ -n "$1" ]; then
   ARGS=$(printf ' %q' "$@")
 fi
 
-pytest --verbose --cov --cov-report term-missing ${ARGS}
+pytest --verbose --cov --cov-report term-missing --cov-fail-under=${MIN_COVERAGE} ${ARGS}
