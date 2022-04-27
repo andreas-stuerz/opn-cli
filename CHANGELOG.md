@@ -1,8 +1,16 @@
 # Changelog
 
-## [v0.8.1](https://github.com/andeman/opn-cli/tree/v0.8.1) (2021-10-21)
+## [v1.0.0](https://github.com/andeman/opn-cli/tree/v1.0.0) (2022-04-27)
 
-[Full Changelog](https://github.com/andeman/opn-cli/compare/v.0.8.0...v0.8.1)
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v.0.8.1...v1.0.0)
+
+**Implemented enhancements:**
+
+- add api code-generator [\#19](https://github.com/andeman/opn-cli/pull/19) ([jan-win1993](https://github.com/jan-win1993))
+
+## [v.0.8.1](https://github.com/andeman/opn-cli/tree/v.0.8.1) (2021-10-21)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v.0.8.0...v.0.8.1)
 
 **Fixed bugs:**
 

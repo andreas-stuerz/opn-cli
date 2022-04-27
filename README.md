@@ -19,7 +19,7 @@ opn-cli - the OPNsense CLI written in python.
       - [plain](#plain)
       - [yaml](#yaml)
     + [Code Generator](#code-generator)
-      - [API code](#api-code)
+      - [API code](#api-code-plugin)
       - [Core command code](#core-command-code)
       - [Plugin command code](#plugin-command-code)
     + [Resolving of names to uuids](#resolving-of-names-to-uuids)      
