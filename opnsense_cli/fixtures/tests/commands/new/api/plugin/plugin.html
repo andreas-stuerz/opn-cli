@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
+
+<head>
+</head>
+<body>
+
+<table><thead valign="bottom">
+<tr><th>Method</th>
+<th>Module</th>
+<th>Controller</th>
+<th>Command</th>
+<th>Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>export</td>
+<td>config</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>export</td>
+<td>diff</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>export</td>
+<td>download</td>
+<td>$type</td>
+</tr>
+</tbody>
+</table>
+
+<table><thead valign="bottom">
+<tr><th>Method</th>
+<th>Module</th>
+<th>Controller</th>
+<th>Command</th>
+<th>Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>maintenance</td>
+<td>certActions</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>maintenance</td>
+<td>certDiff</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>maintenance</td>
+<td>certSync</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>maintenance</td>
+<td>certSyncBulk</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>maintenance</td>
+<td>fetchCronIntegration</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>maintenance</td>
+<td>get</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>maintenance</td>
+<td>searchCertificateDiff</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>maintenance</td>
+<td>searchServer</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>maintenance</td>
+<td>serverState</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>maintenance</td>
+<td>serverStateBulk</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>maintenance</td>
+<td>serverWeight</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>maintenance</td>
+<td>serverWeightBulk</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>maintenance</td>
+<td>set</td>
+<td> </td>
+</tr>
+<tr><td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr><td><code>&lt;&lt;uses&gt;&gt;</code></td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td><em>model</em> <a href="https://github.com/opnsense/plugins/blob/master/net/haproxy/src/opnsense/mvc/app/models/OPNsense/HAProxy/HAProxy.xml">HAProxy.xml</a></td>
+</tr>
+</tbody>
+</table>
+
+<table><thead valign="bottom">
+<tr><th>Method</th>
+<th>Module</th>
+<th>Controller</th>
+<th>Command</th>
+<th>Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>service</td>
+<td>configtest</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>service</td>
+<td>reconfigure</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>service</td>
+<td>restart</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>service</td>
+<td>start</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>service</td>
+<td>status</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>service</td>
+<td>stop</td>
+<td> </td>
+</tr>
+<tr><td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr><td><code>&lt;&lt;uses&gt;&gt;</code></td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td><em>model</em> <a href="https://github.com/opnsense/plugins/blob/master/net/haproxy/src/opnsense/mvc/app/models/OPNsense/HAProxy/HAProxy.xml">HAProxy.xml</a></td>
+</tr>
+</tbody>
+</table>
+
+<table><thead valign="bottom">
+<tr><th>Method</th>
+<th>Module</th>
+<th>Controller</th>
+<th>Command</th>
+<th>Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>addAcl</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>addAction</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>addBackend</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>addCpu</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>addErrorfile</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>addFrontend</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>addGroup</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>addHealthcheck</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>addLua</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>addMapfile</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>addServer</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>addUser</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>addmailer</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>addresolver</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>delAcl</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>delAction</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>delBackend</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>delCpu</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>delErrorfile</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>delFrontend</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>delGroup</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>delHealthcheck</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>delLua</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>delMapfile</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>delServer</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>delUser</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>delmailer</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>delresolver</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>get</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>getAcl</td>
+<td>$uuid=null</td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>getAction</td>
+<td>$uuid=null</td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>getBackend</td>
+<td>$uuid=null</td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>getCpu</td>
+<td>$uuid=null</td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>getErrorfile</td>
+<td>$uuid=null</td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>getFrontend</td>
+<td>$uuid=null</td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>getGroup</td>
+<td>$uuid=null</td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>getHealthcheck</td>
+<td>$uuid=null</td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>getLua</td>
+<td>$uuid=null</td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>getMapfile</td>
+<td>$uuid=null</td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>getServer</td>
+<td>$uuid=null</td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>getUser</td>
+<td>$uuid=null</td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>getmailer</td>
+<td>$uuid=null</td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>getresolver</td>
+<td>$uuid=null</td>
+</tr>
+<tr><td><code>*</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>searchAcls</td>
+<td> </td>
+</tr>
+<tr><td><code>*</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>searchActions</td>
+<td> </td>
+</tr>
+<tr><td><code>*</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>searchBackends</td>
+<td> </td>
+</tr>
+<tr><td><code>*</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>searchCpus</td>
+<td> </td>
+</tr>
+<tr><td><code>*</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>searchErrorfiles</td>
+<td> </td>
+</tr>
+<tr><td><code>*</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>searchFrontends</td>
+<td> </td>
+</tr>
+<tr><td><code>*</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>searchGroups</td>
+<td> </td>
+</tr>
+<tr><td><code>*</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>searchHealthchecks</td>
+<td> </td>
+</tr>
+<tr><td><code>*</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>searchLuas</td>
+<td> </td>
+</tr>
+<tr><td><code>*</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>searchMapfiles</td>
+<td> </td>
+</tr>
+<tr><td><code>*</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>searchServers</td>
+<td> </td>
+</tr>
+<tr><td><code>*</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>searchUsers</td>
+<td> </td>
+</tr>
+<tr><td><code>*</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>searchmailers</td>
+<td> </td>
+</tr>
+<tr><td><code>*</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>searchresolvers</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>set</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>setAcl</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>setAction</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>setBackend</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>setCpu</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>setErrorfile</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>setFrontend</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>setGroup</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>setHealthcheck</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>setLua</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>setMapfile</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>setServer</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>setUser</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>setmailer</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>setresolver</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>toggleBackend</td>
+<td>$uuid,$enabled=null</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>toggleCpu</td>
+<td>$uuid,$enabled=null</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>toggleFrontend</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>toggleGroup</td>
+<td>$uuid,$enabled=null</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>toggleLua</td>
+<td>$uuid,$enabled=null</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>toggleServer</td>
+<td>$uuid,$enabled=null</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>toggleUser</td>
+<td>$uuid,$enabled=null</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>togglemailer</td>
+<td>$uuid,$enabled=null</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>haproxy</td>
+<td>settings</td>
+<td>toggleresolver</td>
+<td>$uuid,$enabled=null</td>
+</tr>
+<tr><td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr><td><code>&lt;&lt;uses&gt;&gt;</code></td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td><em>model</em> <a href="https://github.com/opnsense/plugins/blob/master/net/haproxy/src/opnsense/mvc/app/models/OPNsense/HAProxy/HAProxy.xml">HAProxy.xml</a></td>
+</tr>
+</tbody>
+</table>
+
+<table><thead valign="bottom">
+<tr><th>Method</th>
+<th>Module</th>
+<th>Controller</th>
+<th>Command</th>
+<th>Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>statistics</td>
+<td>counters</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>statistics</td>
+<td>info</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>haproxy</td>
+<td>statistics</td>
+<td>tables</td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>

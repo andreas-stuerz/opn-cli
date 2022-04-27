@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
+
+<head>
+</head>
+
+<body>
+
+<table><thead valign="bottom">
+<tr><th>Method</th>
+<th>Module</th>
+<th>Controller</th>
+<th>Command</th>
+<th>Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><code>POST</code></td>
+<td>cron</td>
+<td>service</td>
+<td>reconfigure</td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+
+<table><thead valign="bottom">
+<tr><th>Method</th>
+<th>Module</th>
+<th>Controller</th>
+<th>Command</th>
+<th>Parameters</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><code>POST</code></td>
+<td>cron</td>
+<td>settings</td>
+<td>addJob</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>cron</td>
+<td>settings</td>
+<td>delJob</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>cron</td>
+<td>settings</td>
+<td>get</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>cron</td>
+<td>settings</td>
+<td>getJob</td>
+<td>$uuid=null</td>
+</tr>
+<tr><td><code>*</code></td>
+<td>cron</td>
+<td>settings</td>
+<td>searchJobs</td>
+<td> </td>
+</tr>
+<tr><td><code>GET</code></td>
+<td>cron</td>
+<td>settings</td>
+<td>set</td>
+<td> </td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>cron</td>
+<td>settings</td>
+<td>setJob</td>
+<td>$uuid</td>
+</tr>
+<tr><td><code>POST</code></td>
+<td>cron</td>
+<td>settings</td>
+<td>toggleJob</td>
+<td>$uuid,$enabled=null</td>
+</tr>
+<tr><td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr><td><code>&lt;&lt;uses&gt;&gt;</code></td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td><em>model</em> <a href="https://github.com/opnsense/core/blob/master/src/opnsense/mvc/app/models/OPNsense/Cron/Cron.xml">Cron.xml</a></td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>
