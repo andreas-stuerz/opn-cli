@@ -19,10 +19,11 @@ opn-cli - the OPNsense CLI written in python.
       - [plain](#plain)
       - [yaml](#yaml)
     + [Code Generator](#code-generator)
-      - [API code](#api-code-plugin)
+      - [API code core](#api-code-core)
+      - [API code plugin](#api-code-plugin)
       - [Core command code](#core-command-code)
       - [Plugin command code](#plugin-command-code)
-    + [Resolving of names to uuids](#resolving-of-names-to-uuids)      
+    + [Resolving of names to uuids](#resolving-of-names-to-uuids)
   * [Commands](#commands)
     + [Firewall](#firewall)
       - [Aliases](#aliases)
@@ -41,6 +42,9 @@ opn-cli - the OPNsense CLI written in python.
       - [Resolver](#resolver)
       - [Server](#server)
       - [User](#user)
+    + [Ipsec](#ipsec)
+      - [Tunnel phase1](#tunnel-phase1)
+      - [Tunnel phase2](#tunnel-phase2)
     + [OpenVPN](#openvpn)
     + [Plugins](#plugins)
   * [Development](#development)
@@ -772,7 +776,7 @@ Commands:
   show  Show details for phase 1 tunnel
 ```
 
-##### Tunnel phase2
+#### Tunnel phase2
 ```
 Usage: opn-cli ipsec tunnel phase2 [OPTIONS] COMMAND [ARGS]...
 
