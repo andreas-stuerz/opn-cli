@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+IMAGE_SUFFIX=${1:-}
+
+ARGS="acceptance_tests"
+if [ -n "$2" ]; then
+  ARGS=$(printf ' %q' "$@")
+fi
+
+scripts/create_test_env
+
+pytest --exitfirst --verbose --failed-first --ignore=./output --verbose ${ARGS}
+
+scripts/remove_test_env
+
+
