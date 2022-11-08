@@ -1,0 +1,914 @@
+{
+  "syslog": {
+    "general": {
+      "enabled": "1"
+    },
+    "destinations": {
+      "destination": {
+        "4dd6f818-e975-4136-bf7e-ed2559675ef9": {
+          "enabled": "1",
+          "transport": {
+            "udp4": {
+              "value": "UDP(4)",
+              "selected": 0
+            },
+            "tcp4": {
+              "value": "TCP(4)",
+              "selected": 1
+            },
+            "udp6": {
+              "value": "UDP(6)",
+              "selected": 0
+            },
+            "tcp6": {
+              "value": "TCP(6)",
+              "selected": 0
+            },
+            "tls4": {
+              "value": "TLS(4)",
+              "selected": 0
+            },
+            "tls6": {
+              "value": "TLS(6)",
+              "selected": 0
+            }
+          },
+          "program": {
+            "audit": {
+              "value": "audit (audit)",
+              "selected": 0
+            },
+            "configd.py": {
+              "value": "configd (configd.py)",
+              "selected": 0
+            },
+            "dhcpd": {
+              "value": "dhcpd (dhcpd)",
+              "selected": 0
+            },
+            "dhcrelay": {
+              "value": "dhcpd (dhcrelay)",
+              "selected": 0
+            },
+            "dnsmasq": {
+              "value": "dnsmasq (dnsmasq)",
+              "selected": 0
+            },
+            "filterlog": {
+              "value": "filter (filterlog)",
+              "selected": 0
+            },
+            "firewall": {
+              "value": "firewall (firewall)",
+              "selected": 1
+            },
+            "dpinger": {
+              "value": "gateways (dpinger)",
+              "selected": 0
+            },
+            "charon": {
+              "value": "ipsec (charon)",
+              "selected": 1
+            },
+            "lighttpd": {
+              "value": "lighttpd (lighttpd)",
+              "selected": 1
+            },
+            "monit": {
+              "value": "monit (monit)",
+              "selected": 0
+            },
+            "ntp": {
+              "value": "ntpd (ntp)",
+              "selected": 1
+            },
+            "ntpd": {
+              "value": "ntpd (ntpd)",
+              "selected": 0
+            },
+            "ntpdate": {
+              "value": "ntpd (ntpdate)",
+              "selected": 0
+            },
+            "openvpn": {
+              "value": "openvpn (openvpn)",
+              "selected": 0
+            },
+            "pkg": {
+              "value": "pkg (pkg)",
+              "selected": 0
+            },
+            "pkg-static": {
+              "value": "pkg (pkg-static)",
+              "selected": 0
+            },
+            "captiveportal": {
+              "value": "portalauth (captiveportal)",
+              "selected": 0
+            },
+            "ppp": {
+              "value": "ppps (ppp)",
+              "selected": 0
+            },
+            "unbound": {
+              "value": "resolver (unbound)",
+              "selected": 0
+            },
+            "bgpd": {
+              "value": "routing (bgpd)",
+              "selected": 0
+            },
+            "miniupnpd": {
+              "value": "routing (miniupnpd)",
+              "selected": 0
+            },
+            "olsrd": {
+              "value": "routing (olsrd)",
+              "selected": 0
+            },
+            "ospfd": {
+              "value": "routing (ospfd)",
+              "selected": 0
+            },
+            "radvd": {
+              "value": "routing (radvd)",
+              "selected": 0
+            },
+            "routed": {
+              "value": "routing (routed)",
+              "selected": 0
+            },
+            "rtsold": {
+              "value": "routing (rtsold)",
+              "selected": 0
+            },
+            "zebra": {
+              "value": "routing (zebra)",
+              "selected": 0
+            },
+            "(squid-1)": {
+              "value": "squid ((squid-1))",
+              "selected": 0
+            },
+            "suricata": {
+              "value": "suricata (suricata)",
+              "selected": 0
+            },
+            "hostapd": {
+              "value": "wireless (hostapd)",
+              "selected": 0
+            }
+          },
+          "level": {
+            "debug": {
+              "value": "debug",
+              "selected": 0
+            },
+            "info": {
+              "value": "info",
+              "selected": 1
+            },
+            "notice": {
+              "value": "notice",
+              "selected": 1
+            },
+            "warn": {
+              "value": "warn",
+              "selected": 1
+            },
+            "err": {
+              "value": "error",
+              "selected": 1
+            },
+            "crit": {
+              "value": "critical",
+              "selected": 1
+            },
+            "alert": {
+              "value": "alert",
+              "selected": 1
+            },
+            "emerg": {
+              "value": "emergency",
+              "selected": 0
+            }
+          },
+          "facility": {
+            "kern": {
+              "value": "kernel messages",
+              "selected": 0
+            },
+            "user": {
+              "value": "user-level messages",
+              "selected": 0
+            },
+            "mail": {
+              "value": "mail system",
+              "selected": 0
+            },
+            "daemon": {
+              "value": "system daemons",
+              "selected": 0
+            },
+            "auth": {
+              "value": "security/authorization messages",
+              "selected": 0
+            },
+            "syslog": {
+              "value": "messages generated internally by syslogd",
+              "selected": 0
+            },
+            "lpr": {
+              "value": "line printer subsystem",
+              "selected": 0
+            },
+            "news": {
+              "value": "network news subsystem",
+              "selected": 0
+            },
+            "uucp": {
+              "value": "UUCP subsystem",
+              "selected": 0
+            },
+            "cron": {
+              "value": "clock daemon",
+              "selected": 0
+            },
+            "authpriv": {
+              "value": "security/authorization messages",
+              "selected": 0
+            },
+            "ftp": {
+              "value": "FTP daemon",
+              "selected": 0
+            },
+            "ntp": {
+              "value": "NTP subsystem",
+              "selected": 0
+            },
+            "security": {
+              "value": "log audit",
+              "selected": 0
+            },
+            "console": {
+              "value": "log alert",
+              "selected": 0
+            },
+            "local0": {
+              "value": "locally used (0)",
+              "selected": 0
+            },
+            "local1": {
+              "value": "locally used (1)",
+              "selected": 0
+            },
+            "local2": {
+              "value": "locally used (2)",
+              "selected": 0
+            },
+            "local3": {
+              "value": "locally used (3)",
+              "selected": 0
+            },
+            "local4": {
+              "value": "locally used (4)",
+              "selected": 0
+            },
+            "local5": {
+              "value": "locally used (5)",
+              "selected": 0
+            },
+            "local6": {
+              "value": "locally used (6)",
+              "selected": 0
+            },
+            "local7": {
+              "value": "locally used (7)",
+              "selected": 0
+            }
+          },
+          "hostname": "10.0.0.1",
+          "certificate": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "60cc4641eb577": {
+              "value": "Web Gui Certificate",
+              "selected": 0
+            },
+            "5eba6f0f352e3": {
+              "value": "Web GUI SSL certificate",
+              "selected": 0
+            }
+          },
+          "port": "514",
+          "rfc5424": "1",
+          "description": "Test Syslog host"
+        },
+        "c5d77479-0875-4f92-977a-05b3c23aceea": {
+          "enabled": "1",
+          "transport": {
+            "udp4": {
+              "value": "UDP(4)",
+              "selected": 1
+            },
+            "tcp4": {
+              "value": "TCP(4)",
+              "selected": 0
+            },
+            "udp6": {
+              "value": "UDP(6)",
+              "selected": 0
+            },
+            "tcp6": {
+              "value": "TCP(6)",
+              "selected": 0
+            },
+            "tls4": {
+              "value": "TLS(4)",
+              "selected": 0
+            },
+            "tls6": {
+              "value": "TLS(6)",
+              "selected": 0
+            }
+          },
+          "program": {
+            "audit": {
+              "value": "audit (audit)",
+              "selected": 1
+            },
+            "configd.py": {
+              "value": "configd (configd.py)",
+              "selected": 0
+            },
+            "dhcpd": {
+              "value": "dhcpd (dhcpd)",
+              "selected": 0
+            },
+            "dhcrelay": {
+              "value": "dhcpd (dhcrelay)",
+              "selected": 0
+            },
+            "dnsmasq": {
+              "value": "dnsmasq (dnsmasq)",
+              "selected": 0
+            },
+            "filterlog": {
+              "value": "filter (filterlog)",
+              "selected": 0
+            },
+            "firewall": {
+              "value": "firewall (firewall)",
+              "selected": 0
+            },
+            "dpinger": {
+              "value": "gateways (dpinger)",
+              "selected": 0
+            },
+            "charon": {
+              "value": "ipsec (charon)",
+              "selected": 0
+            },
+            "lighttpd": {
+              "value": "lighttpd (lighttpd)",
+              "selected": 0
+            },
+            "monit": {
+              "value": "monit (monit)",
+              "selected": 0
+            },
+            "ntp": {
+              "value": "ntpd (ntp)",
+              "selected": 0
+            },
+            "ntpd": {
+              "value": "ntpd (ntpd)",
+              "selected": 0
+            },
+            "ntpdate": {
+              "value": "ntpd (ntpdate)",
+              "selected": 0
+            },
+            "openvpn": {
+              "value": "openvpn (openvpn)",
+              "selected": 1
+            },
+            "pkg": {
+              "value": "pkg (pkg)",
+              "selected": 0
+            },
+            "pkg-static": {
+              "value": "pkg (pkg-static)",
+              "selected": 0
+            },
+            "captiveportal": {
+              "value": "portalauth (captiveportal)",
+              "selected": 0
+            },
+            "ppp": {
+              "value": "ppps (ppp)",
+              "selected": 0
+            },
+            "unbound": {
+              "value": "resolver (unbound)",
+              "selected": 0
+            },
+            "bgpd": {
+              "value": "routing (bgpd)",
+              "selected": 0
+            },
+            "miniupnpd": {
+              "value": "routing (miniupnpd)",
+              "selected": 0
+            },
+            "olsrd": {
+              "value": "routing (olsrd)",
+              "selected": 0
+            },
+            "ospfd": {
+              "value": "routing (ospfd)",
+              "selected": 0
+            },
+            "radvd": {
+              "value": "routing (radvd)",
+              "selected": 0
+            },
+            "routed": {
+              "value": "routing (routed)",
+              "selected": 0
+            },
+            "rtsold": {
+              "value": "routing (rtsold)",
+              "selected": 0
+            },
+            "zebra": {
+              "value": "routing (zebra)",
+              "selected": 0
+            },
+            "(squid-1)": {
+              "value": "squid ((squid-1))",
+              "selected": 0
+            },
+            "suricata": {
+              "value": "suricata (suricata)",
+              "selected": 0
+            },
+            "hostapd": {
+              "value": "wireless (hostapd)",
+              "selected": 0
+            }
+          },
+          "level": {
+            "debug": {
+              "value": "debug",
+              "selected": 0
+            },
+            "info": {
+              "value": "info",
+              "selected": 1
+            },
+            "notice": {
+              "value": "notice",
+              "selected": 1
+            },
+            "warn": {
+              "value": "warn",
+              "selected": 1
+            },
+            "err": {
+              "value": "error",
+              "selected": 1
+            },
+            "crit": {
+              "value": "critical",
+              "selected": 1
+            },
+            "alert": {
+              "value": "alert",
+              "selected": 1
+            },
+            "emerg": {
+              "value": "emergency",
+              "selected": 1
+            }
+          },
+          "facility": {
+            "kern": {
+              "value": "kernel messages",
+              "selected": 1
+            },
+            "user": {
+              "value": "user-level messages",
+              "selected": 1
+            },
+            "mail": {
+              "value": "mail system",
+              "selected": 0
+            },
+            "daemon": {
+              "value": "system daemons",
+              "selected": 1
+            },
+            "auth": {
+              "value": "security/authorization messages",
+              "selected": 0
+            },
+            "syslog": {
+              "value": "messages generated internally by syslogd",
+              "selected": 1
+            },
+            "lpr": {
+              "value": "line printer subsystem",
+              "selected": 0
+            },
+            "news": {
+              "value": "network news subsystem",
+              "selected": 0
+            },
+            "uucp": {
+              "value": "UUCP subsystem",
+              "selected": 0
+            },
+            "cron": {
+              "value": "clock daemon",
+              "selected": 0
+            },
+            "authpriv": {
+              "value": "security/authorization messages",
+              "selected": 0
+            },
+            "ftp": {
+              "value": "FTP daemon",
+              "selected": 0
+            },
+            "ntp": {
+              "value": "NTP subsystem",
+              "selected": 0
+            },
+            "security": {
+              "value": "log audit",
+              "selected": 0
+            },
+            "console": {
+              "value": "log alert",
+              "selected": 0
+            },
+            "local0": {
+              "value": "locally used (0)",
+              "selected": 0
+            },
+            "local1": {
+              "value": "locally used (1)",
+              "selected": 0
+            },
+            "local2": {
+              "value": "locally used (2)",
+              "selected": 0
+            },
+            "local3": {
+              "value": "locally used (3)",
+              "selected": 0
+            },
+            "local4": {
+              "value": "locally used (4)",
+              "selected": 0
+            },
+            "local5": {
+              "value": "locally used (5)",
+              "selected": 0
+            },
+            "local6": {
+              "value": "locally used (6)",
+              "selected": 0
+            },
+            "local7": {
+              "value": "locally used (7)",
+              "selected": 0
+            }
+          },
+          "hostname": "10.1.0.2",
+          "certificate": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "60cc4641eb577": {
+              "value": "Web Gui Certificate",
+              "selected": 0
+            },
+            "5eba6f0f352e3": {
+              "value": "Web GUI SSL certificate",
+              "selected": 0
+            }
+          },
+          "port": "514",
+          "rfc5424": "1",
+          "description": "Test 2"
+        },
+        "7155fe8c-d878-4690-be73-e9811a7c7da4": {
+          "enabled": "1",
+          "transport": {
+            "udp4": {
+              "value": "UDP(4)",
+              "selected": 1
+            },
+            "tcp4": {
+              "value": "TCP(4)",
+              "selected": 0
+            },
+            "udp6": {
+              "value": "UDP(6)",
+              "selected": 0
+            },
+            "tcp6": {
+              "value": "TCP(6)",
+              "selected": 0
+            },
+            "tls4": {
+              "value": "TLS(4)",
+              "selected": 0
+            },
+            "tls6": {
+              "value": "TLS(6)",
+              "selected": 0
+            }
+          },
+          "program": {
+            "audit": {
+              "value": "audit (audit)",
+              "selected": 0
+            },
+            "configd.py": {
+              "value": "configd (configd.py)",
+              "selected": 1
+            },
+            "dhcpd": {
+              "value": "dhcpd (dhcpd)",
+              "selected": 0
+            },
+            "dhcrelay": {
+              "value": "dhcpd (dhcrelay)",
+              "selected": 0
+            },
+            "dnsmasq": {
+              "value": "dnsmasq (dnsmasq)",
+              "selected": 0
+            },
+            "filterlog": {
+              "value": "filter (filterlog)",
+              "selected": 0
+            },
+            "firewall": {
+              "value": "firewall (firewall)",
+              "selected": 0
+            },
+            "dpinger": {
+              "value": "gateways (dpinger)",
+              "selected": 0
+            },
+            "charon": {
+              "value": "ipsec (charon)",
+              "selected": 0
+            },
+            "lighttpd": {
+              "value": "lighttpd (lighttpd)",
+              "selected": 0
+            },
+            "monit": {
+              "value": "monit (monit)",
+              "selected": 0
+            },
+            "ntp": {
+              "value": "ntpd (ntp)",
+              "selected": 0
+            },
+            "ntpd": {
+              "value": "ntpd (ntpd)",
+              "selected": 0
+            },
+            "ntpdate": {
+              "value": "ntpd (ntpdate)",
+              "selected": 0
+            },
+            "openvpn": {
+              "value": "openvpn (openvpn)",
+              "selected": 0
+            },
+            "pkg": {
+              "value": "pkg (pkg)",
+              "selected": 0
+            },
+            "pkg-static": {
+              "value": "pkg (pkg-static)",
+              "selected": 0
+            },
+            "captiveportal": {
+              "value": "portalauth (captiveportal)",
+              "selected": 0
+            },
+            "ppp": {
+              "value": "ppps (ppp)",
+              "selected": 0
+            },
+            "unbound": {
+              "value": "resolver (unbound)",
+              "selected": 0
+            },
+            "bgpd": {
+              "value": "routing (bgpd)",
+              "selected": 0
+            },
+            "miniupnpd": {
+              "value": "routing (miniupnpd)",
+              "selected": 0
+            },
+            "olsrd": {
+              "value": "routing (olsrd)",
+              "selected": 0
+            },
+            "ospfd": {
+              "value": "routing (ospfd)",
+              "selected": 0
+            },
+            "radvd": {
+              "value": "routing (radvd)",
+              "selected": 0
+            },
+            "routed": {
+              "value": "routing (routed)",
+              "selected": 0
+            },
+            "rtsold": {
+              "value": "routing (rtsold)",
+              "selected": 0
+            },
+            "zebra": {
+              "value": "routing (zebra)",
+              "selected": 0
+            },
+            "(squid-1)": {
+              "value": "squid ((squid-1))",
+              "selected": 0
+            },
+            "suricata": {
+              "value": "suricata (suricata)",
+              "selected": 0
+            },
+            "hostapd": {
+              "value": "wireless (hostapd)",
+              "selected": 0
+            }
+          },
+          "level": {
+            "debug": {
+              "value": "debug",
+              "selected": 0
+            },
+            "info": {
+              "value": "info",
+              "selected": 1
+            },
+            "notice": {
+              "value": "notice",
+              "selected": 1
+            },
+            "warn": {
+              "value": "warn",
+              "selected": 1
+            },
+            "err": {
+              "value": "error",
+              "selected": 1
+            },
+            "crit": {
+              "value": "critical",
+              "selected": 1
+            },
+            "alert": {
+              "value": "alert",
+              "selected": 1
+            },
+            "emerg": {
+              "value": "emergency",
+              "selected": 1
+            }
+          },
+          "facility": {
+            "kern": {
+              "value": "kernel messages",
+              "selected": 0
+            },
+            "user": {
+              "value": "user-level messages",
+              "selected": 0
+            },
+            "mail": {
+              "value": "mail system",
+              "selected": 0
+            },
+            "daemon": {
+              "value": "system daemons",
+              "selected": 0
+            },
+            "auth": {
+              "value": "security/authorization messages",
+              "selected": 0
+            },
+            "syslog": {
+              "value": "messages generated internally by syslogd",
+              "selected": 0
+            },
+            "lpr": {
+              "value": "line printer subsystem",
+              "selected": 0
+            },
+            "news": {
+              "value": "network news subsystem",
+              "selected": 0
+            },
+            "uucp": {
+              "value": "UUCP subsystem",
+              "selected": 0
+            },
+            "cron": {
+              "value": "clock daemon",
+              "selected": 0
+            },
+            "authpriv": {
+              "value": "security/authorization messages",
+              "selected": 0
+            },
+            "ftp": {
+              "value": "FTP daemon",
+              "selected": 0
+            },
+            "ntp": {
+              "value": "NTP subsystem",
+              "selected": 0
+            },
+            "security": {
+              "value": "log audit",
+              "selected": 0
+            },
+            "console": {
+              "value": "log alert",
+              "selected": 0
+            },
+            "local0": {
+              "value": "locally used (0)",
+              "selected": 0
+            },
+            "local1": {
+              "value": "locally used (1)",
+              "selected": 0
+            },
+            "local2": {
+              "value": "locally used (2)",
+              "selected": 0
+            },
+            "local3": {
+              "value": "locally used (3)",
+              "selected": 0
+            },
+            "local4": {
+              "value": "locally used (4)",
+              "selected": 0
+            },
+            "local5": {
+              "value": "locally used (5)",
+              "selected": 0
+            },
+            "local6": {
+              "value": "locally used (6)",
+              "selected": 0
+            },
+            "local7": {
+              "value": "locally used (7)",
+              "selected": 0
+            }
+          },
+          "hostname": "10.0.0.2",
+          "certificate": {
+            "": {
+              "value": "none",
+              "selected": true
+            },
+            "60cc4641eb577": {
+              "value": "Web Gui Certificate",
+              "selected": 0
+            },
+            "5eba6f0f352e3": {
+              "value": "Web GUI SSL certificate",
+              "selected": 0
+            }
+          },
+          "port": "514",
+          "rfc5424": "0",
+          "description": "Test Output"
+        }
+      }
+    }
+  }
+}
