@@ -153,6 +153,7 @@ Commands:
   completion  Output instructions for shell completion
   firewall    Execute firewall operations
   haproxy     Manage haproxy loadbalancer operations
+  ipsec       Manage Ipsec  
   new         Generate scaffolding code
   openvpn     Manage OpenVPN
   plugin      Manage OPNsense plugins
@@ -754,6 +755,35 @@ Commands:
   list    Show all user
   show    Show details for user
   update  Update a user.
+```
+
+### Ipsec
+#### Tunnel phase1
+```
+Usage: opn-cli ipsec tunnel phase1 [OPTIONS] COMMAND [ARGS]...
+
+  Manage ipsec phase 1 tunnels
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  list  Show all ipsec phase1 tunnels
+  show  Show details for phase 1 tunnel
+```
+
+##### Tunnel phase2
+```
+Usage: opn-cli ipsec tunnel phase2 [OPTIONS] COMMAND [ARGS]...
+
+  Manage ipsec phase 2 tunnels
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  list  Show all ipsec phase2 tunnels
+  show  Show details for phase 2 tunnel
 ```
 
 ### OpenVPN

@@ -17,3 +17,9 @@ vagrant up
 # install required opnsense plugins
 opn-cli plugin install os-firewall
 opn-cli plugin install os-haproxy
+
+echo "OPNSense URL:"
+echo "https://127.0.0.1:10443/"
+echo "Login: root"
+echo "Pass: opnsense"
+echo

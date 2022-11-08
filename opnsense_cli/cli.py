@@ -13,6 +13,9 @@ from opnsense_cli.commands.core.plugin import plugin
 from opnsense_cli.commands.core.openvpn import openvpn
 from opnsense_cli.commands.core.firewall import firewall
 from opnsense_cli.commands.core.firewall.alias import alias as firewall_alias
+from opnsense_cli.commands.core.ipsec import ipsec
+from opnsense_cli.commands.core.ipsec.tunnel_phase1 import tunnel as ipsec_tunnel_phase1
+from opnsense_cli.commands.core.ipsec.tunnel_phase2 import tunnel as ipsec_tunnel_phase2
 from opnsense_cli.commands.plugin.firewall.rule import rule as firewall_rule
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.commands.plugin.haproxy.config import config as haproxy_config
@@ -174,6 +177,10 @@ haproxy.add_command(haproxy_action)
 cli.add_command(firewall)
 firewall.add_command(firewall_alias)
 firewall.add_command(firewall_rule)
+
+cli.add_command(ipsec)
+ipsec.add_command(ipsec_tunnel_phase1)
+ipsec.add_command(ipsec_tunnel_phase2)
 
 cli.add_command(new)
 new.add_command(new_api)

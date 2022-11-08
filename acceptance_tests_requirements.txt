@@ -1,0 +1,4 @@
+#
+####### acceptance_test_requirements.txt #######
+#
+pytest
