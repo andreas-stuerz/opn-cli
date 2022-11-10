@@ -22,6 +22,7 @@ class ClickOptionCodeTypeFactory(ObjectTypeFromDataFactory):
         'HostnameField': ClickText,
         'NetworkField': ClickText,
         'PortField': ClickText,
+        'JsonKeyValueStoreField': ClickText
     }
 
     def _get_class(self, key) -> ClickOptionCodeFragment:
