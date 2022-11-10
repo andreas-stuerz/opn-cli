@@ -789,6 +789,41 @@ Commands:
   list  Show all ipsec phase2 tunnels
   show  Show details for phase 2 tunnel
 ```
+### Syslog
+#### Syslog destination
+```
+Usage: opn-cli syslog destination [OPTIONS] COMMAND [ARGS]...
+
+  Manage syslog destination
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new destination
+  delete  Delete destination
+  list    Show all destination
+  show    Show details for destination
+  update  Update a destination.
+```
+#### Syslog stats
+```
+Usage: opn-cli syslog stats list [OPTIONS]
+
+  Show syslog statistics
+
+Options:
+  --search TEXT                   Search for this string
+  -o, --output [cols|table|json|json_filter|plain|yaml]
+                                  Specifies the Output format.  [default:
+                                  table]
+  -c, --cols TEXT                 Which columns should be printed? Pass empty
+                                  string (-c ) to show all columns  [default: #
+                                  ,Description,SourceName,SourceId,SourceInsta
+                                  nce,State,Type,Number]
+  -h, --help                      Show this message and exit.
+
+```
 
 ### OpenVPN
 ```

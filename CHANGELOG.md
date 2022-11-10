@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.1.0](https://github.com/andeman/opn-cli/tree/v1.1.0) (2022-11-10)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v1.0.0...v1.1.0)
+
+**Implemented enhancements:**
+
+- Add syslog destination management and stats output with search [\#25](https://github.com/andeman/opn-cli/pull/25) ([andeman](https://github.com/andeman))
+- Add Ipsec tunnel management \(list and show\) [\#22](https://github.com/andeman/opn-cli/pull/22) ([andeman](https://github.com/andeman))
+
 ## [v1.0.0](https://github.com/andeman/opn-cli/tree/v1.0.0) (2022-04-27)
 
 [Full Changelog](https://github.com/andeman/opn-cli/compare/v.0.8.1...v1.0.0)
