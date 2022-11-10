@@ -18,6 +18,7 @@ from opnsense_cli.commands.core.ipsec.tunnel_phase1 import tunnel as ipsec_tunne
 from opnsense_cli.commands.core.ipsec.tunnel_phase2 import tunnel as ipsec_tunnel_phase2
 from opnsense_cli.commands.core.syslog import syslog
 from opnsense_cli.commands.core.syslog.destination import destination as syslog_destination
+from opnsense_cli.commands.core.syslog.stats import stats as syslog_stats
 from opnsense_cli.commands.plugin.firewall.rule import rule as firewall_rule
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.commands.plugin.haproxy.config import config as haproxy_config
@@ -185,7 +186,8 @@ ipsec.add_command(ipsec_tunnel_phase1)
 ipsec.add_command(ipsec_tunnel_phase2)
 
 cli.add_command(syslog)
-ipsec.add_command(syslog_destination)
+syslog.add_command(syslog_destination)
+syslog.add_command(syslog_stats)
 
 cli.add_command(new)
 new.add_command(new_api)

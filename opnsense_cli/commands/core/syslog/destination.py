@@ -1,9 +1,7 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
-    formatter_from_formatter_name, bool_as_string, available_formats, int_as_string, tuple_to_csv, \
-    resolve_linked_names_to_uuids
-from opnsense_cli.types.click_param_type.int_or_empty import INT_OR_EMPTY
+    formatter_from_formatter_name, bool_as_string, available_formats, tuple_to_csv
 from opnsense_cli.commands.core.syslog import syslog
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core.syslog import Settings, Service
@@ -81,7 +79,6 @@ def show(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
 
 
 @destination.command()
-#@click.argument('uuid')
 @click.option(
     '--enabled/--no-enabled',
     help=('Set this option to enable this destination.'),
@@ -121,7 +118,12 @@ def show(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
 @click.option(
     '--facility',
     help=('Choose which facilities to include, omit to select all.'),
-    type=click.Choice(['', 'kern', 'user', 'mail', 'daemon', 'auth', 'syslog', 'lpr', 'news', 'uucp', 'cron', 'authpriv', 'ftp', 'ntp', 'security', 'console', 'local0', 'local1', 'local2', 'local3', 'local4', 'local5', 'local6', 'local7']),
+    type=click.Choice(
+        [
+            '', 'kern', 'user', 'mail', 'daemon', 'auth', 'syslog', 'lpr', 'news', 'uucp', 'cron', 'authpriv', 'ftp', 'ntp',
+            'security', 'console', 'local0', 'local1', 'local2', 'local3', 'local4', 'local5', 'local6', 'local7'
+        ]
+    ),
     multiple=True,
     callback=tuple_to_csv,
     show_default=True,
@@ -130,7 +132,7 @@ def show(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
 )
 @click.option(
     '--hostname',
-    help=('The hostname of the syslog destination'),
+    help=('The hostname or ip address of the syslog destination.'),
     show_default=True,
     default=None,
     required=True,
@@ -139,7 +141,8 @@ def show(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
     '--certificate',
     help=('''
         Transport certificate to use, please make sure to check the general system log when experiencing issues.
-        Error messages can be a bit cryptic from time to time, in which case <a href="https://support.oneidentity.com/kb/263658/common-issues-of-tls-encrypted-message-transfer">this</a> is a good
+        Error messages can be a bit cryptic from time to time, in which case
+        "https://support.oneidentity.com/kb/263658/common-issues-of-tls-encrypted-message-transfer this is a good
         resource for tracking common issues.
     '''),
     show_default=True,
@@ -169,7 +172,6 @@ def show(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
     default=None,
     required=False,
 )
-
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -201,7 +203,6 @@ def create(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
             "port": kwargs['port'],
             "rfc5424": kwargs['rfc5424'],
             "description": kwargs['description'],
-            
         }
     }
 
@@ -247,7 +248,12 @@ def create(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
 @click.option(
     '--facility',
     help=('Choose which facilities to include, omit to select all.'),
-    type=click.Choice(['', 'kern', 'user', 'mail', 'daemon', 'auth', 'syslog', 'lpr', 'news', 'uucp', 'cron', 'authpriv', 'ftp', 'ntp', 'security', 'console', 'local0', 'local1', 'local2', 'local3', 'local4', 'local5', 'local6', 'local7']),
+    type=click.Choice(
+        [
+            '', 'kern', 'user', 'mail', 'daemon', 'auth', 'syslog', 'lpr', 'news', 'uucp', 'cron', 'authpriv', 'ftp', 'ntp',
+            'security', 'console', 'local0', 'local1', 'local2', 'local3', 'local4', 'local5', 'local6', 'local7'
+        ]
+    ),
     multiple=True,
     callback=tuple_to_csv,
     show_default=True,
@@ -255,7 +261,7 @@ def create(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
 )
 @click.option(
     '--hostname',
-    help=('None'),
+    help=('The hostname or ip address of the syslog destination.'),
     show_default=True,
     default=None
 )
@@ -263,7 +269,8 @@ def create(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
     '--certificate',
     help=('''
         Transport certificate to use, please make sure to check the general system log when experiencing issues.
-        Error messages can be a bit cryptic from time to time, in which case <a href="https://support.oneidentity.com/kb/263658/common-issues-of-tls-encrypted-message-transfer">this</a> is a good
+        Error messages can be a bit cryptic from time to time, in which case
+        https://support.oneidentity.com/kb/263658/common-issues-of-tls-encrypted-message-transfer this is a good
         resource for tracking common issues.
     '''),
     show_default=True,
@@ -271,7 +278,7 @@ def create(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
 )
 @click.option(
     '--port',
-    help=('None'),
+    help=('The port of the syslog destination.'),
     show_default=True,
     default=None
 )
@@ -289,7 +296,6 @@ def create(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
     show_default=True,
     default=None
 )
-
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -312,7 +318,9 @@ def update(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
     json_payload = {
         'destination': {}
     }
-    options = ['enabled', 'transport', 'program', 'level', 'facility', 'hostname', 'certificate', 'port', 'rfc5424', 'description']
+    options = [
+        'enabled', 'transport', 'program', 'level', 'facility', 'hostname', 'certificate', 'port', 'rfc5424', 'description'
+    ]
     for option in options:
         if kwargs[option.lower()] is not None:
             json_payload['destination'][option] = kwargs[option.lower()]

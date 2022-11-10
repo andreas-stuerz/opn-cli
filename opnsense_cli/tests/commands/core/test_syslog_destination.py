@@ -11,19 +11,13 @@ class TestSyslogDestinationCommands(CommandTestCase):
         self._api_data_fixtures_reconfigure_FAILED = {
             "status": "failed"
         }
-        self._api_data_fixtures_configtest_OK = {
-            "result": "Configuration file is valid\n\n\n"
-        }
-        self._api_data_fixtures_configtest_FAILED = {
-            "result": "Configuration file is invalid\n\n\n"
-        }
         self._api_data_fixtures_create_OK = {
             "result": "saved",
             "uuid": "85282721-934c-42be-ba4d-a93cbfda26af"
         }
         self._api_data_fixtures_create_ERROR = {
             "result": "failed",
-            "validations": {'<TODO>': ['Please specify a value between 1 and 100.']}
+            "validations": {'destination.program': 'Specify valid source applications.'}
         }
         self._api_data_fixtures_update_OK = {
             "result": "saved"
@@ -64,13 +58,15 @@ class TestSyslogDestinationCommands(CommandTestCase):
             destination,
             [
                 'list', '-o', 'plain', '-c',
-                'uuid,TODO_specifiy_columns'
+                'uuid,enabled,transport,program'
             ]
         )
 
         self.assertIn(
             (
-                "<TODO match to command output>\n"
+                "4dd6f818-e975-4136-bf7e-ed2559675ef9 1 tcp4 firewall,charon,lighttpd,ntp\n"
+                "7155fe8c-d878-4690-be73-e9811a7c7da4 1 udp4 configd.py\n"
+                "c5d77479-0875-4f92-977a-05b3c23aceea 1 udp4 audit,openvpn\n"
             ),
             result.output
         )
@@ -121,14 +117,14 @@ class TestSyslogDestinationCommands(CommandTestCase):
             ],
             destination,
             [
-                'show', '2c57ff97-10df-41a1-8a02-ab2fd1a4a651', '-o', 'plain', '-c',
-                'uuid,name,Servers,Resolver,Healthcheck,Mailer,Users,Groups,Actions,Errorfiles'
+                'show', '4dd6f818-e975-4136-bf7e-ed2559675ef9', '-o', 'plain', '-c',
+                'uuid,enabled,transport,program'
             ]
         )
 
         self.assertIn(
             (
-                "2c57ff97-10df-41a1-8a02-ab2fd1a4a651 pool2 server2,server4  http_head     \n"
+                "4dd6f818-e975-4136-bf7e-ed2559675ef9 1 tcp4 firewall,charon,lighttpd,ntp\n"
             ),
             result.output
         )
@@ -139,13 +135,12 @@ class TestSyslogDestinationCommands(CommandTestCase):
             api_response_mock,
             [
                 self._api_data_fixtures_create_OK,
-                #self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
             ],
             destination,
             [
-                "create", "my_test_destination",
-                "--TODO", "<customize with create options>"
+                "create",
+                "--hostname", "10.0.0.1"
             ]
         )
 
@@ -161,21 +156,20 @@ class TestSyslogDestinationCommands(CommandTestCase):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
-                self._api_data_fixtures_create_ERROR,
-                self._api_data_fixtures_reconfigure_OK,
+                self._api_data_fixtures_create_OK,
+                self._api_data_fixtures_reconfigure_FAILED,
             ],
             destination,
             [
                 "create",
-                "--hostname", "10.0.0.1"
+                "--hostname", "xyz_something_strange",
                 "--program", "doesnotexists"
-            ]
+            ],
         )
 
         self.assertIn(
             (
-                "Error: {'result': 'failed', 'validations': "
-                "{'todo.click_option': ['Please specify a value between 1 and 100.']}}\n"
+                "Error: Apply failed: {'status': 'failed'}\n"
             ),
             result.output
         )
@@ -187,13 +181,12 @@ class TestSyslogDestinationCommands(CommandTestCase):
             api_response_mock,
             [
                 self._api_data_fixtures_update_OK,
-                #self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
             ],
             destination,
             [
-                "update", "<TODO customize uuid>",
-                "--TODO", "<customize with create options>"
+                "update", "7155fe8c-d878-4690-be73-e9811a7c7da4",
+                "--port", "10001"
             ]
         )
 
@@ -210,7 +203,6 @@ class TestSyslogDestinationCommands(CommandTestCase):
             api_response_mock,
             [
                 self._api_data_fixtures_update_NOT_EXISTS,
-                #self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
             ],
             destination,
@@ -234,7 +226,6 @@ class TestSyslogDestinationCommands(CommandTestCase):
             api_response_mock,
             [
                 self._api_data_fixtures_delete_OK,
-                #self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
             ],
             destination,
@@ -256,7 +247,6 @@ class TestSyslogDestinationCommands(CommandTestCase):
             api_response_mock,
             [
                 self._api_data_fixtures_delete_NOT_FOUND,
-                #self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
             ],
             destination,

@@ -1,9 +1,10 @@
-import json
 from abc import ABC
 import base64
 from jsonpath_ng.ext import parse
 from opnsense_cli.exceptions.command import CommandException
 from uuid import UUID
+from typing import List, Dict
+import re
 
 
 class CommandFacade(ABC):
@@ -132,3 +133,8 @@ class CommandFacade(ABC):
     def _get_unresolved_items(self, search_items: list, resolved_items: list):
         item_diff = set(search_items) - set(resolved_items)
         return list(item_diff)
+
+    def _search_list_of_dicts_by_val(self, items: List[Dict], search_val: str) -> List[Dict]:
+        result = [item for item in items if re.search(search_val, " ".join(item.values()))]
+
+        return result
