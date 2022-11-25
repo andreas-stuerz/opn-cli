@@ -16,6 +16,9 @@ from opnsense_cli.commands.core.firewall.alias import alias as firewall_alias
 from opnsense_cli.commands.core.ipsec import ipsec
 from opnsense_cli.commands.core.ipsec.tunnel_phase1 import tunnel as ipsec_tunnel_phase1
 from opnsense_cli.commands.core.ipsec.tunnel_phase2 import tunnel as ipsec_tunnel_phase2
+from opnsense_cli.commands.core.route import route
+from opnsense_cli.commands.core.route.static import static as route_static
+from opnsense_cli.commands.core.route.gateway import gateway as route_gateway
 from opnsense_cli.commands.core.syslog import syslog
 from opnsense_cli.commands.core.syslog.destination import destination as syslog_destination
 from opnsense_cli.commands.core.syslog.stats import stats as syslog_stats
@@ -36,6 +39,8 @@ from opnsense_cli.commands.plugin.haproxy.cpu import cpu as haproxy_cpu
 from opnsense_cli.commands.plugin.haproxy.resolver import resolver as haproxy_resolver
 from opnsense_cli.commands.plugin.haproxy.mailer import mailer as haproxy_mailer
 from opnsense_cli.commands.plugin.haproxy.action import action as haproxy_action
+
+
 
 
 CFG_DIR = f"~/.{__cli_name__}"
@@ -184,6 +189,10 @@ firewall.add_command(firewall_rule)
 cli.add_command(ipsec)
 ipsec.add_command(ipsec_tunnel_phase1)
 ipsec.add_command(ipsec_tunnel_phase2)
+
+cli.add_command(route)
+route.add_command(route_static)
+route.add_command(route_gateway)
 
 cli.add_command(syslog)
 syslog.add_command(syslog_destination)
