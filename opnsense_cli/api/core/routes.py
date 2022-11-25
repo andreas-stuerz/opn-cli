@@ -37,32 +37,11 @@ class Routes(ApiBase):
         self.command = "get"
 
     @ApiBase._api_call
-    def getroute(self, *args):
-        self.method = "get"
-        self.command = "getroute"
-
-    @ApiBase._api_call
     def reconfigure(self, *args):
         self.method = "post"
         self.command = "reconfigure"
 
     @ApiBase._api_call
-    def searchroute(self, *args):
-        self.method = "*"
-        self.command = "searchroute"
-
-    @ApiBase._api_call
-    def set(self, *args):
-        self.method = "post"
-        self.command = "set"
-
-    @ApiBase._api_call
     def setroute(self, *args):
         self.method = "post"
         self.command = "setroute"
-
-    @ApiBase._api_call
-    def toggleroute(self, *args):
-        self.method = "post"
-        self.command = "toggleroute"
-

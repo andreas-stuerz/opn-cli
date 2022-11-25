@@ -24,7 +24,6 @@ class RoutesStaticFacade(CommandFacade):
         return static
 
     def _get_statics_list(self):
-        print(self._complete_model_data)
         return self._api_mutable_model_get(
             self._complete_model_data, self.jsonpath_base, self.uuid_resolver_map, sort_by='uuid'
         )
