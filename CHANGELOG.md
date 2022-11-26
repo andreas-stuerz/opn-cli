@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.2.0](https://github.com/andeman/opn-cli/tree/v1.2.0) (2022-11-26)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v1.1.1...v1.2.0)
+
+**Implemented enhancements:**
+
+- Static routes management [\#28](https://github.com/andeman/opn-cli/pull/28) ([andeman](https://github.com/andeman))
+
 ## [v1.1.1](https://github.com/andeman/opn-cli/tree/v1.1.1) (2022-11-10)
 
 [Full Changelog](https://github.com/andeman/opn-cli/compare/v1.1.0...v1.1.1)
