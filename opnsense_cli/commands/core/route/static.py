@@ -88,7 +88,9 @@ def show(routes_static_svc: RoutesStaticFacade, **kwargs):
 )
 @click.option(
     '--gateway',
-    help=('Choose which gateway this route applies to eg. Null4 for 127.0.01, Null6 for ::1 or see opn-cli route gateway status.'),
+    help=(
+        'Choose which gateway this route applies to eg. Null4 for 127.0.01, Null6 for ::1 or see opn-cli route gateway status.'
+    ),
     show_default=True,
     default=None,
     required=True,
@@ -109,7 +111,6 @@ def show(routes_static_svc: RoutesStaticFacade, **kwargs):
     default=True,
     required=True,
 )
-
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -135,7 +136,6 @@ def create(routes_static_svc: RoutesStaticFacade, **kwargs):
             "gateway": kwargs['gateway'],
             "descr": kwargs['descr'],
             "disabled": kwargs['disabled'],
-            
         }
     }
 
@@ -154,7 +154,9 @@ def create(routes_static_svc: RoutesStaticFacade, **kwargs):
 )
 @click.option(
     '--gateway',
-    help=('Choose which gateway this route applies to eg. Null4 for 127.0.01, Null6 for ::1 or see opn-cli route gateway status.'),
+    help=(
+        'Choose which gateway this route applies to eg. Null4 for 127.0.01, Null6 for ::1 or see opn-cli route gateway status.'
+    ),
     show_default=True,
     default=None
 )
@@ -172,7 +174,6 @@ def create(routes_static_svc: RoutesStaticFacade, **kwargs):
     callback=bool_as_string,
     default=None
 )
-
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',

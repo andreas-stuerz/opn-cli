@@ -11,8 +11,24 @@ class TestRoutesStaticCommands(CommandTestCase):
         }
         self._api_data_fixtures_list = {
             "items": [
-                {"name": "WAN_DHCP6", "address": "~", "status": "none", "status_translated": "Online", "loss": "~", "stddev": "~", "delay": "~"},
-                {"name": "WAN_DHCP", "address": "10.0.2.2", "status": "none", "status_translated": "Online", "loss": "~", "stddev": "~", "delay": "~"}
+                {
+                    "name": "WAN_DHCP6",
+                    "address": "~",
+                    "status": "none",
+                    "status_translated": "Online",
+                    "loss": "~",
+                    "stddev": "~",
+                    "delay": "~"
+                },
+                {
+                    "name": "WAN_DHCP",
+                    "address": "10.0.2.2",
+                    "status": "none",
+                    "status_translated": "Online",
+                    "loss": "~",
+                    "stddev": "~",
+                    "delay": "~"
+                }
             ],
             "status": "ok"
         }
@@ -59,4 +75,3 @@ class TestRoutesStaticCommands(CommandTestCase):
         )
 
         self.assertIn("", result.output)
-

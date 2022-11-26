@@ -207,7 +207,6 @@ class TestRoutesStaticCommands(CommandTestCase):
         )
         self.assertEqual(1, result.exit_code)
 
-
     @patch('opnsense_cli.commands.core.route.static.ApiClient.execute')
     def test_update_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(

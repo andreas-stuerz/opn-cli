@@ -1,9 +1,7 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
-    formatter_from_formatter_name, bool_as_string, available_formats, int_as_string, tuple_to_csv, \
-    resolve_linked_names_to_uuids
-from opnsense_cli.types.click_param_type.int_or_empty import INT_OR_EMPTY
+    formatter_from_formatter_name, available_formats
 from opnsense_cli.commands.core.route import route
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core.routes import Gateway
@@ -49,4 +47,3 @@ def status(routes_gateway_svc: RoutesGatewayFacade, **kwargs):
     result = routes_gateway_svc.show_status()
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
-

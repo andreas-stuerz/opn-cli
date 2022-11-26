@@ -6,7 +6,6 @@ from opnsense_cli.api.core.routes import Routes, Gateway
 class RoutesStaticFacade(CommandFacade):
     jsonpath_base = '$.route.route'
     uuid_resolver_map = {
-    
     }
 
     def __init__(self, routes_api: Routes, gateway_api: Gateway):
