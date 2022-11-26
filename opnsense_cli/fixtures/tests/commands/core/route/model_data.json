@@ -1,0 +1,52 @@
+{
+  "route": {
+    "route": {
+      "7905f696-4692-47aa-b39f-1a8cda5d60c1": {
+        "network": "10.0.0.98/24",
+        "gateway": {
+          "Null4": {
+            "value": "Null4 - 127.0.0.1",
+            "selected": 0
+          },
+          "Null6": {
+            "value": "Null6 - ::1",
+            "selected": 0
+          },
+          "WAN_DHCP": {
+            "value": "WAN_DHCP - 10.0.2.2",
+            "selected": 1
+          },
+          "WAN_DHCP6": {
+            "value": "WAN_DHCP6 - inet6",
+            "selected": 0
+          }
+        },
+        "descr": "Test route 2",
+        "disabled": "0"
+      },
+      "3943fccd-d727-4081-af2f-af5fa6bfc09d": {
+        "network": "10.50.2.2/24",
+        "gateway": {
+          "Null4": {
+            "value": "Null4 - 127.0.0.1",
+            "selected": 1
+          },
+          "Null6": {
+            "value": "Null6 - ::1",
+            "selected": 0
+          },
+          "WAN_DHCP": {
+            "value": "WAN_DHCP - 10.0.2.2",
+            "selected": 0
+          },
+          "WAN_DHCP6": {
+            "value": "WAN_DHCP6 - inet6",
+            "selected": 0
+          }
+        },
+        "descr": "Test route 1",
+        "disabled": "0"
+      }
+    }
+  }
+}

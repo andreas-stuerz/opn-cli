@@ -45,6 +45,9 @@ opn-cli - the OPNsense CLI written in python.
     + [Ipsec](#ipsec)
       - [Tunnel phase1](#tunnel-phase1)
       - [Tunnel phase2](#tunnel-phase2)
+    + [Routes](#routes)
+      - [Static routes](#static-routes)
+      - [Gateway](#gateway)
     + [Syslog](#syslog)
       - [Syslog destination](#syslog-destination)
       - [Syslog stats](#syslog-stats)
@@ -54,7 +57,6 @@ opn-cli - the OPNsense CLI written in python.
     + [Setup development environment](#setup-development-environment)
     + [Testing](#testing)
     + [Contributing](#contributing)
-
 
 ## Install
 ```
@@ -165,6 +167,7 @@ Commands:
   new         Generate scaffolding code
   openvpn     Manage OpenVPN
   plugin      Manage OPNsense plugins
+  route       Manage routes
   version     Show the CLI version and exit.
 ```
 
@@ -792,6 +795,35 @@ Options:
 Commands:
   list  Show all ipsec phase2 tunnels
   show  Show details for phase 2 tunnel
+```
+### Routes
+#### Static routes
+```
+Usage: opn-cli route static [OPTIONS] COMMAND [ARGS]...
+
+  Manage static routes
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new static route
+  delete  Delete static route
+  list    Show all static routes
+  show    Show details for a static route
+  update  Update a static route
+```
+#### Gateway
+```
+Usage: opn-cli route gateway [OPTIONS] COMMAND [ARGS]...
+
+  Manage gateway routes
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  status  Show gateway states
 ```
 ### Syslog
 #### Syslog destination
