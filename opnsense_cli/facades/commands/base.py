@@ -20,7 +20,6 @@ class CommandFacade(ABC):
 
     def _api_mutable_model_get(self, complete_model_data, jsonpath_base, resolver_map, sort_by='name'):
         raw_items = self._get_model_data_slice_with_jsonpath(jsonpath_base, complete_model_data)
-
         items = []
 
         if not isinstance(raw_items, dict):
