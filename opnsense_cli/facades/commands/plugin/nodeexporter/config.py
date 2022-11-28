@@ -15,7 +15,7 @@ class NodeexporterConfigFacade(CommandFacade):
         self._service_api = service_api
 
     def show_config(self):
-        return(self._settings_api.get()['general'])
+        return self._settings_api.get()['general']
 
     def edit_config(self, json_payload: dict):
         result = self._settings_api.set(json=json_payload)
