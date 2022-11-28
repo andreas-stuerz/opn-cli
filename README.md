@@ -49,6 +49,8 @@ opn-cli - the OPNsense CLI written in python.
     + [Routes](#routes)
       - [Static routes](#static-routes)
       - [Gateway](#gateway)
+    + [Nodeexporter](#nodeexporter)
+      - [Config](#config-1)
     + [Syslog](#syslog)
       - [Syslog destination](#syslog-destination)
       - [Syslog stats](#syslog-stats)
@@ -826,6 +828,22 @@ Options:
 Commands:
   status  Show gateway states
 ```
+### Nodeexporter
+#### Config
+```
+Usage: opn-cli nodeexporter config [OPTIONS] COMMAND [ARGS]...
+
+  Manage nodeexporter config
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  edit  Edit configuration
+  show  Show configuration
+
+```
+
 ### Syslog
 #### Syslog destination
 ```

@@ -23,6 +23,8 @@ from opnsense_cli.commands.core.syslog import syslog
 from opnsense_cli.commands.core.syslog.destination import destination as syslog_destination
 from opnsense_cli.commands.core.syslog.stats import stats as syslog_stats
 from opnsense_cli.commands.plugin.firewall.rule import rule as firewall_rule
+from opnsense_cli.commands.plugin.node_exporter import nodeexporter
+from opnsense_cli.commands.plugin.node_exporter.config import config as nodexporter_config
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.commands.plugin.haproxy.config import config as haproxy_config
 from opnsense_cli.commands.plugin.haproxy.server import server as haproxy_server
@@ -199,6 +201,9 @@ syslog.add_command(syslog_stats)
 cli.add_command(new)
 new.add_command(new_api)
 new.add_command(new_command)
+
+cli.add_command(nodeexporter)
+nodeexporter.add_command(nodexporter_config)
 
 cli.add_command(plugin)
 cli.add_command(openvpn)
