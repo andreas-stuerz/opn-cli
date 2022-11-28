@@ -52,8 +52,6 @@ class TestNodeExporterCommands(CommandTestCase):
             result.output
         )
 
-
-
     @patch('opnsense_cli.commands.plugin.node_exporter.config.ApiClient.execute')
     def test_edit_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
@@ -97,8 +95,8 @@ class TestNodeExporterCommands(CommandTestCase):
 
         self.assertIn(
             (
-                "Error: {'result': 'failed', 'validations': "
-                "{'general.listenport': 'Please provide a valid port number between 1 and 65535. Port 9100 is the default.'}}\n"
+                "Error: {'result': 'failed', 'validations': {'general.listenport': "
+                "'Please provide a valid port number between 1 and 65535. Port 9100 is the default.'}}\n"
             ),
             result.output
         )

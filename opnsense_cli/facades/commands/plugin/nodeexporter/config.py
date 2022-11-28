@@ -6,7 +6,6 @@ from opnsense_cli.api.plugin.nodeexporter import General, Service
 class NodeexporterConfigFacade(CommandFacade):
     jsonpath_base = '$.general'
     uuid_resolver_map = {
-    
     }
 
     def __init__(self, settings_api: General, service_api: Service):

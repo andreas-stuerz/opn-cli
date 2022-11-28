@@ -25,10 +25,8 @@ class ClickCommandCodeGenerator(CommandCodeGenerator):
         click_options_create = []
         click_options_update = []
         column_names = []
-        #print(self._tag_content)
 
         for tag in self._tag_content.findChildren(recursive=False):
-            #print(tag)
             if tag.attrs.get('type') in self.IGNORED_TYPES:
                 continue
 
