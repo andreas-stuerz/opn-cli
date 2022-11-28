@@ -1,0 +1,18 @@
+{
+  "general": {
+    "enabled": "0",
+    "listenaddress": "0.0.0.0",
+    "listenport": "9100",
+    "cpu": "1",
+    "exec": "1",
+    "filesystem": "1",
+    "loadavg": "1",
+    "meminfo": "1",
+    "netdev": "1",
+    "time": "1",
+    "devstat": "1",
+    "interrupts": "0",
+    "ntp": "0",
+    "zfs": "0"
+  }
+}
