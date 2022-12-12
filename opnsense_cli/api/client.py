@@ -31,11 +31,11 @@ class ApiClient(object):
             raise APIException(response=response.status_code, resp_body=response.text, url=response.url)
 
     def _get_endpoint_url(self, *args, **kwargs):
-        endpoint = f"{kwargs['module']}/{kwargs['controller']}/{kwargs['command']}"
+        endpoint = f"{kwargs['module']}/{kwargs['controller']}/{kwargs['command']}".lower()
         endpoint_params = '/'.join(args)
         if endpoint_params:
-            return f"{endpoint}/{endpoint_params}".lower()
-        return endpoint.lower()
+            return f"{endpoint}/{endpoint_params}"
+        return endpoint
 
     def _get(self, endpoint):
         req_url = '{}/{}'.format(self._base_url, endpoint)
