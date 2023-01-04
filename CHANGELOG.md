@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.3.1](https://github.com/andeman/opn-cli/tree/v1.3.1) (2023-01-04)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v1.3.0...v1.3.1)
+
+**Fixed bugs:**
+
+- fix uppercase endpoint\_params [\#32](https://github.com/andeman/opn-cli/pull/32) ([darkounet](https://github.com/darkounet))
+
 ## [v1.3.0](https://github.com/andeman/opn-cli/tree/v1.3.0) (2022-11-28)
 
 [Full Changelog](https://github.com/andeman/opn-cli/compare/v1.2.0...v1.3.0)

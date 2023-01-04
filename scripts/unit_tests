@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-ARGS="."
+ARGS="opnsense_cli"
 if [ -n "$1" ]; then
   ARGS=$(printf ' %q' "$@")
 
