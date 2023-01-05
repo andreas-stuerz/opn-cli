@@ -1,0 +1,378 @@
+{
+  "unbound": {
+    "service_enabled": "1",
+    "advanced": {
+      "hideidentity": "0",
+      "hideversion": "0",
+      "prefetch": "0",
+      "prefetchkey": "0",
+      "dnssecstripped": "0",
+      "serveexpired": "0",
+      "serveexpiredreplyttl": "",
+      "serveexpiredttl": "",
+      "serveexpiredttlreset": "0",
+      "serveexpiredclienttimeout": "",
+      "qnameminstrict": "0",
+      "extendedstatistics": "0",
+      "logqueries": "0",
+      "logreplies": "0",
+      "logtagqueryreply": "0",
+      "logverbosity": [
+        {
+          "value": "Level 0",
+          "selected": 0
+        },
+        {
+          "value": "Level 1 (Default)",
+          "selected": 1
+        },
+        {
+          "value": "Level 2",
+          "selected": 0
+        },
+        {
+          "value": "Level 3",
+          "selected": 0
+        },
+        {
+          "value": "Level 4",
+          "selected": 0
+        },
+        {
+          "value": "Level 5",
+          "selected": 0
+        }
+      ],
+      "privatedomain": [],
+      "privateaddress": {
+        "0.0.0.0/8": {
+          "value": "0.0.0.0/8",
+          "selected": 1
+        },
+        "10.0.0.0/8": {
+          "value": "10.0.0.0/8",
+          "selected": 1
+        },
+        "100.64.0.0/10": {
+          "value": "100.64.0.0/10",
+          "selected": 1
+        },
+        "169.254.0.0/16": {
+          "value": "169.254.0.0/16",
+          "selected": 1
+        },
+        "172.16.0.0/12": {
+          "value": "172.16.0.0/12",
+          "selected": 1
+        },
+        "192.0.2.0/24": {
+          "value": "192.0.2.0/24",
+          "selected": 1
+        },
+        "192.168.0.0/16": {
+          "value": "192.168.0.0/16",
+          "selected": 1
+        },
+        "198.18.0.0/15": {
+          "value": "198.18.0.0/15",
+          "selected": 1
+        },
+        "198.51.100.0/24": {
+          "value": "198.51.100.0/24",
+          "selected": 1
+        },
+        "203.0.113.0/24": {
+          "value": "203.0.113.0/24",
+          "selected": 1
+        },
+        "233.252.0.0/24": {
+          "value": "233.252.0.0/24",
+          "selected": 1
+        },
+        "::1/128": {
+          "value": "::1/128",
+          "selected": 1
+        },
+        "2001:db8::/32": {
+          "value": "2001:db8::/32",
+          "selected": 1
+        },
+        "fc00::/8": {
+          "value": "fc00::/8",
+          "selected": 1
+        },
+        "fd00::/8": {
+          "value": "fd00::/8",
+          "selected": 1
+        },
+        "fe80::/10": {
+          "value": "fe80::/10",
+          "selected": 1
+        }
+      },
+      "insecuredomain": [],
+      "msgcachesize": "",
+      "rrsetcachesize": "",
+      "outgoingnumtcp": "",
+      "incomingnumtcp": "",
+      "numqueriesperthread": "",
+      "outgoingrange": "",
+      "jostletimeout": "",
+      "cachemaxttl": "",
+      "cacheminttl": "",
+      "infrahostttl": "",
+      "infracachenumhosts": "",
+      "unwantedreplythreshold": ""
+    },
+    "dnsbl": {
+      "enabled": "0",
+      "type": {
+        "atf": {
+          "value": "Abuse.ch - ThreatFox IOC database",
+          "selected": 0
+        },
+        "aa": {
+          "value": "AdAway List",
+          "selected": 0
+        },
+        "ag": {
+          "value": "AdGuard List",
+          "selected": 0
+        },
+        "bla0": {
+          "value": "Blocklist.site Abuse",
+          "selected": 0
+        },
+        "bla": {
+          "value": "Blocklist.site Ads",
+          "selected": 0
+        },
+        "blc": {
+          "value": "Blocklist.site Crypto",
+          "selected": 0
+        },
+        "bld": {
+          "value": "Blocklist.site Drugs",
+          "selected": 0
+        },
+        "blf": {
+          "value": "Blocklist.site Fraud",
+          "selected": 0
+        },
+        "blf0": {
+          "value": "Blocklist.site Facebook",
+          "selected": 0
+        },
+        "blg": {
+          "value": "Blocklist.site Gambling",
+          "selected": 0
+        },
+        "blm": {
+          "value": "Blocklist.site Malware",
+          "selected": 0
+        },
+        "blp": {
+          "value": "Blocklist.site Phishing",
+          "selected": 0
+        },
+        "blp0": {
+          "value": "Blocklist.site Piracy",
+          "selected": 0
+        },
+        "blp1": {
+          "value": "Blocklist.site Porn",
+          "selected": 0
+        },
+        "blr": {
+          "value": "Blocklist.site Ransomware",
+          "selected": 0
+        },
+        "blr0": {
+          "value": "Blocklist.site Redirect",
+          "selected": 0
+        },
+        "bls": {
+          "value": "Blocklist.site Scam",
+          "selected": 0
+        },
+        "blt": {
+          "value": "Blocklist.site Tiktok",
+          "selected": 0
+        },
+        "blt0": {
+          "value": "Blocklist.site Torrent",
+          "selected": 0
+        },
+        "blt1": {
+          "value": "Blocklist.site Tracking",
+          "selected": 0
+        },
+        "bly": {
+          "value": "Blocklist.site Youtube",
+          "selected": 0
+        },
+        "el": {
+          "value": "EasyList",
+          "selected": 0
+        },
+        "ep": {
+          "value": "EasyPrivacy",
+          "selected": 0
+        },
+        "nc": {
+          "value": "NoCoin List",
+          "selected": 0
+        },
+        "pt": {
+          "value": "PornTop1M List",
+          "selected": 0
+        },
+        "sa": {
+          "value": "Simple Ad List",
+          "selected": 0
+        },
+        "st": {
+          "value": "Simple Tracker List",
+          "selected": 0
+        },
+        "sb": {
+          "value": "Steven Black List",
+          "selected": 0
+        },
+        "ws": {
+          "value": "WindowsSpyBlocker (spy)",
+          "selected": 0
+        },
+        "wsu": {
+          "value": "WindowsSpyBlocker (update)",
+          "selected": 0
+        },
+        "wse": {
+          "value": "WindowsSpyBlocker (extra)",
+          "selected": 0
+        },
+        "yy": {
+          "value": "YoYo List",
+          "selected": 0
+        }
+      },
+      "lists": [],
+      "whitelists": [],
+      "address": "",
+      "nxdomain": "0"
+    },
+    "forwarding": {
+      "enabled": "0"
+    },
+    "dots": {
+      "dot": []
+    },
+    "hosts": {
+      "host": {
+        "65da9ff2-dc95-48a4-82e0-a00428d64e39": {
+          "enabled": "1",
+          "hostname": "host01",
+          "domain": "example.com",
+          "rr": {
+            "A": {
+              "value": "A (IPv4 address)",
+              "selected": 1
+            },
+            "AAAA": {
+              "value": "AAAA (IPv6 address)",
+              "selected": 0
+            },
+            "MX": {
+              "value": "MX (Mail server)",
+              "selected": 0
+            }
+          },
+          "mxprio": "",
+          "mx": "",
+          "server": "10.0.0.1",
+          "description": "host example no.1"
+        },
+        "8111ce26-08f6-4b2b-95d8-4d27f1121ed9": {
+          "enabled": "1",
+          "hostname": "host02",
+          "domain": "example.com",
+          "rr": {
+            "A": {
+              "value": "A (IPv4 address)",
+              "selected": 1
+            },
+            "AAAA": {
+              "value": "AAAA (IPv6 address)",
+              "selected": 0
+            },
+            "MX": {
+              "value": "MX (Mail server)",
+              "selected": 0
+            }
+          },
+          "mxprio": "",
+          "mx": "",
+          "server": "10.0.0.2",
+          "description": "host example no.2"
+        },
+        "3d424da4-328a-40ec-99c4-ceef0cf3e2be": {
+          "enabled": "1",
+          "hostname": "host03",
+          "domain": "example.com",
+          "rr": {
+            "A": {
+              "value": "A (IPv4 address)",
+              "selected": 1
+            },
+            "AAAA": {
+              "value": "AAAA (IPv6 address)",
+              "selected": 0
+            },
+            "MX": {
+              "value": "MX (Mail server)",
+              "selected": 0
+            }
+          },
+          "mxprio": "",
+          "mx": "",
+          "server": "10.0.0.3",
+          "description": "host example no.3"
+        }
+      }
+    },
+    "aliases": {
+      "alias": {
+        "c2ab1046-6bc8-4b89-8542-2561f560424c": {
+          "enabled": "1",
+          "host": {
+            "65da9ff2-dc95-48a4-82e0-a00428d64e39": {
+              "value": "host01.example.com",
+              "selected": 1
+            },
+            "8111ce26-08f6-4b2b-95d8-4d27f1121ed9": {
+              "value": "host02.example.com",
+              "selected": 0
+            },
+            "3d424da4-328a-40ec-99c4-ceef0cf3e2be": {
+              "value": "host03.example.com",
+              "selected": 0
+            }
+          },
+          "hostname": "www",
+          "domain": "example01.com",
+          "description": ""
+        }
+      }
+    },
+    "domains": {
+      "domain": {
+        "3c3fb49d-9e90-4264-844b-cde9f1aeab4d": {
+          "enabled": "1",
+          "domain": "override.de",
+          "server": "127.0.0.1",
+          "description": "test domain override"
+        }
+      }
+    }
+  }
+}

@@ -22,6 +22,8 @@ from opnsense_cli.commands.core.route.gateway import gateway as route_gateway
 from opnsense_cli.commands.core.syslog import syslog
 from opnsense_cli.commands.core.syslog.destination import destination as syslog_destination
 from opnsense_cli.commands.core.syslog.stats import stats as syslog_stats
+from opnsense_cli.commands.core.unbound import unbound
+from opnsense_cli.commands.core.unbound.host import host as unbound_host
 from opnsense_cli.commands.plugin.firewall.rule import rule as firewall_rule
 from opnsense_cli.commands.plugin.node_exporter import nodeexporter
 from opnsense_cli.commands.plugin.node_exporter.config import config as nodexporter_config
@@ -41,6 +43,8 @@ from opnsense_cli.commands.plugin.haproxy.cpu import cpu as haproxy_cpu
 from opnsense_cli.commands.plugin.haproxy.resolver import resolver as haproxy_resolver
 from opnsense_cli.commands.plugin.haproxy.mailer import mailer as haproxy_mailer
 from opnsense_cli.commands.plugin.haproxy.action import action as haproxy_action
+
+
 
 
 CFG_DIR = f"~/.{__cli_name__}"
@@ -209,6 +213,9 @@ cli.add_command(plugin)
 cli.add_command(openvpn)
 cli.add_command(version)
 cli.add_command(completion)
+
+cli.add_command(unbound)
+unbound.add_command(unbound_host)
 
 if __name__ == "__main__":
     cli()
