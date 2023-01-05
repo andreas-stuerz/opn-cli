@@ -98,7 +98,7 @@ class TestNewCommandCommands(CommandTestCase):
         )
 
         self.assertIn(
-            "class HaproxyFrontendFacade(HaproxyFacade):",
+            "class HaproxyFrontendFacade(CommandFacade):",
             facade_file_content
         )
 
