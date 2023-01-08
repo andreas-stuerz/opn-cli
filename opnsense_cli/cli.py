@@ -24,6 +24,7 @@ from opnsense_cli.commands.core.syslog.destination import destination as syslog_
 from opnsense_cli.commands.core.syslog.stats import stats as syslog_stats
 from opnsense_cli.commands.core.unbound import unbound
 from opnsense_cli.commands.core.unbound.host import host as unbound_host
+from opnsense_cli.commands.core.unbound.alias import alias as unbound_alias
 from opnsense_cli.commands.plugin.firewall.rule import rule as firewall_rule
 from opnsense_cli.commands.plugin.node_exporter import nodeexporter
 from opnsense_cli.commands.plugin.node_exporter.config import config as nodexporter_config
@@ -216,6 +217,7 @@ cli.add_command(completion)
 
 cli.add_command(unbound)
 unbound.add_command(unbound_host)
+unbound.add_command(unbound_alias)
 
 if __name__ == "__main__":
     cli()

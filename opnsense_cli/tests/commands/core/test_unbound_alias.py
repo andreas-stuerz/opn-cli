@@ -1,9 +1,9 @@
 from unittest.mock import patch, Mock
-from opnsense_cli.commands.plugin.haproxy.action import action
+from opnsense_cli.commands.core.unbound.alias import alias
 from opnsense_cli.tests.commands.base import CommandTestCase
 
 
-class TestHaproxyActionCommands(CommandTestCase):
+class TestUnboundAliasCommands(CommandTestCase):
     def setUp(self):
         self._api_data_fixtures_reconfigure_OK = {
             "status": "ok"
@@ -11,19 +11,13 @@ class TestHaproxyActionCommands(CommandTestCase):
         self._api_data_fixtures_reconfigure_FAILED = {
             "status": "failed"
         }
-        self._api_data_fixtures_configtest_OK = {
-            "result": "Configuration file is valid\n\n\n"
-        }
-        self._api_data_fixtures_configtest_FAILED = {
-            "result": "Configuration file is invalid\n\n\n"
-        }
         self._api_data_fixtures_create_OK = {
             "result": "saved",
             "uuid": "85282721-934c-42be-ba4d-a93cbfda26af"
         }
         self._api_data_fixtures_create_ERROR = {
             "result": "failed",
-            "validations": {'action.http_response_set_status_code': 'Please specify a value between 100 and 999.'}
+            "validations": {'alias.domain': 'A valid domain must be specified.'}
         }
         self._api_data_fixtures_update_OK = {
             "result": "saved"
@@ -38,13 +32,13 @@ class TestHaproxyActionCommands(CommandTestCase):
             "result": "deleted"
         }
         self._api_data_fixtures_list_EMPTY = {
-            "haproxy": {
-                "actions": {
-                    "action": []
+            "unbound": {
+                "aliases": {
+                    "alias": []
                 }
             }
         }
-        self._api_data_fixtures_list = self._read_json_fixture('plugin/haproxy/model_data.json')
+        self._api_data_fixtures_list = self._read_json_fixture('core/unbound/model_data.json')
         self._api_client_args_fixtures = [
             'api_key',
             'api_secret',
@@ -54,108 +48,103 @@ class TestHaproxyActionCommands(CommandTestCase):
             60
         ]
 
-    @patch('opnsense_cli.commands.plugin.haproxy.action.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.unbound.alias.ApiClient.execute')
     def test_list(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
                 self._api_data_fixtures_list,
             ],
-            action,
+            alias,
             [
                 'list', '-o', 'plain', '-c',
-                'uuid,name,description,testType,Acls,operator,type'
+                'uuid,enabled,Host,hostname,domain,description'
             ]
         )
 
         self.assertIn(
             (
-                "b1b621ba-e4fc-4f13-bf76-34a2c78a8980 my_rule custom rule if  and use_backend\n"
+                "c2ab1046-6bc8-4b89-8542-2561f560424c 1 host01|example.com|A|||10.0.0.1 www example01.com \n"
             ),
             result.output
         )
 
-    @patch('opnsense_cli.commands.plugin.haproxy.action.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.unbound.alias.ApiClient.execute')
     def test_list_EMPTY(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
                 self._api_data_fixtures_list_EMPTY,
             ],
-            action,
+            alias,
             ['list', '-o', 'plain']
         )
 
         self.assertIn("", result.output)
 
-    @patch('opnsense_cli.commands.plugin.haproxy.action.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.unbound.alias.ApiClient.execute')
     def test_show_NOT_FOUND(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
                 self._api_data_fixtures_list,
             ],
-            action,
-            ['show', '99282721-934c-42be-ba4d-a93cbfda2644']
+            alias,
+            ['show', 'b468c719-89db-45a8-bd02-b081246dc002']
         )
         self.assertIn("", result.output)
 
-    @patch('opnsense_cli.commands.plugin.haproxy.action.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.unbound.alias.ApiClient.execute')
     def test_show_EMPTY_STRING(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
                 self._api_data_fixtures_list,
             ],
-            action,
+            alias,
             ['show', '']
         )
         self.assertIn("", result.output)
 
-    @patch('opnsense_cli.commands.plugin.haproxy.action.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.unbound.alias.ApiClient.execute')
     def test_show(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
                 self._api_data_fixtures_list,
             ],
-            action,
+            alias,
             [
-                'show', 'b1b621ba-e4fc-4f13-bf76-34a2c78a8980', '-o', 'plain', '-c',
-                'name,description,testType,Acls,operator,type,Backend,Server,Backends,Servers,Mapfile,BackendDefault'
+                'show', 'c2ab1046-6bc8-4b89-8542-2561f560424c', '-o', 'plain', '-c',
+                'uuid,Host,hostname,domain,description'
             ]
         )
 
         self.assertIn(
             (
-                "my_rule custom rule if  and use_backend      \n"
+                "c2ab1046-6bc8-4b89-8542-2561f560424c host01|example.com|A|||10.0.0.1 www example01.com \n"
             ),
             result.output
         )
 
-    @patch('opnsense_cli.commands.plugin.haproxy.action.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.unbound.alias.ApiClient.execute')
     def test_create_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
                 self._api_data_fixtures_list,
                 self._api_data_fixtures_create_OK,
-                self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
             ],
-            action,
+            alias,
             [
-                "create", "my_test_action",
-                "--type", "use_backend",
-                "--use_backend", "pool1",
-                "--use_server", "server1",
-                "--useBackend", "pool1",
-                "--useServer", "server1",
-                "--map_use_backend_file", "mapped_file1",
-                "--map_use_backend_default", "pool1",
+                "create",
+                "--host", "host01|example.com|A|||10.0.0.1",
+                "--hostname", "alias01",
+                "--domain", ".example.com",
+                "--description", "important alias",
             ]
         )
-        print(result.output)
 
         self.assertIn(
             (
@@ -164,48 +153,74 @@ class TestHaproxyActionCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.plugin.haproxy.action.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.unbound.alias.ApiClient.execute')
     def test_create_ERROR(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
+                self._api_data_fixtures_list,
                 self._api_data_fixtures_create_ERROR,
-                self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
             ],
-            action,
+            alias,
             [
-                "create", "my_test_action2",
-                "--type", "use_backend",
-                "--http_response_set_status_code", "700000"
-            ]
+                "create",
+                "--host", "host01|example.com|A|||10.0.0.1",
+                "--hostname", "alias01",
+                "--domain", "üüü.üüü.ze",
+                "--description", "important alias",
+            ], catch_exceptions=True
         )
 
         self.assertIn(
             (
                 "Error: {'result': 'failed', 'validations': "
-                "{'action.http_response_set_status_code': 'Please specify a value between 100 and 999.'}}\n"
+                "{'alias.domain': 'A valid domain must be specified.'}}\n"
             ),
             result.output
         )
         self.assertEqual(1, result.exit_code)
 
-    @patch('opnsense_cli.commands.plugin.haproxy.action.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.unbound.alias.ApiClient.execute')
+    def test_create_APPLY_FAILED(self, api_response_mock: Mock):
+        result = self._opn_cli_command_result(
+            api_response_mock,
+            [
+                  self._api_data_fixtures_list,
+                  self._api_data_fixtures_create_OK,
+                  self._api_data_fixtures_reconfigure_FAILED,
+            ],
+            alias,
+            [
+              "create",
+              "--host", "host01|example.com|A|||10.0.0.1",
+              "--hostname", "alias01",
+              "--domain", "example.com",
+              "--description", "important alias",
+            ]
+        )
+
+        self.assertIn(
+          (
+            "Error: Apply failed: {'status': 'failed'}\n"
+          ),
+          result.output
+        )
+        self.assertEqual(1, result.exit_code)
+
+    @patch('opnsense_cli.commands.core.unbound.alias.ApiClient.execute')
     def test_update_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
                 self._api_data_fixtures_list,
                 self._api_data_fixtures_update_OK,
-                self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
             ],
-            action,
+            alias,
             [
-                "update", "b1b621ba-e4fc-4f13-bf76-34a2c78a8980",
-                "--type", "custom",
-                "--custom", "",
-                "--use_backend", "pool1",
+                "update", "c2ab1046-6bc8-4b89-8542-2561f560424c",
+                "--host", "host01|example.com|A|||10.0.0.1"
             ]
         )
 
@@ -216,20 +231,18 @@ class TestHaproxyActionCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.plugin.haproxy.action.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.unbound.alias.ApiClient.execute')
     def test_update_NOT_EXISTS(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
                 self._api_data_fixtures_update_NOT_EXISTS,
-                self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
             ],
-            action,
+            alias,
             [
                 "update", "99282721-934c-42be-ba4d-a93cbfda2644",
-                "--type", "custom",
-                "--custom", "",
+                "--no-enabled",
             ]
         )
 
@@ -241,18 +254,17 @@ class TestHaproxyActionCommands(CommandTestCase):
         )
         self.assertEqual(1, result.exit_code)
 
-    @patch('opnsense_cli.commands.plugin.haproxy.action.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.unbound.alias.ApiClient.execute')
     def test_delete_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
                 self._api_data_fixtures_delete_OK,
-                self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
             ],
-            action,
+            alias,
             [
-                "delete", "b1b621ba-e4fc-4f13-bf76-34a2c78a8980",
+                "delete", "85282721-934c-42be-ba4d-a93cbfda26af",
             ]
         )
 
@@ -263,16 +275,15 @@ class TestHaproxyActionCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.plugin.haproxy.action.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.unbound.alias.ApiClient.execute')
     def test_delete_NOT_FOUND(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
                 self._api_data_fixtures_delete_NOT_FOUND,
-                self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,
             ],
-            action,
+            alias,
             [
                 "delete", "99282721-934c-42be-ba4d-a93cbfda2644",
             ]
