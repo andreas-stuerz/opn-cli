@@ -1,5 +1,17 @@
 # Changelog
 
+## [v1.4.0](https://github.com/andeman/opn-cli/tree/v1.4.0) (2023-01-10)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v1.3.2...v1.4.0)
+
+**Implemented enhancements:**
+
+- Add Unbound DNS Management [\#34](https://github.com/andeman/opn-cli/pull/34) ([andeman](https://github.com/andeman))
+
+## [v1.3.2](https://github.com/andeman/opn-cli/tree/v1.3.2) (2023-01-04)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v1.3.1...v1.3.2)
+
 ## [v1.3.1](https://github.com/andeman/opn-cli/tree/v1.3.1) (2023-01-04)
 
 [Full Changelog](https://github.com/andeman/opn-cli/compare/v1.3.0...v1.3.1)
