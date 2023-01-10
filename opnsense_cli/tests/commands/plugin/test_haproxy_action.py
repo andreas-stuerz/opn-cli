@@ -155,6 +155,7 @@ class TestHaproxyActionCommands(CommandTestCase):
                 "--map_use_backend_default", "pool1",
             ]
         )
+        print(result.output)
 
         self.assertIn(
             (
@@ -179,7 +180,6 @@ class TestHaproxyActionCommands(CommandTestCase):
                 "--http_response_set_status_code", "700000"
             ]
         )
-        print(result.output)
 
         self.assertIn(
             (

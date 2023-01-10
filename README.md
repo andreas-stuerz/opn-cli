@@ -6,60 +6,66 @@
 
 opn-cli - the OPNsense CLI written in python.
 
-- [opn-cli](#opn-cli)
-  * [Install](#install)
-  * [Configure](#configure)
-  * [Usage](#usage)
-  * [Features](#features)
-    + [Shell Completion](#shell-completion)
-    + [Output formats](#output-formats)
-      - [cols](#cols)
-      - [table](#table)
-      - [json](#json)
-      - [json_filter](#json-filter)
-      - [plain](#plain)
-      - [yaml](#yaml)
-    + [Code Generator](#code-generator)
-      - [API code core](#api-code-core)
-      - [API code plugin](#api-code-plugin)
-      - [Core command code](#core-command-code)
-      - [Plugin command code](#plugin-command-code)
-    + [Resolving of names to uuids](#resolving-of-names-to-uuids)
-  * [Commands](#commands)
-    + [Firewall](#firewall)
-      - [Aliases](#aliases)
-      - [Rules](#rules)
-    + [Haproxy](#haproxy)
-      - [Acl](#acl)
-      - [Action](#action)
-      - [Backend](#backend)
-      - [Config](#config)
-      - [CPU](#cpu)
-      - [Errorfile](#errorfile)
-      - [Healthcheck](#healthcheck)
-      - [Lua](#lua)
-      - [Mailer](#mailer)
-      - [Mapfile](#mapfile)
-      - [Resolver](#resolver)
-      - [Server](#server)
-      - [User](#user)
-    + [Ipsec](#ipsec)
-      - [Tunnel phase1](#tunnel-phase1)
-      - [Tunnel phase2](#tunnel-phase2)
-    + [Routes](#routes)
-      - [Static routes](#static-routes)
-      - [Gateway](#gateway)
-    + [Nodeexporter](#nodeexporter)
-      - [Config](#config-1)
-    + [Syslog](#syslog)
-      - [Syslog destination](#syslog-destination)
-      - [Syslog stats](#syslog-stats)
-    + [OpenVPN](#openvpn)
-    + [Plugins](#plugins)
-  * [Development](#development)
-    + [Setup development environment](#setup-development-environment)
-    + [Testing](#testing)
-    + [Contributing](#contributing)
+[opn-cli](#opn-cli)
+* [Install](#install)
+* [Configure](#configure)
+* [Usage](#usage)
+* [Features](#features)
+  + [Shell Completion](#shell-completion)
+  + [Output formats](#output-formats)
+    - [cols](#cols)
+    - [table](#table)
+    - [json](#json)
+    - [json_filter](#json-filter)
+    - [plain](#plain)
+    - [yaml](#yaml)
+  + [Code Generator](#code-generator)
+    - [API code core](#api-code-core)
+    - [API code plugin](#api-code-plugin)
+    - [Core command code](#core-command-code)
+    - [Plugin command code](#plugin-command-code)
+  + [Resolving of names to uuids](#resolving-of-names-to-uuids)
+* [Commands](#commands)
+  + [Firewall](#firewall)
+    - [Aliases](#aliases)
+    - [Rules](#rules)
+  + [Haproxy](#haproxy)
+    - [Acl](#acl)
+    - [Action](#action)
+    - [Backend](#backend)
+    - [Config](#config)
+    - [CPU](#cpu)
+    - [Errorfile](#errorfile)
+    - [Healthcheck](#healthcheck)
+    - [Lua](#lua)
+    - [Mailer](#mailer)
+    - [Mapfile](#mapfile)
+    - [Resolver](#resolver)
+    - [Server](#server)
+    - [User](#user)
+  + [Ipsec](#ipsec)
+    - [Tunnel phase1](#tunnel-phase1)
+    - [Tunnel phase2](#tunnel-phase2)
+  + [Routes](#routes)
+    - [Static routes](#static-routes)
+    - [Gateway](#gateway)
+  + [Nodeexporter](#nodeexporter)
+    - [Config](#config-1)
+  + [Syslog](#syslog)
+    - [Syslog destination](#syslog-destination)
+    - [Syslog stats](#syslog-stats)
+  + [OpenVPN](#openvpn)
+  + [Plugins](#plugins)
+  + [Unbound](#unbound)
+    - [host overrides](#host-overrides)
+    - [host alias overrides](#host-alias-overrides)
+    - [domain overrides](#domain-overrides)
+    - [Examples](#examples)
+* [Development](#development)
+  + [Setup development environment](#setup-development-environment)
+  + [Testing](#testing)
+  + [Contributing](#contributing)
+
 
 ## Install
 ```
@@ -915,6 +921,72 @@ Commands:
   uninstall  Uninstall plugin by name.
   unlock     Unlock plugin.
 ```
+
+### Unbound
+#### host overrides
+```
+Usage: opn-cli unbound host [OPTIONS] COMMAND [ARGS]...
+
+  Manage host overrides
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new host override
+  delete  Delete a host override
+  list    Show all hosts overrides
+  show    Show details for host override
+  update  Update a host override
+```
+
+#### host alias overrides
+```
+Usage: opn-cli unbound alias [OPTIONS] COMMAND [ARGS]...
+
+  Manage unbound host alias overrides
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new alias
+  delete  Delete alias
+  list    Show all alias
+  show    Show details for alias
+  update  Update an alias.
+```
+#### domain overrides
+```
+Usage: opn-cli unbound domain [OPTIONS] COMMAND [ARGS]...
+
+  Manage unbound domain overrides
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create  Create a new domain
+  delete  Delete domain
+  list    Show all domain
+  show    Show details for domain
+  update  Update a domain.
+
+```
+#### Examples
+```
+# host
+opn-cli unbound host create --hostname '*' --domain example.com --rr A --server 192.168.1.254
+opn-cli unbound host create --hostname 'mailin' --domain example.com --rr MX --mxprio 10 --mx mail.example.com
+
+# alias
+opn-cli unbound alias create --host '*|example.com|A|||192.168.1.254' --hostname another --domain example.com
+opn-cli unbound alias create --host 'mailin|example.com|MX|10|mail.example.com|' --hostname mail03 --domain example.com
+
+# domain
+opn-cli unbound domain create --domain rockin.com --server 192.168.56.3
+
+```  
 
 ## Development
 
