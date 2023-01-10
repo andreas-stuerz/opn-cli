@@ -371,6 +371,12 @@
           "domain": "override.de",
           "server": "127.0.0.1",
           "description": "test domain override"
+        },
+        "1e4485f5-24d0-42de-8631-ab906f377e92": {
+          "enabled": "1",
+          "domain": "text.abc",
+          "server": "192.168.50.2",
+          "description": "another test domain ovveride"
         }
       }
     }

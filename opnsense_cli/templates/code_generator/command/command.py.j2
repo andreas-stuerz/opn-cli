@@ -84,7 +84,6 @@ def show({{ service }}: {{ facade }}, **kwargs):
 
 
 @{{ vars.click_command }}.command()
-@click.argument('name')
 {% for option in vars.click_options_create -%}
     {{ option }}
 {% endfor %}

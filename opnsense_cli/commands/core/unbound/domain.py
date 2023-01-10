@@ -7,25 +7,25 @@ from opnsense_cli.types.click_param_type.int_or_empty import INT_OR_EMPTY
 from opnsense_cli.commands.core.unbound import unbound
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core.unbound import Settings, Service
-from opnsense_cli.facades.commands.core.unbound.alias import UnboundAliasFacade
+from opnsense_cli.facades.commands.core.unbound.domain import UnboundDomainFacade
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_unbound_alias_svc = click.make_pass_decorator(UnboundAliasFacade)
+pass_unbound_domain_svc = click.make_pass_decorator(UnboundDomainFacade)
 
 
 @unbound.group()
 @pass_api_client
 @click.pass_context
-def alias(ctx, api_client: ApiClient, **kwargs):
+def domain(ctx, api_client: ApiClient, **kwargs):
     """
-    Manage unbound host alias overrides
+    Manage unbound domain overrides
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = UnboundAliasFacade(settings_api, service_api)
+    ctx.obj = UnboundDomainFacade(settings_api, service_api)
 
 
-@alias.command()
+@domain.command()
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -38,21 +38,21 @@ def alias(ctx, api_client: ApiClient, **kwargs):
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=(
-        "uuid,enabled,Host,hostname,domain,description"
+        "uuid,enabled,domain,server,description"
     ),
     show_default=True,
 )
-@pass_unbound_alias_svc
-def list(unbound_alias_svc: UnboundAliasFacade, **kwargs):
+@pass_unbound_domain_svc
+def list(unbound_domain_svc: UnboundDomainFacade, **kwargs):
     """
-    Show all alias
+    Show all domain
     """
-    result = unbound_alias_svc.list_aliass()
+    result = unbound_domain_svc.list_domains()
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
-@alias.command()
+@domain.command()
 @click.argument('uuid')
 @click.option(
     '--output', '-o',
@@ -66,24 +66,24 @@ def list(unbound_alias_svc: UnboundAliasFacade, **kwargs):
     '--cols', '-c',
     help='Which columns should be printed? Pass empty string (-c '') to show all columns',
     default=(
-        "enabled,host,hostname,domain,description"
+        "enabled,domain,server,description"
     ),
     show_default=True,
 )
-@pass_unbound_alias_svc
-def show(unbound_alias_svc: UnboundAliasFacade, **kwargs):
+@pass_unbound_domain_svc
+def show(unbound_domain_svc: UnboundDomainFacade, **kwargs):
     """
-    Show details for alias
+    Show details for domain
     """
-    result = unbound_alias_svc.show_alias(kwargs['uuid'])
+    result = unbound_domain_svc.show_domain(kwargs['uuid'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
-@alias.command()
+@domain.command()
 @click.option(
     '--enabled/--no-enabled',
-    help=('Enable this alias for the selected host'),
+    help=('Enable this domain override'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -91,33 +91,28 @@ def show(unbound_alias_svc: UnboundAliasFacade, **kwargs):
     required=True,
 )
 @click.option(
-    '--host',
+    '--domain',
     help=(
-            'The associated host to apply this alias on. Use an uuid or a name reference "hostname_domain_rr_mxprio_mx_server" '
-            'e.g. "myhost_example.com_A___10.0.0.1" or "mx_example.com_MX_10_mailin.example.com"'
+            'Domain to override (NOTE: this does not have to be a valid TLD!),'
+            'e.g. \'test\' or \'mycompany.localdomain\' or \'1.168.192.in-addr.arpa\''
     ),
-    callback=resolve_linked_names_to_uuids,
     show_default=True,
     default=None,
     required=True,
 )
 @click.option(
-    '--hostname',
-    help=('Name of the host, without the domain part. Use "*" to create a wildcard entry.'),
+    '--server',
+    help=(
+            'IP address of the authoritative DNS server for this domain,'
+            'e.g. \'192.168.100.100\'. To use a nondefault port for communication, append an \'@\' with the port number.'
+        ),
     show_default=True,
     default=None,
-    required=False,
-)
-@click.option(
-    '--domain',
-    help=('Domain of the host, e.g. example.com'),
-    show_default=True,
-    default=None,
-    required=False,
+    required=True,
 )
 @click.option(
     '--description',
-    help=('You may enter a description here for your reference (not parsed)'),
+    help=('You may enter a description here for your reference (not parsed).'),
     show_default=True,
     default=None,
     required=False,
@@ -137,62 +132,57 @@ def show(unbound_alias_svc: UnboundAliasFacade, **kwargs):
     default="result,validations",
     show_default=True,
 )
-@pass_unbound_alias_svc
-def create(unbound_alias_svc: UnboundAliasFacade, **kwargs):
+@pass_unbound_domain_svc
+def create(unbound_domain_svc: UnboundDomainFacade, **kwargs):
     """
-    Create a new alias
+    Create a new domain
     """
     json_payload = {
-        'alias': {
+        'domain': {
             "enabled": kwargs['enabled'],
-            "host": kwargs['host'],
-            "hostname": kwargs['hostname'],
             "domain": kwargs['domain'],
+            "server": kwargs['server'],
             "description": kwargs['description'],
             
         }
     }
 
-    result = unbound_alias_svc.create_alias(json_payload)
+    result = unbound_domain_svc.create_domain(json_payload)
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
-@alias.command()
+@domain.command()
 @click.argument('uuid')
 @click.option(
     '--enabled/--no-enabled',
-    help=('Enable this alias for the selected host'),
+    help=('Enable this domain override'),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
     default=None
 )
 @click.option(
-    '--host',
-    help=(
-            'The associated host to apply this alias on. Use an uuid or a name reference "hostname_domain_rr_mxprio_mx_server" '
-            'e.g. "myhost_example.com_A___10.0.0.1" or "mx_example.com_MX_10_mailin.example.com"'
-    ),
-    callback=resolve_linked_names_to_uuids,
-    show_default=True,
-    default=None
-)
-@click.option(
-    '--hostname',
-    help=('Name of the host, without the domain part. Use "*" to create a wildcard entry.'),
-    show_default=True,
-    default=None
-)
-@click.option(
     '--domain',
-    help=('Domain of the host, e.g. example.com'),
+    help=(
+            'Domain to override (NOTE: this does not have to be a valid TLD!),'
+            'e.g. \'test\' or \'mycompany.localdomain\' or \'1.168.192.in-addr.arpa\''
+    ),
+    show_default=True,
+    default=None
+)
+@click.option(
+    '--server',
+    help=(
+            'IP address of the authoritative DNS server for this domain,'
+            'e.g. \'192.168.100.100\'. To use a nondefault port for communication, append an \'@\' with the port number.'
+    ),
     show_default=True,
     default=None
 )
 @click.option(
     '--description',
-    help=('You may enter a description here for your reference (not parsed)'),
+    help=('You may enter a description here for your reference (not parsed).'),
     show_default=True,
     default=None
 )
@@ -211,25 +201,25 @@ def create(unbound_alias_svc: UnboundAliasFacade, **kwargs):
     default="result,validations",
     show_default=True,
 )
-@pass_unbound_alias_svc
-def update(unbound_alias_svc: UnboundAliasFacade, **kwargs):
+@pass_unbound_domain_svc
+def update(unbound_domain_svc: UnboundDomainFacade, **kwargs):
     """
-    Update an alias.
+    Update a domain.
     """
     json_payload = {
-        'alias': {}
+        'domain': {}
     }
-    options = ['enabled', 'host', 'hostname', 'domain', 'description']
+    options = ['enabled', 'domain', 'server', 'description']
     for option in options:
         if kwargs[option.lower()] is not None:
-            json_payload['alias'][option] = kwargs[option.lower()]
+            json_payload['domain'][option] = kwargs[option.lower()]
 
-    result = unbound_alias_svc.update_alias(kwargs['uuid'], json_payload)
+    result = unbound_domain_svc.update_domain(kwargs['uuid'], json_payload)
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
 
 
-@alias.command()
+@domain.command()
 @click.argument('uuid')
 @click.option(
     '--output', '-o',
@@ -245,11 +235,11 @@ def update(unbound_alias_svc: UnboundAliasFacade, **kwargs):
     default="result,validations",
     show_default=True,
 )
-@pass_unbound_alias_svc
-def delete(unbound_alias_svc: UnboundAliasFacade, **kwargs):
+@pass_unbound_domain_svc
+def delete(unbound_domain_svc: UnboundDomainFacade, **kwargs):
     """
-    Delete alias
+    Delete domain
     """
-    result = unbound_alias_svc.delete_alias(kwargs['uuid'])
+    result = unbound_domain_svc.delete_domain(kwargs['uuid'])
 
     CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
