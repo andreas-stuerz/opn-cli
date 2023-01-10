@@ -70,8 +70,3 @@ class Settings(ApiBase):
     def setHostOverride(self, *args):
         self.method = "post"
         self.command = "setHostOverride"
-
-
-
-
-

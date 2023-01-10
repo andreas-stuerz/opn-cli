@@ -6,7 +6,6 @@ from opnsense_cli.api.core.unbound import Settings, Service
 class UnboundHostFacade(CommandFacade):
     jsonpath_base = '$.unbound.hosts.host'
     uuid_resolver_map = {
-    
     }
 
     def __init__(self, settings_api: Settings, service_api: Service):
@@ -24,7 +23,12 @@ class UnboundHostFacade(CommandFacade):
         return host
 
     def _get_hosts_list(self):
-        return self._api_mutable_model_get(self._complete_model_data, self.jsonpath_base, self.uuid_resolver_map, sort_by='uuid')
+        return self._api_mutable_model_get(
+            self._complete_model_data,
+            self.jsonpath_base,
+            self.uuid_resolver_map,
+            sort_by='uuid'
+        )
 
     def create_host(self, json_payload: dict):
         result = self._settings_api.addHostOverride(json=json_payload)

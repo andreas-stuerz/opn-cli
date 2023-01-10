@@ -6,7 +6,11 @@ from opnsense_cli.api.core.unbound import Settings, Service
 class UnboundAliasFacade(CommandFacade):
     jsonpath_base = '$.unbound.aliases.alias'
     uuid_resolver_map = dict(
-        host={'template': '$.unbound.hosts.host[{uuids}].hostname,domain,rr,mxprio,mx,server', 'insert_as_key': 'Host', 'join_by': '|'},
+        host={
+            'template': '$.unbound.hosts.host[{uuids}].hostname,domain,rr,mxprio,mx,server',
+            'insert_as_key': 'Host',
+            'join_by': '|'
+        },
     )
 
     def __init__(self, settings_api: Settings, service_api: Service):
@@ -24,7 +28,12 @@ class UnboundAliasFacade(CommandFacade):
         return alias
 
     def _get_aliass_list(self):
-        return self._api_mutable_model_get(self._complete_model_data, self.jsonpath_base, self.uuid_resolver_map, sort_by='uuid')
+        return self._api_mutable_model_get(
+            self._complete_model_data,
+            self.jsonpath_base,
+            self.uuid_resolver_map,
+            sort_by='uuid'
+        )
 
     def create_alias(self, json_payload: dict):
         result = self._settings_api.addHostAlias(json=json_payload)

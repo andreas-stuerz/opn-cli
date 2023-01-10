@@ -80,7 +80,10 @@ class CommandFacade(ABC):
         quoted_items = "'{}'".format("','".join(item_csv_string.split(",")))
         evaluated_template = map['template'].format(uuids=quoted_items)
         uuid_expression = parse(evaluated_template)
-        resolved_linked_items = self._resolve_linked_items_by_uuid_expresion_from_model_data(uuid_expression, complete_model_data)
+        resolved_linked_items = self._resolve_linked_items_by_uuid_expresion_from_model_data(
+            uuid_expression,
+            complete_model_data
+        )
 
         return {
             map['insert_as_key']: f"{join_by}".join(resolved_linked_items)
@@ -97,7 +100,6 @@ class CommandFacade(ABC):
             resolved_linked_items.append(item)
 
         return resolved_linked_items
-
 
     def _sort_dict_by_string(self, dict, by_column):
         return sorted(dict, key=lambda k: k[by_column])
@@ -144,7 +146,11 @@ class CommandFacade(ABC):
                 for item_key, item_value in item.items():
                     if isinstance(item_value, dict):
                         try:
-                            selected = [multiple_selection_key for multiple_selection_key, multiple_selection_value in item_value.items() if multiple_selection_value.get('selected') == 1][0]
+                            selected = [
+                                multiple_selection_key
+                                for multiple_selection_key, multiple_selection_value in item_value.items()
+                                if multiple_selection_value.get('selected') == 1
+                            ][0]
                         except IndexError:
                             selected = None
 

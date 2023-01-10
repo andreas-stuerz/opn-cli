@@ -171,7 +171,6 @@ class TestHaproxyFrontendCommands(CommandTestCase):
         result = self._opn_cli_command_result(
             api_response_mock,
             [
-                #self._api_data_fixtures_list,
                 self._api_data_fixtures_create_ERROR,
                 self._api_data_fixtures_configtest_OK,
                 self._api_data_fixtures_reconfigure_OK,

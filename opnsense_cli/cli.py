@@ -47,8 +47,6 @@ from opnsense_cli.commands.plugin.haproxy.mailer import mailer as haproxy_mailer
 from opnsense_cli.commands.plugin.haproxy.action import action as haproxy_action
 
 
-
-
 CFG_DIR = f"~/.{__cli_name__}"
 DEFAULT_CFG = f"{CFG_DIR}/conf.yaml"
 DEFAULT_SSL_VERIFY_CA = f"{CFG_DIR}/ca.pem"

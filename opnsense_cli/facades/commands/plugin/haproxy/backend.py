@@ -12,7 +12,7 @@ class HaproxyBackendFacade(HaproxyFacade):
         basicAuthUsers={'template': '$.haproxy.users.user[{uuids}].name', 'insert_as_key': 'Users'},
         basicAuthGroups={'template': '$.haproxy.groups.group[{uuids}].name', 'insert_as_key': 'Groups'},
         linkedActions={'template': '$.haproxy.actions.action[{uuids}].name', 'insert_as_key': 'Actions'},
-        linkedErrorfiles={'template': '$.haproxy.errorfiles.errorfile[{uuids}].name','insert_as_key': 'Errorfiles'}
+        linkedErrorfiles={'template': '$.haproxy.errorfiles.errorfile[{uuids}].name', 'insert_as_key': 'Errorfiles'}
     )
 
     def __init__(self, settings_api: Settings, service_api: Service):

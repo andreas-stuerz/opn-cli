@@ -184,7 +184,6 @@ class TestUnboundHostCommands(CommandTestCase):
         )
         self.assertEqual(1, result.exit_code)
 
-
     @patch('opnsense_cli.commands.core.unbound.host.ApiClient.execute')
     def test_create_APPLY_FAILED(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(

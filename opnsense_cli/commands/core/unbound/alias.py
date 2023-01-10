@@ -1,9 +1,7 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
 from opnsense_cli.callbacks.click import \
-    formatter_from_formatter_name, bool_as_string, available_formats, int_as_string, tuple_to_csv, \
-    resolve_linked_names_to_uuids
-from opnsense_cli.types.click_param_type.int_or_empty import INT_OR_EMPTY
+    formatter_from_formatter_name, bool_as_string, available_formats, resolve_linked_names_to_uuids
 from opnsense_cli.commands.core.unbound import unbound
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core.unbound import Settings, Service
@@ -93,8 +91,8 @@ def show(unbound_alias_svc: UnboundAliasFacade, **kwargs):
 @click.option(
     '--host',
     help=(
-            'The associated host to apply this alias on. Use an uuid or a name reference "hostname_domain_rr_mxprio_mx_server" '
-            'e.g. "myhost_example.com_A___10.0.0.1" or "mx_example.com_MX_10_mailin.example.com"'
+        'The associated host to apply this alias on. Use an uuid or a name reference "hostname_domain_rr_mxprio_mx_server" '
+        'e.g. "myhost_example.com_A___10.0.0.1" or "mx_example.com_MX_10_mailin.example.com"'
     ),
     callback=resolve_linked_names_to_uuids,
     show_default=True,
@@ -122,7 +120,6 @@ def show(unbound_alias_svc: UnboundAliasFacade, **kwargs):
     default=None,
     required=False,
 )
-
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
@@ -149,7 +146,6 @@ def create(unbound_alias_svc: UnboundAliasFacade, **kwargs):
             "hostname": kwargs['hostname'],
             "domain": kwargs['domain'],
             "description": kwargs['description'],
-            
         }
     }
 
@@ -171,8 +167,8 @@ def create(unbound_alias_svc: UnboundAliasFacade, **kwargs):
 @click.option(
     '--host',
     help=(
-            'The associated host to apply this alias on. Use an uuid or a name reference "hostname_domain_rr_mxprio_mx_server" '
-            'e.g. "myhost_example.com_A___10.0.0.1" or "mx_example.com_MX_10_mailin.example.com"'
+        'The associated host to apply this alias on. Use an uuid or a name reference "hostname_domain_rr_mxprio_mx_server" '
+        'e.g. "myhost_example.com_A___10.0.0.1" or "mx_example.com_MX_10_mailin.example.com"'
     ),
     callback=resolve_linked_names_to_uuids,
     show_default=True,
@@ -196,7 +192,6 @@ def create(unbound_alias_svc: UnboundAliasFacade, **kwargs):
     show_default=True,
     default=None
 )
-
 @click.option(
     '--output', '-o',
     help='Specifies the Output format.',
