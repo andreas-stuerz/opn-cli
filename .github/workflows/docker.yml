@@ -16,16 +16,16 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.9'
-    -
-      name: Set docker metadata
-      #id: step_one
-      run: |
-        echo "docker_image_name=$(python setup.py --name)" >> $GITHUB_ENV
-        echo "docker_tag_version=$(python setup.py --version)" >> $GITHUB_ENV
-    -
-      name: show docker metadata
-      #id: step_two
-      run: |
-        echo "${{ env.docker_image_name }}"
-        echo "${{ env.docker_tag_version }}"
+      -
+        name: Set docker metadata
+        #id: step_one
+        run: |
+          echo "docker_image_name=$(python setup.py --name)" >> $GITHUB_ENV
+          echo "docker_tag_version=$(python setup.py --version)" >> $GITHUB_ENV
+      -
+        name: show docker metadata
+        #id: step_two
+        run: |
+          echo "${{ env.docker_image_name }}"
+          echo "${{ env.docker_tag_version }}"
 
