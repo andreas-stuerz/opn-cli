@@ -1,10 +1,13 @@
 [run]
 omit =
+    /tmp/*
+    *private*
     */local/*
     *venv*
     *opnsense_cli/tests/*
     *opnsense_cli/fixtures/*
     *output*
+    /usr/lib/python*
 
 [report]
 exclude_lines =
