@@ -1,0 +1,44 @@
+name: publish docker image
+on:
+  workflow_dispatch:
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      -
+        name: Set docker metadata
+        run: |
+          echo "docker_image_name=$(python setup.py --name)" >> $GITHUB_ENV
+          echo "docker_tag_version=$(python setup.py --version)" >> $GITHUB_ENV
+      -
+        name: show docker metadata
+        run: |
+          echo "${{ env.docker_image_name }}"
+          echo "${{ env.docker_tag_version }}"
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.docker_image_name }}:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.docker_image_name }}:${{ env.docker_tag_version }}
+
