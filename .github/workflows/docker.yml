@@ -1,9 +1,6 @@
 name: publish docker image
 on:
-  #workflow_dispatch:
-  push:
-    branches:
-      - 'docker_build'
+  workflow_dispatch:
 jobs:
   docker:
     runs-on: ubuntu-latest
