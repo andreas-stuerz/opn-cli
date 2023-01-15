@@ -30,8 +30,26 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
+
+      -
+        name: Build and export to Docker
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          load: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.docker_image_name }}:${{ env.docker_tag_version }}
+
+      -
+        name: Test
+        run: |
+          docker run --rm ${{ env.TEST_TAG }}
+
       -
         name: Build and push
         uses: docker/build-push-action@v2
