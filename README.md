@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/andeman/opn-cli/branch/main/graph/badge.svg?token=WGV66ULJT4)](https://codecov.io/gh/andeman/opn-cli)
 [![PyPI version](https://badge.fury.io/py/opn-cli.svg)](https://badge.fury.io/py/opn-cli)
 [![Downloads](https://pepy.tech/badge/opn-cli)](https://pepy.tech/project/opn-cli)
-[![docker-latest-image-version](https://img.shields.io/docker/v/andeman77/opn-cli/latest?label=docker%20latest)]()
+[![docker-latest-image-version](https://img.shields.io/docker/v/andeman77/opn-cli/latest?label=docker%20latest)](https://hub.docker.com/r/andeman77/opn-cli/latest)
 [![docker-pulls](https://img.shields.io/docker/pulls/andeman77/opn-cli)](https://hub.docker.com/r/andeman77/opn-cli)
 
 
