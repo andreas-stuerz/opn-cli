@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.5.0](https://github.com/andeman/opn-cli/tree/v1.5.0) (2023-01-15)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v1.4.0...v1.5.0)
+
+**Implemented enhancements:**
+
+- Docker build [\#36](https://github.com/andeman/opn-cli/pull/36) ([andeman](https://github.com/andeman))
+
 ## [v1.4.0](https://github.com/andeman/opn-cli/tree/v1.4.0) (2023-01-10)
 
 [Full Changelog](https://github.com/andeman/opn-cli/compare/v1.3.2...v1.4.0)
