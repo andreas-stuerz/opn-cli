@@ -42,3 +42,11 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.docker_image_name }}:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.docker_image_name }}:${{ env.docker_tag_version }}
 
+      -
+        name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.docker_image_name }}
+
