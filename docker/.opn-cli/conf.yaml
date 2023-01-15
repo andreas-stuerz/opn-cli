@@ -1,0 +1,8 @@
+---
+api_key: 3T7LyQbZSXC/WN56qL0LyvLweNICeiTOzZ2JifNAvlrL+BW8Yvx7WSAUS4xvmLM/BE7xVVtv0Mv2QwNm
+api_secret: 2mxXt++o5Mmte3sfNJsYxlm18M2t/wAGIAHwmWoe8qc15T5wUrejJQUd/sfXSGnAG2Xk2gqMf8FzHpT2
+url: https://host.docker.internal:10443/api
+timeout: 60
+ssl_verify: true
+ca: ~/.opn-cli/ca.pem
+

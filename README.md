@@ -3,69 +3,72 @@
 [![codecov](https://codecov.io/gh/andeman/opn-cli/branch/main/graph/badge.svg?token=WGV66ULJT4)](https://codecov.io/gh/andeman/opn-cli)
 [![PyPI version](https://badge.fury.io/py/opn-cli.svg)](https://badge.fury.io/py/opn-cli)
 [![Downloads](https://pepy.tech/badge/opn-cli)](https://pepy.tech/project/opn-cli)
+[![docker-latest-image-version](https://img.shields.io/docker/v/andeman77/opn-cli/latest?label=docker%20latest)]()
+[![docker-pulls](https://img.shields.io/docker/pulls/andeman77/opn-cli)](https://hub.docker.com/r/andeman77/opn-cli)
+
 
 opn-cli - the OPNsense CLI written in python.
 
-[opn-cli](#opn-cli)
-* [Install](#install)
-* [Configure](#configure)
-* [Usage](#usage)
-* [Features](#features)
-  + [Shell Completion](#shell-completion)
-  + [Output formats](#output-formats)
-    - [cols](#cols)
-    - [table](#table)
-    - [json](#json)
-    - [json_filter](#json-filter)
-    - [plain](#plain)
-    - [yaml](#yaml)
-  + [Code Generator](#code-generator)
-    - [API code core](#api-code-core)
-    - [API code plugin](#api-code-plugin)
-    - [Core command code](#core-command-code)
-    - [Plugin command code](#plugin-command-code)
-  + [Resolving of names to uuids](#resolving-of-names-to-uuids)
-* [Commands](#commands)
-  + [Firewall](#firewall)
-    - [Aliases](#aliases)
-    - [Rules](#rules)
-  + [Haproxy](#haproxy)
-    - [Acl](#acl)
-    - [Action](#action)
-    - [Backend](#backend)
-    - [Config](#config)
-    - [CPU](#cpu)
-    - [Errorfile](#errorfile)
-    - [Healthcheck](#healthcheck)
-    - [Lua](#lua)
-    - [Mailer](#mailer)
-    - [Mapfile](#mapfile)
-    - [Resolver](#resolver)
-    - [Server](#server)
-    - [User](#user)
-  + [Ipsec](#ipsec)
-    - [Tunnel phase1](#tunnel-phase1)
-    - [Tunnel phase2](#tunnel-phase2)
-  + [Routes](#routes)
-    - [Static routes](#static-routes)
-    - [Gateway](#gateway)
-  + [Nodeexporter](#nodeexporter)
-    - [Config](#config-1)
-  + [Syslog](#syslog)
-    - [Syslog destination](#syslog-destination)
-    - [Syslog stats](#syslog-stats)
-  + [OpenVPN](#openvpn)
-  + [Plugins](#plugins)
-  + [Unbound](#unbound)
-    - [host overrides](#host-overrides)
-    - [host alias overrides](#host-alias-overrides)
-    - [domain overrides](#domain-overrides)
-    - [Examples](#examples)
-* [Development](#development)
-  + [Setup development environment](#setup-development-environment)
-  + [Testing](#testing)
-  + [Contributing](#contributing)
-
+- [opn-cli](#opn-cli)
+  * [Install](#install)
+  * [Configure](#configure)
+  * [Usage](#usage)
+  * [docker usage](#docker-usage)
+  * [Features](#features)
+    + [Shell Completion](#shell-completion)
+    + [Output formats](#output-formats)
+      - [cols](#cols)
+      - [table](#table)
+      - [json](#json)
+      - [json_filter](#json-filter)
+      - [plain](#plain)
+      - [yaml](#yaml)
+    + [Code Generator](#code-generator)
+      - [API code core](#api-code-core)
+      - [API code plugin](#api-code-plugin)
+      - [Core command code](#core-command-code)
+      - [Plugin command code](#plugin-command-code)
+    + [Resolving of names to uuids](#resolving-of-names-to-uuids)
+  * [Commands](#commands)
+    + [Firewall](#firewall)
+      - [Aliases](#aliases)
+      - [Rules](#rules)
+    + [Haproxy](#haproxy)
+      - [Acl](#acl)
+      - [Action](#action)
+      - [Backend](#backend)
+      - [Config](#config)
+      - [CPU](#cpu)
+      - [Errorfile](#errorfile)
+      - [Healthcheck](#healthcheck)
+      - [Lua](#lua)
+      - [Mailer](#mailer)
+      - [Mapfile](#mapfile)
+      - [Resolver](#resolver)
+      - [Server](#server)
+      - [User](#user)
+    + [Ipsec](#ipsec)
+      - [Tunnel phase1](#tunnel-phase1)
+      - [Tunnel phase2](#tunnel-phase2)
+    + [Routes](#routes)
+      - [Static routes](#static-routes)
+      - [Gateway](#gateway)
+    + [Nodeexporter](#nodeexporter)
+      - [Config](#config-1)
+    + [Syslog](#syslog)
+      - [Syslog destination](#syslog-destination)
+      - [Syslog stats](#syslog-stats)
+    + [OpenVPN](#openvpn)
+    + [Plugins](#plugins)
+    + [Unbound](#unbound)
+      - [host overrides](#host-overrides)
+      - [host alias overrides](#host-alias-overrides)
+      - [domain overrides](#domain-overrides)
+      - [Examples](#examples)
+  * [Development](#development)
+    + [Setup development environment](#setup-development-environment)
+    + [Testing](#testing)
+    + [Contributing](#contributing)
 
 ## Install
 ```
@@ -178,6 +181,24 @@ Commands:
   plugin      Manage OPNsense plugins
   route       Manage routes
   version     Show the CLI version and exit.
+```
+
+## docker usage
+There is a docker image available with the opn-cli installed. You can use it to run the cli without installing it on your system.
+
+Just run the following command:
+```
+docker run andeman77/opn-cli --help
+```
+
+The default config for the container is located at [./docker/.opn-cli](./docker/.opn-cli).
+
+To configure opn-cli bind mount the opn-cli config to the container. The config file should be named `conf.yaml` and the ca.pem 
+file should be named `ca.pem`. The config file should be located in the `~/.opn-cli` directory.
+
+Example using the default config file (see: [Configure](#configure)):
+```
+docker run -v$(realpath $HOME)/.opn-cli:/home/appuser/.opn-cli andeman77/opn-cli firewall alias list
 ```
 
 ## Features

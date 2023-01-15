@@ -50,10 +50,8 @@ COPY setup.py /app/setup.py
 # Creates a non-root user and adds permission to access the /app folder
 RUN addgroup --system appgroup && useradd appuser -g appgroup -m && chown -R appuser:appgroup /app
 
-COPY opnsense_cli/conf.yaml /home/appuser/.opn-cli/conf.yaml
-COPY opnsense_cli/ca.pem /home/appuser/.opn-cli/ca.pem
-
-
+COPY docker/.opn-cli/conf.yaml /home/appuser/.opn-cli/conf.yaml
+COPY docker/.opn-cli/ca.pem /home/appuser/.opn-cli/ca.pem
 
 WORKDIR /app
 
