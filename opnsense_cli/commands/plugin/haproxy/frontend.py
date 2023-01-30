@@ -652,7 +652,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
         'close the outgoing server channel as soon as the server has finished '
         'to respond and release some resources earlier.'
     ),
-    type=click.Choice(['http-keep-alive', 'http-tunnel', 'httpclose', 'http-server-close', 'forceclose']),
+    type=click.Choice(['http-keep-alive', 'httpclose', 'http-server-close']),
     multiple=False,
     callback=tuple_to_csv,
     show_default=True,
@@ -1276,7 +1276,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
         'close the outgoing server channel as soon as the server has finished '
         'to respond and release some resources earlier.'
     ),
-    type=click.Choice(['http-keep-alive', 'http-tunnel', 'httpclose', 'http-server-close', 'forceclose']),
+    type=click.Choice(['http-keep-alive', 'httpclose', 'http-server-close']),
     multiple=False,
     callback=tuple_to_csv,
     show_default=True,

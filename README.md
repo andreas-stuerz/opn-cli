@@ -92,6 +92,7 @@ pip install opn-cli
     ```
     opn-cli plugin install os-firewall
     opn-cli plugin install os-haproxy
+    opn-cli plugin install os-node_exporter
     ```
    
 ## Usage
@@ -856,6 +857,8 @@ Commands:
   status  Show gateway states
 ```
 ### Nodeexporter
+This feature needs the opnsense plugin os-node_exporter to be installed.
+
 #### Config
 ```
 Usage: opn-cli nodeexporter config [OPTIONS] COMMAND [ARGS]...
