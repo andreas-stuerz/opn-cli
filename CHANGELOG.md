@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.6.0](https://github.com/andeman/opn-cli/tree/v1.6.0) (2023-02-01)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v1.5.0...v1.6.0)
+
+**Merged pull requests:**
+
+- OPNsense 23.1 compability [\#37](https://github.com/andeman/opn-cli/pull/37) ([andeman](https://github.com/andeman))
+
 ## [v1.5.0](https://github.com/andeman/opn-cli/tree/v1.5.0) (2023-01-15)
 
 [Full Changelog](https://github.com/andeman/opn-cli/compare/v1.4.0...v1.5.0)
