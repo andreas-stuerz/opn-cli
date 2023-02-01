@@ -611,6 +611,7 @@
               "selected": 1
             }
           },
+          "tuning_shards": "2",
           "logging_dontLogNull": "0",
           "logging_dontLogNormal": "0",
           "logging_logSeparateErrors": "0",
@@ -729,20 +730,12 @@
               "value": "http-keep-alive [default]",
               "selected": 1
             },
-            "http-tunnel": {
-              "value": "http-tunnel",
-              "selected": 0
-            },
             "httpclose": {
               "value": "httpclose",
               "selected": 0
             },
             "http-server-close": {
               "value": "http-server-close",
-              "selected": 0
-            },
-            "forceclose": {
-              "value": "forceclose",
               "selected": 0
             }
           },
@@ -1003,6 +996,7 @@
               "selected": 0
             }
           },
+          "tuning_shards": "2",
           "logging_dontLogNull": "0",
           "logging_dontLogNormal": "0",
           "logging_logSeparateErrors": "0",
@@ -1121,20 +1115,12 @@
               "value": "http-keep-alive [default]",
               "selected": 1
             },
-            "http-tunnel": {
-              "value": "http-tunnel",
-              "selected": 0
-            },
             "httpclose": {
               "value": "httpclose",
               "selected": 0
             },
             "http-server-close": {
               "value": "http-server-close",
-              "selected": 0
-            },
-            "forceclose": {
-              "value": "forceclose",
               "selected": 0
             }
           },

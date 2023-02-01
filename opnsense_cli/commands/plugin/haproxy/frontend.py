@@ -72,7 +72,7 @@ def list(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
         "ssl_cipherList,ssl_cipherSuites,ssl_hstsEnabled,ssl_hstsIncludeSubDomains,ssl_hstsPreload,ssl_hstsMaxAge,"
         "ssl_clientAuthEnabled,ssl_clientAuthVerify,ssl_clientAuthCAs,ssl_clientAuthCRLs,basicAuthEnabled,"
         "Users,basicAuthUsers,Groups,basicAuthGroups,tuning_maxConnections,tuning_timeoutClient,tuning_timeoutHttpReq,"
-        "tuning_timeoutHttpKeepAlive,Cpus,linkedCpuAffinityRules,logging_dontLogNull,logging_dontLogNormal,"
+        "tuning_timeoutHttpKeepAlive,Cpus,linkedCpuAffinityRules,tuning_shards, logging_dontLogNull,logging_dontLogNormal,"
         "logging_logSeparateErrors,logging_detailedLog,logging_socketStats,stickiness_pattern,stickiness_dataTypes,"
         "stickiness_expire,stickiness_size,stickiness_counter,stickiness_counter_key,stickiness_length,"
         "stickiness_connRatePeriod,stickiness_sessRatePeriod,stickiness_httpReqRatePeriod,stickiness_httpErrRatePeriod,"
@@ -392,6 +392,17 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     '--linkedCpuAffinityRules',
     help=('Choose CPU affinity rules that should be applied to this public service.'),
     callback=resolve_linked_names_to_uuids,
+    show_default=True,
+    default=None,
+    required=False,
+)
+@click.option(
+    '--tuning_shards',
+    help=(
+            'This option automatically creates the specified number of listeners for every IP:port combination and evenly distributes'
+            ' them among available threads. This can sometimes be useful when using very large thread counts where the in-kernel '
+            'locking on a single socket starts to cause a significant overhead.'
+    ),
     show_default=True,
     default=None,
     required=False,
@@ -736,6 +747,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
             "tuning_timeoutHttpReq": kwargs['tuning_timeouthttpreq'],
             "tuning_timeoutHttpKeepAlive": kwargs['tuning_timeouthttpkeepalive'],
             "linkedCpuAffinityRules": kwargs['linkedcpuaffinityrules'],
+            "tuning_shards": kwargs['tuning_shards'],
             "logging_dontLogNull": kwargs['logging_dontlognull'],
             "logging_dontLogNormal": kwargs['logging_dontlognormal'],
             "logging_logSeparateErrors": kwargs['logging_logseparateerrors'],
@@ -1043,6 +1055,16 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     default=None
 )
 @click.option(
+    '--tuning_shards',
+    help=(
+            'This option automatically creates the specified number of listeners for every IP:port combination and evenly distributes'
+            ' them among available threads. This can sometimes be useful when using very large thread counts where the in-kernel '
+            'locking on a single socket starts to cause a significant overhead.'
+    ),
+    show_default=True,
+    default=None
+)
+@click.option(
     '--logging_dontLogNull/--no-logging_dontLogNull',
     help=('Enable or disable logging of connections with no data.'),
     show_default=True,
@@ -1331,7 +1353,7 @@ def update(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
         'ssl_hstsIncludeSubDomains', 'ssl_hstsPreload', 'ssl_hstsMaxAge', 'ssl_clientAuthEnabled',
         'ssl_clientAuthVerify', 'ssl_clientAuthCAs', 'ssl_clientAuthCRLs', 'basicAuthEnabled', 'basicAuthUsers',
         'basicAuthGroups', 'tuning_maxConnections', 'tuning_timeoutClient', 'tuning_timeoutHttpReq',
-        'tuning_timeoutHttpKeepAlive', 'linkedCpuAffinityRules', 'logging_dontLogNull', 'logging_dontLogNormal',
+        'tuning_timeoutHttpKeepAlive', 'linkedCpuAffinityRules','tuning_shards', 'logging_dontLogNull', 'logging_dontLogNormal',
         'logging_logSeparateErrors', 'logging_detailedLog', 'logging_socketStats', 'stickiness_pattern',
         'stickiness_dataTypes', 'stickiness_expire', 'stickiness_size', 'stickiness_counter', 'stickiness_counter_key',
         'stickiness_length', 'stickiness_connRatePeriod', 'stickiness_sessRatePeriod', 'stickiness_httpReqRatePeriod',

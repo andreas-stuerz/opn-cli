@@ -123,13 +123,13 @@ class TestHaproxyFrontendCommands(CommandTestCase):
             frontend,
             [
                 'show', '6c19c893-2c38-4944-9540-a2af1eb2b7d3', '-o', 'plain', '-c',
-                'uuid,enabled,name,bind,mode,Backend,ssl_enabled,ssl_certificates'
+                'uuid,enabled,name,bind,mode,Backend,ssl_enabled,ssl_certificates,tuning_shards'
             ]
         )
 
         self.assertIn(
             (
-                "6c19c893-2c38-4944-9540-a2af1eb2b7d3 1 frontend_custom 127.0.0.1:8080 http pool2 1 60cc4641eb577\n"
+                "6c19c893-2c38-4944-9540-a2af1eb2b7d3 1 frontend_custom 127.0.0.1:8080 http pool2 1 60cc4641eb577 2\n"
             ),
             result.output
         )
@@ -152,10 +152,11 @@ class TestHaproxyFrontendCommands(CommandTestCase):
                 "--basicAuthUsers", "user1",
                 "--basicAuthGroups", "group1",
                 "--linkedCpuAffinityRules", "my_affinit_rule",
+                "--tuning_shards", "2",
                 "--linkedActions", "my_rule",
                 "--linkedErrorfiles", "custom_error_500",
                 "--ssl_enabled",
-                "--ssl_certificates", "60cc4641eb577,610d37950266d"
+                "--ssl_certificates", "60cc4641eb577,610d37950266d",
             ]
         )
 
