@@ -123,13 +123,15 @@ class TestHaproxyFrontendCommands(CommandTestCase):
             frontend,
             [
                 'show', '6c19c893-2c38-4944-9540-a2af1eb2b7d3', '-o', 'plain', '-c',
-                'uuid,enabled,name,bind,mode,Backend,ssl_enabled,ssl_certificates,tuning_shards'
+                'uuid,enabled,name,bind,mode,Backend,ssl_enabled,ssl_certificates,'
+                'tuning_shards,prometheus_enabled,prometheus_path'
             ]
         )
 
         self.assertIn(
             (
-                "6c19c893-2c38-4944-9540-a2af1eb2b7d3 1 frontend_custom 127.0.0.1:8080 http pool2 1 60cc4641eb577 2\n"
+                "6c19c893-2c38-4944-9540-a2af1eb2b7d3 1 frontend_custom 127.0.0.1:8080 "
+                "http pool2 1 60cc4641eb577 2 1 /metrics\n"
             ),
             result.output
         )

@@ -725,6 +725,8 @@
             }
           },
           "forwardFor": "0",
+          "prometheus_enabled": "1",
+          "prometheus_path": "/metrics",
           "connectionBehaviour": {
             "http-keep-alive": {
               "value": "http-keep-alive [default]",
@@ -1110,6 +1112,8 @@
             }
           },
           "forwardFor": "0",
+          "prometheus_enabled": "1",
+          "prometheus_path": "/metrics",
           "connectionBehaviour": {
             "http-keep-alive": {
               "value": "http-keep-alive [default]",
