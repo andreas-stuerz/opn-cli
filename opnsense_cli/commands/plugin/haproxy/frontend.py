@@ -72,12 +72,12 @@ def list(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
         "ssl_cipherList,ssl_cipherSuites,ssl_hstsEnabled,ssl_hstsIncludeSubDomains,ssl_hstsPreload,ssl_hstsMaxAge,"
         "ssl_clientAuthEnabled,ssl_clientAuthVerify,ssl_clientAuthCAs,ssl_clientAuthCRLs,basicAuthEnabled,"
         "Users,basicAuthUsers,Groups,basicAuthGroups,tuning_maxConnections,tuning_timeoutClient,tuning_timeoutHttpReq,"
-        "tuning_timeoutHttpKeepAlive,Cpus,linkedCpuAffinityRules,logging_dontLogNull,logging_dontLogNormal,"
+        "tuning_timeoutHttpKeepAlive,Cpus,linkedCpuAffinityRules,tuning_shards, logging_dontLogNull,logging_dontLogNormal,"
         "logging_logSeparateErrors,logging_detailedLog,logging_socketStats,stickiness_pattern,stickiness_dataTypes,"
         "stickiness_expire,stickiness_size,stickiness_counter,stickiness_counter_key,stickiness_length,"
         "stickiness_connRatePeriod,stickiness_sessRatePeriod,stickiness_httpReqRatePeriod,stickiness_httpErrRatePeriod,"
         "stickiness_bytesInRatePeriod,stickiness_bytesOutRatePeriod,http2Enabled,http2Enabled_nontls,"
-        "advertised_protocols,forwardFor,connectionBehaviour,customOptions,Actions,"
+        "advertised_protocols,forwardFor,prometheus_enabled,prometheus_path,connectionBehaviour,customOptions,Actions,"
         "linkedActions,Errorfiles,linkedErrorfiles"
     ),
     show_default=True,
@@ -397,6 +397,19 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     required=False,
 )
 @click.option(
+    '--tuning_shards',
+    help=(
+            'This option automatically creates the specified number of listeners for every IP:port'
+            ' combination and evenly distributes'
+            ' them among available threads. This can sometimes be useful when using very large thread '
+            ' counts where the in-kernel'
+            ' locking on a single socket starts to cause a significant overhead.'
+    ),
+    show_default=True,
+    default=None,
+    required=False,
+)
+@click.option(
     '--logging_dontLogNull/--no-logging_dontLogNull',
     help=('Enable or disable logging of connections with no data.'),
     show_default=True,
@@ -641,6 +654,22 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     required=True,
 )
 @click.option(
+    '--prometheus_enabled/--no-prometheus_enabled',
+    help=('Enable HAProxy\'s Prometheus exporter.'),
+    show_default=True,
+    is_flag=True,
+    callback=bool_as_string,
+    default=False,
+    required=False,
+)
+@click.option(
+    '--prometheus_path',
+    help=('The path where the Prometheus exporter can be accessed.'),
+    show_default=True,
+    default='/metrics',
+    required=False,
+)
+@click.option(
     '--connectionBehaviour',
     help=(
         'By default HAProxy operates in keep-alive mode with regards to persistent connections. '
@@ -652,7 +681,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
         'close the outgoing server channel as soon as the server has finished '
         'to respond and release some resources earlier.'
     ),
-    type=click.Choice(['http-keep-alive', 'http-tunnel', 'httpclose', 'http-server-close', 'forceclose']),
+    type=click.Choice(['http-keep-alive', 'httpclose', 'http-server-close']),
     multiple=False,
     callback=tuple_to_csv,
     show_default=True,
@@ -736,6 +765,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
             "tuning_timeoutHttpReq": kwargs['tuning_timeouthttpreq'],
             "tuning_timeoutHttpKeepAlive": kwargs['tuning_timeouthttpkeepalive'],
             "linkedCpuAffinityRules": kwargs['linkedcpuaffinityrules'],
+            "tuning_shards": kwargs['tuning_shards'],
             "logging_dontLogNull": kwargs['logging_dontlognull'],
             "logging_dontLogNormal": kwargs['logging_dontlognormal'],
             "logging_logSeparateErrors": kwargs['logging_logseparateerrors'],
@@ -758,6 +788,8 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
             "http2Enabled_nontls": kwargs['http2enabled_nontls'],
             "advertised_protocols": kwargs['advertised_protocols'],
             "forwardFor": kwargs['forwardfor'],
+            "prometheus_enabled": kwargs['prometheus_enabled'],
+            "prometheus_path": kwargs['prometheus_path'],
             "connectionBehaviour": kwargs['connectionbehaviour'],
             "customOptions": kwargs['customoptions'],
             "linkedActions": kwargs['linkedactions'],
@@ -1043,6 +1075,18 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     default=None
 )
 @click.option(
+    '--tuning_shards',
+    help=(
+            'This option automatically creates the specified number of listeners for every '
+            ' IP:port combination and evenly distributes'
+            ' them among available threads. This can sometimes be useful when using very large '
+            ' thread counts where the in-kernel'
+            ' locking on a single socket starts to cause a significant overhead.'
+    ),
+    show_default=True,
+    default=None
+)
+@click.option(
     '--logging_dontLogNull/--no-logging_dontLogNull',
     help=('Enable or disable logging of connections with no data.'),
     show_default=True,
@@ -1265,6 +1309,21 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     default=None
 )
 @click.option(
+    '--prometheus_enabled/--no-prometheus_enabled',
+    help=('Enable HAProxy\'s Prometheus exporter.'),
+    show_default=True,
+    is_flag=True,
+    callback=bool_as_string,
+    default=None
+)
+@click.option(
+    '--prometheus_path',
+    help=('The path where the Prometheus exporter can be accessed.'),
+    show_default=True,
+    default=None,
+    required=False,
+)
+@click.option(
     '--connectionBehaviour',
     help=(
         'By default HAProxy operates in keep-alive mode with regards to persistent connections. '
@@ -1276,7 +1335,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
         'close the outgoing server channel as soon as the server has finished '
         'to respond and release some resources earlier.'
     ),
-    type=click.Choice(['http-keep-alive', 'http-tunnel', 'httpclose', 'http-server-close', 'forceclose']),
+    type=click.Choice(['http-keep-alive', 'httpclose', 'http-server-close']),
     multiple=False,
     callback=tuple_to_csv,
     show_default=True,
@@ -1331,13 +1390,14 @@ def update(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
         'ssl_hstsIncludeSubDomains', 'ssl_hstsPreload', 'ssl_hstsMaxAge', 'ssl_clientAuthEnabled',
         'ssl_clientAuthVerify', 'ssl_clientAuthCAs', 'ssl_clientAuthCRLs', 'basicAuthEnabled', 'basicAuthUsers',
         'basicAuthGroups', 'tuning_maxConnections', 'tuning_timeoutClient', 'tuning_timeoutHttpReq',
-        'tuning_timeoutHttpKeepAlive', 'linkedCpuAffinityRules', 'logging_dontLogNull', 'logging_dontLogNormal',
+        'tuning_timeoutHttpKeepAlive', 'linkedCpuAffinityRules', 'tuning_shards', 'logging_dontLogNull',
+        'logging_dontLogNormal',
         'logging_logSeparateErrors', 'logging_detailedLog', 'logging_socketStats', 'stickiness_pattern',
         'stickiness_dataTypes', 'stickiness_expire', 'stickiness_size', 'stickiness_counter', 'stickiness_counter_key',
         'stickiness_length', 'stickiness_connRatePeriod', 'stickiness_sessRatePeriod', 'stickiness_httpReqRatePeriod',
         'stickiness_httpErrRatePeriod', 'stickiness_bytesInRatePeriod', 'stickiness_bytesOutRatePeriod',
-        'http2Enabled', 'http2Enabled_nontls', 'advertised_protocols', 'forwardFor', 'connectionBehaviour',
-        'customOptions', 'linkedActions', 'linkedErrorfiles'
+        'http2Enabled', 'http2Enabled_nontls', 'advertised_protocols', 'forwardFor', 'prometheus_enabled', 'prometheus_path',
+        'connectionBehaviour', 'customOptions', 'linkedActions', 'linkedErrorfiles'
     ]
     for option in options:
         if kwargs[option.lower()] is not None:
