@@ -1,6 +1,6 @@
 from unittest.mock import patch, Mock
-from opnsense_cli.commands.core.ipsec.tunnel_phase1 import phase1
-from opnsense_cli.commands.core.ipsec.tunnel_phase2 import phase2
+from opnsense_cli.commands.core.ipsec.phase1 import phase1
+from opnsense_cli.commands.core.ipsec.phase2 import phase2
 from opnsense_cli.tests.commands.base import CommandTestCase
 
 
@@ -95,7 +95,7 @@ class TestIpsecTunnelCommands(CommandTestCase):
             60
         ]
 
-    @patch('opnsense_cli.commands.core.ipsec.tunnel_phase1.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.ipsec.phase1.ApiClient.execute')
     def test_list_phase1(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -116,7 +116,7 @@ class TestIpsecTunnelCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.core.ipsec.tunnel_phase1.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.ipsec.phase1.ApiClient.execute')
     def test_list_phase1_EMPTY(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -129,7 +129,7 @@ class TestIpsecTunnelCommands(CommandTestCase):
 
         self.assertIn("", result.output)
 
-    @patch('opnsense_cli.commands.core.ipsec.tunnel_phase2.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.ipsec.phase2.ApiClient.execute')
     def test_list_phase2(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -154,7 +154,7 @@ class TestIpsecTunnelCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.core.ipsec.tunnel_phase2.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.ipsec.phase2.ApiClient.execute')
     def test_list_phase2_EMPTY(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -167,7 +167,7 @@ class TestIpsecTunnelCommands(CommandTestCase):
 
         self.assertIn("", result.output)
 
-    @patch('opnsense_cli.commands.core.ipsec.tunnel_phase1.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.ipsec.phase1.ApiClient.execute')
     def test_show_phase1(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -184,7 +184,7 @@ class TestIpsecTunnelCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.core.ipsec.tunnel_phase2.ApiClient.execute')
+    @patch('opnsense_cli.commands.core.ipsec.phase2.ApiClient.execute')
     def test_show_phase2(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,

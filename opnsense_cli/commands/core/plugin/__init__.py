@@ -21,7 +21,7 @@ pass_firmware_svc = click.make_pass_decorator(FirmwareFacade)
 @click.pass_context
 def plugin(ctx, api_client: ApiClient, **kwargs):
     """
-    OPNsense plugins management
+    Manage the packages and plugins in OPNsense
     """
     firmware_api = Firmware(api_client)
     ctx.obj = FirmwareFacade(firmware_api, kwargs['time_interval'])
