@@ -1,5 +1,5 @@
 from unittest.mock import patch, Mock
-from opnsense_cli.commands.plugin.node_exporter.config import config
+from opnsense_cli.commands.plugin.nodeexporter.config import config
 from opnsense_cli.tests.commands.base import CommandTestCase
 
 
@@ -21,7 +21,7 @@ class TestNodeExporterCommands(CommandTestCase):
             "result": "saved"
         }
 
-        self._api_data_fixtures_list = self._read_json_fixture('plugin/node_exporter/model_data.json')
+        self._api_data_fixtures_list = self._read_json_fixture('plugin/nodeexporter/model_data.json')
         self._api_client_args_fixtures = [
             'api_key',
             'api_secret',
@@ -31,7 +31,7 @@ class TestNodeExporterCommands(CommandTestCase):
             60
         ]
 
-    @patch('opnsense_cli.commands.plugin.node_exporter.config.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.nodeexporter.config.ApiClient.execute')
     def test_show(self, api_response_mock: Mock):
         print(self._api_data_fixtures_list)
         result = self._opn_cli_command_result(
@@ -52,7 +52,7 @@ class TestNodeExporterCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.plugin.node_exporter.config.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.nodeexporter.config.ApiClient.execute')
     def test_edit_OK(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -79,7 +79,7 @@ class TestNodeExporterCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.plugin.node_exporter.config.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.nodeexporter.config.ApiClient.execute')
     def test_edit_ERROR(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,
@@ -101,7 +101,7 @@ class TestNodeExporterCommands(CommandTestCase):
             result.output
         )
 
-    @patch('opnsense_cli.commands.plugin.node_exporter.config.ApiClient.execute')
+    @patch('opnsense_cli.commands.plugin.nodeexporter.config.ApiClient.execute')
     def test_edit_APPLY_FAILED(self, api_response_mock: Mock):
         result = self._opn_cli_command_result(
             api_response_mock,

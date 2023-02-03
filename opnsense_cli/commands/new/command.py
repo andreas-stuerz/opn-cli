@@ -1,5 +1,6 @@
 import click
 import os
+from opnsense_cli.commands.new import new
 from opnsense_cli.facades.code_generator.click_command_facade import ClickCommandFacadeCodeGenerator
 from opnsense_cli.facades.code_generator.click_command_test_unit import ClickCommandTestCodeGenerator
 from opnsense_cli.parser.opnsense_form import OpnsenseFormParser
@@ -10,7 +11,7 @@ from opnsense_cli.facades.template_engines.jinja2 import Jinja2TemplateEngine
 from bs4.element import Tag
 
 
-@click.group()
+@new.group()
 def command(**kwargs):
     """
     Generate code for a new command
