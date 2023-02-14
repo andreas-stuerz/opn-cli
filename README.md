@@ -65,6 +65,8 @@ opn-cli - the OPNsense CLI written in python.
       - [host alias overrides](#host-alias-overrides)
       - [domain overrides](#domain-overrides)
       - [Examples](#examples)
+    + [Apibackup](#apibackup)
+      - [Examples](#examples)
   * [Development](#development)
     + [Setup development environment](#setup-development-environment)
     + [Testing](#testing)
@@ -1011,6 +1013,29 @@ opn-cli unbound alias create --host 'mailin|example.com|MX|10|mail.example.com|'
 opn-cli unbound domain create --domain rockin.com --server 192.168.56.3
 
 ```  
+
+### Apibackup
+This feature needs the opnsense plugin os-api-backup.
+
+```
+$ opn-cli plugin install os-api-backup
+```
+
+#### Examples
+
+Download a backup of the OPNsense system configuration to the current directory:
+
+```
+$ opn-cli apibackup backup download
+sucessfully saved to: ./config.xml
+```
+
+Or specify a path and filename:
+
+```
+$ opn-cli apibackup backup download -p /tmp/config_backup.xml
+sucessfully saved to: /tmp/config_backup.xml
+```
 
 ## Development
 
