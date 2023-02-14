@@ -30,6 +30,7 @@ setup(
         'jsonpath-ng',
         'beautifulsoup4',
         'lxml',
+        'dataclasses',
         'Jinja2'
     ],
     entry_points='''
