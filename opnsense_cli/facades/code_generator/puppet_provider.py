@@ -1,9 +1,7 @@
 from opnsense_cli.dataclasses.code_generator.puppet.provider_vars import PuppetProviderTemplateVars
-from opnsense_cli.facades.code_generator.base import CommandCodeGenerator, CodeGenerator
+from opnsense_cli.facades.code_generator.base import CodeGenerator
 from opnsense_cli.facades.template_engines.base import TemplateEngine
-from opnsense_cli.types.click_option.base import ClickOptionCodeFragment
-from opnsense_cli.dataclasses.code_generator.command.command_vars import CommandTemplateVars
-import os
+
 
 class PuppetProviderCodeGenerator(CodeGenerator):
     def __init__(

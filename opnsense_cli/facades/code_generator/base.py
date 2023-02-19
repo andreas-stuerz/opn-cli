@@ -16,9 +16,6 @@ class CodeGenerator(ABC):
     def _get_filename(self):
         """" This method should be implemented. """
 
-    def get_code(self):
-        """" This method should be implemented. """
-
     def _write_to_file(self, content, path):
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w') as file:

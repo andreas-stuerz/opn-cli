@@ -1,14 +1,15 @@
+{% set provider_class_name = "Opnsense{g}{c}".format(g=vars.click_group.capitalize(), c=vars.click_command.capitalize()) -%}
 # frozen_string_literal: true
 
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'opnsense_provider'))
 
 # Implementation for the opnsense_haproxy_frontend type using the Resource API.
-class Puppet::Provider::OpnsenseHaproxyFrontend::OpnsenseHaproxyFrontend < Puppet::Provider::OpnsenseProvider
+class Puppet::Provider::{{ provider_class_name }}::{{ provider_class_name }} < Puppet::Provider::OpnsenseProvider
     # @return [void]
     def initialize
         super
-        @group = 'haproxy'
-        @command = 'frontend'
+        @group = '{{ vars.click_group }}'
+        @command = '{{ vars.click_command }}'
         @resource_type = 'list'
         @find_uuid_by_column = :name
         @create_key = :name
