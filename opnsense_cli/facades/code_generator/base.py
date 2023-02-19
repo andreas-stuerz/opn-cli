@@ -7,9 +7,35 @@ from bs4.element import Tag
 
 class CodeGenerator(ABC):
     def write_code(self, output_dir):
+        code = self.get_code()
+        filename = self._get_filename()
+        path = os.path.join(output_dir, f"{filename}")
+        return self._write_to_file(code, path)
+
+    @abstractmethod
+    def _get_filename(self):
         """" This method should be implemented. """
 
     def get_code(self):
+        """" This method should be implemented. """
+
+    def _write_to_file(self, content, path):
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, 'w') as file:
+            file.writelines(content)
+        return f"generate new code: {path}"
+
+    def _render_template(self, vars, template):
+        self._template_engine.vars = vars
+        self._template_engine.set_template_from_file(template)
+        return self._template_engine.render()
+
+    def get_code(self):
+        template_vars = self._get_template_vars()
+        return self._render_template(template_vars, self._template)
+
+    @abstractmethod
+    def _get_template_vars(self):
         """" This method should be implemented. """
 
 
@@ -34,27 +60,6 @@ class CommandCodeGenerator(CodeGenerator):
         self._model_xml_tag = model_xml_tag
         self._module_type = module_type
 
-    def write_code(self, output_dir, filename_prefix='', filename_suffix='.py'):
-        code = self.get_code()
-        filename = f"{filename_prefix}{self._click_command}{filename_suffix}"
-        path = os.path.join(output_dir, f"{filename}")
-        return self._write_to_file(code, path)
-
-    def get_code(self):
-        template_vars = self._get_template_vars()
-        return self._render_template(template_vars, self._template)
-
     @abstractmethod
-    def _get_template_vars(self):
-        """" This method should be implemented. """
-
-    def _render_template(self, vars, template):
-        self._template_engine.vars = vars
-        self._template_engine.set_template_from_file(template)
-        return self._template_engine.render()
-
-    def _write_to_file(self, content, path):
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        with open(path, 'w') as file:
-            file.writelines(content)
-        return f"generate new code: {path}"
+    def _get_filename(self):
+        return f"{self._click_command}.py"
