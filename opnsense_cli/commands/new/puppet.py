@@ -1,15 +1,10 @@
 import click
 import os
 from opnsense_cli.commands.new import new
-from opnsense_cli.facades.code_generator.click_command_facade import ClickCommandFacadeCodeGenerator
-from opnsense_cli.facades.code_generator.click_command_test_unit import ClickCommandTestCodeGenerator
 from opnsense_cli.facades.code_generator.puppet_provider import PuppetProviderCodeGenerator
-from opnsense_cli.parser.opnsense_form import OpnsenseFormParser
-from opnsense_cli.parser.opnsense_model import OpnsenseModelParser
-from opnsense_cli.factories.code_generator.click_option import ClickOptionCodeTypeFactory
-from opnsense_cli.facades.code_generator.click_command import ClickCommandCodeGenerator
 from opnsense_cli.facades.template_engines.jinja2 import Jinja2TemplateEngine
-from bs4.element import Tag
+from opnsense_cli.cli import cli
+
 
 
 @new.group()
@@ -88,7 +83,8 @@ def puppet(**kwargs):
     show_default=True,
     default=os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../output/puppet/spec/acceptance/types')),
 )
-def resoure_type(**kwargs):
+@click.pass_context
+def resoure_type(ctx, **kwargs):
     """
     Generate a new puppet resource type from an existing opn-cli command
 
@@ -102,16 +98,36 @@ def resoure_type(**kwargs):
     > opn-cli route static
 
     """
-    generate_puppet_files(**kwargs)
+    generate_puppet_files(ctx, **kwargs)
 
 
-def generate_puppet_files(**kwargs):
+def generate_puppet_files(ctx, **kwargs):
     template_engine = Jinja2TemplateEngine(kwargs['template_basedir'])
-    write_puppet_provider(template_engine, **kwargs)
+    write_puppet_provider(ctx, template_engine, **kwargs)
 
 
-def write_puppet_provider(template_engine, **kwargs):
-    print(kwargs)
+def write_puppet_provider(ctx, template_engine, **kwargs):
+
+    #root_context = click.Context(cli, info_name='root')
+
+    main_group = cli.get_command(ctx, kwargs['click_group'])
+    sub_group  = main_group.get_command(ctx, kwargs['click_command'])
+    create_command = sub_group.get_command(ctx, 'create')
+    update_command = sub_group.get_command(ctx, 'update')
+
+    create_command_params = create_command.to_info_dict(ctx).get('params')
+    update_command_params = update_command.to_info_dict(ctx).get('params')
+
+    param_nr = 2
+    print(create_command_params[param_nr])
+    print(create_command_params[param_nr]['opts'][0])
+    print(create_command_params[param_nr]['help'])
+    #print(update_command.to_info_dict(ctx).get('params'))
+
+
+
+    exit()
+
     code_generator = PuppetProviderCodeGenerator(
         template_engine,
         kwargs['template_provider'],
