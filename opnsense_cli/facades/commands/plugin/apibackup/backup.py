@@ -10,5 +10,5 @@ class ApibackupBackupFacade(ApibackupFacade):
         config = self._backup_api.download('json')
         self._write_base64_string_to_zipfile(path, config['content'])
         return {
-            "status": f"sucessfully saved to: {path}"
+            "status": f"successfully saved to: {path}"
         }

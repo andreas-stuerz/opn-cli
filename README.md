@@ -1027,14 +1027,14 @@ Download a backup of the OPNsense system configuration to the current directory:
 
 ```
 $ opn-cli apibackup backup download
-sucessfully saved to: ./config.xml
+successfully saved to: ./config.xml
 ```
 
 Or specify a path and filename:
 
 ```
 $ opn-cli apibackup backup download -p /tmp/config_backup.xml
-sucessfully saved to: /tmp/config_backup.xml
+successfully saved to: /tmp/config_backup.xml
 ```
 
 ## Development
