@@ -1,0 +1,55 @@
+{% set provider_name = "opnsense_{g}_{c}".format(g=vars.click_group, c=vars.click_command) -%}
+# frozen_string_literal: true
+
+require 'puppet/resource_api'
+
+Puppet::ResourceApi.register_type(
+  name: '{{ provider_name }}',
+  docs: <<-EOS,
+  @summary
+    Manage opnsense {{ vars.click_group }} {{ vars.click_command }}
+
+  @example
+    {{ provider_name }} { 'example {{ vars.click_group }} {{ vars.click_command }}':
+      device      => 'opnsense-test.device.com',
+      {% for line in vars.examples -%}
+            {{ line }}
+      {% endfor %}
+      ensure      => 'present',
+    }
+
+  This type provides Puppet with the capabilities to manage opnsense {{ vars.click_group }} {{ vars.click_command }}.
+
+EOS
+  features: ['simple_get_filter'],
+    title_patterns: [
+    {
+      pattern: %r{^(?<{{ vars.find_uuid_by_column }}>.*)@(?<device>.*)$},
+      desc: 'Where the {{ vars.find_uuid_by_column }} and the device are provided with a @',
+    },
+    {
+      pattern: %r{^(?<{{ vars.find_uuid_by_column }}>.*)$},
+      desc: 'Where only the {{ vars.find_uuid_by_column }} is provided',
+    },
+  ],
+  attributes: {
+    ensure: {
+      type: 'Enum[present, absent]',
+      desc: 'Whether this resource should be present or absent on the target system.',
+      default: 'present',
+    },
+    device: {
+      type: 'String',
+      desc: 'The name of the opnsense_device type you want to manage.',
+      behaviour: :namevar,
+    },
+    uuid: {
+      type: 'Optional[String]',
+      desc: 'The uuid of the rule.',
+      behaviour: :init_only,
+    },
+    {% for line in vars.attributes -%}
+      {{ line }}
+    {% endfor %}
+  },
+)

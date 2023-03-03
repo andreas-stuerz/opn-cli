@@ -2,6 +2,7 @@ import click
 import os
 from opnsense_cli.commands.new import new
 from opnsense_cli.facades.code_generator.puppet_provider import PuppetProviderCodeGenerator
+from opnsense_cli.facades.code_generator.puppet_type import PuppetTypeCodeGenerator
 from opnsense_cli.facades.template_engines.jinja2 import Jinja2TemplateEngine
 from opnsense_cli.cli import cli
 from opnsense_cli.factories.code_generator.puppet_code_fragment import PuppetCodeFragmentFactory
@@ -105,28 +106,27 @@ def resoure_type(ctx, **kwargs):
 def generate_puppet_files(ctx, **kwargs):
     template_engine = Jinja2TemplateEngine(kwargs['template_basedir'])
     code_factory = PuppetCodeFragmentFactory()
-    write_puppet_provider(ctx, template_engine, code_factory, **kwargs)
 
-
-def write_puppet_provider(ctx, template_engine, code_factory, **kwargs):
     main_group = cli.get_command(ctx, kwargs['click_group'])
     sub_group  = main_group.get_command(ctx, kwargs['click_command'])
-
     create_command = sub_group.get_command(ctx, 'create')
     update_command = sub_group.get_command(ctx, 'update')
 
     create_command_params = create_command.to_info_dict(ctx).get('params')
     update_command_params = update_command.to_info_dict(ctx).get('params')
 
-    #param_nr = 2
-    #print(create_command_params[param_nr])
-    #print(create_command_params[param_nr]['opts'][0])
-    #print(create_command_params[param_nr]['help'])
-    #print(update_command.to_info_dict(ctx).get('params'))
+    write_puppet_provider(ctx, template_engine, code_factory, create_command_params, update_command_params, **kwargs)
+    write_puppet_type(ctx, template_engine, code_factory, create_command_params,update_command_params,  **kwargs)
 
 
-    #exit()
-
+def write_puppet_provider(
+        ctx,
+        template_engine,
+        code_factory,
+        create_command_params,
+        update_command_params,
+        **kwargs
+):
     code_generator = PuppetProviderCodeGenerator(
         template_engine,
         code_factory,
@@ -141,6 +141,31 @@ def write_puppet_provider(ctx, template_engine, code_factory, **kwargs):
     click.echo(
         code_generator.write_code(kwargs['provider_output_dir'])
     )
+
+def write_puppet_type(
+    ctx,
+    template_engine,
+    code_factory,
+    create_command_params,
+    update_command_params,
+    **kwargs
+):
+    code_generator = PuppetTypeCodeGenerator(
+        template_engine,
+        code_factory,
+        kwargs['template_type'],
+        kwargs['click_group'],
+        kwargs['click_command'],
+        kwargs['find_uuid_by_column'],
+        create_command_params,
+        update_command_params,
+    )
+
+    click.echo(
+        code_generator.write_code(kwargs['type_output_dir'])
+    )
+
+
 
 if __name__ == '__main__':
     puppet()

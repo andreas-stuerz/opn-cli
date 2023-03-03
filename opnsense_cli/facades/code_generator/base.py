@@ -1,5 +1,7 @@
 import os
 from abc import ABC, abstractmethod
+from typing import List
+
 from opnsense_cli.factories.base import ObjectTypeFromDataFactory
 from opnsense_cli.facades.template_engines.base import TemplateEngine
 from bs4.element import Tag
@@ -34,6 +36,32 @@ class CodeGenerator(ABC):
     @abstractmethod
     def _get_template_vars(self):
         """" This method should be implemented. """
+
+
+class PuppetCodeGenerator(CodeGenerator):
+    def _get_code_fragment(self, template_variable_name: str) -> List[str]:
+        template_variable_name_namevar = f"{template_variable_name}_namevar"
+        ignore_params = ['output', 'cols', 'help']
+        code_fragments = []
+
+        for param_line in self._create_command_params:
+            if param_line['name'] in ignore_params:
+                continue
+
+            code_type = self._type_factory.get_type_for_data(param_line, self._find_uuid_by_column)
+
+            template =  template_variable_name
+            if self._is_namevar(param_line) and hasattr(code_type, template_variable_name_namevar):
+                template = template_variable_name_namevar
+
+            code_fragments.append(
+                code_type.get_code_fragment(getattr(code_type, template))
+            )
+
+        return code_fragments
+
+    def _is_namevar(self, param_line):
+        return param_line['name'] == self._find_uuid_by_column
 
 
 class CommandCodeGenerator(CodeGenerator):

@@ -4,16 +4,33 @@ import textwrap
 
 
 class PuppetCodeFragment(ABC):
-    def __init__(self, params):
+    def __init__(self, params, find_uuid_by_column):
         self._params = params
+        self._find_uuid_by_column = find_uuid_by_column
 
     @property
     @abstractmethod
-    def TEMPLATE_translate_json_object_to_puppet_resource(self):
+    def TEMPLATE_PROVIDER_translate_json_object_to_puppet_resource(self):
         """ This property should be implemented. """
+
     @property
     @abstractmethod
-    def TEMPLATE_translate_puppet_resource_to_command_args(self):
+    def TEMPLATE_PROVIDER_translate_puppet_resource_to_command_args(self):
+        """ This property should be implemented. """
+
+    @property
+    @abstractmethod
+    def TEMPLATE_TYPE_example(self):
+        """ This property should be implemented. """
+
+    @property
+    @abstractmethod
+    def TEMPLATE_TYPE_attributes(self):
+        """ This property should be implemented. """
+
+    @property
+    @abstractmethod
+    def TEMPLATE_TYPE_attributes_namevar(self):
         """ This property should be implemented. """
 
     def get_code_fragment(self, template):
@@ -21,8 +38,6 @@ class PuppetCodeFragment(ABC):
         return self._render_template()
 
     def _render_template(self):
-        print(self._params)
-        #exit()
         return self._template.substitute(
             name=self._params['name'],
             param_type_name=self._params['param_type_name'],
