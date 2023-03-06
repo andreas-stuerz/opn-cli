@@ -169,7 +169,7 @@ class TestHaproxyConfigCommands(CommandTestCase):
         )
 
         self.assertIn(
-            "sucessfully saved zip to: ./haproxy_config_export.zip\n",
+            "successfully saved zip to: ./haproxy_config_export.zip\n",
             result.output
         )
         self.assertTrue(os.path.exists("./haproxy_config_export.zip"))

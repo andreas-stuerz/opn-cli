@@ -27,5 +27,5 @@ class HaproxyConfigFacade(HaproxyFacade):
         config = self._export_api.download('all')
         self._write_base64_string_to_zipfile(path, config['content'])
         return {
-            "status": f"sucessfully saved zip to: {path}"
+            "status": f"successfully saved zip to: {path}"
         }
