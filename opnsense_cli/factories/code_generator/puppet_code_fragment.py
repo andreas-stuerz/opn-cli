@@ -22,7 +22,8 @@ class PuppetCodeFragmentFactory(ObjectTypeFromDataFactory):
 
         return click_option_class
 
-    def get_type_for_data(self, params, find_uuid_by_column) -> PuppetCodeFragment:
+    def get_type_for_data(self, params, find_uuid_by_column, click_group, click_command) -> PuppetCodeFragment:
+        print(params)
         puppet_code_fragment_type_class = self._get_class(params['type']['param_type'])
 
-        return puppet_code_fragment_type_class(params, find_uuid_by_column)
+        return puppet_code_fragment_type_class(params, find_uuid_by_column, click_group, click_command)

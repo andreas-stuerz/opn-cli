@@ -39,6 +39,20 @@ class CodeGenerator(ABC):
 
 
 class PuppetCodeGenerator(CodeGenerator):
+    def __init__(
+            self,
+            create_command_params,
+            type_factory: ObjectTypeFromDataFactory,
+            find_uuid_by_column,
+            click_group,
+            click_command,
+    ):
+        self._create_command_params = create_command_params
+        self._type_factory = type_factory
+        self._find_uuid_by_column = find_uuid_by_column
+        self._click_group = click_group
+        self._click_command = click_command
+
     def _get_code_fragment(self, template_variable_name: str) -> List[str]:
         template_variable_name_namevar = f"{template_variable_name}_namevar"
         ignore_params = ['output', 'cols', 'help']
@@ -48,9 +62,14 @@ class PuppetCodeGenerator(CodeGenerator):
             if param_line['name'] in ignore_params:
                 continue
 
-            code_type = self._type_factory.get_type_for_data(param_line, self._find_uuid_by_column)
+            code_type = self._type_factory.get_type_for_data(
+                param_line,
+                self._find_uuid_by_column,
+                self._click_group,
+                self._click_command,
+            )
 
-            template =  template_variable_name
+            template = template_variable_name
             if self._is_namevar(param_line) and hasattr(code_type, template_variable_name_namevar):
                 template = template_variable_name_namevar
 

@@ -3,6 +3,7 @@ import os
 from opnsense_cli.commands.new import new
 from opnsense_cli.facades.code_generator.puppet_provider import PuppetProviderCodeGenerator
 from opnsense_cli.facades.code_generator.puppet_type import PuppetTypeCodeGenerator
+from opnsense_cli.facades.code_generator.puppet_type_unit_test import PuppetTypeUnitTestCodeGenerator
 from opnsense_cli.facades.template_engines.jinja2 import Jinja2TemplateEngine
 from opnsense_cli.cli import cli
 from opnsense_cli.factories.code_generator.puppet_code_fragment import PuppetCodeFragmentFactory
@@ -38,16 +39,16 @@ def puppet(**kwargs):
     default='code_generator/puppet/type.rb.j2'
 )
 @click.option(
-    '--template-provider-test', '-tpt',
+    '--template-provider-unit-test', '-tpt',
     help='The template for the puppet provider unit-test relative to the template basedir.',
     show_default=True,
-    default='code_generator/puppet/provider_test.rb.j2'
+    default='code_generator/puppet/provider_unit_test.rb.j2'
 )
 @click.option(
-    '--template-type-test', '-ttt',
+    '--template-type-unit-test', '-ttt',
     help='The template for the puppet type unit-test  relative to the template basedir.',
     show_default=True,
-    default='code_generator/puppet/type_test.rb.j2'
+    default='code_generator/puppet/type_unit_test.rb.j2'
 )
 @click.option(
     '--puppet-output-dir', '-pod',
@@ -117,6 +118,7 @@ def generate_puppet_files(ctx, **kwargs):
 
     write_puppet_provider(ctx, template_engine, code_factory, create_command_params, update_command_params, **kwargs)
     write_puppet_type(ctx, template_engine, code_factory, create_command_params,update_command_params,  **kwargs)
+    write_puppet_type_unit_test(ctx, template_engine, code_factory, create_command_params,update_command_params,  **kwargs)
 
 
 def write_puppet_provider(
@@ -165,6 +167,29 @@ def write_puppet_type(
         code_generator.write_code(kwargs['type_output_dir'])
     )
 
+
+def write_puppet_type_unit_test(
+        ctx,
+        template_engine,
+        code_factory,
+        create_command_params,
+        update_command_params,
+        **kwargs
+):
+    code_generator = PuppetTypeUnitTestCodeGenerator(
+        template_engine,
+        code_factory,
+        kwargs['template_type_unit_test'],
+        kwargs['click_group'],
+        kwargs['click_command'],
+        kwargs['find_uuid_by_column'],
+        create_command_params,
+        update_command_params,
+    )
+
+    click.echo(
+        code_generator.write_code(kwargs['type_test_output_dir'])
+    )
 
 
 if __name__ == '__main__':

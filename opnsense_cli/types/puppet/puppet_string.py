@@ -28,3 +28,14 @@ class PuppetString(PuppetCodeFragment):
           behaviour: :namevar,
         },
     '''
+
+    TEMPLATE_TYPE_UNIT_TEST_new_resource = '''
+    ${name}: 'TODO',
+    '''
+
+    TEMPLATE_TYPE_UNIT_TEST_accepts_parameter = '''
+    it 'accepts ${name}' do
+          ${click_group}_{click_command}[:${name}] = 'a todo string'
+          expect(${click_group}_{click_command}[:${name}]).to eq('a todo string')
+        end
+    '''

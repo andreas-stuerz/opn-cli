@@ -4,9 +4,11 @@ import textwrap
 
 
 class PuppetCodeFragment(ABC):
-    def __init__(self, params, find_uuid_by_column):
+    def __init__(self, params, find_uuid_by_column, click_group, click_command):
         self._params = params
         self._find_uuid_by_column = find_uuid_by_column
+        self._click_group = click_group
+        self._click_command = click_command
 
     @property
     @abstractmethod
@@ -33,6 +35,11 @@ class PuppetCodeFragment(ABC):
     def TEMPLATE_TYPE_attributes_namevar(self):
         """ This property should be implemented. """
 
+    @property
+    @abstractmethod
+    def TEMPLATE_TYPE_UNIT_TEST_new_resource(self):
+        """ This property should be implemented. """
+
     def get_code_fragment(self, template):
         self._template = template
         return self._render_template()
@@ -55,6 +62,8 @@ class PuppetCodeFragment(ABC):
             flag_value=self._params['flag_value'],
             count=self._params['count'],
             hidden=self._params['hidden'],
+            click_group=self._click_group,
+            click_command=self._click_command,
         ).strip()
 
     @property

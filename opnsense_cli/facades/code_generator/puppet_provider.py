@@ -16,13 +16,9 @@ class PuppetProviderCodeGenerator(PuppetCodeGenerator):
             create_command_params,
             update_command_params,
     ):
-        self._type_factory = type_factory
+        super().__init__(create_command_params, type_factory, find_uuid_by_column, group, command)
         self._template_engine = template_engine
         self._template = template
-        self._click_group = group
-        self._click_command = command
-        self._find_uuid_by_column = find_uuid_by_column
-        self._create_command_params = create_command_params
         self._update_command_params = update_command_params
 
     def _get_filename(self):
