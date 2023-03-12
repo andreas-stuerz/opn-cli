@@ -1,11 +1,12 @@
 from dataclasses import dataclass
 from typing import List
 
+
 @dataclass
-class PuppetTypeUnitTestTemplateVars:
+class PuppetProviderUnitTestTemplateVars:
     click_command: str
     click_group: str
     find_uuid_by_column: str
-    new_resource: List[str]
-    accepts_parameter: List[str]
+    json: List[str]
+    ruby_hash: List[str]
 

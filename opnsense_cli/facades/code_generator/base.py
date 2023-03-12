@@ -6,6 +6,8 @@ from opnsense_cli.factories.base import ObjectTypeFromDataFactory
 from opnsense_cli.facades.template_engines.base import TemplateEngine
 from bs4.element import Tag
 
+from opnsense_cli.factories.code_generator.puppet_code_fragment import PuppetCodeFragmentFactory
+
 
 class CodeGenerator(ABC):
     def write_code(self, output_dir):
@@ -42,7 +44,7 @@ class PuppetCodeGenerator(CodeGenerator):
     def __init__(
             self,
             create_command_params,
-            type_factory: ObjectTypeFromDataFactory,
+            type_factory: PuppetCodeFragmentFactory,
             find_uuid_by_column,
             click_group,
             click_command,

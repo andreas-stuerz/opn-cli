@@ -1,0 +1,161 @@
+{% set provider_class_name = "Opnsense{g}{c}".format(g=vars.click_group.capitalize(), c=vars.click_command.capitalize()) -%}
+{% set provider_name = "opnsense_{g}_{c}".format(g=vars.click_group, c=vars.click_command) -%}
+{% set unit_under_test = "{g}_{c}".format(g=vars.click_group, c=vars.click_command) -%}
+# frozen_string_literal: true
+
+require 'spec_helper'
+
+ensure_module_defined('Puppet::Provider::{{ provider_class_name }}')
+require 'puppet/provider/{{ provider_name }}/{{ provider_name }}'
+
+RSpec.describe Puppet::Provider::{{ provider_class_name }}::{{ provider_class_name }} do
+  subject(:provider) { described_class.new }
+
+  let(:context) { instance_double('Puppet::ResourceApi::BaseContext', 'context') }
+  let(:devices) { ['opnsense1.example.com', 'opnsense2.example.com'] }
+  let(:{{ unit_under_test }}_device_1) do
+    [
+      {
+        {% for line in vars.json -%}
+        {{ line }}
+        {% endfor %}
+        "uuid": '624cb3ca-3b76-4177-b736-4381c6525f37'
+      },
+      {
+        {% for line in vars.json -%}
+        {{ line }}
+        {% endfor %}
+        "uuid": '002db5b7-791e-4e2f-8625-4350ee5ae8ac'
+      },
+    ]
+  end
+
+  let(:{{ unit_under_test }}_device_2) do
+    [
+      {
+        {% for line in vars.json -%}
+        {{ line }}
+        {% endfor %}
+        "uuid": '731cb3ca-3b76-4177-b736-4381c6525f45'
+      },
+    ]
+  end
+
+  describe '#get' do
+    context 'with empty filter' do
+      it 'returns all resources' do
+        expect(Dir).to receive(:glob).and_return(devices)
+        expect(Puppet::Util::Execution).to receive(:execute).with(
+            [
+              'opn-cli', '-c', File.expand_path('~/.puppet-opnsense/opnsense1.example.com-config.yaml'),
+              ['{{ vars.click_group }}', '{{ vars.click_command }}', 'list', '-o', 'json']
+            ],
+            { custom_environment: { 'LC_ALL' => 'en_US.utf8' }, failonfail: true, combine: true },
+          ).and_return({{ unit_under_test }}_device_1.to_json)
+        expect(Puppet::Util::Execution).to receive(:execute).with(
+            [
+              'opn-cli', '-c', File.expand_path('~/.puppet-opnsense/opnsense2.example.com-config.yaml'),
+              ['{{ vars.click_group }}', '{{ vars.click_command }}', 'list', '-o', 'json']
+            ],
+            { custom_environment: { 'LC_ALL' => 'en_US.utf8' }, failonfail: true, combine: true },
+          ).and_return({{ unit_under_test }}_device_2.to_json)
+
+        expect(provider.get(context, [])).to eq [
+          {
+            title: 'example {{ unit_under_test }} 1@opnsense1.example.com',
+              device: 'opnsense1.example.com',
+              {% for line in vars.ruby_hash -%}
+              {{ line }}
+              {% endfor %}
+              uuid: '624cb3ca-3b76-4177-b736-4381c6525f37',
+              ensure: 'present'
+          },
+          {
+            title: 'example {{ unit_under_test }} 2@opnsense1.example.com',
+              device: 'opnsense1.example.com',
+              {% for line in vars.ruby_hash -%}
+              {{ line }}
+              {% endfor %}
+              uuid: '002db5b7-791e-4e2f-8625-4350ee5ae8ac',
+              ensure: 'present'
+          },
+          {
+            title: 'example {{ unit_under_test }} 1@opnsense2.example.com',
+              device: 'opnsense2.example.com',
+              {% for line in vars.ruby_hash -%}
+              {{ line }}
+              {% endfor %}
+              ensure: 'present'
+          },
+        ]
+      end
+    end
+
+    context 'with filter device: opnsense2.example.com' do
+      it 'returns all resources for opnsense2.example.com' do
+        expect(Puppet::Util::Execution).to receive(:execute).and_return({{ unit_under_test }}_device_2.to_json)
+        expect(provider.get(context, [{ device: 'opnsense2.example.com' }])).to eq [
+          {
+            title: 'example {{ unit_under_test }} 1@opnsense2.example.com',
+            device: 'opnsense2.example.com',
+            {% for line in vars.ruby_hash -%}
+            {{ line }}
+            {% endfor %}
+            uuid: '731cb3ca-3b76-4177-b736-4381c6525f45',
+            ensure: 'present'
+          },
+        ]
+      end
+    end
+  end
+
+  describe 'create example {{ unit_under_test }} 1@opnsense2.example.com' do
+    it 'creates the resource' do
+      expect(Puppet::Util::Execution).to receive(:execute)
+        .and_return('{"result": "saved", "uuid": "1a2d6a8e-ed7a-4377-b723-e1582b2b2c18"}')
+
+      provider.create(context, 'another_{{ unit_under_test }}@opnsense2.example.com',
+                      device: 'opnsense2.example.com',
+                      {% for line in vars.ruby_hash -%}
+                      {{ line }}
+                      {% endfor %}
+                      ensure: 'present')
+    end
+  end
+
+  describe 'update example {{ unit_under_test }} 1@opnsense2.example.com' do
+    it 'updates the resource' do
+      expect(Puppet::Util::Execution).to receive(:execute)
+        .and_return('{"result": "saved"}')
+      {{ unit_under_test }}_device_2[0][:device] = 'opnsense2.example.com'
+      provider.resource_list = {{ unit_under_test }}_device_2
+
+      provider.update(context, { {{ vars.find_uuid_by_column }}: 'example {{ unit_under_test }}1', device: 'opnsense2.example.com' },
+                      device: 'opnsense2.example.com',
+                      {% for line in vars.ruby_hash -%}
+                      {{ line }}
+                      {% endfor %}
+                      ensure: 'present')
+    end
+  end
+
+  describe 'delete example {{ unit_under_test }} 1@opnsense2.example.com' do
+    it 'deletes the resource' do
+      expect(Puppet::Util::Execution).to receive(:execute).and_return('{"result": "deleted"}')
+      {{ unit_under_test }}_device_2[0][:device] = 'opnsense2.example.com'
+      provider.resource_list = {{ unit_under_test }}_device_2
+
+      provider.delete(context, { {{ vars.find_uuid_by_column }}: 'example {{ unit_under_test }}1', device: 'opnsense2.example.com' })
+    end
+  end
+
+  describe 'delete non existent {{ unit_under_test }}' do
+    it 'throws puppet error' do
+      {{ unit_under_test }}_device_2[0][:device] = 'opnsense2.example.com'
+      provider.resource_list = {{ unit_under_test }}_device_2
+
+      expect { provider.delete(context, { {{ vars.find_uuid_by_column }}: 'non existent {{ unit_under_test }}', device: 'opnsense2.example.com' }) }
+        .to raise_error(Puppet::Error)
+    end
+  end
+end

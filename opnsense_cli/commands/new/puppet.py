@@ -2,6 +2,7 @@ import click
 import os
 from opnsense_cli.commands.new import new
 from opnsense_cli.facades.code_generator.puppet_provider import PuppetProviderCodeGenerator
+from opnsense_cli.facades.code_generator.puppet_provider_unit_test import PuppetProviderUnitTestCodeGenerator
 from opnsense_cli.facades.code_generator.puppet_type import PuppetTypeCodeGenerator
 from opnsense_cli.facades.code_generator.puppet_type_unit_test import PuppetTypeUnitTestCodeGenerator
 from opnsense_cli.facades.template_engines.jinja2 import Jinja2TemplateEngine
@@ -119,6 +120,7 @@ def generate_puppet_files(ctx, **kwargs):
     write_puppet_provider(ctx, template_engine, code_factory, create_command_params, update_command_params, **kwargs)
     write_puppet_type(ctx, template_engine, code_factory, create_command_params,update_command_params,  **kwargs)
     write_puppet_type_unit_test(ctx, template_engine, code_factory, create_command_params,update_command_params,  **kwargs)
+    write_puppet_provider_unit_test(ctx, template_engine, code_factory, create_command_params,update_command_params,  **kwargs)
 
 
 def write_puppet_provider(
@@ -189,6 +191,29 @@ def write_puppet_type_unit_test(
 
     click.echo(
         code_generator.write_code(kwargs['type_test_output_dir'])
+    )
+
+def write_puppet_provider_unit_test(
+        ctx,
+        template_engine,
+        code_factory,
+        create_command_params,
+        update_command_params,
+        **kwargs
+):
+    code_generator = PuppetProviderUnitTestCodeGenerator(
+        template_engine,
+        code_factory,
+        kwargs['template_provider_unit_test'],
+        kwargs['click_group'],
+        kwargs['click_command'],
+        kwargs['find_uuid_by_column'],
+        create_command_params,
+        update_command_params,
+    )
+
+    click.echo(
+        code_generator.write_code(kwargs['provider_test_output_dir'])
     )
 
 

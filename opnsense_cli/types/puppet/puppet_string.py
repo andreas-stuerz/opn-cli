@@ -39,3 +39,19 @@ class PuppetString(PuppetCodeFragment):
           expect(${click_group}_{click_command}[:${name}]).to eq('a todo string')
         end
     '''
+
+    TEMPLATE_PROVIDER_UNIT_TEST_json = '''
+    "${name}": 'TODO',
+    '''
+
+    TEMPLATE_PROVIDER_UNIT_TEST_json_namevar = '''
+    "${name}": 'example ${click_group}_${click_command} TODO_NUMBER',
+    '''
+
+    TEMPLATE_PROVIDER_UNIT_TEST_ruby_hash = '''
+    ${name}: 'TODO',
+    '''
+
+    TEMPLATE_PROVIDER_UNIT_TEST_ruby_hash_namevar = '''
+    ${name}: 'example ${click_group}_${click_command} TODO_NUMBER',
+    '''

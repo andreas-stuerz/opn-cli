@@ -40,3 +40,12 @@ class PuppetBoolean(PuppetCodeFragment):
           expect(${click_group}_{click_command}[:${name}]).to eq(:false)
         end
     '''
+
+
+    TEMPLATE_PROVIDER_UNIT_TEST_json = '''
+    "${name}": '1',
+    '''
+
+    TEMPLATE_PROVIDER_UNIT_TEST_ruby_hash = '''
+    ${name}: true,
+    '''

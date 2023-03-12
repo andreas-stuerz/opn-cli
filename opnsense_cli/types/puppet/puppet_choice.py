@@ -39,3 +39,11 @@ class PuppetChoice(PuppetCodeFragment):
           expect(${click_group}_{click_command}[:${name}]).to eq('a valid TODO choice')
         end
     '''
+
+    TEMPLATE_PROVIDER_UNIT_TEST_json = '''
+    "${name}": 'TODO',
+    '''
+
+    TEMPLATE_PROVIDER_UNIT_TEST_ruby_hash = '''
+    ${name}: 'TODO',
+    '''
