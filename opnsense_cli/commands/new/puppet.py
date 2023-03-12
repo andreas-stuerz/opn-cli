@@ -103,10 +103,13 @@ def resoure_type(ctx, **kwargs):
 
     Example:
 
-    > opn-cli new puppet resoure-type route static
+    > opn-cli new puppet resoure-type route static descr
 
     creates a puppet reource type for the opn-cli command:
     > opn-cli route static
+
+    And use the column "descr" as the puppet resource namevar.
+    The puppet resource will be unqiue by the descr column and will be used to find the uuid.
 
     """
     generate_puppet_files(ctx, **kwargs)
