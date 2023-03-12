@@ -10,6 +10,10 @@ class PuppetString(PuppetCodeFragment):
     args.push('--${name}', puppet_resource[:${name}])
     '''
 
+    TEMPLATE_PROVIDER_translate_puppet_resource_to_command_args_namevar = '''
+    args.push('--${name}', puppet_resource[:${name}]) if mode == 'update'
+    '''
+
     TEMPLATE_TYPE_example = '''
     ${name} => 'TODO',
     '''
@@ -57,7 +61,7 @@ class PuppetString(PuppetCodeFragment):
     '''
 
     TEMPLATE_ACCEPTANCE_TEST_create_item = '''
-    ${name}         => 'TODO',
+    ${name} => 'TODO',
     '''
 
     TEMPLATE_ACCEPTANCE_TEST_create_item_namevar = ''

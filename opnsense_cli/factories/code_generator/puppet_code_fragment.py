@@ -4,6 +4,8 @@ from opnsense_cli.exceptions.factory import FactoryException
 from opnsense_cli.types.puppet.base import PuppetCodeFragment
 from opnsense_cli.types.puppet.puppet_boolean import PuppetBoolean
 from opnsense_cli.types.puppet.puppet_choice import PuppetChoice
+from opnsense_cli.types.puppet.puppet_choice_multiple import PuppetChoiceMultiple
+from opnsense_cli.types.puppet.puppet_integer import PuppetInteger
 from opnsense_cli.types.puppet.puppet_string import PuppetString
 
 
@@ -12,7 +14,8 @@ class PuppetCodeFragmentFactory(ObjectTypeFromDataFactory):
         'String': PuppetString,
         'Bool': PuppetBoolean,
         'Choice': PuppetChoice,
-
+        'ChoiceMultiple': PuppetChoiceMultiple,
+        'IntOrEmptyClick': PuppetInteger,
     }
 
     def _get_class(self, key) -> PuppetCodeFragment:
@@ -23,6 +26,16 @@ class PuppetCodeFragmentFactory(ObjectTypeFromDataFactory):
         return click_option_class
 
     def get_type_for_data(self, params, find_uuid_by_column, click_group, click_command) -> PuppetCodeFragment:
-        puppet_code_fragment_type_class = self._get_class(params['type']['param_type'])
+        param_type = params['type']['param_type']
+        if params['multiple'] == True:
+            param_type = f"{param_type}Multiple"
+
+        if params['name'] == 'stickiness_datatypes':
+            print(params)
+            print(params.get('default') if params.get('default') else '')
+            #exit()
+
+        puppet_code_fragment_type_class = self._get_class(param_type)
+        print(puppet_code_fragment_type_class)
 
         return puppet_code_fragment_type_class(params, find_uuid_by_column, click_group, click_command)

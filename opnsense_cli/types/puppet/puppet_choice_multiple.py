@@ -1,22 +1,26 @@
 from opnsense_cli.types.puppet.base import PuppetCodeFragment
 
 
-class PuppetChoice(PuppetCodeFragment):
+class PuppetChoiceMultiple(PuppetCodeFragment):
     TEMPLATE_PROVIDER_translate_json_object_to_puppet_resource = '''
-    ${name}: json_object['${name}'],
+    ${name}: array_from_value(json_object['${name}']),
     '''
 
     TEMPLATE_PROVIDER_translate_puppet_resource_to_command_args = '''
-    args.push('--${name}', puppet_resource[:${name}])
+    puppet_resource[:${name}].each do |opt|
+              args.push('--${name}', opt)
+            end
     '''
 
     TEMPLATE_TYPE_example = '''
-    ${name} => 'TODO',
+    ${name} => [],
     '''
 
     TEMPLATE_TYPE_attributes = '''
     ${name}: {
-          type: "Enum${choices}",
+          type: "Array[
+            Enum${choices}
+          ]",
           desc: '${help}',
         },
     '''

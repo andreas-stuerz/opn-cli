@@ -22,14 +22,6 @@ class PuppetBoolean(PuppetCodeFragment):
         },
     '''
 
-    TEMPLATE_TYPE_attributes_namevar = '''
-    ${name}: {
-          type: 'Boolean',
-          desc: '${help}',
-          behaviour: :namevar,
-        },
-    '''
-
     TEMPLATE_TYPE_UNIT_TEST_new_resource = '''
     ${name}: true,
     '''
@@ -51,7 +43,7 @@ class PuppetBoolean(PuppetCodeFragment):
     '''
 
     TEMPLATE_ACCEPTANCE_TEST_create_item = '''
-    ${name}         => false,
+    ${name} => false,
     '''
 
     TEMPLATE_ACCEPTANCE_TEST_match_item = '''

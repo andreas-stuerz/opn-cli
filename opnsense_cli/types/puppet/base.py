@@ -32,11 +32,6 @@ class PuppetCodeFragment(ABC):
 
     @property
     @abstractmethod
-    def TEMPLATE_TYPE_attributes_namevar(self):
-        """ This property should be implemented. """
-
-    @property
-    @abstractmethod
     def TEMPLATE_TYPE_UNIT_TEST_new_resource(self):
         """ This property should be implemented. """
 
@@ -66,22 +61,23 @@ class PuppetCodeFragment(ABC):
 
     def _render_template(self):
         return self._template.substitute(
-            name=self._params['name'],
-            param_type_name=self._params['param_type_name'],
-            opts=self._params['opts'],
-            secondary_opts=self._params['secondary_opts'],
-            type=self._params['type'],
-            required=self._params['required'],
-            nargs=self._params['nargs'],
-            multiple=self._params['multiple'],
-            default=self._params['default'],
-            envvar=self._params['envvar'],
-            help=self._params['help'],
-            prompt=self._params['prompt'],
-            is_flag=self._params['is_flag'],
-            flag_value=self._params['flag_value'],
-            count=self._params['count'],
-            hidden=self._params['hidden'],
+            name=self._params.get('name'),
+            param_type_name=self._params.get('param_type_name'),
+            opts=self._params.get('opts'),
+            secondary_opts=self._params.get('secondary_opts'),
+            type=self._params.get('type'),
+            required=self._params.get('required'),
+            nargs=self._params.get('nargs'),
+            multiple=self._params.get('multiple'),
+            default=self._params.get('default') if self._params.get('default') else self.get_empty_default(),
+            envvar=self._params.get('envvar'),
+            help=self._params.get('help', '').replace("'", "\\'"),
+            prompt=self._params.get('prompt'),
+            is_flag=self._params.get('is_flag'),
+            flag_value=self._params.get('flag_value'),
+            count=self._params.get('count'),
+            hidden=self._params.get('hidden'),
+            choices=self._params.get('type', {}).get('choices'),
             click_group=self._click_group,
             click_command=self._click_command,
         ).strip()
@@ -93,6 +89,9 @@ class PuppetCodeFragment(ABC):
     @_template.setter
     def _template(self, template):
         self.__template = Template(textwrap.dedent(template))
+
+    def get_empty_default(self):
+        return ''
 
 
 
