@@ -54,14 +54,15 @@ class PuppetCodeGenerator(CodeGenerator):
         self._find_uuid_by_column = find_uuid_by_column
         self._click_group = click_group
         self._click_command = click_command
+        self._ignore_params = ['output', 'cols', 'help']
 
     def _get_code_fragment(self, template_variable_name: str) -> List[str]:
         template_variable_name_namevar = f"{template_variable_name}_namevar"
-        ignore_params = ['output', 'cols', 'help']
+
         code_fragments = []
 
         for param_line in self._create_command_params:
-            if param_line['name'] in ignore_params:
+            if param_line['name'] in self._ignore_params:
                 continue
 
             code_type = self._type_factory.get_type_for_data(
@@ -83,6 +84,14 @@ class PuppetCodeGenerator(CodeGenerator):
 
     def _is_namevar(self, param_line):
         return param_line['name'] == self._find_uuid_by_column
+
+    def _get_all_columns(self):
+        columns = []
+        for param_line in self._create_command_params:
+            if param_line['name'] in self._ignore_params:
+                continue
+            columns.append(param_line['name'])
+        return columns
 
 
 class CommandCodeGenerator(CodeGenerator):

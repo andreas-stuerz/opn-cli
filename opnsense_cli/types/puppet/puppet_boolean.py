@@ -49,3 +49,11 @@ class PuppetBoolean(PuppetCodeFragment):
     TEMPLATE_PROVIDER_UNIT_TEST_ruby_hash = '''
     ${name}: true,
     '''
+
+    TEMPLATE_ACCEPTANCE_TEST_create_item = '''
+    ${name}         => false,
+    '''
+
+    TEMPLATE_ACCEPTANCE_TEST_match_item = '''
+    expect(r.stdout).to match %r{${name}: '0'}
+    '''

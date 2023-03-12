@@ -55,3 +55,17 @@ class PuppetString(PuppetCodeFragment):
     TEMPLATE_PROVIDER_UNIT_TEST_ruby_hash_namevar = '''
     ${name}: 'example ${click_group}_${click_command} TODO_NUMBER',
     '''
+
+    TEMPLATE_ACCEPTANCE_TEST_create_item = '''
+    ${name}         => 'TODO',
+    '''
+
+    TEMPLATE_ACCEPTANCE_TEST_create_item_namevar = ''
+
+    TEMPLATE_ACCEPTANCE_TEST_match_item = '''
+    expect(r.stdout).to match %r{${name}: TODO}
+    '''
+
+    TEMPLATE_ACCEPTANCE_TEST_match_item_namevar = '''
+    expect(r.stdout).to match %r{${name}: acceptance test item}
+    '''

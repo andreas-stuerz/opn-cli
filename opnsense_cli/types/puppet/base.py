@@ -50,6 +50,16 @@ class PuppetCodeFragment(ABC):
     def TEMPLATE_PROVIDER_UNIT_TEST_ruby_hash(self):
         """ This property should be implemented. """
 
+    @property
+    @abstractmethod
+    def TEMPLATE_ACCEPTANCE_TEST_create_item(self):
+        """ This property should be implemented. """
+
+    @property
+    @abstractmethod
+    def TEMPLATE_ACCEPTANCE_TEST_match_item(self):
+        """ This property should be implemented. """
+
     def get_code_fragment(self, template):
         self._template = template
         return self._render_template()

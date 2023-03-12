@@ -1,6 +1,7 @@
 import click
 import os
 from opnsense_cli.commands.new import new
+from opnsense_cli.facades.code_generator.puppet_acceptance_test import PuppetAcceptanceTestCodeGenerator
 from opnsense_cli.facades.code_generator.puppet_provider import PuppetProviderCodeGenerator
 from opnsense_cli.facades.code_generator.puppet_provider_unit_test import PuppetProviderUnitTestCodeGenerator
 from opnsense_cli.facades.code_generator.puppet_type import PuppetTypeCodeGenerator
@@ -52,6 +53,12 @@ def puppet(**kwargs):
     default='code_generator/puppet/type_unit_test.rb.j2'
 )
 @click.option(
+    '--template-acceptance-test', '-ttt',
+    help='The template for the puppet acceptance relative to the template basedir.',
+    show_default=True,
+    default='code_generator/puppet/acceptance_test.rb.j2'
+)
+@click.option(
     '--puppet-output-dir', '-pod',
     help='The output directory for the generated puppet resource type files',
     show_default=True,
@@ -82,7 +89,7 @@ def puppet(**kwargs):
     default=os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../output/puppet/spec/unit/puppet/type')),
 )
 @click.option(
-    '--aceptance-test-output-dir', '-atod',
+    '--acceptance-test-output-dir', '-atod',
     help='The output directory for the generated resource type acceptance test',
     show_default=True,
     default=os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../output/puppet/spec/acceptance/types')),
@@ -121,6 +128,7 @@ def generate_puppet_files(ctx, **kwargs):
     write_puppet_type(ctx, template_engine, code_factory, create_command_params,update_command_params,  **kwargs)
     write_puppet_type_unit_test(ctx, template_engine, code_factory, create_command_params,update_command_params,  **kwargs)
     write_puppet_provider_unit_test(ctx, template_engine, code_factory, create_command_params,update_command_params,  **kwargs)
+    write_puppet_acceptance_test(ctx, template_engine, code_factory, create_command_params,update_command_params,  **kwargs)
 
 
 def write_puppet_provider(
@@ -216,6 +224,28 @@ def write_puppet_provider_unit_test(
         code_generator.write_code(kwargs['provider_test_output_dir'])
     )
 
+def write_puppet_acceptance_test(
+        ctx,
+        template_engine,
+        code_factory,
+        create_command_params,
+        update_command_params,
+        **kwargs
+):
+    code_generator = PuppetAcceptanceTestCodeGenerator(
+        template_engine,
+        code_factory,
+        kwargs['template_acceptance_test'],
+        kwargs['click_group'],
+        kwargs['click_command'],
+        kwargs['find_uuid_by_column'],
+        create_command_params,
+        update_command_params,
+    )
+
+    click.echo(
+        code_generator.write_code(kwargs['acceptance_test_output_dir'])
+    )
 
 if __name__ == '__main__':
     puppet()
