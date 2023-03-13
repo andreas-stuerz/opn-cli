@@ -121,11 +121,13 @@ def generate_puppet_files(ctx, **kwargs):
 
     main_group = cli.get_command(ctx, kwargs['click_group'])
     sub_group  = main_group.get_command(ctx, kwargs['click_command'])
+
     create_command = sub_group.get_command(ctx, 'create')
     update_command = sub_group.get_command(ctx, 'update')
 
     create_command_params = create_command.to_info_dict(ctx).get('params')
     update_command_params = update_command.to_info_dict(ctx).get('params')
+
 
     write_puppet_provider(ctx, template_engine, code_factory, create_command_params, update_command_params, **kwargs)
     write_puppet_type(ctx, template_engine, code_factory, create_command_params,update_command_params,  **kwargs)

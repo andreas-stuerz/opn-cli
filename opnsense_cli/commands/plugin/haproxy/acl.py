@@ -4,6 +4,7 @@ from opnsense_cli.callbacks.click import \
     formatter_from_formatter_name, bool_as_string, available_formats, int_as_string, tuple_to_csv, \
     resolve_linked_names_to_uuids
 from opnsense_cli.types.click_param_type.int_or_empty import INT_OR_EMPTY
+from opnsense_cli.types.click_param_type.csv import CSV
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
@@ -604,6 +605,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--nbsrv_backend',
     help=('Use the specified backend to count usable servers. Leave empty to use the current backend.'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None,
     required=False,
@@ -679,6 +681,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--queryBackend',
     help=('None'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None,
     required=False,
@@ -687,6 +690,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--allowedUsers',
     help=('None'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None,
     required=False,
@@ -695,6 +699,7 @@ def show(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--allowedGroups',
     help=('None'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None,
     required=False,
@@ -1258,6 +1263,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--nbsrv_backend',
     help=('Use the specified backend to count usable servers. Leave empty to use the current backend.'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None
 )
@@ -1323,6 +1329,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--queryBackend',
     help=('None'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None
 )
@@ -1330,6 +1337,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--allowedUsers',
     help=('None'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None
 )
@@ -1337,6 +1345,7 @@ def create(haproxy_acl_svc: HaproxyAclFacade, **kwargs):
     '--allowedGroups',
     help=('None'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None
 )

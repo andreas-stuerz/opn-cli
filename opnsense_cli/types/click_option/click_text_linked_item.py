@@ -7,6 +7,7 @@ class ClickTextLinkedItem(ClickOptionCodeFragment):
         '--${name}',
         help=('${help}'),
         callback=resolve_linked_names_to_uuids,
+        type=CSV,
         show_default=True,
         default=${default},
         ${required}
@@ -17,6 +18,7 @@ class ClickTextLinkedItem(ClickOptionCodeFragment):
         '--${name}',
         help=('${help}'),
         callback=resolve_linked_names_to_uuids,
+        type=CSV,
         show_default=True,
         default=None
     )
