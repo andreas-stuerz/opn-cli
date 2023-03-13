@@ -28,6 +28,7 @@ opn-cli - the OPNsense CLI written in python.
       - [API code plugin](#api-code-plugin)
       - [Core command code](#core-command-code)
       - [Plugin command code](#plugin-command-code)
+      - [Puppet custom resource type](#puppet-custom-resource-type)
     + [Resolving of names to uuids](#resolving-of-names-to-uuids)
   * [Commands](#commands)
     + [Firewall](#firewall)
@@ -439,6 +440,22 @@ The facade use API classes which should be generated with "opn-cli new api plugi
 Make sure to remove all unnecessary API classes and methods to have a proper code coverage.
 
 After some tweaks you should be able to use the new command.
+
+#### Puppet custom resource type
+This generates files needed for a custom resource type for puppet from an exiting opn-cli command.
+
+Takes the name of the opn-cli command and the namevar as arguments.
+
+The namevar is the column name that puppet will use to find the uuid of the resource.
+
+**Examples:**
+
+Generate files for the opn-cli command "opn-cli route static" and use the column "descr" as the namevar:
+
+```
+$ opn-cli new puppet resoure-type route static descr
+```
+
 
 ### Resolving of names to uuids
 If you want to link items with options, you could link them with uuids or with their names. 
