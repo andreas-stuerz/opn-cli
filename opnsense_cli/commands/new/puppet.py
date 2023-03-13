@@ -95,7 +95,7 @@ def puppet(**kwargs):
     default=os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../output/puppet/spec/acceptance/types')),
 )
 @click.pass_context
-def resoure_type(ctx, **kwargs):
+def resource_type(ctx, **kwargs):
     """
     Generate a new puppet resource type from an existing opn-cli command
 
@@ -103,7 +103,7 @@ def resoure_type(ctx, **kwargs):
 
     Example:
 
-    > opn-cli new puppet resoure-type route static descr
+    > opn-cli new puppet resource-type route static descr
 
     creates a puppet reource type for the opn-cli command:
     > opn-cli route static

@@ -261,7 +261,7 @@ def write_command_test(type, model_tag: Tag, template_engine, option_factory, **
     )
     click.echo(
         command_test_generator.write_code(
-            kwargs['test_output_dir'], filename_prefix=f"test_{kwargs['click_group']}_"
+            kwargs['test_output_dir']#, filename_prefix=f"test_{kwargs['click_group']}_"
         )
     )
 

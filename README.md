@@ -453,7 +453,7 @@ The namevar is the column name that puppet will use to find the uuid of the reso
 Generate files for the opn-cli command "opn-cli route static" and use the column "descr" as the namevar:
 
 ```
-$ opn-cli new puppet resoure-type route static descr
+$ opn-cli new puppet resource-type route static descr
 ```
 
 
