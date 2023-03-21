@@ -1,5 +1,20 @@
 # Changelog
 
+## [v1.7.0](https://github.com/andeman/opn-cli/tree/v1.7.0) (2023-03-21)
+
+[Full Changelog](https://github.com/andeman/opn-cli/compare/v1.6.0...v1.7.0)
+
+**Implemented enhancements:**
+
+- Puppet module generator [\#44](https://github.com/andeman/opn-cli/pull/44) ([andeman](https://github.com/andeman))
+- add api-backup plugin support [\#43](https://github.com/andeman/opn-cli/pull/43) ([fraenki](https://github.com/fraenki))
+- add autoloader to dynamically load command groups from the filesystem. [\#39](https://github.com/andeman/opn-cli/pull/39) ([andeman](https://github.com/andeman))
+
+**Merged pull requests:**
+
+- add missing tests for api-backup feature [\#45](https://github.com/andeman/opn-cli/pull/45) ([andeman](https://github.com/andeman))
+- document Python 3.7 requirement [\#42](https://github.com/andeman/opn-cli/pull/42) ([fraenki](https://github.com/fraenki))
+
 ## [v1.6.0](https://github.com/andeman/opn-cli/tree/v1.6.0) (2023-02-01)
 
 [Full Changelog](https://github.com/andeman/opn-cli/compare/v1.5.0...v1.6.0)

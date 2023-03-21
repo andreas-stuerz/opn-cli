@@ -6,6 +6,8 @@ import base64
 
 class TestApibackupCommands(CommandTestCase):
     def setUp(self):
+        self._setup_fakefs()
+
         self._config_xml = self._read_fixture_file('plugin/apibackup/config.xml.sample')
         self._api_data_fixtures_download = {
             "status": "success",
