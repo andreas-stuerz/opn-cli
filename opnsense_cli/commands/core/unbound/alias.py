@@ -6,6 +6,7 @@ from opnsense_cli.commands.core.unbound import unbound
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core.unbound import Settings, Service
 from opnsense_cli.facades.commands.core.unbound.alias import UnboundAliasFacade
+from opnsense_cli.types.click_param_type.csv import CSV
 
 pass_api_client = click.make_pass_decorator(ApiClient)
 pass_unbound_alias_svc = click.make_pass_decorator(UnboundAliasFacade)
@@ -95,6 +96,7 @@ def show(unbound_alias_svc: UnboundAliasFacade, **kwargs):
         'e.g. "myhost_example.com_A___10.0.0.1" or "mx_example.com_MX_10_mailin.example.com"'
     ),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None,
     required=True,
@@ -171,6 +173,7 @@ def create(unbound_alias_svc: UnboundAliasFacade, **kwargs):
         'e.g. "myhost_example.com_A___10.0.0.1" or "mx_example.com_MX_10_mailin.example.com"'
     ),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None
 )

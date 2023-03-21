@@ -1,0 +1,82 @@
+{% set provider_name = "opnsense_{g}_{c}".format(g=vars.click_group, c=vars.click_command) -%}
+{% set unit_under_test = "{g}_{c}".format(g=vars.click_group, c=vars.click_command) -%}
+{% set opn_cli_base_cmd = "{g} {c}".format(g=vars.click_group, c=vars.click_command) -%}
+require 'spec_helper_acceptance'
+
+describe '{{ provider_name }}' do
+  context 'for opnsense-test.device.com' do
+    describe 'add {{ unit_under_test }} acceptance test item' do
+      pp = <<-MANIFEST
+        {{ provider_name }} { 'acceptance test item':
+          device           => 'opnsense-test.device.com',
+          {% for line in vars.create_item -%}
+          {{ line }}
+          {% endfor %}
+          ensure           => 'present',
+        }
+      MANIFEST
+      it 'works without errors' do
+        apply_manifest(pp, catch_failures: true)
+      end
+
+      it 'displays the created rule via the cli', retry: 3, retry_wait: 3 do
+        cols = [
+          {% for line in vars.opn_cli_columns -%}
+          '{{ line }}',
+          {% endfor %}
+        ].join(',')
+        run_shell(build_opn_cli_cmd("{{ opn_cli_base_cmd }} list -o yaml -c #{cols}")) do |r|
+          {% for line in vars.match_item -%}
+          {{ line }}
+          {% endfor %}
+        end
+      end
+    end
+
+    describe 'update {{ unit_under_test }} acceptance test item' do
+      pp = <<-MANIFEST
+        {{ provider_name }} { 'acceptance test item':
+          device           => 'opnsense-test.device.com',
+          {% for line in vars.create_item -%}
+          {{ line }}
+          {% endfor %}
+          ensure           => 'present',
+        }
+      MANIFEST
+      it 'works without errors' do
+        apply_manifest(pp, catch_failures: true)
+      end
+
+      it 'displays the updated rule via the cli', retry: 3, retry_wait: 3 do
+        cols = [
+          {% for line in vars.opn_cli_columns -%}
+          '{{ line }}',
+          {% endfor %}
+        ].join(',')
+        run_shell(build_opn_cli_cmd("{{ opn_cli_base_cmd }} list -o yaml -c #{cols}")) do |r|
+          {% for line in vars.match_item -%}
+          {{ line }}
+          {% endfor %}
+        end
+      end
+    end
+
+    describe 'delete {{ unit_under_test }} acceptance test item' do
+      pp = <<-MANIFEST
+        {{ provider_name }} { 'acceptance test item':
+          device => 'opnsense-test.device.com',
+          ensure => 'absent',
+        }
+      MANIFEST
+      it 'works without errors' do
+        apply_manifest(pp, catch_failures: true)
+      end
+
+      it 'displays the rule as deleted via the cli', retry: 3, retry_wait: 3 do
+        run_shell(build_opn_cli_cmd('{{ opn_cli_base_cmd }} list -o plain -c {{ vars.find_uuid_by_column }}}')) do |r|
+          expect(r.stdout).not_to match %r{acceptance test item\n}
+        end
+      end
+    end
+  end
+end

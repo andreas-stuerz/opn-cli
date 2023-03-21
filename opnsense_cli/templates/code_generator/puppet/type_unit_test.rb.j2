@@ -1,0 +1,35 @@
+{% set provider_name = "opnsense_{g}_{c}".format(g=vars.click_group, c=vars.click_command) -%}
+{% set unit_under_test = "{g}_{c}".format(g=vars.click_group, c=vars.click_command) -%}
+# frozen_string_literal: true
+
+require 'spec_helper'
+require 'puppet/type/{{ provider_name }}'
+
+RSpec.describe 'the {{ provider_name }} type' do
+  it 'loads' do
+    expect(Puppet::Type.type(:{{ provider_name }})).not_to be_nil
+  end
+
+  it 'requires a title' do
+    expect {
+      Puppet::Type.type(:{{ provider_name }}).new({})
+    }.to raise_error(Puppet::Error, 'Title must be provided')
+  end
+
+  context 'example {{ vars.click_group }} {{ vars.click_command }} on opnsense.example.com' do
+    let(:{{ unit_under_test }}) do
+      Puppet::Type.type(:{{ provider_name }}).new(
+        device: 'opnsense.example.com',
+        {% for line in vars.new_resource -%}
+        {{ line }}
+        {% endfor %}
+        ensure: 'present',
+        )
+    end
+
+    {% for line in vars.accepts_parameter -%}
+      {{ line }}
+
+    {% endfor %}
+  end
+end

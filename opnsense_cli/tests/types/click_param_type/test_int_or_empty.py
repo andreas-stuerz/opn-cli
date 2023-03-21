@@ -4,7 +4,7 @@ from click.testing import CliRunner
 from opnsense_cli.types.click_param_type.int_or_empty import INT_OR_EMPTY
 
 
-class TestClickParamTypes(unittest.TestCase):
+class TestClickParamTypeIntOrEmpty(unittest.TestCase):
     def setUp(self):
         @click.command()
         @click.option(

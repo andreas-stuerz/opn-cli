@@ -4,6 +4,7 @@ from opnsense_cli.callbacks.click import \
     formatter_from_formatter_name, bool_as_string, available_formats, int_as_string, tuple_to_csv, \
     resolve_linked_names_to_uuids
 from opnsense_cli.types.click_param_type.int_or_empty import INT_OR_EMPTY
+from opnsense_cli.types.click_param_type.csv import CSV
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
@@ -140,6 +141,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     '--defaultBackend',
     help=('Set the default backend pool to use for this public service.'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None,
     required=False,
@@ -160,6 +162,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
         'HAProxy\'s SNI recognition will determine the correct certificate automatically. '
         'If no SNI is provided by the client then the first certificate will be presented.'
     ),
+    type=CSV,
     show_default=True,
     default=None,
     required=False,
@@ -334,6 +337,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     '--basicAuthUsers',
     help=('Set allowed basic auth users.'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None,
     required=False,
@@ -342,6 +346,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     '--basicAuthGroups',
     help=('Set allowed basic auth groups.'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None,
     required=False,
@@ -392,6 +397,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     '--linkedCpuAffinityRules',
     help=('Choose CPU affinity rules that should be applied to this public service.'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None,
     required=False,
@@ -699,6 +705,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     '--linkedActions',
     help=('Choose rules to be included in this public service.'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None,
     required=False,
@@ -707,6 +714,7 @@ def show(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     '--linkedErrorfiles',
     help=('Choose error messages to be included in this public service.'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None,
     required=False,
@@ -849,6 +857,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     '--defaultBackend',
     help=('Set the default backend pool to use for this public service.'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None
 )
@@ -1019,6 +1028,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     '--basicAuthUsers',
     help=('Set allowed basic auth users.'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None
 )
@@ -1026,6 +1036,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     '--basicAuthGroups',
     help=('Set allowed basic auth groups.'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None
 )
@@ -1071,6 +1082,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     '--linkedCpuAffinityRules',
     help=('Choose CPU affinity rules that should be applied to this public service.'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None
 )
@@ -1351,6 +1363,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     '--linkedActions',
     help=('Choose rules to be included in this public service.'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None
 )
@@ -1358,6 +1371,7 @@ def create(haproxy_frontend_svc: HaproxyFrontendFacade, **kwargs):
     '--linkedErrorfiles',
     help=('Choose error messages to be included in this public service.'),
     callback=resolve_linked_names_to_uuids,
+    type=CSV,
     show_default=True,
     default=None
 )

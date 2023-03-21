@@ -1,0 +1,45 @@
+{% set provider_class_name = "Opnsense{g}{c}".format(g=vars.click_group.capitalize(), c=vars.click_command.capitalize()) -%}
+# frozen_string_literal: true
+
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'opnsense_provider'))
+
+# Implementation for the opnsense_haproxy_frontend type using the Resource API.
+class Puppet::Provider::{{ provider_class_name }}::{{ provider_class_name }} < Puppet::Provider::OpnsenseProvider
+    # @return [void]
+    def initialize
+        super
+        @group = '{{ vars.click_group }}'
+        @command = '{{ vars.click_command }}'
+        @resource_type = 'list'
+        @find_uuid_by_column = :{{ vars.find_uuid_by_column }}
+        @create_key = :{{ vars.find_uuid_by_column }}
+    end
+
+    # @param [String] device
+    # @param [Hash] json_object
+    def _translate_json_object_to_puppet_resource(device, json_object)
+        {
+          title: "#{json_object['{{ vars.find_uuid_by_column }}']}@#{device}",
+          device: device,
+          uuid: json_object['uuid'],
+          {% for line in vars.translate_json_object_to_puppet_resource -%}
+                {{ line }}
+          {% endfor %}
+        }
+    end
+
+    # @param [Integer] mode
+    # @param [String] id
+    # @param [Hash<Symbol>] puppet_resource
+    # @return [Array<String>]
+    def _translate_puppet_resource_to_command_args(mode, id, puppet_resource)
+        args = [@group, @command, mode, id]
+
+        {% for line in vars.translate_puppet_resource_to_command_args -%}
+                {{ line }}
+        {% endfor %}
+        args
+    end
+    #
+    private :_translate_json_object_to_puppet_resource, :_translate_puppet_resource_to_command_args
+end
