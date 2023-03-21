@@ -46,6 +46,5 @@ class PuppetCsv(PuppetCodeFragment):
     '''
 
     TEMPLATE_ACCEPTANCE_TEST_match_item = '''
-    expect(r.stdout).to match %r{${name}: '\[\]'}
+    expect(r.stdout).to match %r{${name}: '\\[\\]'}
     '''
-

@@ -18,7 +18,7 @@ class CodeGenerator(ABC):
 
     @abstractmethod
     def _get_filename(self):
-        return f"opnsense_{self._click_group}_{self._click_command}/opnsense_{self._click_group}_{self._click_command}.rb"
+        """ This method should be implemented. """
 
     def _write_to_file(self, content, path):
         os.makedirs(os.path.dirname(path), exist_ok=True)

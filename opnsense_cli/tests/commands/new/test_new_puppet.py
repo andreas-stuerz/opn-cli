@@ -1,32 +1,24 @@
 import os
-from unittest.mock import patch, Mock
 from opnsense_cli.commands.new.puppet import puppet
 from opnsense_cli.tests.commands.base import CommandTestCase
 from click.testing import CliRunner
-import textwrap
 
 
 class TestNewPuppetCommands(CommandTestCase):
     def setUp(self):
         self._setup_fakefs()
 
-        self._core_model_fixture = self._read_fixture_file('new/command/core/model.xml')
-        self._core_form_fixture = self._read_fixture_file('new/command/core/form.xml')
-        self._plugin_model_fixture = self._read_fixture_file('new/command/plugin/model.xml')
-        self._plugin_form_fixture = self._read_fixture_file('new/command/plugin/form.xml')
-
-
-        self._command_template = self._read_template_file('code_generator/command/command.py.j2')
-        self._facade_template = self._read_template_file('code_generator/command/command_facade.py.j2')
-        self._test_template = self._read_template_file('code_generator/command/command.py.j2')
-
         self._output_dir = self._get_output_path('')
-        self._generated_provider_path = f"{self._output_dir}/puppet/provider/opnsense_haproxy_frontend/opnsense_haproxy_frontend.rb"
-        self._generated_type_path = f"{self._output_dir}/puppet/type/opnsense_haproxy_frontend.rb"
-        self._generated_provider_test_path = f"{self._output_dir}/puppet/spec/unit/puppet/type/opnsense_haproxy_frontend_spec.rb"
-        self._generated_type_test_path = f"{self._output_dir}/puppet/spec/unit/puppet/provider/opnsense_haproxy_frontend_spec.rb"
-        self._generated_acceptance_test_path = f"{self._output_dir}/puppet/spec/acceptance/types/opnsense_haproxy_frontend_spec.rb"
-
+        self._generated_provider_path = \
+            f"{self._output_dir}/puppet/provider/opnsense_haproxy_frontend/opnsense_haproxy_frontend.rb"
+        self._generated_type_path = \
+            f"{self._output_dir}/puppet/type/opnsense_haproxy_frontend.rb"
+        self._generated_type_test_path = \
+            f"{self._output_dir}/puppet/spec/unit/puppet/type/opnsense_haproxy_frontend_spec.rb"
+        self._generated_provider_test_path = \
+            f"{self._output_dir}/puppet/spec/unit/puppet/provider/opnsense_haproxy_frontend_spec.rb"
+        self._generated_acceptance_test_path = \
+            f"{self._output_dir}/puppet/spec/acceptance/types/opnsense_haproxy_frontend_spec.rb"
 
     def test_puppet_resource(self):
         runner = CliRunner()
@@ -117,14 +109,218 @@ class TestNewPuppetCommands(CommandTestCase):
         )
 
     def _test_type_file_content(self, file_content):
-        pass
+        self.assertIn(
+            "name => 'TODO',",
+            file_content
+        )
 
-    def _test_type_test_file_content(self, type_test_file_content):
-        pass
+        self.assertIn(
+            "defaultbackend => [],",
+            file_content
+        )
+        self.assertIn(
+            "forwardfor => TODO,",
+            file_content
+        )
 
-    def _test_provider_test_file_content(self, provider_test_file_content):
-        pass
+        self.assertIn(
+            "    title_patterns: [\n"
+            "    {\n"
+            "      pattern: %r{^(?<name>.*)@(?<device>.*)$},\n"
+            "      desc: \'Where the name and the device are provided with a @\',\n"
+            "    },\n"
+            "    {\n"
+            "      pattern: %r{^(?<name>.*)$},\n"
+            "      desc: \'Where only the name is provided\',\n"
+            "    },\n"
+            "  ],\n",
+            file_content
+        )
 
-    def _test_acceptance_test_file_content(self, acceptance_test_file_content):
-        pass
+        self.assertIn(
+            "    description: {\n"
+            "      type: \'String\',\n"
+            "      desc: \'Description for this public service.\',\n"
+            "    },\n",
+            file_content
+        )
 
+        self.assertIn(
+            "    mode: {\n"
+            "      type: \"Enum[\'http\', \'ssl\', \'tcp\']\",\n"
+            "      desc: \'Set the running mode or protocol for this public service.\',\n"
+            "    },\n",
+            file_content
+        )
+
+        self.assertIn(
+            "    http2enabled: {\n"
+            "      type: \'Boolean\',\n"
+            "      desc: \'Enable support for HTTP/2.\',\n"
+            "    },\n",
+            file_content
+        )
+
+        self.assertIn(
+            "linkederrorfiles: {\n"
+            "      type: \"Array[String]\",\n"
+            "      desc: \'Choose error messages to be included in this public service.\',\n"
+            "      default: []\n"
+            "    },\n",
+            file_content
+        )
+
+    def _test_type_test_file_content(self, file_content):
+        self.assertIn(
+            "bind: 'TODO',",
+            file_content
+        )
+
+        self.assertIn(
+            "ssl_enabled: true,",
+            file_content
+        )
+
+        self.assertIn(
+            "ssl_certificates: [],",
+            file_content
+        )
+
+        self.assertIn(
+            "    it 'accepts name' do\n"
+            "      haproxy_{click_command}[:name] = 'a todo string'\n"
+            "      expect(haproxy_{click_command}[:name]).to eq('a todo string')\n"
+            "    end\n\n",
+            file_content
+        )
+        self.assertIn(
+            "    it 'accepts mode' do\n"
+            "      haproxy_{click_command}[:mode] = 'a valid TODO choice'\n"
+            "      expect(haproxy_{click_command}[:mode]).to eq('a valid TODO choice')\n"
+            "    end\n\n",
+            file_content
+        )
+        self.assertIn(
+            "    it 'accepts ssl_enabled' do\n"
+            "      haproxy_{click_command}[:ssl_enabled] = false\n"
+            "      expect(haproxy_{click_command}[:ssl_enabled]).to eq(:false)\n"
+            "    end\n\n",
+            file_content
+        )
+        self.assertIn(
+            "    it 'accepts ssl_bindoptions' do\n"
+            "      haproxy_{click_command}[:ssl_bindoptions] = 'a valid TODO choice'\n"
+            "      expect(haproxy_{click_command}[:ssl_bindoptions]).to eq('a valid TODO choice')\n"
+            "    end\n\n",
+            file_content
+        )
+        self.assertIn(
+            "    it 'accepts ssl_certificates' do\n"
+            "      haproxy_{click_command}[:ssl_certificates] = ['valid item1', 'valid item2']\n"
+            "      expect(haproxy_{click_command}[:ssl_certificates]).to eq(['valid item1', 'valid item2'])\n"
+            "    end\n\n",
+            file_content
+        )
+
+    def _test_provider_test_file_content(self, file_content):
+        self.assertIn(
+            "\"description\": 'TODO',",
+            file_content
+        )
+        self.assertIn(
+            "\"mode\": 'TODO',",
+            file_content
+        )
+        self.assertIn(
+            "\"ssl_enabled\": '1',",
+            file_content
+        )
+        self.assertIn(
+            "\"ssl_bindoptions\": 'TODO',",
+            file_content
+        )
+        self.assertIn(
+            "\"ssl_certificates\": 'TODO_CSV',",
+            file_content
+        )
+
+        self.assertIn(
+            "name: 'example haproxy_frontend TODO_NUMBER',",
+            file_content
+        )
+
+        self.assertIn(
+            "mode: 'TODO',",
+            file_content
+        )
+
+        self.assertIn(
+            "ssl_enabled: true,",
+            file_content
+        )
+
+        self.assertIn(
+            "ssl_bindoptions: 'TODO',",
+            file_content
+        )
+
+        self.assertIn(
+            "ssl_certificates: ['TODO_CSV'],",
+            file_content
+        )
+
+    def _test_acceptance_test_file_content(self, file_content):
+        self.assertIn(
+            "description => 'TODO',",
+            file_content
+        )
+
+        self.assertIn(
+            "mode => 'TODO',",
+            file_content
+        )
+
+        self.assertIn(
+            "ssl_enabled => false,",
+            file_content
+        )
+
+        self.assertIn(
+            "ssl_bindoptions => 'TODO',",
+            file_content
+        )
+
+        self.assertIn(
+            "ssl_certificates => []",
+            file_content
+        )
+
+        self.assertIn(
+            "expect(r.stdout).to match %r{name: acceptance test item}",
+            file_content
+        )
+
+        self.assertIn(
+            "expect(r.stdout).to match %r{description: TODO}",
+            file_content
+        )
+
+        self.assertIn(
+            "expect(r.stdout).to match %r{mode: 'TODO'}",
+            file_content
+        )
+
+        self.assertIn(
+            "expect(r.stdout).to match %r{ssl_enabled: '0'}",
+            file_content
+        )
+
+        self.assertIn(
+            "expect(r.stdout).to match %r{ssl_bindoptions: 'TODO'}",
+            file_content
+        )
+
+        self.assertIn(
+            "expect(r.stdout).to match %r{ssl_certificates: \'\\[\\]\'}",
+            file_content
+        )

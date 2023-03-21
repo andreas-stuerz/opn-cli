@@ -120,7 +120,7 @@ def generate_puppet_files(ctx, **kwargs):
     code_factory = PuppetCodeFragmentFactory()
 
     main_group = cli.get_command(ctx, kwargs['click_group'])
-    sub_group  = main_group.get_command(ctx, kwargs['click_command'])
+    sub_group = main_group.get_command(ctx, kwargs['click_command'])
 
     create_command = sub_group.get_command(ctx, 'create')
     update_command = sub_group.get_command(ctx, 'update')
@@ -128,12 +128,11 @@ def generate_puppet_files(ctx, **kwargs):
     create_command_params = create_command.to_info_dict(ctx).get('params')
     update_command_params = update_command.to_info_dict(ctx).get('params')
 
-
     write_puppet_provider(ctx, template_engine, code_factory, create_command_params, update_command_params, **kwargs)
-    write_puppet_type(ctx, template_engine, code_factory, create_command_params,update_command_params,  **kwargs)
-    write_puppet_type_unit_test(ctx, template_engine, code_factory, create_command_params,update_command_params,  **kwargs)
-    write_puppet_provider_unit_test(ctx, template_engine, code_factory, create_command_params,update_command_params,  **kwargs)
-    write_puppet_acceptance_test(ctx, template_engine, code_factory, create_command_params,update_command_params,  **kwargs)
+    write_puppet_type(ctx, template_engine, code_factory, create_command_params, update_command_params, **kwargs)
+    write_puppet_type_unit_test(ctx, template_engine, code_factory, create_command_params, update_command_params, **kwargs)
+    write_puppet_provider_unit_test(ctx, template_engine, code_factory, create_command_params, update_command_params, **kwargs)
+    write_puppet_acceptance_test(ctx, template_engine, code_factory, create_command_params, update_command_params, **kwargs)
 
 
 def write_puppet_provider(
@@ -158,6 +157,7 @@ def write_puppet_provider(
     click.echo(
         code_generator.write_code(kwargs['provider_output_dir'])
     )
+
 
 def write_puppet_type(
     ctx,
@@ -206,6 +206,7 @@ def write_puppet_type_unit_test(
         code_generator.write_code(kwargs['type_test_output_dir'])
     )
 
+
 def write_puppet_provider_unit_test(
         ctx,
         template_engine,
@@ -229,6 +230,7 @@ def write_puppet_provider_unit_test(
         code_generator.write_code(kwargs['provider_test_output_dir'])
     )
 
+
 def write_puppet_acceptance_test(
         ctx,
         template_engine,
@@ -251,6 +253,7 @@ def write_puppet_acceptance_test(
     click.echo(
         code_generator.write_code(kwargs['acceptance_test_output_dir'])
     )
+
 
 if __name__ == '__main__':
     puppet()

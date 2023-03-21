@@ -10,4 +10,3 @@ class PuppetAcceptanceTestTemplateVars:
     create_item: List[str]
     match_item: List[str]
     opn_cli_columns: List[str]
-

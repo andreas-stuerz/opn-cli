@@ -44,11 +44,9 @@ class PuppetInteger(PuppetCodeFragment):
     "${name}": 'TODO',
     '''
 
-
     TEMPLATE_PROVIDER_UNIT_TEST_ruby_hash = '''
     ${name}: 'TODO',
     '''
-
 
     TEMPLATE_ACCEPTANCE_TEST_create_item = '''
     ${name} => 'TODO',

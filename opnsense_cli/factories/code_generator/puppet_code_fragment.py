@@ -1,4 +1,3 @@
-from bs4.element import Tag
 from opnsense_cli.factories.base import ObjectTypeFromDataFactory
 from opnsense_cli.exceptions.factory import FactoryException
 from opnsense_cli.types.puppet.base import PuppetCodeFragment

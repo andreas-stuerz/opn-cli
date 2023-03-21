@@ -33,7 +33,6 @@ class PuppetBoolean(PuppetCodeFragment):
         end
     '''
 
-
     TEMPLATE_PROVIDER_UNIT_TEST_json = '''
     "${name}": '1',
     '''

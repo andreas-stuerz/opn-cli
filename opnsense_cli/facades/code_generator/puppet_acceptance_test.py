@@ -1,6 +1,4 @@
 from opnsense_cli.dataclasses.code_generator.puppet.provider_acceptance_test_vars import PuppetAcceptanceTestTemplateVars
-from opnsense_cli.dataclasses.code_generator.puppet.provider_unit_test_vars import PuppetProviderUnitTestTemplateVars
-from opnsense_cli.dataclasses.code_generator.puppet.type_unit_test_vars import PuppetTypeUnitTestTemplateVars
 from opnsense_cli.facades.code_generator.base import PuppetCodeGenerator
 from opnsense_cli.facades.template_engines.base import TemplateEngine
 from opnsense_cli.factories.base import ObjectTypeFromDataFactory
@@ -35,4 +33,3 @@ class PuppetAcceptanceTestCodeGenerator(PuppetCodeGenerator):
             match_item=self._get_code_fragment('TEMPLATE_ACCEPTANCE_TEST_match_item'),
             opn_cli_columns=self._get_all_columns(),
         )
-

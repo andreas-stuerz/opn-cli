@@ -9,4 +9,3 @@ class PuppetProviderUnitTestTemplateVars:
     find_uuid_by_column: str
     json: List[str]
     ruby_hash: List[str]
-

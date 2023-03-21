@@ -92,6 +92,3 @@ class PuppetCodeFragment(ABC):
 
     def get_empty_default(self):
         return ''
-
-
-

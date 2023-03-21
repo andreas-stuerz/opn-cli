@@ -29,6 +29,10 @@ class PuppetProviderCodeGenerator(PuppetCodeGenerator):
             click_command=self._click_command,
             click_group=self._click_group,
             find_uuid_by_column=self._find_uuid_by_column,
-            translate_json_object_to_puppet_resource=self._get_code_fragment('TEMPLATE_PROVIDER_translate_json_object_to_puppet_resource'),
-            translate_puppet_resource_to_command_args=self._get_code_fragment('TEMPLATE_PROVIDER_translate_puppet_resource_to_command_args'),
+            translate_json_object_to_puppet_resource=self._get_code_fragment(
+                'TEMPLATE_PROVIDER_translate_json_object_to_puppet_resource'
+            ),
+            translate_puppet_resource_to_command_args=self._get_code_fragment(
+                'TEMPLATE_PROVIDER_translate_puppet_resource_to_command_args'
+            ),
         )

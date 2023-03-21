@@ -51,4 +51,3 @@ class PuppetChoiceMultiple(PuppetCodeFragment):
     TEMPLATE_ACCEPTANCE_TEST_match_item = '''
     expect(r.stdout).to match %r{${name}: 'TODO'}
     '''
-

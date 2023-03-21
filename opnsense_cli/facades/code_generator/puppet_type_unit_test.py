@@ -32,4 +32,3 @@ class PuppetTypeUnitTestCodeGenerator(PuppetCodeGenerator):
             new_resource=self._get_code_fragment('TEMPLATE_TYPE_UNIT_TEST_new_resource'),
             accepts_parameter=self._get_code_fragment('TEMPLATE_TYPE_UNIT_TEST_accepts_parameter'),
         )
-
