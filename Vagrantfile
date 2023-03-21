@@ -1,5 +1,6 @@
 Vagrant.configure("2") do |config|
   config.vm.box = 'andeman/opnsense'
+  config.vm.box_version = "23.1.6"
   config.vm.boot_timeout = 600
 
   # sepecial configurations for bsd shell / opnsense stuff
