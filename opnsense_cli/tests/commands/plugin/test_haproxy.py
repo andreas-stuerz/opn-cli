@@ -4,7 +4,7 @@ from opnsense_cli.commands.plugin.haproxy import haproxy
 
 
 class TestHaproxyCommands(unittest.TestCase):
-    def test_firewall(self):
+    def test_haproxy(self):
         runner = CliRunner()
         result = runner.invoke(haproxy)
 

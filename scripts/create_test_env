@@ -18,6 +18,7 @@ vagrant up
 opn-cli plugin install os-firewall
 opn-cli plugin install os-haproxy
 opn-cli plugin install os-node_exporter
+opn-cli plugin install os-api-backup
 
 echo "OPNSense URL:"
 echo "https://127.0.0.1:10443/"

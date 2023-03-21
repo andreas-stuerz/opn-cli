@@ -1,8 +1,8 @@
 from opnsense_cli.api.plugin.apibackup import Backup
-from opnsense_cli.facades.commands.plugin.apibackup.base import ApibackupFacade
+from opnsense_cli.facades.commands.base import CommandFacade
 
 
-class ApibackupBackupFacade(ApibackupFacade):
+class ApibackupBackupFacade(CommandFacade):
     def __init__(self, backup_api: Backup):
         self._backup_api = backup_api
 
