@@ -28,8 +28,8 @@ class PuppetCsv(PuppetCodeFragment):
 
     TEMPLATE_TYPE_UNIT_TEST_accepts_parameter = '''
     it 'accepts ${name}' do
-          ${click_group}_{click_command}[:${name}] = ['valid item1', 'valid item2']
-          expect(${click_group}_{click_command}[:${name}]).to eq(['valid item1', 'valid item2'])
+          ${click_group}_${click_command}[:${name}] = ['valid item1', 'valid item2']
+          expect(${click_group}_${click_command}[:${name}]).to eq(['valid item1', 'valid item2'])
         end
     '''
 

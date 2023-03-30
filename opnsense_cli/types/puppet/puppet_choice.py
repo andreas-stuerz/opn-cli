@@ -27,8 +27,8 @@ class PuppetChoice(PuppetCodeFragment):
 
     TEMPLATE_TYPE_UNIT_TEST_accepts_parameter = '''
     it 'accepts ${name}' do
-          ${click_group}_{click_command}[:${name}] = 'a valid TODO choice'
-          expect(${click_group}_{click_command}[:${name}]).to eq('a valid TODO choice')
+          ${click_group}_${click_command}[:${name}] = 'a valid TODO choice'
+          expect(${click_group}_${click_command}[:${name}]).to eq('a valid TODO choice')
         end
     '''
 

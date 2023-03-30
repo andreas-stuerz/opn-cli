@@ -39,8 +39,8 @@ class PuppetString(PuppetCodeFragment):
 
     TEMPLATE_TYPE_UNIT_TEST_accepts_parameter = '''
     it 'accepts ${name}' do
-          ${click_group}_{click_command}[:${name}] = 'a todo string'
-          expect(${click_group}_{click_command}[:${name}]).to eq('a todo string')
+          ${click_group}_${click_command}[:${name}] = 'a todo string'
+          expect(${click_group}_${click_command}[:${name}]).to eq('a todo string')
         end
     '''
 

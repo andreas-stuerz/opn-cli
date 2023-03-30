@@ -13,12 +13,13 @@ RSpec.describe 'the {{ provider_name }} type' do
   it 'requires a title' do
     expect {
       Puppet::Type.type(:{{ provider_name }}).new({})
-    }.to raise_error(Puppet::Error, 'Title must be provided')
+    }.to raise_error(Puppet::Error, 'Title or name must be provided')
   end
 
   context 'example {{ vars.click_group }} {{ vars.click_command }} on opnsense.example.com' do
     let(:{{ unit_under_test }}) do
       Puppet::Type.type(:{{ provider_name }}).new(
+        name: 'example {{ vars.click_group }} {{ vars.click_command }}',
         device: 'opnsense.example.com',
         {% for line in vars.new_resource -%}
         {{ line }}
