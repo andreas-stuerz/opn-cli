@@ -188,36 +188,36 @@ class TestNewPuppetCommands(CommandTestCase):
 
         self.assertIn(
             "    it 'accepts name' do\n"
-            "      haproxy_{click_command}[:name] = 'a todo string'\n"
-            "      expect(haproxy_{click_command}[:name]).to eq('a todo string')\n"
+            "      haproxy_frontend[:name] = 'a todo string'\n"
+            "      expect(haproxy_frontend[:name]).to eq('a todo string')\n"
             "    end\n\n",
             file_content
         )
         self.assertIn(
             "    it 'accepts mode' do\n"
-            "      haproxy_{click_command}[:mode] = 'a valid TODO choice'\n"
-            "      expect(haproxy_{click_command}[:mode]).to eq('a valid TODO choice')\n"
+            "      haproxy_frontend[:mode] = 'a valid TODO choice'\n"
+            "      expect(haproxy_frontend[:mode]).to eq('a valid TODO choice')\n"
             "    end\n\n",
             file_content
         )
         self.assertIn(
             "    it 'accepts ssl_enabled' do\n"
-            "      haproxy_{click_command}[:ssl_enabled] = false\n"
-            "      expect(haproxy_{click_command}[:ssl_enabled]).to eq(:false)\n"
+            "      haproxy_frontend[:ssl_enabled] = false\n"
+            "      expect(haproxy_frontend[:ssl_enabled]).to eq(:false)\n"
             "    end\n\n",
             file_content
         )
         self.assertIn(
             "    it 'accepts ssl_bindoptions' do\n"
-            "      haproxy_{click_command}[:ssl_bindoptions] = 'a valid TODO choice'\n"
-            "      expect(haproxy_{click_command}[:ssl_bindoptions]).to eq('a valid TODO choice')\n"
+            "      haproxy_frontend[:ssl_bindoptions] = ['valid_TODO_choice', 'another_valid_TODO_choice']\n"
+            "      expect(haproxy_frontend[:ssl_bindoptions]).to eq(['valid_TODO_choice', 'another_valid_TODO_choice'])\n"
             "    end\n\n",
             file_content
         )
         self.assertIn(
             "    it 'accepts ssl_certificates' do\n"
-            "      haproxy_{click_command}[:ssl_certificates] = ['valid item1', 'valid item2']\n"
-            "      expect(haproxy_{click_command}[:ssl_certificates]).to eq(['valid item1', 'valid item2'])\n"
+            "      haproxy_frontend[:ssl_certificates] = ['valid item1', 'valid item2']\n"
+            "      expect(haproxy_frontend[:ssl_certificates]).to eq(['valid item1', 'valid item2'])\n"
             "    end\n\n",
             file_content
         )

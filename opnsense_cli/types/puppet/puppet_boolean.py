@@ -28,8 +28,8 @@ class PuppetBoolean(PuppetCodeFragment):
 
     TEMPLATE_TYPE_UNIT_TEST_accepts_parameter = '''
     it 'accepts ${name}' do
-          ${click_group}_{click_command}[:${name}] = false
-          expect(${click_group}_{click_command}[:${name}]).to eq(:false)
+          ${click_group}_${click_command}[:${name}] = false
+          expect(${click_group}_${click_command}[:${name}]).to eq(:false)
         end
     '''
 

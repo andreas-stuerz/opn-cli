@@ -85,6 +85,7 @@ RSpec.describe Puppet::Provider::{{ provider_class_name }}::{{ provider_class_na
               {% for line in vars.ruby_hash -%}
               {{ line }}
               {% endfor %}
+              uuid: '731cb3ca-3b76-4177-b736-4381c6525f45',
               ensure: 'present'
           },
         ]

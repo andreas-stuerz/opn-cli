@@ -25,6 +25,7 @@ class Puppet::Provider::{{ provider_class_name }}::{{ provider_class_name }} < P
           {% for line in vars.translate_json_object_to_puppet_resource -%}
                 {{ line }}
           {% endfor %}
+          ensure: 'present',
         }
     end
 
@@ -33,7 +34,7 @@ class Puppet::Provider::{{ provider_class_name }}::{{ provider_class_name }} < P
     # @param [Hash<Symbol>] puppet_resource
     # @return [Array<String>]
     def _translate_puppet_resource_to_command_args(mode, id, puppet_resource)
-        args = [@group, @command, mode, id]
+        args = mode == 'create' ? [@group, @command, mode] : [@group, @command, mode, id]
 
         {% for line in vars.translate_puppet_resource_to_command_args -%}
                 {{ line }}

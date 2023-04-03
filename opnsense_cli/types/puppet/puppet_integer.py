@@ -35,8 +35,8 @@ class PuppetInteger(PuppetCodeFragment):
 
     TEMPLATE_TYPE_UNIT_TEST_accepts_parameter = '''
     it 'accepts ${name}' do
-          ${click_group}_{click_command}[:${name}] = 'a todo integer'
-          expect(${click_group}_{click_command}[:${name}]).to eq('a todo integer')
+          ${click_group}_${click_command}[:${name}] = 'a todo integer'
+          expect(${click_group}_${click_command}[:${name}]).to eq('a todo integer')
         end
     '''
 
