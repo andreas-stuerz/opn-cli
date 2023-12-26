@@ -1,2 +1,18 @@
 #!/usr/bin/env bash
-flake8 --extend-exclude './venv,./output'  --show-source --statistics --max-complexity=10 --max-line-length=127
+while getopts "fh" arg; do
+  # shellcheck disable=SC2220
+  case $arg in
+    f)
+      black --extend-exclude './venv,./output,./build' --line-length=127 .
+      autoflake --exclude './venv,./output,./build'  --in-place --remove-unused-variables --verbose -r .
+      ;;
+    h)
+      echo "Usage: $0 [-f] [-h]"
+      echo "  -f: auto fix lint issues"
+      echo "  -h: help"
+      exit 0
+      ;;
+  esac
+done
+
+flake8 --extend-exclude './venv,./output, ./build'  --show-source --statistics --max-complexity=10 --extend-ignore=E203  --max-line-length=127
