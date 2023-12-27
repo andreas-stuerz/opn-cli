@@ -21,9 +21,9 @@ class ClickCommandAutoloader:
         opnsense_cli/commands
         ├── core
         │ ├── firewall
-        │ │ ├── __init__.py (Main @click.group firewall
-        │ │ ├── alias.py (subgroup alias with commmands from firewall)
-        │ │ └── rule.py (subgroup rule with commmands from firewall)
+        │ │ ├── __init__.py (main @click.group firewall)
+        │ │ ├── alias.py (subgroup alias with commands from firewall)
+        │ │ └── rule.py (subgroup rule with commands from firewall)
 
         :param module_name: python module name e.g. opnsense_cli.commands.core
         :return: click.core.Group
