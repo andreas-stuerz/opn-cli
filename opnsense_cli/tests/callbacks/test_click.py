@@ -6,6 +6,7 @@ import os
 
 
 class TestClickCallbacks(unittest.TestCase):
+    @patch.dict(os.environ, {}, clear=True)
     def test_get_default_config_dir(self):
         result = callbacks.get_default_config_dir()
         self.assertEqual(result, f"~/.{__cli_name__}")

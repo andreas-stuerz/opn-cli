@@ -36,7 +36,7 @@ jobs:
       - name: smoke test
         run: |
           pip install .
-          mkdir -p /home/runner/.opn-cli
-          touch /home/runner/.opn-cli/conf.yaml
+          mkdir -p /home/runner/.config/opn-cli
+          touch /home/runner/.config/opn-cli/conf.yaml
           opn-cli version
           opn-cli new command core firewall category --tag categories -m https://raw.githubusercontent.com/opnsense/core/master/src/opnsense/mvc/app/models/OPNsense/Firewall/Category.xml -f https://raw.githubusercontent.com/opnsense/core/master/src/opnsense/mvc/app/controllers/OPNsense/Firewall/forms/categoryEdit.xml
