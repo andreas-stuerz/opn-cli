@@ -21,7 +21,7 @@ class FormatTestCase(unittest.TestCase):
                 "provided": "1",
                 "installed": "0",
                 "path": "OPNsense/opnsense/os-acme-client",
-                "configured": "0"
+                "configured": "0",
             },
             {
                 "name": "os-virtualbox",
@@ -36,15 +36,15 @@ class FormatTestCase(unittest.TestCase):
                 "provided": "1",
                 "installed": "1",
                 "path": "OPNsense/opnsense/os-virtualbox",
-                "configured": "1"
-            }
+                "configured": "1",
+            },
         ]
 
         self._api_data_json_nested = {
             "ArchiveOpenVPN": {"name": "Archive", "supportedOptions": ["plain_config", "p12_password"]},
             "PlainOpenVPN": {"name": "File Only", "supportedOptions": ["auth_nocache", "cryptoapi"]},
             "TheGreenBow": {"name": "TheGreenBow", "supportedOptions": []},
-            "ViscosityVisz": {"name": "Viscosity (visz)", "supportedOptions": ["plain_config", "random_local_port"]}
+            "ViscosityVisz": {"name": "Viscosity (visz)", "supportedOptions": ["plain_config", "random_local_port"]},
         }
 
         self._api_data_json_obj = {
@@ -56,7 +56,7 @@ class FormatTestCase(unittest.TestCase):
             "updatefreq": "0.5",
             "content": "www.example.com,www.heise.de",
             "description": "Test",
-            "uuid": "24948d07-8525-4276-b497-108a0c55fcc2"
+            "uuid": "24948d07-8525-4276-b497-108a0c55fcc2",
         }
 
     def _get_format_output(self, format: Format):

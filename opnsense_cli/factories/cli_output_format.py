@@ -9,10 +9,10 @@ from opnsense_cli.formats.yaml_output import YamlOutputFormat
 
 class CliOutputFormatFactory(ClassFromKeymapFactory):
     _keymap = {
-        'cols': ColsOutputFormat,
-        'table': TableOutputFormat,
-        'json': JsonOutputFormat,
-        'json_filter': JsonFilterOutputFormat,
-        'plain': PlainOutputFormat,
-        'yaml': YamlOutputFormat,
+        "cols": ColsOutputFormat,
+        "table": TableOutputFormat,
+        "json": JsonOutputFormat,
+        "json_filter": JsonFilterOutputFormat,
+        "plain": PlainOutputFormat,
+        "yaml": YamlOutputFormat,
     }

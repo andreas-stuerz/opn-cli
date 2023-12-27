@@ -1,7 +1,7 @@
 from opnsense_cli.api.client import ApiClient
 
 
-class ApiBase():
+class ApiBase:
     def __init__(self, api_client: ApiClient):
         self._api_client = api_client
         self.module = self.MODULE
@@ -29,9 +29,7 @@ class ApiBase():
         def api_response(self, *args, json=None):
             api_function(self)
             return self._api_client.execute(
-                *args,
-                module=self.module, controller=self.controller, method=self.method, command=self.command,
-                json=json
+                *args, module=self.module, controller=self.controller, method=self.method, command=self.command, json=json
             )
 
         return api_response

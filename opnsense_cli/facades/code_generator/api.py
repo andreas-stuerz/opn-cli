@@ -5,13 +5,7 @@ from opnsense_cli.dataclasses.code_generator.api.api_vars import ApiTemplateVars
 
 
 class ApiCodeGenerator(CodeGenerator):
-    def __init__(
-            self,
-            template_engine: TemplateEngine,
-            template,
-            controllers,
-            module_name
-    ):
+    def __init__(self, template_engine: TemplateEngine, template, controllers, module_name):
         self._template_engine = template_engine
         self._template = template
         self._controllers = controllers
@@ -21,10 +15,7 @@ class ApiCodeGenerator(CodeGenerator):
         return f"{self._module_name}.py"
 
     def _get_template_vars(self):
-        return ApiTemplateVars(
-            module_name=self._module_name,
-            controllers=self._controllers
-        )
+        return ApiTemplateVars(module_name=self._module_name, controllers=self._controllers)
 
     def _render_template(self, vars, template):
         self._template_engine.vars = vars
@@ -37,6 +28,6 @@ class ApiCodeGenerator(CodeGenerator):
 
     def _write_to_file(self, content, path):
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        with open(path, 'w') as file:
+        with open(path, "w") as file:
             file.writelines(content)
         return f"generate new code: {path}"

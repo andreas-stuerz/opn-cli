@@ -33,14 +33,14 @@ class ClickCommandAutoloader:
 
         (root_dir, command_group_dirs, files) = list(os.walk(path))[0]
 
-        if '__pycache__' in command_group_dirs:
-            command_group_dirs.remove('__pycache__')
+        if "__pycache__" in command_group_dirs:
+            command_group_dirs.remove("__pycache__")
 
         if not command_group_dirs:
             path, file = os.path.split(root_dir)
             command_group_dirs = [file]
-            module_path_components = module_name.split('.')
-            module_name = '.'.join(module_path_components[0:len(module_path_components) - 1])
+            module_path_components = module_name.split(".")
+            module_name = ".".join(module_path_components[0 : len(module_path_components) - 1])
 
         for command_group_dir in command_group_dirs:
             command_group_files = list(os.walk(f"{path}/{command_group_dir}"))[0][2]
@@ -49,7 +49,7 @@ class ClickCommandAutoloader:
                 import_name = f"{module_name}.{command_group_dir}"
                 class_name = f"{command_group_dir}"
 
-                if command_group_file != '__init__.py':
+                if command_group_file != "__init__.py":
                     _subname_ = os.path.splitext(command_group_file)[0]
                     import_name = f"{module_name}.{command_group_dir}.{_subname_}"
                     class_name = f"{_subname_}"
@@ -60,7 +60,7 @@ class ClickCommandAutoloader:
                 self.loaded_modules.add(module)
                 self.loaded_classes.append(click_group)
 
-                if command_group_file == '__init__.py':
+                if command_group_file == "__init__.py":
                     self.click_core_group.add_command(click_group)
                 else:
                     click_group.add_command(click_group)

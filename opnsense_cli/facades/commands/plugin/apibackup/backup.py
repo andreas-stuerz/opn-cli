@@ -7,8 +7,6 @@ class ApibackupBackupFacade(CommandFacade):
         self._backup_api = backup_api
 
     def download_backup(self, path):
-        config = self._backup_api.download('json')
-        self._write_base64_string_to_zipfile(path, config['content'])
-        return {
-            "status": f"successfully saved to: {path}"
-        }
+        config = self._backup_api.download("json")
+        self._write_base64_string_to_zipfile(path, config["content"])
+        return {"status": f"successfully saved to: {path}"}

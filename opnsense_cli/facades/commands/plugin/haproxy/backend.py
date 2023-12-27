@@ -3,16 +3,16 @@ from opnsense_cli.api.plugin.haproxy import Settings, Service
 
 
 class HaproxyBackendFacade(HaproxyFacade):
-    jsonpath_base = '$.haproxy.backends.backend'
+    jsonpath_base = "$.haproxy.backends.backend"
     uuid_resolver_map = dict(
-        linkedServers={'template': '$.haproxy.servers.server[{uuids}].name', 'insert_as_key': 'Servers'},
-        linkedResolver={'template': '$.haproxy.resolvers.resolver[{uuids}].name', 'insert_as_key': 'Resolver'},
-        healthCheck={'template': '$.haproxy.healthchecks.healthcheck[{uuids}].name', 'insert_as_key': 'Healthcheck'},
-        linkedMailer={'template': '$.haproxy.mailers.mailer[{uuids}].name', 'insert_as_key': 'Mailer'},
-        basicAuthUsers={'template': '$.haproxy.users.user[{uuids}].name', 'insert_as_key': 'Users'},
-        basicAuthGroups={'template': '$.haproxy.groups.group[{uuids}].name', 'insert_as_key': 'Groups'},
-        linkedActions={'template': '$.haproxy.actions.action[{uuids}].name', 'insert_as_key': 'Actions'},
-        linkedErrorfiles={'template': '$.haproxy.errorfiles.errorfile[{uuids}].name', 'insert_as_key': 'Errorfiles'}
+        linkedServers={"template": "$.haproxy.servers.server[{uuids}].name", "insert_as_key": "Servers"},
+        linkedResolver={"template": "$.haproxy.resolvers.resolver[{uuids}].name", "insert_as_key": "Resolver"},
+        healthCheck={"template": "$.haproxy.healthchecks.healthcheck[{uuids}].name", "insert_as_key": "Healthcheck"},
+        linkedMailer={"template": "$.haproxy.mailers.mailer[{uuids}].name", "insert_as_key": "Mailer"},
+        basicAuthUsers={"template": "$.haproxy.users.user[{uuids}].name", "insert_as_key": "Users"},
+        basicAuthGroups={"template": "$.haproxy.groups.group[{uuids}].name", "insert_as_key": "Groups"},
+        linkedActions={"template": "$.haproxy.actions.action[{uuids}].name", "insert_as_key": "Actions"},
+        linkedErrorfiles={"template": "$.haproxy.errorfiles.errorfile[{uuids}].name", "insert_as_key": "Errorfiles"},
     )
 
     def __init__(self, settings_api: Settings, service_api: Service):

@@ -11,7 +11,7 @@ class HtmlParser(Parser):
     def _set_content(self):
         webpage_response = requests.get(self._url, verify=True)
         webpage = webpage_response.content
-        self._content = BeautifulSoup(webpage, 'html.parser')
+        self._content = BeautifulSoup(webpage, "html.parser")
 
     def _parse_content(self):
         tags = self._content.find_all(self._tag)

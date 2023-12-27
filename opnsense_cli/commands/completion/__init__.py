@@ -7,7 +7,7 @@ def completion():
     """
     Output instructions for shell completion
     """
-    instructions = '''
+    instructions = """
 Instructions for shell completion:
 
 See: https://click.palletsprojects.com/en/latest/shell-completion/
@@ -27,5 +27,5 @@ echo 'eval "$(_OPN_CLI_COMPLETE=zsh_source opn-cli)"' >> ~/.zshrc
 Zsh (current shell):
 _OPN_CLI_COMPLETE=zsh_source opn-cli >! ~/.opn-cli/opn-cli-complete.zsh
 source ~/.opn-cli/opn-cli-complete.zsh
-'''
+"""
     click.echo(textwrap.dedent(instructions))

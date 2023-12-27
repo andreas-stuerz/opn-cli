@@ -4,6 +4,14 @@ import os
 from opnsense_cli.facades.commands.base import CommandFacade
 from opnsense_cli.factories.cli_output_format import CliOutputFormatFactory
 from opnsense_cli.formats.base import Format
+from opnsense_cli import __cli_name__
+
+
+def get_default_config_dir():
+    if "XDG_CONFIG_HOME" in os.environ:
+        return f"~/.config/{__cli_name__}"
+    return f"~/.{__cli_name__}"
+
 
 """
 Click callback methods
@@ -13,9 +21,10 @@ See: https://click.palletsprojects.com/en/8.0.x/advanced/#parameter-modification
 
 def defaults_from_configfile(ctx, param, filename):
     def dict_from_yaml(path):
-        with open(path, 'r') as yaml_file:
+        with open(path, "r") as yaml_file:
             data = yaml.load(yaml_file, Loader=yaml.SafeLoader)
         return data
+
     options = dict_from_yaml(os.path.expanduser(filename))
     ctx.default_map = options
 
@@ -34,7 +43,7 @@ def formatter_from_formatter_name(ctx, param, format_name) -> Format:
 
 
 def bool_as_string(ctx, param, value):
-    if type(value) == bool:
+    if isinstance(value, bool):
         return str(int(value))
     return value
 
@@ -42,19 +51,19 @@ def bool_as_string(ctx, param, value):
 def tuple_to_csv(ctx, param, value):
     if param.multiple and not value:
         return None
-    if type(value) == tuple:
+    if isinstance(value, tuple):
         return ",".join(value)
     return value
 
 
 def comma_to_newline(ctx, param, value):
-    if type(value) == str and "," in value:
+    if isinstance(value, str) and "," in value:
         return value.replace(",", "\n")
     return value
 
 
 def int_as_string(ctx, param, value):
-    if type(value) == int:
+    if isinstance(value, int):
         return str(value)
     return value
 

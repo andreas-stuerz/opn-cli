@@ -3,9 +3,8 @@ from opnsense_cli.api.plugin.haproxy import Settings, Service
 
 
 class HaproxyUserFacade(HaproxyFacade):
-    jsonpath_base = '$.haproxy.users.user'
-    uuid_resolver_map = {
-    }
+    jsonpath_base = "$.haproxy.users.user"
+    uuid_resolver_map = {}
 
     def __init__(self, settings_api: Settings, service_api: Service):
         super().__init__()

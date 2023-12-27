@@ -4,8 +4,8 @@ from opnsense_cli.dataclasses.code_generator.command.command_vars import Command
 
 
 class ClickCommandCodeGenerator(CommandCodeGenerator):
-    IGNORED_TYPES = ['UniqueIdField']
-    IGNORED_TAG_NAMES_CREATE = ['name']
+    IGNORED_TYPES = ["UniqueIdField"]
+    IGNORED_TAG_NAMES_CREATE = ["name"]
 
     def __init__(self, *args):
         super().__init__(*args)
@@ -27,7 +27,7 @@ class ClickCommandCodeGenerator(CommandCodeGenerator):
         column_names = []
 
         for tag in self._tag_content.findChildren(recursive=False):
-            if tag.attrs.get('type') in self.IGNORED_TYPES:
+            if tag.attrs.get("type") in self.IGNORED_TYPES:
                 continue
 
             column_names.append(tag.name)
@@ -50,7 +50,7 @@ class ClickCommandCodeGenerator(CommandCodeGenerator):
             click_options_update=click_options_update,
             column_names=column_names,
             column_list=repr(column_names),
-            module_type=self._module_type
+            module_type=self._module_type,
         )
 
     def _get_click_option_create_code(self, tag, click_option_type: ClickOptionCodeFragment):

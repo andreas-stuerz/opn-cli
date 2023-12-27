@@ -1,7 +1,11 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import \
-    formatter_from_formatter_name, bool_as_string, available_formats, resolve_linked_names_to_uuids
+from opnsense_cli.callbacks.click import (
+    formatter_from_formatter_name,
+    bool_as_string,
+    available_formats,
+    resolve_linked_names_to_uuids,
+)
 from opnsense_cli.types.click_param_type.csv import CSV
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
@@ -26,19 +30,19 @@ def group(ctx, api_client: ApiClient, **kwargs):
 
 @group.command()
 @click.option(
-    '--output', '-o',
-    help='Specifies the Output format.',
+    "--output",
+    "-o",
+    help="Specifies the Output format.",
     default="table",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
-    '--cols', '-c',
-    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
-    default=(
-        "uuid,enabled,name,description,Users,add_userlist"
-    ),
+    "--cols",
+    "-c",
+    help="Which columns should be printed? Pass empty string (-c " ") to show all columns",
+    default=("uuid,enabled,name,description,Users,add_userlist"),
     show_default=True,
 )
 @pass_haproxy_group_svc
@@ -48,25 +52,25 @@ def list(haproxy_group_svc: HaproxyGroupFacade, **kwargs):
     """
     result = haproxy_group_svc.list_groups()
 
-    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs["output"], kwargs["cols"].split(",")).echo()
 
 
 @group.command()
-@click.argument('uuid')
+@click.argument("uuid")
 @click.option(
-    '--output', '-o',
-    help='Specifies the Output format.',
+    "--output",
+    "-o",
+    help="Specifies the Output format.",
     default="table",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
-    '--cols', '-c',
-    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
-    default=(
-        "enabled,name,description,Users,add_userlist"
-    ),
+    "--cols",
+    "-c",
+    help="Which columns should be printed? Pass empty string (-c " ") to show all columns",
+    default=("enabled,name,description,Users,add_userlist"),
     show_default=True,
 )
 @pass_haproxy_group_svc
@@ -74,16 +78,16 @@ def show(haproxy_group_svc: HaproxyGroupFacade, **kwargs):
     """
     Show details for group
     """
-    result = haproxy_group_svc.show_group(kwargs['uuid'])
+    result = haproxy_group_svc.show_group(kwargs["uuid"])
 
-    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs["output"], kwargs["cols"].split(",")).echo()
 
 
 @group.command()
-@click.argument('name')
+@click.argument("name")
 @click.option(
-    '--enabled/--no-enabled',
-    help=('Enable this group.'),
+    "--enabled/--no-enabled",
+    help=("Enable this group."),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -91,15 +95,15 @@ def show(haproxy_group_svc: HaproxyGroupFacade, **kwargs):
     required=True,
 )
 @click.option(
-    '--description',
-    help=('Description for this group.'),
+    "--description",
+    help=("Description for this group."),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
-    '--members',
-    help=('The comma seperated user uuids of the group.'),
+    "--members",
+    help=("The comma seperated user uuids of the group."),
     callback=resolve_linked_names_to_uuids,
     type=CSV,
     show_default=True,
@@ -107,7 +111,7 @@ def show(haproxy_group_svc: HaproxyGroupFacade, **kwargs):
     required=False,
 )
 @click.option(
-    '--add_userlist/--no-add_userlist',
+    "--add_userlist/--no-add_userlist",
     help=(
         'Usually HAproxy userlists are created automatically in a context sensitive way. "'
         '"This option adds this group as userlist, so that it can be referenced in rules/conditions. "'
@@ -120,16 +124,18 @@ def show(haproxy_group_svc: HaproxyGroupFacade, **kwargs):
     required=False,
 )
 @click.option(
-    '--output', '-o',
-    help='Specifies the Output format.',
+    "--output",
+    "-o",
+    help="Specifies the Output format.",
     default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
-    '--cols', '-c',
-    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
+    "--cols",
+    "-c",
+    help="Which columns should be printed? Pass empty string (-c " ") to show all columns",
     default="result,validations",
     show_default=True,
 )
@@ -139,52 +145,42 @@ def create(haproxy_group_svc: HaproxyGroupFacade, **kwargs):
     Create a new group
     """
     json_payload = {
-        'group': {
-            "enabled": kwargs['enabled'],
-            "name": kwargs['name'],
-            "description": kwargs['description'],
-            "members": kwargs['members'],
-            "add_userlist": kwargs['add_userlist'],
+        "group": {
+            "enabled": kwargs["enabled"],
+            "name": kwargs["name"],
+            "description": kwargs["description"],
+            "members": kwargs["members"],
+            "add_userlist": kwargs["add_userlist"],
         }
     }
 
     result = haproxy_group_svc.create_group(json_payload)
 
-    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs["output"], kwargs["cols"].split(",")).echo()
 
 
 @group.command()
-@click.argument('uuid')
+@click.argument("uuid")
 @click.option(
-    '--enabled/--no-enabled',
-    help=('Enable this group.'),
+    "--enabled/--no-enabled",
+    help=("Enable this group."),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
-    default=None
+    default=None,
 )
+@click.option("--name", help=("Name to identify this group."), show_default=True, default=None)
+@click.option("--description", help=("Description for this group."), show_default=True, default=None)
 @click.option(
-    '--name',
-    help=('Name to identify this group.'),
-    show_default=True,
-    default=None
-)
-@click.option(
-    '--description',
-    help=('Description for this group.'),
-    show_default=True,
-    default=None
-)
-@click.option(
-    '--members',
-    help=('The comma seperated user uuids of the group'),
+    "--members",
+    help=("The comma seperated user uuids of the group"),
     callback=resolve_linked_names_to_uuids,
     type=CSV,
     show_default=True,
-    default=None
+    default=None,
 )
 @click.option(
-    '--add_userlist/--no-add_userlist',
+    "--add_userlist/--no-add_userlist",
     help=(
         'Usually HAproxy userlists are created automatically in a context sensitive way. "'
         '"This option adds this group as userlist, so that it can be referenced in rules/conditions. "'
@@ -193,19 +189,21 @@ def create(haproxy_group_svc: HaproxyGroupFacade, **kwargs):
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
-    default=None
+    default=None,
 )
 @click.option(
-    '--output', '-o',
-    help='Specifies the Output format.',
+    "--output",
+    "-o",
+    help="Specifies the Output format.",
     default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
-    '--cols', '-c',
-    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
+    "--cols",
+    "-c",
+    help="Which columns should be printed? Pass empty string (-c " ") to show all columns",
     default="result,validations",
     show_default=True,
 )
@@ -214,32 +212,32 @@ def update(haproxy_group_svc: HaproxyGroupFacade, **kwargs):
     """
     Update a group.
     """
-    json_payload = {
-        'group': {}
-    }
-    options = ['enabled', 'name', 'description', 'members', 'add_userlist']
+    json_payload = {"group": {}}
+    options = ["enabled", "name", "description", "members", "add_userlist"]
     for option in options:
         if kwargs[option.lower()] is not None:
-            json_payload['group'][option] = kwargs[option.lower()]
+            json_payload["group"][option] = kwargs[option.lower()]
 
-    result = haproxy_group_svc.update_group(kwargs['uuid'], json_payload)
+    result = haproxy_group_svc.update_group(kwargs["uuid"], json_payload)
 
-    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs["output"], kwargs["cols"].split(",")).echo()
 
 
 @group.command()
-@click.argument('uuid')
+@click.argument("uuid")
 @click.option(
-    '--output', '-o',
-    help='Specifies the Output format.',
+    "--output",
+    "-o",
+    help="Specifies the Output format.",
     default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
-    '--cols', '-c',
-    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
+    "--cols",
+    "-c",
+    help="Which columns should be printed? Pass empty string (-c " ") to show all columns",
     default="result,validations",
     show_default=True,
 )
@@ -248,6 +246,6 @@ def delete(haproxy_group_svc: HaproxyGroupFacade, **kwargs):
     """
     Delete group
     """
-    result = haproxy_group_svc.delete_group(kwargs['uuid'])
+    result = haproxy_group_svc.delete_group(kwargs["uuid"])
 
-    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs["output"], kwargs["cols"].split(",")).echo()

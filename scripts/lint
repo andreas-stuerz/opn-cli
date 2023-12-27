@@ -15,4 +15,4 @@ while getopts "fh" arg; do
   esac
 done
 
-flake8 --extend-exclude './venv,./output, ./build'  --show-source --statistics --max-complexity=10 --extend-ignore=E203  --max-line-length=127
+flake8 --extend-exclude './venv,./output, ./build' --show-source --statistics --max-complexity=10 --extend-ignore=E203 --max-line-length=127

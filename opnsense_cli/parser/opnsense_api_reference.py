@@ -14,20 +14,20 @@ class OpnsenseApiReferenceParser(HtmlParser):
 
     def _set_content(self):
         super()._set_content()
-        github_url = 'https://github.com'
-        links = self._content.find_all('a', href=True)
+        github_url = "https://github.com"
+        links = self._content.find_all("a", href=True)
         for link in links:
             if link["href"].endswith(".rst"):
-                url_component_list = link['href'].split("/")
+                url_component_list = link["href"].split("/")
                 if self._check_url_components(url_component_list):
-                    webpage_plugin_response = requests.get(github_url + link['href'], verify=True)
+                    webpage_plugin_response = requests.get(github_url + link["href"], verify=True)
                     webpage_plugin = webpage_plugin_response.content
-                    self._content = BeautifulSoup(webpage_plugin, 'html.parser')
+                    self._content = BeautifulSoup(webpage_plugin, "html.parser")
 
     def _check_url_components(self, url_components):
         if len(url_components) > 2:
             module_type = url_components[-2]
-            if (module_type == "plugins" or module_type == "core"):
+            if module_type == "plugins" or module_type == "core":
                 if url_components[-1].split(".")[0] == self._module_name:
                     return True
 
@@ -35,7 +35,7 @@ class OpnsenseApiReferenceParser(HtmlParser):
         controllers = {}
         for table in tables:
             controller = table.find("tbody").find_next("tr").find_all("td")[2].get_text(strip=True)
-            if controller != '':
+            if controller != "":
                 controllers[controller] = []
         return controllers
 
@@ -48,13 +48,13 @@ class OpnsenseApiReferenceParser(HtmlParser):
 
     def _make_api_endpoint(self, row_content):
         api_endpoint = {}
-        api_endpoint['method'] = row_content[0].get_text(strip=True)
-        api_endpoint['module'] = row_content[1].get_text(strip=True)
-        api_endpoint['controller'] = row_content[2].get_text(strip=True)
-        api_endpoint['command'] = row_content[3].get_text(strip=True)
+        api_endpoint["method"] = row_content[0].get_text(strip=True)
+        api_endpoint["module"] = row_content[1].get_text(strip=True)
+        api_endpoint["controller"] = row_content[2].get_text(strip=True)
+        api_endpoint["command"] = row_content[3].get_text(strip=True)
         parameters = row_content[4].get_text(strip=True)
         if parameters:
-            api_endpoint['parameters'] = self._get_parameters(parameters)
+            api_endpoint["parameters"] = self._get_parameters(parameters)
         return api_endpoint
 
     def _get_api_endpoints(self, tables):
@@ -71,11 +71,11 @@ class OpnsenseApiReferenceParser(HtmlParser):
         return controllers
 
     def _skip_empty_row(self, table_data_cell):
-        if table_data_cell == '' or "uses" in table_data_cell:
+        if table_data_cell == "" or "uses" in table_data_cell:
             return True
 
     def _get_parameters(self, parameters):
         if "," in parameters:
-            return parameters.split(',')
+            return parameters.split(",")
         else:
             return parameters

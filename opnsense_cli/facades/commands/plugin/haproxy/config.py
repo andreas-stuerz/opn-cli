@@ -24,8 +24,6 @@ class HaproxyConfigFacade(HaproxyFacade):
         return self._export_api.diff()
 
     def download_config(self, path):
-        config = self._export_api.download('all')
-        self._write_base64_string_to_zipfile(path, config['content'])
-        return {
-            "status": f"successfully saved zip to: {path}"
-        }
+        config = self._export_api.download("all")
+        self._write_base64_string_to_zipfile(path, config["content"])
+        return {"status": f"successfully saved zip to: {path}"}

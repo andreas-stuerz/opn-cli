@@ -4,9 +4,8 @@ from opnsense_cli.api.core.routes import Routes, Gateway
 
 
 class RoutesStaticFacade(CommandFacade):
-    jsonpath_base = '$.route.route'
-    uuid_resolver_map = {
-    }
+    jsonpath_base = "$.route.route"
+    uuid_resolver_map = {}
 
     def __init__(self, routes_api: Routes, gateway_api: Gateway):
         super().__init__()
@@ -24,7 +23,7 @@ class RoutesStaticFacade(CommandFacade):
 
     def _get_statics_list(self):
         return self._api_mutable_model_get(
-            self._complete_model_data, self.jsonpath_base, self.uuid_resolver_map, sort_by='uuid'
+            self._complete_model_data, self.jsonpath_base, self.uuid_resolver_map, sort_by="uuid"
         )
 
     def create_static(self, json_payload: dict):
@@ -43,10 +42,10 @@ class RoutesStaticFacade(CommandFacade):
         return result
 
     def _apply(self, result_admin_action):
-        if result_admin_action['result'] not in ['saved', 'deleted']:
+        if result_admin_action["result"] not in ["saved", "deleted"]:
             raise CommandException(result_admin_action)
 
         result_apply = self._settings_api.reconfigure()
 
-        if result_apply['status'] != 'ok':
+        if result_apply["status"] != "ok":
             raise CommandException(f"Apply failed: {result_apply}")

@@ -6,8 +6,9 @@ from opnsense_cli.tests.base import BaseTestCase
 
 
 class CommandTestCase(BaseTestCase):
-    def _opn_cli_command_result(self, api_mock: Mock, api_return_values: list, click_group: Group,
-                                click_params: list, catch_exceptions=False) -> Result:
+    def _opn_cli_command_result(
+        self, api_mock: Mock, api_return_values: list, click_group: Group, click_params: list, catch_exceptions=False
+    ) -> Result:
         """
         :param api_mock: Mock for the API Object, so we can safely test
         :param api_return_values: The values for the api mock in order they should be returned.

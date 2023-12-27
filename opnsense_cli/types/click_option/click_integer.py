@@ -2,7 +2,7 @@ from opnsense_cli.types.click_option.base import ClickOptionCodeFragment
 
 
 class ClickInteger(ClickOptionCodeFragment):
-    TEMPLATE_CREATE = '''
+    TEMPLATE_CREATE = """
     @click.option(
         '--${name}',
         help=('${help}'),
@@ -12,8 +12,8 @@ class ClickInteger(ClickOptionCodeFragment):
         default=${default},
         ${required}
     )
-    '''
-    TEMPLATE_UPDATE = '''
+    """
+    TEMPLATE_UPDATE = """
     @click.option(
         '--${name}',
         help=('${help}'),
@@ -22,7 +22,7 @@ class ClickInteger(ClickOptionCodeFragment):
         callback=int_as_string,
         default=None
     )
-    '''
+    """
 
     def _render_template(self):
         return self._template.substitute(

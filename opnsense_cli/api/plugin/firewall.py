@@ -7,6 +7,7 @@ class FirewallFilter(ApiBase):
     """
     Firewall Filter (needs plugin: os-firewall)
     """
+
     @ApiBase._api_call
     def add_rule(self, *args, json=None):
         self.method = "post"
@@ -54,6 +55,7 @@ class FirewallAlias(ApiBase):
     """
     Firewall Alias Util
     """
+
     @ApiBase._api_call
     def export(self, *args):
         self.method = "get"
@@ -91,6 +93,7 @@ class FirewallAliasUtil(ApiBase):
     """
     Firewall Alias Util
     """
+
     @ApiBase._api_call
     def list(self, *args):
         self.method = "get"

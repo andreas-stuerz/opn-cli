@@ -3,12 +3,12 @@ from opnsense_cli.api.plugin.haproxy import Settings, Service
 
 
 class HaproxyAclFacade(HaproxyFacade):
-    jsonpath_base = '$.haproxy.acls.acl'
+    jsonpath_base = "$.haproxy.acls.acl"
     uuid_resolver_map = {
-        'nbsrv_backend': {'template': '$.haproxy.backends.backend[{uuids}].name', 'insert_as_key': 'BackendNrSrv'},
-        'queryBackend': {'template': '$.haproxy.backends.backend[{uuids}].name', 'insert_as_key': 'BackendQuery'},
-        'allowedUsers': {'template': '$.haproxy.users.user[{uuids}].name', 'insert_as_key': 'Users'},
-        'allowedGroups': {'template': '$.haproxy.groups.group[{uuids}].name', 'insert_as_key': 'Groups'},
+        "nbsrv_backend": {"template": "$.haproxy.backends.backend[{uuids}].name", "insert_as_key": "BackendNrSrv"},
+        "queryBackend": {"template": "$.haproxy.backends.backend[{uuids}].name", "insert_as_key": "BackendQuery"},
+        "allowedUsers": {"template": "$.haproxy.users.user[{uuids}].name", "insert_as_key": "Users"},
+        "allowedGroups": {"template": "$.haproxy.groups.group[{uuids}].name", "insert_as_key": "Groups"},
     }
 
     def __init__(self, settings_api: Settings, service_api: Service):

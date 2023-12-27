@@ -32,31 +32,31 @@ class ApiClient(object):
 
     def _get_endpoint_url(self, *args, **kwargs):
         endpoint = f"{kwargs['module']}/{kwargs['controller']}/{kwargs['command']}".lower()
-        endpoint_params = '/'.join(args)
+        endpoint_params = "/".join(args)
         if endpoint_params:
             return f"{endpoint}/{endpoint_params}"
         return endpoint
 
     def _get(self, endpoint):
-        req_url = '{}/{}'.format(self._base_url, endpoint)
-        response = requests.get(req_url, verify=self.ssl_verify_cert,
-                                auth=(self._api_key, self._api_secret),
-                                timeout=self._timeout)
+        req_url = "{}/{}".format(self._base_url, endpoint)
+        response = requests.get(
+            req_url, verify=self.ssl_verify_cert, auth=(self._api_key, self._api_secret), timeout=self._timeout
+        )
         return self._process_response(response)
 
     def _post(self, endpoint, json=None):
-        req_url = '{}/{}'.format(self._base_url, endpoint)
-        response = requests.post(req_url, json=json, verify=self.ssl_verify_cert,
-                                 auth=(self._api_key, self._api_secret),
-                                 timeout=self._timeout)
+        req_url = "{}/{}".format(self._base_url, endpoint)
+        response = requests.post(
+            req_url, json=json, verify=self.ssl_verify_cert, auth=(self._api_key, self._api_secret), timeout=self._timeout
+        )
         return self._process_response(response)
 
     def execute(self, *args, json=None, **kwargs):
         endpoint = self._get_endpoint_url(*args, **kwargs)
         try:
-            if kwargs['method'] == 'get':
+            if kwargs["method"] == "get":
                 return self._get(endpoint)
-            elif kwargs['method'] == 'post':
+            elif kwargs["method"] == "post":
                 return self._post(endpoint, json)
             else:
                 raise NotImplementedError(f"Unkown HTTP method: {kwargs['method']}")
