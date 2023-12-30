@@ -5,4 +5,6 @@ MIN_COVERAGE=${2:-100}
 if [ -n "$1" ]; then
   MODULE=$(printf ' %q' "$@")
 fi
-pytest --exitfirst --verbose --failed-first --cov ${MODULE} --cov-report term-missing --cov-config .coveragerc --cov-fail-under=${MIN_COVERAGE} ${MODULE}
+ls -la
+ls -la .coveragerc
+pytest --exitfirst --verbose --failed-first --cov=${MODULE} --cov-report term-missing --cov-config=.coveragerc --cov-fail-under=${MIN_COVERAGE} ${MODULE} --verbosity=5
