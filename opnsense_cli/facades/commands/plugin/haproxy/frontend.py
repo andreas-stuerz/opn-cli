@@ -3,15 +3,15 @@ from opnsense_cli.api.plugin.haproxy import Settings, Service
 
 
 class HaproxyFrontendFacade(HaproxyFacade):
-    jsonpath_base = '$.haproxy.frontends.frontend'
+    jsonpath_base = "$.haproxy.frontends.frontend"
     uuid_resolver_map = dict(
-        defaultBackend={'template': '$.haproxy.backends.backend[{uuids}].name', 'insert_as_key': 'Backend'},
-        basicAuthUsers={'template': '$.haproxy.users.user[{uuids}].name', 'insert_as_key': 'Users'},
-        basicAuthGroups={'template': '$.haproxy.groups.group[{uuids}].name', 'insert_as_key': 'Groups'},
-        linkedCpuAffinityRules={'template': '$.haproxy.cpus.cpu[{uuids}].name', 'insert_as_key': 'Cpus'},
-        linkedActions={'template': '$.haproxy.actions.action[{uuids}].name', 'insert_as_key': 'Actions'},
-        linkedErrorfiles={'template': '$.haproxy.errorfiles.errorfile[{uuids}].name',
-                          'insert_as_key': 'Errorfiles'})
+        defaultBackend={"template": "$.haproxy.backends.backend[{uuids}].name", "insert_as_key": "Backend"},
+        basicAuthUsers={"template": "$.haproxy.users.user[{uuids}].name", "insert_as_key": "Users"},
+        basicAuthGroups={"template": "$.haproxy.groups.group[{uuids}].name", "insert_as_key": "Groups"},
+        linkedCpuAffinityRules={"template": "$.haproxy.cpus.cpu[{uuids}].name", "insert_as_key": "Cpus"},
+        linkedActions={"template": "$.haproxy.actions.action[{uuids}].name", "insert_as_key": "Actions"},
+        linkedErrorfiles={"template": "$.haproxy.errorfiles.errorfile[{uuids}].name", "insert_as_key": "Errorfiles"},
+    )
 
     def __init__(self, settings_api: Settings, service_api: Service):
         super().__init__()

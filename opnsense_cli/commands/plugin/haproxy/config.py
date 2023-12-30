@@ -1,7 +1,6 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import \
-    formatter_from_formatter_name, expand_path, available_formats
+from opnsense_cli.callbacks.click import formatter_from_formatter_name, expand_path, available_formats
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Export, Service
@@ -26,16 +25,18 @@ def config(ctx, api_client: ApiClient, **kwargs):
 
 @config.command()
 @click.option(
-    '--output', '-o',
-    help='Specifies the Output format.',
+    "--output",
+    "-o",
+    help="Specifies the Output format.",
     default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
-    '--cols', '-c',
-    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
+    "--cols",
+    "-c",
+    help="Which columns should be printed? Pass empty string (-c " ") to show all columns",
     default="response",
     show_default=True,
 )
@@ -46,21 +47,23 @@ def show(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
     """
     result = haproxy_server_svc.show_config()
 
-    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs["output"], kwargs["cols"].split(",")).echo()
 
 
 @config.command()
 @click.option(
-    '--output', '-o',
-    help='Specifies the Output format.',
+    "--output",
+    "-o",
+    help="Specifies the Output format.",
     default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
-    '--cols', '-c',
-    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
+    "--cols",
+    "-c",
+    help="Which columns should be printed? Pass empty string (-c " ") to show all columns",
     default="result",
     show_default=True,
 )
@@ -71,21 +74,23 @@ def test(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
     """
     result = haproxy_server_svc.test_config()
 
-    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs["output"], kwargs["cols"].split(",")).echo()
 
 
 @config.command()
 @click.option(
-    '--output', '-o',
-    help='Specifies the Output format.',
+    "--output",
+    "-o",
+    help="Specifies the Output format.",
     default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
-    '--cols', '-c',
-    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
+    "--cols",
+    "-c",
+    help="Which columns should be printed? Pass empty string (-c " ") to show all columns",
     default="response",
     show_default=True,
 )
@@ -96,21 +101,23 @@ def diff(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
     """
     result = haproxy_server_svc.show_diff()
 
-    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs["output"], kwargs["cols"].split(",")).echo()
 
 
 @config.command()
 @click.option(
-    '--output', '-o',
-    help='Specifies the Output format.',
+    "--output",
+    "-o",
+    help="Specifies the Output format.",
     default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
-    '--cols', '-c',
-    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
+    "--cols",
+    "-c",
+    help="Which columns should be printed? Pass empty string (-c " ") to show all columns",
     default="status",
     show_default=True,
 )
@@ -121,15 +128,16 @@ def apply(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
     """
     result = haproxy_server_svc.apply_config()
 
-    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs["output"], kwargs["cols"].split(",")).echo()
 
 
 @config.command()
 @click.option(
-    '-p', '--path',
-    help='The target path.',
+    "-p",
+    "--path",
+    help="The target path.",
     type=click.Path(dir_okay=False),
-    default='./haproxy_config_export.zip',
+    default="./haproxy_config_export.zip",
     is_eager=True,
     show_default=True,
     callback=expand_path,
@@ -137,16 +145,18 @@ def apply(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
     required=True,
 )
 @click.option(
-    '--output', '-o',
-    help='Specifies the Output format.',
+    "--output",
+    "-o",
+    help="Specifies the Output format.",
     default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
-    '--cols', '-c',
-    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
+    "--cols",
+    "-c",
+    help="Which columns should be printed? Pass empty string (-c " ") to show all columns",
     default="status",
     show_default=True,
 )
@@ -155,6 +165,6 @@ def download(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
     """
     Download complete haproxy config as zip
     """
-    result = haproxy_server_svc.download_config(kwargs['path'])
+    result = haproxy_server_svc.download_config(kwargs["path"])
 
-    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs["output"], kwargs["cols"].split(",")).echo()

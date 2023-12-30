@@ -7,8 +7,8 @@ class APIException(ClickException):
         self.status_code = status_code
         self.url = url
         message = {
-            "API client": kwargs.get('message', resp_body),
+            "API client": kwargs.get("message", resp_body),
         }
         if url:
-            message['url'] = url
+            message["url"] = url
         super(APIException, self).__init__(message, *args)

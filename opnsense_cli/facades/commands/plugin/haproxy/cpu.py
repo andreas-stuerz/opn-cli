@@ -3,9 +3,8 @@ from opnsense_cli.api.plugin.haproxy import Settings, Service
 
 
 class HaproxyCpuFacade(HaproxyFacade):
-    jsonpath_base = '$.haproxy.cpus.cpu'
-    uuid_resolver_map = {
-    }
+    jsonpath_base = "$.haproxy.cpus.cpu"
+    uuid_resolver_map = {}
 
     def __init__(self, settings_api: Settings, service_api: Service):
         super().__init__()

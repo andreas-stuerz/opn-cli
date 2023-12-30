@@ -2,7 +2,7 @@ from opnsense_cli.types.click_option.base import ClickOptionCodeFragment
 
 
 class ClickText(ClickOptionCodeFragment):
-    TEMPLATE_CREATE = '''
+    TEMPLATE_CREATE = """
     @click.option(
         '--${name}',
         help=('${help}'),
@@ -10,15 +10,15 @@ class ClickText(ClickOptionCodeFragment):
         default=${default},
         ${required}
     )
-    '''
-    TEMPLATE_UPDATE = '''
+    """
+    TEMPLATE_UPDATE = """
     @click.option(
         '--${name}',
         help=('${help}'),
         show_default=True,
         default=None
     )
-    '''
+    """
 
     def _render_template(self):
         return self._template.substitute(

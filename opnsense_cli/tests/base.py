@@ -20,15 +20,15 @@ class BaseTestCase(TestCase):
         file_content = self._read_file(path)
         return file_content
 
-    def _get_fixture_path(self, relative_path, fixture_dir='../fixtures/tests/commands'):
+    def _get_fixture_path(self, relative_path, fixture_dir="../fixtures/tests/commands"):
         path = os.path.join(os.path.dirname(__file__), fixture_dir, relative_path)
         return os.path.abspath(path)
 
-    def _get_template_path(self, relative_path, template_dir='../templates'):
+    def _get_template_path(self, relative_path, template_dir="../templates"):
         path = os.path.join(os.path.dirname(__file__), template_dir, relative_path)
         return os.path.abspath(path)
 
-    def _get_output_path(self, relative_path, output_dir='../../output'):
+    def _get_output_path(self, relative_path, output_dir="../../output"):
         path = os.path.join(os.path.dirname(__file__), output_dir, relative_path)
         return os.path.abspath(path)
 
@@ -38,19 +38,19 @@ class BaseTestCase(TestCase):
         return content
 
     def _setup_fakefs(self):
-        template_dir = self._get_template_path('')
-        fixture_dir = self._get_fixture_path('')
+        template_dir = self._get_template_path("")
+        fixture_dir = self._get_fixture_path("")
 
         self.setUpPyfakefs()
         self.fs.add_real_directory(template_dir)
         self.fs.add_real_directory(fixture_dir)
 
     def _show_fakefs_contents(self):
-        for file in os.walk('/'):
+        for file in os.walk("/"):
             print(file)
 
     def _mock_response(self, status=200, content="CONTENT", json_data=None, raise_for_status=None):
-        """ Mock Response obj for request library"""
+        """Mock Response obj for request library"""
         mock_resp = Mock()
 
         mock_resp.raise_for_status = Mock()
@@ -61,8 +61,6 @@ class BaseTestCase(TestCase):
         mock_resp.content = content
 
         if json_data:
-            mock_resp.json = Mock(
-                return_value=json_data
-            )
+            mock_resp.json = Mock(return_value=json_data)
 
         return mock_resp

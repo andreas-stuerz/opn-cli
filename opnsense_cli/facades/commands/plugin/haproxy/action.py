@@ -3,17 +3,15 @@ from opnsense_cli.api.plugin.haproxy import Settings, Service
 
 
 class HaproxyActionFacade(HaproxyFacade):
-    jsonpath_base = '$.haproxy.actions.action'
+    jsonpath_base = "$.haproxy.actions.action"
     uuid_resolver_map = {
-        'linkedAcls': {'template': '$.haproxy.acls.acl[{uuids}].name', 'insert_as_key': 'Acls'},
-        'use_backend': {'template': '$.haproxy.backends.backend[{uuids}].name', 'insert_as_key': 'Backend'},
-        'use_server': {'template': '$.haproxy.servers.server[{uuids}].name', 'insert_as_key': 'Server'},
-        'useBackend': {'template': '$.haproxy.backends.backend[{uuids}].name', 'insert_as_key': 'Backends'},
-        'useServer': {'template': '$.haproxy.servers.server[{uuids}].name', 'insert_as_key': 'Servers'},
-        'map_use_backend_file':
-            {'template': '$.haproxy.mapfiles.mapfile[{uuids}].name', 'insert_as_key': 'Mapfile'},
-        'map_use_backend_default':
-            {'template': '$.haproxy.backends.backend[{uuids}].name', 'insert_as_key': 'BackendDefault'},
+        "linkedAcls": {"template": "$.haproxy.acls.acl[{uuids}].name", "insert_as_key": "Acls"},
+        "use_backend": {"template": "$.haproxy.backends.backend[{uuids}].name", "insert_as_key": "Backend"},
+        "use_server": {"template": "$.haproxy.servers.server[{uuids}].name", "insert_as_key": "Server"},
+        "useBackend": {"template": "$.haproxy.backends.backend[{uuids}].name", "insert_as_key": "Backends"},
+        "useServer": {"template": "$.haproxy.servers.server[{uuids}].name", "insert_as_key": "Servers"},
+        "map_use_backend_file": {"template": "$.haproxy.mapfiles.mapfile[{uuids}].name", "insert_as_key": "Mapfile"},
+        "map_use_backend_default": {"template": "$.haproxy.backends.backend[{uuids}].name", "insert_as_key": "BackendDefault"},
     }
 
     def __init__(self, settings_api: Settings, service_api: Service):

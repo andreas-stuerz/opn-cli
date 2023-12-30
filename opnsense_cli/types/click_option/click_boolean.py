@@ -2,7 +2,7 @@ from opnsense_cli.types.click_option.base import ClickOptionCodeFragment
 
 
 class ClickBoolean(ClickOptionCodeFragment):
-    TEMPLATE_CREATE = '''
+    TEMPLATE_CREATE = """
     @click.option(
         '--${name}/--no-${name}',
         help=('${help}'),
@@ -12,8 +12,8 @@ class ClickBoolean(ClickOptionCodeFragment):
         default=${default},
         ${required}
     )
-    '''
-    TEMPLATE_UPDATE = '''
+    """
+    TEMPLATE_UPDATE = """
     @click.option(
         '--${name}/--no-${name}',
         help=('${help}'),
@@ -22,7 +22,7 @@ class ClickBoolean(ClickOptionCodeFragment):
         callback=bool_as_string,
         default=None
     )
-    '''
+    """
 
     @property
     def _default(self):

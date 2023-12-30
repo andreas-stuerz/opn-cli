@@ -3,9 +3,9 @@ from opnsense_cli.api.plugin.haproxy import Settings, Service
 
 
 class HaproxyGroupFacade(HaproxyFacade):
-    jsonpath_base = '$.haproxy.groups.group'
+    jsonpath_base = "$.haproxy.groups.group"
     uuid_resolver_map = {
-        'members': {'template': '$.haproxy.users.user[{uuids}].name', 'insert_as_key': 'Users'},
+        "members": {"template": "$.haproxy.users.user[{uuids}].name", "insert_as_key": "Users"},
     }
 
     def __init__(self, settings_api: Settings, service_api: Service):

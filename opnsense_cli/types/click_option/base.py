@@ -9,12 +9,12 @@ class ClickOptionCodeFragment(ABC):
         self._tag_content = tag
         self._name = tag.name
         self._template = self.TEMPLATE_CREATE
-        self.__help = 'ToDo'
+        self.__help = "ToDo"
 
     @property
     @abstractmethod
     def TEMPLATE_CREATE(self):
-        """ This property should be implemented. """
+        """This property should be implemented."""
 
     def get_code_for_create(self):
         self._template = self.TEMPLATE_CREATE
@@ -23,7 +23,7 @@ class ClickOptionCodeFragment(ABC):
     @property
     @abstractmethod
     def TEMPLATE_UPDATE(self):
-        """ This property should be implemented. """
+        """This property should be implemented."""
 
     def get_code_for_update(self):
         self._template = self.TEMPLATE_UPDATE
@@ -31,7 +31,7 @@ class ClickOptionCodeFragment(ABC):
 
     @abstractmethod
     def _render_template(self):
-        """ This method should be implemented. """
+        """This method should be implemented."""
 
     @property
     def _template(self):
@@ -51,19 +51,19 @@ class ClickOptionCodeFragment(ABC):
 
     @property
     def _required(self):
-        if self._tag_content.find(name='Required', text='Y'):
+        if self._tag_content.find(name="Required", text="Y"):
             return "required=True,"
         return "required=False,"
 
     @property
     def _default(self):
-        if self._tag_content.find(name='default'):
-            return self._tag_content.find(name='default').string
+        if self._tag_content.find(name="default"):
+            return self._tag_content.find(name="default").string
         return None
 
     @property
     def _multiple(self):
-        if self._tag_content.find(name='Multiple', text='Y') or self._tag_content.find(name='multiple', text='Y'):
+        if self._tag_content.find(name="Multiple", text="Y") or self._tag_content.find(name="multiple", text="Y"):
             return True
         return False
 

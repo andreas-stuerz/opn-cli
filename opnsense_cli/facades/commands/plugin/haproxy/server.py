@@ -3,9 +3,9 @@ from opnsense_cli.api.plugin.haproxy import Settings, Service
 
 
 class HaproxyServerFacade(HaproxyFacade):
-    jsonpath_base = '$.haproxy.servers.server'
+    jsonpath_base = "$.haproxy.servers.server"
     uuid_resolver_map = {
-        'linkedResolver': {'template': '$.haproxy.resolvers.resolver[{uuids}].name', 'insert_as_key': 'Resolver'},
+        "linkedResolver": {"template": "$.haproxy.resolvers.resolver[{uuids}].name", "insert_as_key": "Resolver"},
     }
 
     def __init__(self, settings_api: Settings, service_api: Service):

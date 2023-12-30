@@ -20,7 +20,7 @@ class TemplateEngine(ABC):
     @property
     def template(self):
         if not self.__template:
-            raise TemplateEngineException('missing template')
+            raise TemplateEngineException("missing template")
         return self.__template
 
     @template.setter
@@ -30,7 +30,7 @@ class TemplateEngine(ABC):
     @property
     def vars(self):
         if not self.__vars:
-            raise TemplateEngineException('missing template vars')
+            raise TemplateEngineException("missing template vars")
         return self.__vars
 
     @vars.setter
@@ -39,12 +39,12 @@ class TemplateEngine(ABC):
 
     @abstractmethod
     def set_template_from_string(self, template_str: str):
-        """ This method should be implemented. """
+        """This method should be implemented."""
 
     @abstractmethod
     def set_template_from_file(self, file):
-        """ This method should be implemented. """
+        """This method should be implemented."""
 
     @abstractmethod
     def render(self):
-        """ This method should be implemented. """
+        """This method should be implemented."""

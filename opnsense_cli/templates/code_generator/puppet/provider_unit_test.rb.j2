@@ -131,7 +131,7 @@ RSpec.describe Puppet::Provider::{{ provider_class_name }}::{{ provider_class_na
       {{ unit_under_test }}_device_2[0][:device] = 'opnsense2.example.com'
       provider.resource_list = {{ unit_under_test }}_device_2
 
-      provider.update(context, { {{ vars.find_uuid_by_column }}: 'example {{ unit_under_test }}1', device: 'opnsense2.example.com' },
+      provider.update(context, { {{ vars.find_uuid_by_column }}: 'example {{ unit_under_test }} 1', device: 'opnsense2.example.com' },
                       device: 'opnsense2.example.com',
                       {% for line in vars.ruby_hash -%}
                       {{ line }}
@@ -146,7 +146,7 @@ RSpec.describe Puppet::Provider::{{ provider_class_name }}::{{ provider_class_na
       {{ unit_under_test }}_device_2[0][:device] = 'opnsense2.example.com'
       provider.resource_list = {{ unit_under_test }}_device_2
 
-      provider.delete(context, { {{ vars.find_uuid_by_column }}: 'example {{ unit_under_test }}1', device: 'opnsense2.example.com' })
+      provider.delete(context, { {{ vars.find_uuid_by_column }}: 'example {{ unit_under_test }} 1', device: 'opnsense2.example.com' })
     end
   end
 

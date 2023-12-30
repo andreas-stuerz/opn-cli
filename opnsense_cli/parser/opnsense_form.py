@@ -12,23 +12,21 @@ class OpnsenseFormParser(XmlParser):
             if self._skip_field(field):
                 continue
 
-            field_id = field.id.string.split('.')[-1]
+            field_id = field.id.string.split(".")[-1]
             field_help = field.help.string.replace("'", "\\'")
 
-            messages.update({
-                field_id: field_help
-            })
+            messages.update({field_id: field_help})
 
         return messages
 
     def _skip_field(self, field):
-        if field.find(name='type', text='header'):
+        if field.find(name="type", text="header"):
             return True
 
-        if not field.find(name='id'):
+        if not field.find(name="id"):
             return True
 
-        if not field.find(name='help'):
+        if not field.find(name="help"):
             return True
 
         return False

@@ -6,7 +6,7 @@ class Format(ABC):
     def __init__(self, json_data: dict, cols: list, json_type_factory=JsonTypeFactory()):
         self._json_data = json_data
         self._json_type_factory = json_type_factory
-        self._cols = self.get_all_cols() if cols == [''] else cols
+        self._cols = self.get_all_cols() if cols == [""] else cols
 
     def get_all_cols(self):
         json_type = self.get_json_type()
@@ -37,4 +37,4 @@ class Format(ABC):
 
     @abstractmethod
     def echo(self):
-        """ This method should be implemented. """
+        """This method should be implemented."""

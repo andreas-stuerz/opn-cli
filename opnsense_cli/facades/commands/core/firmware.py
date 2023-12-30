@@ -15,11 +15,11 @@ class FirmwareFacade(CommandFacade):
 
     def plugin_installed(self):
         all_plugins = self._list_plugins()
-        installed_plugins = [plugin for plugin in all_plugins if plugin['installed'] == "1"]
+        installed_plugins = [plugin for plugin in all_plugins if plugin["installed"] == "1"]
         return installed_plugins
 
     def _list_plugins(self):
-        return self._firmware_api.info()['plugin']
+        return self._firmware_api.info()["plugin"]
 
     def plugin_show(self, name):
         return self._firmware_api.details(name)
@@ -48,23 +48,23 @@ class FirmwareFacade(CommandFacade):
         while True:
             log = self._firmware_api.upgradestatus()
             self._upgrade_status_error_handling(log)
-            if log['status'] != 'running':
+            if log["status"] != "running":
                 return log
             time.sleep(self._query_upgrade_status_interval)
 
     def _upgrade_status_error_handling(self, log):
-        if 'No packages available to install' in log['log']:
-            log['status'] = 'error'
+        if "No packages available to install" in log["log"]:
+            log["status"] = "error"
             raise CommandException(log)
 
-        if 'No packages matched for pattern' in log['log']:
-            log['status'] = 'not found'
+        if "No packages matched for pattern" in log["log"]:
+            log["status"] = "not found"
 
-        if 'is not installed' in log['log']:
-            log['status'] = 'not found'
+        if "is not installed" in log["log"]:
+            log["status"] = "not found"
 
-        if '***GOT REQUEST TO LOCK***\n***DONE***' in log['log']:
-            log['status'] = 'not found'
+        if "***GOT REQUEST TO LOCK***\n***DONE***" in log["log"]:
+            log["status"] = "not found"
 
-        if '***GOT REQUEST TO UNLOCK***\n***DONE***' in log['log']:
-            log['status'] = 'not found'
+        if "***GOT REQUEST TO UNLOCK***\n***DONE***" in log["log"]:
+            log["status"] = "not found"

@@ -100,7 +100,9 @@ pip install opn-cli
    
 ## Usage
 
-Each command and subcommand support the `-h` or `--help option to show help for the current command.
+Each command and subcommand support the `-h` or `--help` option to show help for the current command.
+
+The config basedir is `~/.opn-cli/`. If the environment variable `XDG_CONFIG_HOME` is set, `~/.config/opn-cli` will be used instead.
 
 ```
 $ opn-cli --help
@@ -113,39 +115,42 @@ Usage: opn-cli [OPTIONS] COMMAND [ARGS]...
 
   You need a valid API key and secret to interact with the API. Open your
   browser and go to System->Access->Users and generate or use an existing
-  Api Key. 
-  
+  Api Key.
+
   See: https://docs.opnsense.org/development/how-tos/api.html#creating-keys.
 
   SSL verify / CA:
 
   If you use ssl verification (--ssl-verify), make sure to specify a valid
-  ca with --ca <path_to_bundle>.
+  ca or cert with --ca <path_to_bundle>.
 
-  To download the default self-signed cert, open the OPNsense Web Gui and go to 
-  System->Trust->Certificates. Search for the Name: "Web GUI SSL certificate" and 
-  press the "export user cert" button. 
-  
-  If you use a ca signed certificate, go to System->Trust->Authorities and 
+  To download the default self-signed cert, open the OPNsense Web Gui and go to
+  System->Trust->Certificates. Search for the Name: "Web GUI SSL certificate" and
+  press the "export user cert" button.
+
+  If you use a ca signed certificate, go to System->Trust->Authorities and
   press the "export CA cert" button to download the ca.
 
-  Save the cert or the ca as ~/.opn-cli/ca.pem.
+  Save the ca and pass the path to the --ca option.
 
   Configuration:
+
+  The base directory for the config is ~/.opn-cli.
+
+  If the environment variable XDG_CONFIG_HOME is set, ~/.config/opn-cli will be used instead.
 
   You can set the required options as environment variables. See --help
   "[env var: [...]"
 
   Or use a config file passed with -c option.
 
-  The configuration cascade from highest precedence to lowest:
+  The configuration cascade from the highest precedence to lowest:
 
   1. argument & options
 
   2. environment variables
 
   3. config file
-
 
   Happy automating!
 

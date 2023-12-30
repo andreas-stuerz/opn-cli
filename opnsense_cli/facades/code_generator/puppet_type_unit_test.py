@@ -6,15 +6,15 @@ from opnsense_cli.factories.base import ObjectTypeFromDataFactory
 
 class PuppetTypeUnitTestCodeGenerator(PuppetCodeGenerator):
     def __init__(
-            self,
-            template_engine: TemplateEngine,
-            type_factory: ObjectTypeFromDataFactory,
-            template,
-            group,
-            command,
-            find_uuid_by_column,
-            create_command_params,
-            update_command_params,
+        self,
+        template_engine: TemplateEngine,
+        type_factory: ObjectTypeFromDataFactory,
+        template,
+        group,
+        command,
+        find_uuid_by_column,
+        create_command_params,
+        update_command_params,
     ):
         super().__init__(create_command_params, type_factory, find_uuid_by_column, group, command)
         self._template_engine = template_engine
@@ -29,6 +29,6 @@ class PuppetTypeUnitTestCodeGenerator(PuppetCodeGenerator):
             click_command=self._click_command,
             click_group=self._click_group,
             find_uuid_by_column=self._find_uuid_by_column,
-            new_resource=self._get_code_fragment('TEMPLATE_TYPE_UNIT_TEST_new_resource'),
-            accepts_parameter=self._get_code_fragment('TEMPLATE_TYPE_UNIT_TEST_accepts_parameter'),
+            new_resource=self._get_code_fragment("TEMPLATE_TYPE_UNIT_TEST_new_resource"),
+            accepts_parameter=self._get_code_fragment("TEMPLATE_TYPE_UNIT_TEST_accepts_parameter"),
         )

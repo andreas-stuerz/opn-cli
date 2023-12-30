@@ -3,9 +3,8 @@ from opnsense_cli.api.plugin.haproxy import Settings, Service
 
 
 class HaproxyMailerFacade(HaproxyFacade):
-    jsonpath_base = '$.haproxy.mailers.mailer'
-    uuid_resolver_map = {
-    }
+    jsonpath_base = "$.haproxy.mailers.mailer"
+    uuid_resolver_map = {}
 
     def __init__(self, settings_api: Settings, service_api: Service):
         super().__init__()

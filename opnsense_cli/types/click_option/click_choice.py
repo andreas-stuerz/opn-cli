@@ -2,7 +2,7 @@ from opnsense_cli.types.click_option.base import ClickOptionCodeFragment
 
 
 class ClickChoice(ClickOptionCodeFragment):
-    TEMPLATE_CREATE = '''
+    TEMPLATE_CREATE = """
     @click.option(
         '--${name}',
         help=('${help}'),
@@ -13,8 +13,8 @@ class ClickChoice(ClickOptionCodeFragment):
         default=${default},
         ${required}
     )
-    '''
-    TEMPLATE_UPDATE = '''
+    """
+    TEMPLATE_UPDATE = """
     @click.option(
         '--${name}',
         help=('${help}'),
@@ -24,7 +24,7 @@ class ClickChoice(ClickOptionCodeFragment):
         show_default=True,
         default=None
     )
-    '''
+    """
 
     @property
     def _default(self):
@@ -48,11 +48,11 @@ class ClickChoice(ClickOptionCodeFragment):
 
     @property
     def _choices(self):
-        options = self._tag_content.find('OptionValues').findChildren(recursive=False)
+        options = self._tag_content.find("OptionValues").findChildren(recursive=False)
         choices = [option.name for option in options]
 
         if "False" in self._required:
-            choices.insert(0, '')
+            choices.insert(0, "")
 
         return repr(choices)
 

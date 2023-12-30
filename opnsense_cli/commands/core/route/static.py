@@ -1,7 +1,6 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import \
-    formatter_from_formatter_name, bool_as_string, available_formats
+from opnsense_cli.callbacks.click import formatter_from_formatter_name, bool_as_string, available_formats
 from opnsense_cli.commands.core.route import route
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core.routes import Routes, Gateway
@@ -25,19 +24,19 @@ def static(ctx, api_client: ApiClient, **kwargs):
 
 @static.command()
 @click.option(
-    '--output', '-o',
-    help='Specifies the Output format.',
+    "--output",
+    "-o",
+    help="Specifies the Output format.",
     default="table",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
-    '--cols', '-c',
-    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
-    default=(
-        "uuid,network,gateway,descr,disabled"
-    ),
+    "--cols",
+    "-c",
+    help="Which columns should be printed? Pass empty string (-c " ") to show all columns",
+    default=("uuid,network,gateway,descr,disabled"),
     show_default=True,
 )
 @pass_routes_static_svc
@@ -47,25 +46,25 @@ def list(routes_static_svc: RoutesStaticFacade, **kwargs):
     """
     result = routes_static_svc.list_statics()
 
-    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs["output"], kwargs["cols"].split(",")).echo()
 
 
 @static.command()
-@click.argument('uuid')
+@click.argument("uuid")
 @click.option(
-    '--output', '-o',
-    help='Specifies the Output format.',
+    "--output",
+    "-o",
+    help="Specifies the Output format.",
     default="table",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
-    '--cols', '-c',
-    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
-    default=(
-        "network,gateway,descr,disabled"
-    ),
+    "--cols",
+    "-c",
+    help="Which columns should be printed? Pass empty string (-c " ") to show all columns",
+    default=("network,gateway,descr,disabled"),
     show_default=True,
 )
 @pass_routes_static_svc
@@ -73,38 +72,38 @@ def show(routes_static_svc: RoutesStaticFacade, **kwargs):
     """
     Show details for a static route
     """
-    result = routes_static_svc.show_static(kwargs['uuid'])
+    result = routes_static_svc.show_static(kwargs["uuid"])
 
-    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs["output"], kwargs["cols"].split(",")).echo()
 
 
 @static.command()
 @click.option(
-    '--network',
-    help=('Destination network for this static route'),
+    "--network",
+    help=("Destination network for this static route"),
     show_default=True,
     default=None,
     required=True,
 )
 @click.option(
-    '--gateway',
+    "--gateway",
     help=(
-        'Choose which gateway this route applies to eg. Null4 for 127.0.01, Null6 for ::1 or see opn-cli route gateway status.'
+        "Choose which gateway this route applies to eg. Null4 for 127.0.01, Null6 for ::1 or see opn-cli route gateway status."
     ),
     show_default=True,
     default=None,
     required=True,
 )
 @click.option(
-    '--descr',
-    help=('You may enter a description here for your reference (not parsed).'),
+    "--descr",
+    help=("You may enter a description here for your reference (not parsed)."),
     show_default=True,
     default=None,
     required=False,
 )
 @click.option(
-    '--disabled/--no-disabled',
-    help=('Set this option to disable this static route without removing it from the list.'),
+    "--disabled/--no-disabled",
+    help=("Set this option to disable this static route without removing it from the list."),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
@@ -112,16 +111,18 @@ def show(routes_static_svc: RoutesStaticFacade, **kwargs):
     required=True,
 )
 @click.option(
-    '--output', '-o',
-    help='Specifies the Output format.',
+    "--output",
+    "-o",
+    help="Specifies the Output format.",
     default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
-    '--cols', '-c',
-    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
+    "--cols",
+    "-c",
+    help="Which columns should be printed? Pass empty string (-c " ") to show all columns",
     default="result,validations",
     show_default=True,
 )
@@ -131,60 +132,54 @@ def create(routes_static_svc: RoutesStaticFacade, **kwargs):
     Create a new static route
     """
     json_payload = {
-        'route': {
-            "network": kwargs['network'],
-            "gateway": kwargs['gateway'],
-            "descr": kwargs['descr'],
-            "disabled": kwargs['disabled'],
+        "route": {
+            "network": kwargs["network"],
+            "gateway": kwargs["gateway"],
+            "descr": kwargs["descr"],
+            "disabled": kwargs["disabled"],
         }
     }
 
     result = routes_static_svc.create_static(json_payload)
 
-    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs["output"], kwargs["cols"].split(",")).echo()
 
 
 @static.command()
-@click.argument('uuid')
+@click.argument("uuid")
+@click.option("--network", help=("Destination network for this static route"), show_default=True, default=None)
 @click.option(
-    '--network',
-    help=('Destination network for this static route'),
-    show_default=True,
-    default=None
-)
-@click.option(
-    '--gateway',
+    "--gateway",
     help=(
-        'Choose which gateway this route applies to eg. Null4 for 127.0.01, Null6 for ::1 or see opn-cli route gateway status.'
+        "Choose which gateway this route applies to eg. Null4 for 127.0.01, Null6 for ::1 or see opn-cli route gateway status."
     ),
     show_default=True,
-    default=None
+    default=None,
 )
 @click.option(
-    '--descr',
-    help=('You may enter a description here for your reference (not parsed).'),
-    show_default=True,
-    default=None
+    "--descr", help=("You may enter a description here for your reference (not parsed)."), show_default=True, default=None
 )
 @click.option(
-    '--disabled/--no-disabled',
-    help=('Set this option to disable this static route without removing it from the list.'),
+    "--disabled/--no-disabled",
+    help=("Set this option to disable this static route without removing it from the list."),
     show_default=True,
     is_flag=True,
     callback=bool_as_string,
-    default=None
+    default=None,
 )
 @click.option(
-    '--output', '-o',
-    help='Specifies the Output format.',
+    "--output",
+    "-o",
+    help="Specifies the Output format.",
     default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
-    '--cols', '-c',
-    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
+    "--cols",
+    "-c",
+    help="Which columns should be printed? Pass empty string (-c " ") to show all columns",
     default="result,validations",
     show_default=True,
 )
@@ -193,32 +188,32 @@ def update(routes_static_svc: RoutesStaticFacade, **kwargs):
     """
     Update a static route
     """
-    json_payload = {
-        'route': {}
-    }
-    options = ['network', 'gateway', 'descr', 'disabled']
+    json_payload = {"route": {}}
+    options = ["network", "gateway", "descr", "disabled"]
     for option in options:
         if kwargs[option.lower()] is not None:
-            json_payload['route'][option] = kwargs[option.lower()]
+            json_payload["route"][option] = kwargs[option.lower()]
 
-    result = routes_static_svc.update_static(kwargs['uuid'], json_payload)
+    result = routes_static_svc.update_static(kwargs["uuid"], json_payload)
 
-    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs["output"], kwargs["cols"].split(",")).echo()
 
 
 @static.command()
-@click.argument('uuid')
+@click.argument("uuid")
 @click.option(
-    '--output', '-o',
-    help='Specifies the Output format.',
+    "--output",
+    "-o",
+    help="Specifies the Output format.",
     default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
-    '--cols', '-c',
-    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
+    "--cols",
+    "-c",
+    help="Which columns should be printed? Pass empty string (-c " ") to show all columns",
     default="result,validations",
     show_default=True,
 )
@@ -227,6 +222,6 @@ def delete(routes_static_svc: RoutesStaticFacade, **kwargs):
     """
     Delete static route
     """
-    result = routes_static_svc.delete_static(kwargs['uuid'])
+    result = routes_static_svc.delete_static(kwargs["uuid"])
 
-    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    CliOutputFormatter(result, kwargs["output"], kwargs["cols"].split(",")).echo()

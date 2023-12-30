@@ -13,9 +13,7 @@ class JsonObjNested(JsonType):
         result = []
         for item in json_data:
             line = {}
-            line.update({
-                '<ID>': item
-            })
+            line.update({"<ID>": item})
             line.update(json_data[item])
             result.append(line)
         return result

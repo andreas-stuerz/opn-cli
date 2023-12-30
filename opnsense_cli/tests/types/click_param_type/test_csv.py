@@ -7,11 +7,7 @@ from opnsense_cli.types.click_param_type.csv import CSV
 class TestClickParamTypeCsv(unittest.TestCase):
     def setUp(self):
         @click.command()
-        @click.option(
-            "--csv",
-            type=CSV,
-            help="a String with comma separated values."
-        )
+        @click.option("--csv", type=CSV, help="a String with comma separated values.")
         def cvs(csv):
             click.echo(f"csv={csv}")
 
@@ -19,7 +15,7 @@ class TestClickParamTypeCsv(unittest.TestCase):
 
     def test_csv_returns_csv(self):
         runner = CliRunner()
-        result = runner.invoke(self._cli_cvs, ['--csv', 'a,b,c'])
+        result = runner.invoke(self._cli_cvs, ["--csv", "a,b,c"])
         print(result.output)
         self.assertEqual(result.output, "csv=a,b,c\n")
 

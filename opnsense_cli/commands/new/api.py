@@ -15,33 +15,35 @@ def api(**kwargs):
 
 
 @api.command()
-@click.argument('plugin_module_name', required=True)
+@click.argument("plugin_module_name", required=True)
 @click.option(
-    '--api-reference-url', '-aru',
-    help=(
-        'The url to the api reference in the official Opnsense documentation'
-    ),
+    "--api-reference-url",
+    "-aru",
+    help=("The url to the api reference in the official Opnsense documentation"),
     show_default=True,
-    default='https://github.com/opnsense/docs/tree/master/source/development/api/plugins',
-    required=True
+    default="https://github.com/opnsense/docs/tree/master/source/development/api/plugins",
+    required=True,
 )
 @click.option(
-    '--api-template-basedir', '-atb',
-    help='The template basedir path',
+    "--api-template-basedir",
+    "-atb",
+    help="The template basedir path",
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), '../../templates')
+    default=os.path.join(os.path.dirname(__file__), "../../templates"),
 )
 @click.option(
-    '--template-api', '-ta',
-    help='The template for the api relative to the template basedir.',
+    "--template-api",
+    "-ta",
+    help="The template for the api relative to the template basedir.",
     show_default=True,
-    default='code_generator/api/api.py.j2'
+    default="code_generator/api/api.py.j2",
 )
 @click.option(
-    '--api-output-dir', '-aod',
-    help='The output directory for the generated command',
+    "--api-output-dir",
+    "-aod",
+    help="The output directory for the generated command",
     show_default=True,
-    default=os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../output/api/plugins')),
+    default=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../output/api/plugins")),
 )
 def plugin(**kwargs):
     """
@@ -59,37 +61,39 @@ def plugin(**kwargs):
     Default output path is opn-cli/opnsense_cli/output/api/plugins/
 
     """
-    generate_api_files(kwargs['plugin_module_name'], **kwargs)
+    generate_api_files(kwargs["plugin_module_name"], **kwargs)
 
 
 @api.command()
-@click.argument('core_module_name', required=True)
+@click.argument("core_module_name", required=True)
 @click.option(
-    '--api-reference-url', '-aru',
-    help=(
-        'The url to the core module api reference in the official Opnsense documentation.'
-    ),
+    "--api-reference-url",
+    "-aru",
+    help=("The url to the core module api reference in the official Opnsense documentation."),
     show_default=True,
-    default='https://github.com/opnsense/docs/tree/master/source/development/api/core',
-    required=True
+    default="https://github.com/opnsense/docs/tree/master/source/development/api/core",
+    required=True,
 )
 @click.option(
-    '--api-template-basedir', '-atb',
-    help='The template basedir path',
+    "--api-template-basedir",
+    "-atb",
+    help="The template basedir path",
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), '../../../opnsense_cli/templates')
+    default=os.path.join(os.path.dirname(__file__), "../../../opnsense_cli/templates"),
 )
 @click.option(
-    '--template-api', '-ta',
-    help='The template for the api relative to the template basedir.',
+    "--template-api",
+    "-ta",
+    help="The template for the api relative to the template basedir.",
     show_default=True,
-    default='code_generator/api/api.py.j2'
+    default="code_generator/api/api.py.j2",
 )
 @click.option(
-    '--api-output-dir', '-aod',
-    help='The output directory for the generated command',
+    "--api-output-dir",
+    "-aod",
+    help="The output directory for the generated command",
     show_default=True,
-    default=os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../output/api/core')),
+    default=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../output/api/core")),
 )
 def core(**kwargs):
     """
@@ -107,26 +111,24 @@ def core(**kwargs):
     Default output path is opn-cli/opnsense_cli/output/api/core/
 
     """
-    generate_api_files(kwargs['core_module_name'], **kwargs)
+    generate_api_files(kwargs["core_module_name"], **kwargs)
 
 
 @api.command()
 @click.option(
-    '--base-url', '-bu',
-    help=(
-        'The url to the api reference in the official Opnsense documentation.'
-    ),
+    "--base-url",
+    "-bu",
+    help=("The url to the api reference in the official Opnsense documentation."),
     show_default=True,
-    default='https://github.com/opnsense/docs/tree/master/source/development/api/',
-    required=True
+    default="https://github.com/opnsense/docs/tree/master/source/development/api/",
+    required=True,
 )
 @click.option(
-    '--module-type', '-mt',
-    help=(
-        'The url to the api reference in the official Opnsense documentation.'
-    ),
-    type=click.Choice(['core', 'plugin'], case_sensitive=True),
-    required=True
+    "--module-type",
+    "-mt",
+    help=("The url to the api reference in the official Opnsense documentation."),
+    type=click.Choice(["core", "plugin"], case_sensitive=True),
+    required=True,
 )
 def list(**kwargs):
     """
@@ -138,28 +140,25 @@ def list(**kwargs):
     $ opn-cli new api list --module-type plugin
 
     """
-    list_modules(kwargs['module_type'], kwargs['base_url'])
+    list_modules(kwargs["module_type"], kwargs["base_url"])
 
 
 def generate_api_files(module_name, **kwargs):
     controller_parser = OpnsenseApiReferenceParser(
-        kwargs['api_reference_url'],
+        kwargs["api_reference_url"],
         "table",
         module_name,
-        )
+    )
     controller_html_tables = controller_parser.parse()
-    template_engine = Jinja2TemplateEngine(kwargs['api_template_basedir'])
+    template_engine = Jinja2TemplateEngine(kwargs["api_template_basedir"])
     write_api(template_engine, controller_html_tables, module_name, **kwargs)
 
 
 def write_api(template_engine, controllers, module_name, **kwargs):
     api_code_generator = ApiCodeGenerator(
-        template_engine=template_engine,
-        template=kwargs['template_api'],
-        controllers=controllers,
-        module_name=module_name
-        )
-    click.echo(api_code_generator.write_code(kwargs['api_output_dir']))
+        template_engine=template_engine, template=kwargs["template_api"], controllers=controllers, module_name=module_name
+    )
+    click.echo(api_code_generator.write_code(kwargs["api_output_dir"]))
 
 
 def list_modules(type, url):

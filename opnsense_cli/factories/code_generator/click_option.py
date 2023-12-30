@@ -11,20 +11,20 @@ from opnsense_cli.types.click_option.click_text_linked_item import ClickTextLink
 
 class ClickOptionCodeTypeFactory(ObjectTypeFromDataFactory):
     _keymap = {
-        'BooleanField': ClickBoolean,
-        'TextField': ClickText,
-        'IntegerField': ClickInteger,
-        'OptionField': ClickChoice,
-        'ModelRelationField': ClickTextLinkedItem,
-        'CertificateField': ClickText,
-        'CSVListField': ClickText,
-        'EmailField': ClickText,
-        'HostnameField': ClickText,
-        'NetworkField': ClickText,
-        'PortField': ClickText,
-        'JsonKeyValueStoreField': ClickText,
-        '.\\UnboundDomainField': ClickText,
-        '.\\UnboundServerField': ClickText,
+        "BooleanField": ClickBoolean,
+        "TextField": ClickText,
+        "IntegerField": ClickInteger,
+        "OptionField": ClickChoice,
+        "ModelRelationField": ClickTextLinkedItem,
+        "CertificateField": ClickText,
+        "CSVListField": ClickText,
+        "EmailField": ClickText,
+        "HostnameField": ClickText,
+        "NetworkField": ClickText,
+        "PortField": ClickText,
+        "JsonKeyValueStoreField": ClickText,
+        ".\\UnboundDomainField": ClickText,
+        ".\\UnboundServerField": ClickText,
     }
 
     def _get_class(self, key) -> ClickOptionCodeFragment:
@@ -35,7 +35,7 @@ class ClickOptionCodeTypeFactory(ObjectTypeFromDataFactory):
         return click_option_class
 
     def get_type_for_data(self, tag: Tag) -> ClickOptionCodeFragment:
-        field_type = tag.attrs.get('type', None)
+        field_type = tag.attrs.get("type", None)
         click_option_type_class = self._get_class(field_type)
 
         return click_option_type_class(tag)

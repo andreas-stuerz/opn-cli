@@ -1,7 +1,6 @@
 import click
 from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import \
-    formatter_from_formatter_name, expand_path, available_formats
+from opnsense_cli.callbacks.click import formatter_from_formatter_name, expand_path, available_formats
 from opnsense_cli.commands.plugin.apibackup import apibackup
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.apibackup import Backup
@@ -24,10 +23,11 @@ def backup(ctx, api_client: ApiClient, **kwargs):
 
 @backup.command()
 @click.option(
-    '-p', '--path',
-    help='The target path.',
+    "-p",
+    "--path",
+    help="The target path.",
     type=click.Path(dir_okay=False),
-    default='./config.xml',
+    default="./config.xml",
     is_eager=True,
     show_default=True,
     callback=expand_path,
@@ -35,16 +35,18 @@ def backup(ctx, api_client: ApiClient, **kwargs):
     required=True,
 )
 @click.option(
-    '--output', '-o',
-    help='Specifies the Output format.',
+    "--output",
+    "-o",
+    help="Specifies the Output format.",
     default="plain",
     type=click.Choice(available_formats()),
     callback=formatter_from_formatter_name,
     show_default=True,
 )
 @click.option(
-    '--cols', '-c',
-    help='Which columns should be printed? Pass empty string (-c '') to show all columns',
+    "--cols",
+    "-c",
+    help="Which columns should be printed? Pass empty string (-c " ") to show all columns",
     default="status",
     show_default=True,
 )
@@ -53,5 +55,5 @@ def download(apibackup_backup_svc: ApibackupBackupFacade, **kwargs):
     """
     Download config.xml from OPNsense.
     """
-    result = apibackup_backup_svc.download_backup(kwargs['path'])
-    CliOutputFormatter(result, kwargs['output'], kwargs['cols'].split(",")).echo()
+    result = apibackup_backup_svc.download_backup(kwargs["path"])
+    CliOutputFormatter(result, kwargs["output"], kwargs["cols"].split(",")).echo()
