@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
-ARGS="opnsense_cli"
 MODULE=${1:-opnsense_cli}
 MIN_COVERAGE=${2:-100}
 if [ -n "$1" ]; then
   MODULE=$(printf ' %q' "$@")
 fi
-ls -la
-ls -la .coveragerc
+
 pytest --exitfirst --verbose --failed-first --cov=${MODULE} --cov-report term-missing --cov-config=.coveragerc --cov-fail-under=${MIN_COVERAGE} ${MODULE} --verbosity=5
