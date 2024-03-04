@@ -105,6 +105,10 @@ class CommandFacade(ABC):
         with open(path, "wb") as zipFile:
             zipFile.write(content)
 
+    def _write_xml_string_to_file(self, path, xml_content):
+        with open(path, "w") as xmlFile:
+            xmlFile.write(xml_content)
+
     def resolve_linked_uuids(self, resolve_map, resolve_items):
         uuids = [item for item in resolve_items.split(",") if self.is_uuid(item)]
         names = [item for item in resolve_items.split(",") if not self.is_uuid(item)]

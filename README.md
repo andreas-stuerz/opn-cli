@@ -10,31 +10,31 @@
 opn-cli - the OPNsense CLI written in python.
 
 - [opn-cli](#opn-cli)
-  * [Install](#install)
-  * [Configure](#configure)
-  * [Usage](#usage)
-  * [docker usage](#docker-usage)
-  * [Features](#features)
-    + [Shell Completion](#shell-completion)
-    + [Output formats](#output-formats)
+  - [Install](#install)
+  - [Configure](#configure)
+  - [Usage](#usage)
+  - [docker usage](#docker-usage)
+  - [Features](#features)
+    - [Shell Completion](#shell-completion)
+    - [Output formats](#output-formats)
       - [cols](#cols)
       - [table](#table)
       - [json](#json)
-      - [json_filter](#json-filter)
+      - [json\_filter](#json_filter)
       - [plain](#plain)
       - [yaml](#yaml)
-    + [Code Generator](#code-generator)
+    - [Code Generator](#code-generator)
       - [API code core](#api-code-core)
       - [API code plugin](#api-code-plugin)
       - [Core command code](#core-command-code)
       - [Plugin command code](#plugin-command-code)
       - [Puppet custom resource type](#puppet-custom-resource-type)
-    + [Resolving of names to uuids](#resolving-of-names-to-uuids)
-  * [Commands](#commands)
-    + [Firewall](#firewall)
+    - [Resolving of names to uuids](#resolving-of-names-to-uuids)
+  - [Commands](#commands)
+    - [Firewall](#firewall)
       - [Aliases](#aliases)
       - [Rules](#rules)
-    + [Haproxy](#haproxy)
+    - [Haproxy](#haproxy)
       - [Acl](#acl)
       - [Action](#action)
       - [Backend](#backend)
@@ -48,30 +48,32 @@ opn-cli - the OPNsense CLI written in python.
       - [Resolver](#resolver)
       - [Server](#server)
       - [User](#user)
-    + [Ipsec](#ipsec)
+    - [Ipsec](#ipsec)
       - [Tunnel phase1](#tunnel-phase1)
       - [Tunnel phase2](#tunnel-phase2)
-    + [Routes](#routes)
+    - [Routes](#routes)
       - [Static routes](#static-routes)
       - [Gateway](#gateway)
-    + [Nodeexporter](#nodeexporter)
+    - [Nodeexporter](#nodeexporter)
       - [Config](#config-1)
-    + [Syslog](#syslog)
+    - [Syslog](#syslog)
       - [Syslog destination](#syslog-destination)
       - [Syslog stats](#syslog-stats)
-    + [OpenVPN](#openvpn)
-    + [Plugins](#plugins)
-    + [Unbound](#unbound)
+    - [OpenVPN](#openvpn)
+    - [Plugins](#plugins)
+    - [Unbound](#unbound)
       - [host overrides](#host-overrides)
       - [host alias overrides](#host-alias-overrides)
       - [domain overrides](#domain-overrides)
       - [Examples](#examples)
-    + [Apibackup](#apibackup)
-      - [Examples](#examples)
-  * [Development](#development)
-    + [Setup development environment](#setup-development-environment)
-    + [Testing](#testing)
-    + [Contributing](#contributing)
+    - [Apibackup](#apibackup)
+      - [Examples](#examples-1)
+    - [Configbackup](#configbackup)
+      - [Examples](#examples-2)
+  - [Development](#development)
+    - [Setup development environment](#setup-development-environment)
+    - [Testing](#testing)
+    - [Contributing](#contributing)
 
 ## Install
 ```
@@ -1038,6 +1040,8 @@ opn-cli unbound domain create --domain rockin.com --server 192.168.56.3
 
 ### Apibackup
 This feature needs the opnsense plugin os-api-backup.
+This plugin was deprecated with the OPNsense 24.1 release.
+So if you are running OPNsense 24.1 or higher use the [Configbackup](###configbackup) command.
 
 ```
 $ opn-cli plugin install os-api-backup
@@ -1056,6 +1060,28 @@ Or specify a path and filename:
 
 ```
 $ opn-cli apibackup backup download -p /tmp/config_backup.xml
+successfully saved to: /tmp/config_backup.xml
+```
+
+### Configbackup
+The plugin "os-api-backup" was discontinued in OPNsense Version 24.1, because the core API provides the same functionality.
+This command provides the exact same functionality than [Apibackup](###apibackup) but uses the OPNsense Core API-Endpoint.
+So if you are running a OPNsense Instance version 24.1 or higher use this command for configuration backups instead of "apibackup".
+
+
+#### Examples
+
+Download a backup of the OPNsense system configuration to the current directory:
+
+```
+$ opn-cli configbackup backup download
+successfully saved to: ./config.xml
+```
+
+Or specify a path and filename:
+
+```
+$ opn-cli configbackup backup download -p /tmp/config_backup.xml
 successfully saved to: /tmp/config_backup.xml
 ```
 

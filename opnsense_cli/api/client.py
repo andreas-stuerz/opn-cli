@@ -25,8 +25,12 @@ class ApiClient(object):
         return self._ssl_verify_cert
 
     def _process_response(self, response):
+        content_type = response.headers["Content-Type"]
         if response.status_code in HTTP_SUCCESS:
-            return json.loads(response.text)
+            if "application/json" in content_type:
+                return json.loads(response.text)
+            else:
+                return response.text
         else:
             raise APIException(response=response.status_code, resp_body=response.text, url=response.url)
 
