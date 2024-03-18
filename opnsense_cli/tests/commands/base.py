@@ -17,8 +17,7 @@ class CommandTestCase(BaseTestCase):
         :param catch_exceptions: Whether exceptions should be caught.
         :return: click.testing.Result
         """
-        #                 {'content-type': 'application/xml; charset=UTF-8'},
-        #                 {'content-type': 'application/json; charset=UTF-8'},
+        api_mock.return_value.headers = {"content-type": "application/octet-stream"}
         api_mock.side_effect = api_return_values
         client_args = self._api_client_args_fixtures
         client = ApiClient(*client_args)

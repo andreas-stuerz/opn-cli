@@ -26,9 +26,17 @@ class ApiClient(object):
 
     def _process_response(self, response):
         if response.status_code in HTTP_SUCCESS:
-            return json.loads(response.text)
+            return self._parse_response(response)
         else:
             raise APIException(response=response.status_code, resp_body=response.text, url=response.url)
+
+    def _parse_response(self, response):
+        content_type = response.headers.get("content-type").split(";")[0]
+
+        if content_type == "application/json":
+            return json.loads(response.text)
+
+        return response.text
 
     def _get_endpoint_url(self, *args, **kwargs):
         endpoint = f"{kwargs['module']}/{kwargs['controller']}/{kwargs['command']}".lower()
