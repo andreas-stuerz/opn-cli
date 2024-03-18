@@ -11,6 +11,7 @@ class TestApiClient(TestCase):
     def test_execute_get_success(self, request_mock):
         api_response_fixture = {"product_id": "opnsense"}
         request_mock.return_value.status_code = 200
+        request_mock.return_value.headers = {"content-type": "application/json; charset=UTF-8"}
         request_mock.return_value.text = json.dumps(api_response_fixture)
 
         client_args = ["api_key", "api_secret", "https://127.0.0.1/api", True, "~/.opn-cli/ca.pem", 60]
@@ -27,6 +28,37 @@ class TestApiClient(TestCase):
 
         request_mock.assert_called_once_with(
             "https://127.0.0.1/api/core/firmware/info", verify="~/.opn-cli/ca.pem", auth=("api_key", "api_secret"), timeout=60
+        )
+        self.assertEqual(api_response_fixture, result)
+
+    @patch("opnsense_cli.api.client.requests.get")
+    def test_execute_content_types(self, request_mock):
+        api_response_fixture = """
+        <?xml version="1.0"?>
+        <opnsense>
+        </opnsense>
+        """
+        request_mock.return_value.status_code = 200
+        request_mock.return_value.headers = {"content-type": "application/octet-stream"}
+        request_mock.return_value.text = api_response_fixture
+
+        client_args = ["api_key", "api_secret", "https://127.0.0.1/api", True, "~/.opn-cli/ca.pem", 60]
+        api_config = {
+            "module": "Core",
+            "controller": "backup",
+            "method": "get",
+            "command": "download",
+        }
+        api_parameters = []
+
+        client = ApiClient(*client_args)
+        result = client.execute(*api_parameters, **api_config)
+
+        request_mock.assert_called_once_with(
+            "https://127.0.0.1/api/core/backup/download",
+            verify="~/.opn-cli/ca.pem",
+            auth=("api_key", "api_secret"),
+            timeout=60,
         )
         self.assertEqual(api_response_fixture, result)
 
@@ -60,6 +92,7 @@ class TestApiClient(TestCase):
     @patch("opnsense_cli.api.client.requests.post")
     def test_execute_post_json_success(self, request_mock):
         api_response_fixture = [{"status": "ok", "msg_uuid": "8a0a415a-dbee-410d-be9f-01b90d71ff7c"}]
+        request_mock.return_value.headers = {"content-type": "application/json; charset=UTF-8"}
         request_mock.return_value.status_code = 200
         request_mock.return_value.text = json.dumps(api_response_fixture)
 
