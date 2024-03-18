@@ -3,7 +3,7 @@ import json
 from unittest import TestCase
 from unittest.mock import patch
 from opnsense_cli.api.client import ApiClient
-from opnsense_cli.exceptions.api import APIException
+from opnsense_cli.api.exceptions import APIException
 
 
 class TestApiClient(TestCase):

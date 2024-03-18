@@ -1,6 +1,6 @@
 import requests
 from urllib3.exceptions import InsecureRequestWarning
-from opnsense_cli.exceptions.api import APIException
+from opnsense_cli.api.exceptions import APIException
 import json
 
 # Suppress only the single warning from urllib3 needed.
