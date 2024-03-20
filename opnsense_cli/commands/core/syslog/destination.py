@@ -1,6 +1,6 @@
 import click
-from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import formatter_from_formatter_name, bool_as_string, available_formats, tuple_to_csv
+from opnsense_cli.formatters.cli_output.cli_output_formatter import CliOutputFormatter
+from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, bool_as_string, available_formats, tuple_to_csv
 from opnsense_cli.commands.core.syslog import syslog
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core.syslog import Settings, Service

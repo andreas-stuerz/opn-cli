@@ -1,6 +1,6 @@
 import click
-from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import formatter_from_formatter_name, bool_as_string, available_formats
+from opnsense_cli.formatters.cli_output.cli_output_formatter import CliOutputFormatter
+from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, bool_as_string, available_formats
 from opnsense_cli.commands.core.route import route
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core.routes import Routes, Gateway

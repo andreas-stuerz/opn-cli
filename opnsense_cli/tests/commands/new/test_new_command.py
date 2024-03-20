@@ -20,9 +20,9 @@ class TestNewCommandCommands(CommandTestCase):
         self._mock_model_plugin_resp = self._mock_response(content=self._plugin_model_fixture)
         self._mock_form_plugin_resp = self._mock_response(content=self._plugin_form_fixture)
 
-        self._command_template = self._read_template_file("code_generator/command/command.py.j2")
-        self._facade_template = self._read_template_file("code_generator/command/command_facade.py.j2")
-        self._test_template = self._read_template_file("code_generator/command/command.py.j2")
+        self._command_template = self._read_template_file("code_generators/opn_cli/command/template.py.j2")
+        self._facade_template = self._read_template_file("code_generators/opn_cli/facade/template.py.j2")
+        self._test_template = self._read_template_file("code_generators/opn_cli/unit_test/template.py.j2")
 
         self._output_dir = self._get_output_path("")
         self._generated_plugin_command_path = f"{self._output_dir}/commands/plugin/frontend.py"
@@ -33,7 +33,7 @@ class TestNewCommandCommands(CommandTestCase):
         self._generated_core_facade_path = f"{self._output_dir}/facades/command/core/category.py"
         self._generated_core_test_path = f"{self._output_dir}/test/commands/core/test_firewall_category.py"
 
-    @patch("opnsense_cli.parser.xml.requests.get")
+    @patch("opnsense_cli.parser.xml_parser.requests.get")
     def test_plugin(self, mock_model_get: Mock):
         mock_model_get.side_effect = [self._mock_model_plugin_resp, self._mock_form_plugin_resp]
 
@@ -116,7 +116,7 @@ class TestNewCommandCommands(CommandTestCase):
 
         self.assertIn("@patch('opnsense_cli.commands.plugin.haproxy.frontend.ApiClient.execute')", test_file_content)
 
-    @patch("opnsense_cli.parser.xml.requests.get")
+    @patch("opnsense_cli.parser.xml_parser.requests.get")
     def test_plugin_without_form_url(self, mock_model_get: Mock):
         mock_model_get.side_effect = [
             self._mock_model_plugin_resp,
@@ -148,7 +148,7 @@ class TestNewCommandCommands(CommandTestCase):
         self.assertTrue(os.path.exists(self._generated_plugin_facade_path))
         self.assertTrue(os.path.exists(self._generated_plugin_test_path))
 
-    @patch("opnsense_cli.parser.xml.requests.get")
+    @patch("opnsense_cli.parser.xml_parser.requests.get")
     def test_core(self, mock_model_get: Mock):
         mock_model_get.side_effect = [self._mock_model_core_resp, self._mock_form_core_resp]
 

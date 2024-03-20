@@ -1,6 +1,6 @@
 from opnsense_cli.api.plugin.firewall import FirewallFilter
 from opnsense_cli.facades.commands.base import CommandFacade
-from opnsense_cli.exceptions.command import CommandException
+from opnsense_cli.commands.exceptions import CommandException
 
 
 class FirewallRuleFacade(CommandFacade):

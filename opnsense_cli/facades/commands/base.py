@@ -1,7 +1,7 @@
 from abc import ABC
 import base64
 from jsonpath_ng.ext import parse
-from opnsense_cli.exceptions.command import CommandException
+from opnsense_cli.commands.exceptions import CommandException
 from uuid import UUID
 from typing import List, Dict
 import re

@@ -20,13 +20,13 @@ class TestNewCommandApi(CommandTestCase):
         self._mock_module_list_core_resp = self._mock_response(content=self._list_core_html_fixture)
         self._mock_module_list_plugin_resp = self._mock_response(content=self._list_plugin_html_fixture)
 
-        self._command_template = self._read_template_file("code_generator/api/api.py.j2")
+        self._command_template = self._read_template_file("code_generators/opnsense_api/template.py.j2")
 
         self._output_dir = self._get_output_path("")
         self._generated_plugin_api_path = f"{self._output_dir}/api/plugins/haproxy.py"
         self._generated_core_api_path = f"{self._output_dir}/api/core/cron.py"
 
-    @patch("opnsense_cli.parser.html.requests.get")
+    @patch("opnsense_cli.parser.html_parser.requests.get")
     def test_plugin(self, mock_model_get: Mock):
         mock_model_get.side_effect = [self._mock_module_list_plugin_resp, self._mock_html_plugin_resp]
 
@@ -138,7 +138,7 @@ class TestNewCommandApi(CommandTestCase):
 
         self.assertIn('self.command = "counters"', api_plugin_file_content)
 
-    @patch("opnsense_cli.parser.html.requests.get")
+    @patch("opnsense_cli.parser.html_parser.requests.get")
     def test_core(self, mock_model_get: Mock):
         mock_model_get.side_effect = [self._mock_module_list_core_resp, self._mock_html_core_resp]
 
@@ -197,7 +197,7 @@ class TestNewCommandApi(CommandTestCase):
 
         self.assertIn('self.command = "addJob"', api_core_file_content)
 
-    @patch("opnsense_cli.parser.html.requests.get")
+    @patch("opnsense_cli.parser.html_parser.requests.get")
     def test_list(self, mock_model_get: Mock):
         mock_model_get.side_effect = [
             self._mock_module_list_core_resp,

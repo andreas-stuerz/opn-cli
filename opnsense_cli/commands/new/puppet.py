@@ -1,14 +1,14 @@
 import click
 import os
 from opnsense_cli.commands.new import new
-from opnsense_cli.facades.code_generator.puppet_acceptance_test import PuppetAcceptanceTestCodeGenerator
-from opnsense_cli.facades.code_generator.puppet_provider import PuppetProviderCodeGenerator
-from opnsense_cli.facades.code_generator.puppet_provider_unit_test import PuppetProviderUnitTestCodeGenerator
-from opnsense_cli.facades.code_generator.puppet_type import PuppetTypeCodeGenerator
-from opnsense_cli.facades.code_generator.puppet_type_unit_test import PuppetTypeUnitTestCodeGenerator
-from opnsense_cli.facades.template_engines.jinja2 import Jinja2TemplateEngine
+from opnsense_cli.code_generators.puppet_code.acceptance_test.codegenerator import PuppetAcceptanceTestCodeGenerator
+from opnsense_cli.code_generators.puppet_code.provider.codegenerator import PuppetProviderCodeGenerator
+from opnsense_cli.code_generators.puppet_code.provider_unit_test.codegenerator import PuppetProviderUnitTestCodeGenerator
+from opnsense_cli.code_generators.puppet_code.type.codegenerator import PuppetTypeCodeGenerator
+from opnsense_cli.code_generators.puppet_code.type_unit_test.codegenerator import PuppetTypeUnitTestCodeGenerator
+from opnsense_cli.template_engines.jinja2 import Jinja2TemplateEngine
 from opnsense_cli.cli import cli
-from opnsense_cli.factories.code_generator.puppet_code_fragment import PuppetCodeFragmentFactory
+from opnsense_cli.code_generators.puppet_code.factories import PuppetCodeFragmentFactory
 
 
 @new.group()
@@ -20,49 +20,49 @@ def puppet(**kwargs):
 
 @puppet.command()
 @click.argument("click_group")
-@click.argument("click_command")
+@click.argument("opn_cli")
 @click.argument("find_uuid_by_column")
 @click.option(
     "--template-basedir",
     "-tb",
     help="The template basedir path",
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), "../../../opnsense_cli/templates"),
+    default=os.path.join(os.path.dirname(__file__), "../../../opnsense_cli"),
 )
 @click.option(
     "--template-provider",
     "-tp",
     help="The template for the puppet provider relative to the template basedir.",
     show_default=True,
-    default="code_generator/puppet/provider.rb.j2",
+    default="code_generators/puppet_code/provider/template.rb.j2",
 )
 @click.option(
     "--template-type",
     "-tt",
     help="The template for the puppet type relative to the template basedir.",
     show_default=True,
-    default="code_generator/puppet/type.rb.j2",
+    default="code_generators/puppet_code/type/template.rb.j2",
 )
 @click.option(
     "--template-provider-unit-test",
     "-tpt",
     help="The template for the puppet provider unit-test relative to the template basedir.",
     show_default=True,
-    default="code_generator/puppet/provider_unit_test.rb.j2",
+    default="code_generators/puppet_code/provider_unit_test/template.rb.j2",
 )
 @click.option(
     "--template-type-unit-test",
     "-ttt",
     help="The template for the puppet type unit-test  relative to the template basedir.",
     show_default=True,
-    default="code_generator/puppet/type_unit_test.rb.j2",
+    default="code_generators/puppet_code/type_unit_test/template.rb.j2",
 )
 @click.option(
     "--template-acceptance-test",
     "-ttt",
     help="The template for the puppet acceptance relative to the template basedir.",
     show_default=True,
-    default="code_generator/puppet/acceptance_test.rb.j2",
+    default="code_generators/puppet_code/acceptance_test/template.rb.j2",
 )
 @click.option(
     "--puppet-output-dir",
@@ -132,7 +132,7 @@ def generate_puppet_files(ctx, **kwargs):
     code_factory = PuppetCodeFragmentFactory()
 
     main_group = cli.get_command(ctx, kwargs["click_group"])
-    sub_group = main_group.get_command(ctx, kwargs["click_command"])
+    sub_group = main_group.get_command(ctx, kwargs["opn_cli"])
 
     create_command = sub_group.get_command(ctx, "create")
     update_command = sub_group.get_command(ctx, "update")
@@ -153,7 +153,7 @@ def write_puppet_provider(ctx, template_engine, code_factory, create_command_par
         code_factory,
         kwargs["template_provider"],
         kwargs["click_group"],
-        kwargs["click_command"],
+        kwargs["opn_cli"],
         kwargs["find_uuid_by_column"],
         create_command_params,
         update_command_params,
@@ -168,7 +168,7 @@ def write_puppet_type(ctx, template_engine, code_factory, create_command_params,
         code_factory,
         kwargs["template_type"],
         kwargs["click_group"],
-        kwargs["click_command"],
+        kwargs["opn_cli"],
         kwargs["find_uuid_by_column"],
         create_command_params,
         update_command_params,
@@ -183,7 +183,7 @@ def write_puppet_type_unit_test(ctx, template_engine, code_factory, create_comma
         code_factory,
         kwargs["template_type_unit_test"],
         kwargs["click_group"],
-        kwargs["click_command"],
+        kwargs["opn_cli"],
         kwargs["find_uuid_by_column"],
         create_command_params,
         update_command_params,
@@ -200,7 +200,7 @@ def write_puppet_provider_unit_test(
         code_factory,
         kwargs["template_provider_unit_test"],
         kwargs["click_group"],
-        kwargs["click_command"],
+        kwargs["opn_cli"],
         kwargs["find_uuid_by_column"],
         create_command_params,
         update_command_params,
@@ -215,7 +215,7 @@ def write_puppet_acceptance_test(ctx, template_engine, code_factory, create_comm
         code_factory,
         kwargs["template_acceptance_test"],
         kwargs["click_group"],
-        kwargs["click_command"],
+        kwargs["opn_cli"],
         kwargs["find_uuid_by_column"],
         create_command_params,
         update_command_params,
