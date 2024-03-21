@@ -1,6 +1,6 @@
 from unittest.mock import patch, Mock
 from opnsense_cli.commands.{{ vars.module_type }}.{{ vars.click_group }}.{{ vars.click_command }} import {{ vars.click_command }}
-from opnsense_cli.tests.commands.base import CommandTestCase
+from opnsense_cli.commands.test_base import CommandTestCase
 
 
 class Test{{ vars.click_group.capitalize() }}{{ vars.click_command.capitalize() }}Commands(CommandTestCase):
@@ -38,7 +38,7 @@ class Test{{ vars.click_group.capitalize() }}{{ vars.click_command.capitalize() 
                 }
             }
         }
-        self._api_data_fixtures_list = self._read_json_fixture('{{ vars.module_type }}/{{ vars.click_group }}/model_data.json')
+        self._api_data_fixtures_list = self._read_json_fixture("fixtures/model_data.json", base_dir=os.path.dirname(__file__))
         self._api_client_args_fixtures = [
             'api_key',
             'api_secret',

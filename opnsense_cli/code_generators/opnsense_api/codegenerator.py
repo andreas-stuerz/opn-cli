@@ -11,9 +11,6 @@ class OpnsenseApiCodeGenerator(CodeGenerator):
         self._controllers = controllers
         self._module_name = module_name
 
-    def _get_filename(self):
-        return f"{self._module_name}.py"
-
     def _get_template_vars(self):
         return OpnsenseApiTemplateVars(module_name=self._module_name, controllers=self._controllers)
 

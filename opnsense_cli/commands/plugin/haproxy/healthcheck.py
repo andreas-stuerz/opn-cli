@@ -11,10 +11,10 @@ from opnsense_cli.click_addons.param_type_int_or_empty import INT_OR_EMPTY
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
-from opnsense_cli.facades.commands.plugin.haproxy.healthcheck import HaproxyHealthcheckFacade
+from opnsense_cli.commands.plugin.haproxy.services.haproxy_healthcheck_service import HaproxyHealthcheckService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_haproxy_healthcheck_svc = click.make_pass_decorator(HaproxyHealthcheckFacade)
+pass_haproxy_healthcheck_svc = click.make_pass_decorator(HaproxyHealthcheckService)
 
 
 @haproxy.group()
@@ -26,7 +26,7 @@ def healthcheck(ctx, api_client: ApiClient, **kwargs):
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = HaproxyHealthcheckFacade(settings_api, service_api)
+    ctx.obj = HaproxyHealthcheckService(settings_api, service_api)
 
 
 @healthcheck.command()
@@ -47,7 +47,7 @@ def healthcheck(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_haproxy_healthcheck_svc
-def list(haproxy_healthcheck_svc: HaproxyHealthcheckFacade, **kwargs):
+def list(haproxy_healthcheck_svc: HaproxyHealthcheckService, **kwargs):
     """
     Show all healthcheck
     """
@@ -80,7 +80,7 @@ def list(haproxy_healthcheck_svc: HaproxyHealthcheckFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_healthcheck_svc
-def show(haproxy_healthcheck_svc: HaproxyHealthcheckFacade, **kwargs):
+def show(haproxy_healthcheck_svc: HaproxyHealthcheckService, **kwargs):
     """
     Show details for healthcheck
     """
@@ -346,7 +346,7 @@ def show(haproxy_healthcheck_svc: HaproxyHealthcheckFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_healthcheck_svc
-def create(haproxy_healthcheck_svc: HaproxyHealthcheckFacade, **kwargs):
+def create(haproxy_healthcheck_svc: HaproxyHealthcheckService, **kwargs):
     """
     Create a new healthcheck
     """
@@ -584,7 +584,7 @@ def create(haproxy_healthcheck_svc: HaproxyHealthcheckFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_healthcheck_svc
-def update(haproxy_healthcheck_svc: HaproxyHealthcheckFacade, **kwargs):
+def update(haproxy_healthcheck_svc: HaproxyHealthcheckService, **kwargs):
     """
     Update a healthcheck.
     """
@@ -647,7 +647,7 @@ def update(haproxy_healthcheck_svc: HaproxyHealthcheckFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_healthcheck_svc
-def delete(haproxy_healthcheck_svc: HaproxyHealthcheckFacade, **kwargs):
+def delete(haproxy_healthcheck_svc: HaproxyHealthcheckService, **kwargs):
     """
     Delete healthcheck
     """

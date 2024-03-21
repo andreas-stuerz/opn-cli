@@ -4,10 +4,10 @@ from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, a
 from opnsense_cli.commands.core.syslog import syslog
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core.syslog import Service
-from opnsense_cli.facades.commands.core.syslog.stats import SyslogStatsFacade
+from opnsense_cli.commands.core.syslog.services.syslog_stats_service import SyslogStatsService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_syslog_stats_svc = click.make_pass_decorator(SyslogStatsFacade)
+pass_syslog_stats_svc = click.make_pass_decorator(SyslogStatsService)
 
 
 @syslog.group()
@@ -18,7 +18,7 @@ def stats(ctx, api_client: ApiClient, **kwargs):
     Show syslog stats
     """
     service_api = Service(api_client)
-    ctx.obj = SyslogStatsFacade(service_api)
+    ctx.obj = SyslogStatsService(service_api)
 
 
 @stats.command()
@@ -46,7 +46,7 @@ def stats(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_syslog_stats_svc
-def list(syslog_stats_svc: SyslogStatsFacade, **kwargs):
+def list(syslog_stats_svc: SyslogStatsService, **kwargs):
     """
     Show syslog statistics
     """

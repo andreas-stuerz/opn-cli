@@ -1,5 +1,5 @@
 from opnsense_cli.code_generators.puppet_code.factories import PuppetCodeFragmentFactory
-from opnsense_cli.tests.base import BaseTestCase
+from opnsense_cli.test_base import BaseTestCase
 from opnsense_cli.factories import FactoryException
 
 

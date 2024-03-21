@@ -4,10 +4,10 @@ from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, e
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Export, Service
-from opnsense_cli.facades.commands.plugin.haproxy.config import HaproxyConfigFacade
+from opnsense_cli.commands.plugin.haproxy.services.haproxy_config_service import HaproxyConfigService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_haproxy_config_svc = click.make_pass_decorator(HaproxyConfigFacade)
+pass_haproxy_config_svc = click.make_pass_decorator(HaproxyConfigService)
 
 
 @haproxy.group()
@@ -20,7 +20,7 @@ def config(ctx, api_client: ApiClient, **kwargs):
     settings_api = Settings(api_client)
     export_api = Export(api_client)
     service_api = Service(api_client)
-    ctx.obj = HaproxyConfigFacade(settings_api, export_api, service_api)
+    ctx.obj = HaproxyConfigService(settings_api, export_api, service_api)
 
 
 @config.command()
@@ -41,7 +41,7 @@ def config(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_haproxy_config_svc
-def show(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
+def show(haproxy_server_svc: HaproxyConfigService, **kwargs):
     """
     Show the running haproxy config
     """
@@ -68,7 +68,7 @@ def show(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_config_svc
-def test(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
+def test(haproxy_server_svc: HaproxyConfigService, **kwargs):
     """
     Test current haproxy staging config
     """
@@ -95,7 +95,7 @@ def test(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_config_svc
-def diff(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
+def diff(haproxy_server_svc: HaproxyConfigService, **kwargs):
     """
     Diff of running and staging config
     """
@@ -122,7 +122,7 @@ def diff(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_config_svc
-def apply(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
+def apply(haproxy_server_svc: HaproxyConfigService, **kwargs):
     """
     Test and apply the haproxy configuration
     """
@@ -161,7 +161,7 @@ def apply(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_config_svc
-def download(haproxy_server_svc: HaproxyConfigFacade, **kwargs):
+def download(haproxy_server_svc: HaproxyConfigService, **kwargs):
     """
     Download complete haproxy config as zip
     """

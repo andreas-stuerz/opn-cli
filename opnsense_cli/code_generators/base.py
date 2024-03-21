@@ -3,15 +3,9 @@ from abc import ABC, abstractmethod
 
 
 class CodeGenerator(ABC):
-    def write_code(self, output_dir):
+    def write_code(self, path):
         code = self.get_code()
-        filename = self._get_filename()
-        path = os.path.join(output_dir, f"{filename}")
         return self._write_to_file(code, path)
-
-    @abstractmethod
-    def _get_filename(self):
-        """This method should be implemented."""
 
     def _write_to_file(self, content, path):
         os.makedirs(os.path.dirname(path), exist_ok=True)

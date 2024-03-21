@@ -4,10 +4,10 @@ from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, a
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
-from opnsense_cli.facades.commands.plugin.haproxy.mapfile import HaproxyMapfileFacade
+from opnsense_cli.commands.plugin.haproxy.services.haproxy_mapfile_service import HaproxyMapfileService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_haproxy_mapfile_svc = click.make_pass_decorator(HaproxyMapfileFacade)
+pass_haproxy_mapfile_svc = click.make_pass_decorator(HaproxyMapfileService)
 
 
 @haproxy.group()
@@ -23,7 +23,7 @@ def mapfile(ctx, api_client: ApiClient, **kwargs):
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = HaproxyMapfileFacade(settings_api, service_api)
+    ctx.obj = HaproxyMapfileService(settings_api, service_api)
 
 
 @mapfile.command()
@@ -44,7 +44,7 @@ def mapfile(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_haproxy_mapfile_svc
-def list(haproxy_mapfile_svc: HaproxyMapfileFacade, **kwargs):
+def list(haproxy_mapfile_svc: HaproxyMapfileService, **kwargs):
     """
     Show all mapfile
     """
@@ -72,7 +72,7 @@ def list(haproxy_mapfile_svc: HaproxyMapfileFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_mapfile_svc
-def show(haproxy_mapfile_svc: HaproxyMapfileFacade, **kwargs):
+def show(haproxy_mapfile_svc: HaproxyMapfileService, **kwargs):
     """
     Show details for mapfile
     """
@@ -114,7 +114,7 @@ def show(haproxy_mapfile_svc: HaproxyMapfileFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_mapfile_svc
-def create(haproxy_mapfile_svc: HaproxyMapfileFacade, **kwargs):
+def create(haproxy_mapfile_svc: HaproxyMapfileService, **kwargs):
     """
     Create a new mapfile
     """
@@ -153,7 +153,7 @@ def create(haproxy_mapfile_svc: HaproxyMapfileFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_mapfile_svc
-def update(haproxy_mapfile_svc: HaproxyMapfileFacade, **kwargs):
+def update(haproxy_mapfile_svc: HaproxyMapfileService, **kwargs):
     """
     Update a mapfile.
     """
@@ -187,7 +187,7 @@ def update(haproxy_mapfile_svc: HaproxyMapfileFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_mapfile_svc
-def delete(haproxy_mapfile_svc: HaproxyMapfileFacade, **kwargs):
+def delete(haproxy_mapfile_svc: HaproxyMapfileService, **kwargs):
     """
     Delete mapfile
     """

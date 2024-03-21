@@ -4,10 +4,10 @@ from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, b
 from opnsense_cli.commands.core.unbound import unbound
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core.unbound import Settings, Service
-from opnsense_cli.facades.commands.core.unbound.domain import UnboundDomainFacade
+from opnsense_cli.commands.core.unbound.services.unbound_domain_service import UnboundDomainService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_unbound_domain_svc = click.make_pass_decorator(UnboundDomainFacade)
+pass_unbound_domain_svc = click.make_pass_decorator(UnboundDomainService)
 
 
 @unbound.group()
@@ -19,7 +19,7 @@ def domain(ctx, api_client: ApiClient, **kwargs):
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = UnboundDomainFacade(settings_api, service_api)
+    ctx.obj = UnboundDomainService(settings_api, service_api)
 
 
 @domain.command()
@@ -40,7 +40,7 @@ def domain(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_unbound_domain_svc
-def list(unbound_domain_svc: UnboundDomainFacade, **kwargs):
+def list(unbound_domain_svc: UnboundDomainService, **kwargs):
     """
     Show all domain
     """
@@ -68,7 +68,7 @@ def list(unbound_domain_svc: UnboundDomainFacade, **kwargs):
     show_default=True,
 )
 @pass_unbound_domain_svc
-def show(unbound_domain_svc: UnboundDomainFacade, **kwargs):
+def show(unbound_domain_svc: UnboundDomainService, **kwargs):
     """
     Show details for domain
     """
@@ -131,7 +131,7 @@ def show(unbound_domain_svc: UnboundDomainFacade, **kwargs):
     show_default=True,
 )
 @pass_unbound_domain_svc
-def create(unbound_domain_svc: UnboundDomainFacade, **kwargs):
+def create(unbound_domain_svc: UnboundDomainService, **kwargs):
     """
     Create a new domain
     """
@@ -200,7 +200,7 @@ def create(unbound_domain_svc: UnboundDomainFacade, **kwargs):
     show_default=True,
 )
 @pass_unbound_domain_svc
-def update(unbound_domain_svc: UnboundDomainFacade, **kwargs):
+def update(unbound_domain_svc: UnboundDomainService, **kwargs):
     """
     Update a domain.
     """
@@ -234,7 +234,7 @@ def update(unbound_domain_svc: UnboundDomainFacade, **kwargs):
     show_default=True,
 )
 @pass_unbound_domain_svc
-def delete(unbound_domain_svc: UnboundDomainFacade, **kwargs):
+def delete(unbound_domain_svc: UnboundDomainService, **kwargs):
     """
     Delete domain
     """

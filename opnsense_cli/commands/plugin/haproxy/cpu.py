@@ -4,10 +4,10 @@ from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, b
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
-from opnsense_cli.facades.commands.plugin.haproxy.cpu import HaproxyCpuFacade
+from opnsense_cli.commands.plugin.haproxy.services.haproxy_cpu_service import HaproxyCpuService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_haproxy_cpu_svc = click.make_pass_decorator(HaproxyCpuFacade)
+pass_haproxy_cpu_svc = click.make_pass_decorator(HaproxyCpuService)
 
 
 @haproxy.group()
@@ -19,7 +19,7 @@ def cpu(ctx, api_client: ApiClient, **kwargs):
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = HaproxyCpuFacade(settings_api, service_api)
+    ctx.obj = HaproxyCpuService(settings_api, service_api)
 
 
 @cpu.command()
@@ -40,7 +40,7 @@ def cpu(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_haproxy_cpu_svc
-def list(haproxy_cpu_svc: HaproxyCpuFacade, **kwargs):
+def list(haproxy_cpu_svc: HaproxyCpuService, **kwargs):
     """
     Show all cpu
     """
@@ -68,7 +68,7 @@ def list(haproxy_cpu_svc: HaproxyCpuFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_cpu_svc
-def show(haproxy_cpu_svc: HaproxyCpuFacade, **kwargs):
+def show(haproxy_cpu_svc: HaproxyCpuService, **kwargs):
     """
     Show details for cpu
     """
@@ -343,7 +343,7 @@ def show(haproxy_cpu_svc: HaproxyCpuFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_cpu_svc
-def create(haproxy_cpu_svc: HaproxyCpuFacade, **kwargs):
+def create(haproxy_cpu_svc: HaproxyCpuService, **kwargs):
     """
     Create a new cpu
     """
@@ -625,7 +625,7 @@ def create(haproxy_cpu_svc: HaproxyCpuFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_cpu_svc
-def update(haproxy_cpu_svc: HaproxyCpuFacade, **kwargs):
+def update(haproxy_cpu_svc: HaproxyCpuService, **kwargs):
     """
     Update a cpu.
     """
@@ -659,7 +659,7 @@ def update(haproxy_cpu_svc: HaproxyCpuFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_cpu_svc
-def delete(haproxy_cpu_svc: HaproxyCpuFacade, **kwargs):
+def delete(haproxy_cpu_svc: HaproxyCpuService, **kwargs):
     """
     Delete cpu
     """

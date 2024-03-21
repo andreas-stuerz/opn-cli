@@ -3,8 +3,6 @@ from opnsense_cli.code_generators.opn_cli.unit_test.template_vars import Command
 
 
 class ClickCommandTestCodeGenerator(CommandCodeGenerator):
-    def _get_filename(self):
-        return f"test_{self._click_group}_{self._click_command}.py"
 
     def _get_template_vars(self):
         return CommandTestTemplateVars(

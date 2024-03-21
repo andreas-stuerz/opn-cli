@@ -1,3 +1,4 @@
+import os
 from bs4 import BeautifulSoup
 from opnsense_cli.code_generators.opn_cli.factories import (
     ClickOptionCodeTypeFactory,
@@ -7,14 +8,14 @@ from opnsense_cli.code_generators.opn_cli.factories import (
     ClickChoice,
     ClickTextLinkedItem,
 )
-from opnsense_cli.tests.base import BaseTestCase
+from opnsense_cli.test_base import BaseTestCase
 from opnsense_cli.factories import FactoryException
 
 
 class TestClickOptionCodeTypeFactory(BaseTestCase):
     def setUp(self):
         self._factory = ClickOptionCodeTypeFactory()
-        self._model_data_file = self._read_fixture_file("new/command/plugin/model.xml")
+        self._model_data_file = self._read_fixture_file("fixtures/model.xml", base_dir=os.path.dirname(__file__))
         self._model_content = BeautifulSoup(self._model_data_file, "xml")
 
         self._UnkownField = BeautifulSoup('<enabled type="UnkownField"></enabled>', "xml")

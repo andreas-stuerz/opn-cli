@@ -9,7 +9,7 @@ class ClickCommandAutoloader:
         self.loaded_classes = []
         self.click_core_group = click_core_group
 
-    def autoload(self, module_name=None):
+    def autoload(self, module_name=None, ignore_dirs=None):
         """
         Autoloads all click commands from the specified module.
         Each command group must be in a single subpackage.
@@ -18,9 +18,11 @@ class ClickCommandAutoloader:
 
         e.g. for module name opnsense_cli.commands.core
 
-        opnsense_cli/commands
-        ├── core
-        │ ├── firewall
+        opnsense_cli/commands/
+        ├── core/
+        │ ├── firewall/
+        │ │ ├── tests/ (put your tests here)
+        │ │ ├── services/ (put your services here)
         │ │ ├── __init__.py (main @click.group firewall)
         │ │ ├── alias.py (subgroup alias with commands from firewall)
         │ │ └── rule.py (subgroup rule with commands from firewall)
@@ -28,13 +30,15 @@ class ClickCommandAutoloader:
         :param module_name: python module name e.g. opnsense_cli.commands.core
         :return: click.core.Group
         """
+        if ignore_dirs is None:
+            ignore_dirs = ['__pycache__', 'tests', 'services']
+
         spec = importlib.util.find_spec(module_name)
         path = spec.submodule_search_locations[0]
 
         (root_dir, command_group_dirs, files) = list(os.walk(path))[0]
 
-        if "__pycache__" in command_group_dirs:
-            command_group_dirs.remove("__pycache__")
+        command_group_dirs = [directory for directory in command_group_dirs if directory not in ignore_dirs]
 
         if not command_group_dirs:
             path, file = os.path.split(root_dir)

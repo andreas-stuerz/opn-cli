@@ -9,11 +9,11 @@ from opnsense_cli.click_addons.callbacks import (
 from opnsense_cli.commands.core.unbound import unbound
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core.unbound import Settings, Service
-from opnsense_cli.facades.commands.core.unbound.alias import UnboundAliasFacade
+from opnsense_cli.commands.core.unbound.services.unbound_alias_service import UnboundAliasService
 from opnsense_cli.click_addons.param_type_csv import CSV
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_unbound_alias_svc = click.make_pass_decorator(UnboundAliasFacade)
+pass_unbound_alias_svc = click.make_pass_decorator(UnboundAliasService)
 
 
 @unbound.group()
@@ -25,7 +25,7 @@ def alias(ctx, api_client: ApiClient, **kwargs):
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = UnboundAliasFacade(settings_api, service_api)
+    ctx.obj = UnboundAliasService(settings_api, service_api)
 
 
 @alias.command()
@@ -46,7 +46,7 @@ def alias(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_unbound_alias_svc
-def list(unbound_alias_svc: UnboundAliasFacade, **kwargs):
+def list(unbound_alias_svc: UnboundAliasService, **kwargs):
     """
     Show all alias
     """
@@ -74,7 +74,7 @@ def list(unbound_alias_svc: UnboundAliasFacade, **kwargs):
     show_default=True,
 )
 @pass_unbound_alias_svc
-def show(unbound_alias_svc: UnboundAliasFacade, **kwargs):
+def show(unbound_alias_svc: UnboundAliasService, **kwargs):
     """
     Show details for alias
     """
@@ -143,7 +143,7 @@ def show(unbound_alias_svc: UnboundAliasFacade, **kwargs):
     show_default=True,
 )
 @pass_unbound_alias_svc
-def create(unbound_alias_svc: UnboundAliasFacade, **kwargs):
+def create(unbound_alias_svc: UnboundAliasService, **kwargs):
     """
     Create a new alias
     """
@@ -210,7 +210,7 @@ def create(unbound_alias_svc: UnboundAliasFacade, **kwargs):
     show_default=True,
 )
 @pass_unbound_alias_svc
-def update(unbound_alias_svc: UnboundAliasFacade, **kwargs):
+def update(unbound_alias_svc: UnboundAliasService, **kwargs):
     """
     Update an alias.
     """
@@ -244,7 +244,7 @@ def update(unbound_alias_svc: UnboundAliasFacade, **kwargs):
     show_default=True,
 )
 @pass_unbound_alias_svc
-def delete(unbound_alias_svc: UnboundAliasFacade, **kwargs):
+def delete(unbound_alias_svc: UnboundAliasService, **kwargs):
     """
     Delete alias
     """

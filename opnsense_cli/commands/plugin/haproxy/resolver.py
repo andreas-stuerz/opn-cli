@@ -5,10 +5,10 @@ from opnsense_cli.click_addons.param_type_int_or_empty import INT_OR_EMPTY
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
-from opnsense_cli.facades.commands.plugin.haproxy.resolver import HaproxyResolverFacade
+from opnsense_cli.commands.plugin.haproxy.services.haproxy_resolver_service import HaproxyResolverService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_haproxy_resolver_svc = click.make_pass_decorator(HaproxyResolverFacade)
+pass_haproxy_resolver_svc = click.make_pass_decorator(HaproxyResolverService)
 
 
 @haproxy.group()
@@ -24,7 +24,7 @@ def resolver(ctx, api_client: ApiClient, **kwargs):
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = HaproxyResolverFacade(settings_api, service_api)
+    ctx.obj = HaproxyResolverService(settings_api, service_api)
 
 
 @resolver.command()
@@ -45,7 +45,7 @@ def resolver(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_haproxy_resolver_svc
-def list(haproxy_resolver_svc: HaproxyResolverFacade, **kwargs):
+def list(haproxy_resolver_svc: HaproxyResolverService, **kwargs):
     """
     Show all resolver
     """
@@ -73,7 +73,7 @@ def list(haproxy_resolver_svc: HaproxyResolverFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_resolver_svc
-def show(haproxy_resolver_svc: HaproxyResolverFacade, **kwargs):
+def show(haproxy_resolver_svc: HaproxyResolverService, **kwargs):
     """
     Show details for resolver
     """
@@ -164,7 +164,7 @@ def show(haproxy_resolver_svc: HaproxyResolverFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_resolver_svc
-def create(haproxy_resolver_svc: HaproxyResolverFacade, **kwargs):
+def create(haproxy_resolver_svc: HaproxyResolverService, **kwargs):
     """
     Create a new resolver
     """
@@ -259,7 +259,7 @@ def create(haproxy_resolver_svc: HaproxyResolverFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_resolver_svc
-def update(haproxy_resolver_svc: HaproxyResolverFacade, **kwargs):
+def update(haproxy_resolver_svc: HaproxyResolverService, **kwargs):
     """
     Update a resolver.
     """
@@ -302,7 +302,7 @@ def update(haproxy_resolver_svc: HaproxyResolverFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_resolver_svc
-def delete(haproxy_resolver_svc: HaproxyResolverFacade, **kwargs):
+def delete(haproxy_resolver_svc: HaproxyResolverService, **kwargs):
     """
     Delete resolver
     """

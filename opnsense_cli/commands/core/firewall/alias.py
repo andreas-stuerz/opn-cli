@@ -4,10 +4,10 @@ from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, b
 from opnsense_cli.commands.core.firewall import firewall
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.firewall import FirewallAlias, FirewallAliasUtil
-from opnsense_cli.facades.commands.core.firewall.firewall_alias import FirewallAliasFacade
+from opnsense_cli.commands.core.firewall.services.firewall_alias_service import FirewallAliasService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_firewall_alias_svc = click.make_pass_decorator(FirewallAliasFacade)
+pass_firewall_alias_svc = click.make_pass_decorator(FirewallAliasService)
 
 
 @firewall.group()
@@ -21,7 +21,7 @@ def alias(ctx, api_client: ApiClient, **kwargs):
     """
     alias_api = FirewallAlias(api_client)
     alias_util_api = FirewallAliasUtil(api_client)
-    ctx.obj = FirewallAliasFacade(alias_api, alias_util_api)
+    ctx.obj = FirewallAliasService(alias_api, alias_util_api)
 
 
 @alias.command()
@@ -42,7 +42,7 @@ def alias(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_firewall_alias_svc
-def list(firewall_alias_svc: FirewallAliasFacade, **kwargs):
+def list(firewall_alias_svc: FirewallAliasService, **kwargs):
     """
     Show all aliases
     """
@@ -70,7 +70,7 @@ def list(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     show_default=True,
 )
 @pass_firewall_alias_svc
-def show(firewall_alias_svc: FirewallAliasFacade, **kwargs):
+def show(firewall_alias_svc: FirewallAliasService, **kwargs):
     """
     Show details for alias
     """
@@ -98,7 +98,7 @@ def show(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     show_default=True,
 )
 @pass_firewall_alias_svc
-def table(firewall_alias_svc: FirewallAliasFacade, **kwargs):
+def table(firewall_alias_svc: FirewallAliasService, **kwargs):
     """
     Show pf table entries for alias
     """
@@ -179,7 +179,7 @@ def table(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     show_default=True,
 )
 @pass_firewall_alias_svc
-def create(firewall_alias_svc: FirewallAliasFacade, **kwargs):
+def create(firewall_alias_svc: FirewallAliasService, **kwargs):
     """
     Create a new alias.
 
@@ -286,7 +286,7 @@ def create(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     show_default=True,
 )
 @pass_firewall_alias_svc
-def update(firewall_alias_svc: FirewallAliasFacade, **kwargs):
+def update(firewall_alias_svc: FirewallAliasService, **kwargs):
     """
     Update an alias.
 
@@ -322,7 +322,7 @@ def update(firewall_alias_svc: FirewallAliasFacade, **kwargs):
     show_default=True,
 )
 @pass_firewall_alias_svc
-def delete(firewall_alias_svc: FirewallAliasFacade, **kwargs):
+def delete(firewall_alias_svc: FirewallAliasService, **kwargs):
     """
     Delete an alias
     """

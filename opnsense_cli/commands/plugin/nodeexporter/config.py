@@ -5,10 +5,10 @@ from opnsense_cli.click_addons.param_type_int_or_empty import INT_OR_EMPTY
 from opnsense_cli.commands.plugin.nodeexporter import nodeexporter
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.nodeexporter import General, Service
-from opnsense_cli.facades.commands.plugin.nodeexporter.config import NodeexporterConfigFacade
+from opnsense_cli.commands.plugin.nodeexporter.services.nodeexporter_config_service import NodeexporterConfigService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_nodeexporter_config_svc = click.make_pass_decorator(NodeexporterConfigFacade)
+pass_nodeexporter_config_svc = click.make_pass_decorator(NodeexporterConfigService)
 
 
 @nodeexporter.group()
@@ -20,7 +20,7 @@ def config(ctx, api_client: ApiClient, **kwargs):
     """
     settings_api = General(api_client)
     service_api = Service(api_client)
-    ctx.obj = NodeexporterConfigFacade(settings_api, service_api)
+    ctx.obj = NodeexporterConfigService(settings_api, service_api)
 
 
 @config.command()
@@ -41,7 +41,7 @@ def config(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_nodeexporter_config_svc
-def show(nodeexporter_config_svc: NodeexporterConfigFacade, **kwargs):
+def show(nodeexporter_config_svc: NodeexporterConfigService, **kwargs):
     """
     Show configuration
     """
@@ -178,7 +178,7 @@ def show(nodeexporter_config_svc: NodeexporterConfigFacade, **kwargs):
     show_default=True,
 )
 @pass_nodeexporter_config_svc
-def edit(nodeexporter_config_svc: NodeexporterConfigFacade, **kwargs):
+def edit(nodeexporter_config_svc: NodeexporterConfigService, **kwargs):
     """
     Edit configuration
     """

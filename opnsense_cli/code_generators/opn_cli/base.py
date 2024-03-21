@@ -26,5 +26,3 @@ class CommandCodeGenerator(CodeGenerator):
         self._model_xml_tag = model_xml_tag
         self._module_type = module_type
 
-    def _get_filename(self):
-        return f"{self._click_command}.py"

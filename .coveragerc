@@ -4,8 +4,9 @@ omit =
     *private*
     */local/*
     *venv*
-    opnsense_cli/tests/*
-    opnsense_cli/fixtures/*
+    *tests/*
+    *tests/fixtures/*
+    *test_base.py
     *output*
     /usr/lib/python*
 

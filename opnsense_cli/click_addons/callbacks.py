@@ -1,7 +1,7 @@
 import yaml
 import os
 
-from opnsense_cli.facades.commands.base import CommandFacade
+from opnsense_cli.commands.service_base import CommandService
 from opnsense_cli.formatters.cli_output.output_format_factory import CliOutputFormatFactory
 from opnsense_cli.formatters.cli_output.output_formats import Format
 from opnsense_cli import __cli_name__
@@ -72,6 +72,6 @@ def resolve_linked_names_to_uuids(ctx, param, value):
     option_name = param.opts[0].replace("--", "")
     resolve_map = ctx.obj.uuid_resolver_map[option_name]
 
-    if value and isinstance(ctx.obj, CommandFacade):
+    if value and isinstance(ctx.obj, CommandService):
         return ctx.obj.resolve_linked_uuids(resolve_map, value)
     return value

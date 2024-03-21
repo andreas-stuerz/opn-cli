@@ -1,7 +1,7 @@
 import click
 import os
 from opnsense_cli.commands.new import new
-from opnsense_cli.code_generators.opn_cli.facade.codegenerator import ClickCommandFacadeCodeGenerator
+from opnsense_cli.code_generators.opn_cli.service.codegenerator import ClickCommandServiceCodeGenerator
 from opnsense_cli.code_generators.opn_cli.unit_test.codegenerator import ClickCommandTestCodeGenerator
 from opnsense_cli.parser.opnsense_form_parser import OpnsenseFormParser
 from opnsense_cli.parser.opnsense_model_parser import OpnsenseModelParser
@@ -32,7 +32,7 @@ def command(**kwargs):
     required=True,
 )
 @click.option(
-    "--tag", "-t", help="The xml tag from the model.xml e.g. dnsbl for unbound dnsbl command", show_default=True, required=True
+    "--tag", "-t", help="The xml tag from the core_model.xml e.g. dnsbl for unbound dnsbl command", show_default=True, required=True
 )
 @click.option(
     "--form-url",
@@ -60,11 +60,11 @@ def command(**kwargs):
     default="code_generators/opn_cli/command/template.py.j2",
 )
 @click.option(
-    "--template-facade",
+    "--template-service",
     "-tf",
-    help="The template for the command facade relative to the template basedir.",
+    help="The template for the command service relative to the template basedir.",
     show_default=True,
-    default="code_generators/opn_cli/facade/template.py.j2",
+    default="code_generators/opn_cli/service/template.py.j2",
 )
 @click.option(
     "--template-test",
@@ -81,11 +81,11 @@ def command(**kwargs):
     default=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../output/commands/core")),
 )
 @click.option(
-    "--facade-output-dir",
+    "--service-output-dir",
     "-fod",
-    help="The output directory for the generated facade",
+    help="The output directory for the generated service",
     show_default=True,
-    default=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../output/facades/command/core")),
+    default=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../output/services/command/core")),
 )
 @click.option(
     "--test-output-dir",
@@ -102,7 +102,7 @@ def core(**kwargs):
 
     https://docs.opnsense.org/development/api.html#core-api
 
-    Search model.xml files here:
+    Search core_model.xml files here:
 
     https://github.com/opnsense/core/tree/master/src/opnsense/mvc/app/models/OPNsense
 
@@ -131,7 +131,7 @@ def core(**kwargs):
 @click.option(
     "--tag",
     "-t",
-    help="The xml tag from the model.xml e.g. servers for haproxy server command",
+    help="The xml tag from the core_model.xml e.g. servers for haproxy server command",
     show_default=True,
     required=True,
 )
@@ -160,11 +160,11 @@ def core(**kwargs):
     default="code_generators/opn_cli/command/template.py.j2",
 )
 @click.option(
-    "--template-facade",
+    "--template-service",
     "-tf",
-    help="The template for the command facade relative to the template basedir.",
+    help="The template for the command service relative to the template basedir.",
     show_default=True,
-    default="code_generators/opn_cli/facade/template.py.j2",
+    default="code_generators/opn_cli/service/template.py.j2",
 )
 @click.option(
     "--template-test",
@@ -180,20 +180,6 @@ def core(**kwargs):
     show_default=True,
     default=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../output/commands/plugin")),
 )
-@click.option(
-    "--facade-output-dir",
-    "-fod",
-    help="The output directory for the generated facade",
-    show_default=True,
-    default=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../output/facades/command/plugin")),
-)
-@click.option(
-    "--test-output-dir",
-    "-tod",
-    help="The output directory for the generated test",
-    show_default=True,
-    default=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../output/test/commands/plugin")),
-)
 def plugin(**kwargs):
     """
     Generate new command code for a plugin module.
@@ -202,7 +188,7 @@ def plugin(**kwargs):
 
     https://docs.opnsense.org/development/api.html#plugins-api
 
-    Search for model.xml and form.xml files here:
+    Search for core_model.xml and core_form.xml files here:
 
     https://github.com/opnsense/plugins
 
@@ -224,7 +210,7 @@ def generate_command_files(type, **kwargs):
     option_factory = ClickOptionCodeTypeFactory()
 
     write_command(type, model_tag, template_engine, option_factory, **kwargs)
-    write_command_facade(type, model_tag, template_engine, option_factory, **kwargs)
+    write_command_service(type, model_tag, template_engine, option_factory, **kwargs)
     write_command_test(type, model_tag, template_engine, option_factory, **kwargs)
 
 
@@ -244,21 +230,25 @@ def write_command(type, model_tag: Tag, template_engine, option_factory, **kwarg
         form_parser = OpnsenseFormParser(kwargs["form_url"], "form")
         command_code_generator.help_messages = form_parser.parse()
 
-    click.echo(command_code_generator.write_code(kwargs["command_output_dir"]))
+    output_path = f"{kwargs['command_output_dir']}/{kwargs['click_group']}/{kwargs['opn_cli']}.py"
+
+    click.echo(command_code_generator.write_code(output_path))
 
 
-def write_command_facade(type, model_tag: Tag, template_engine, option_factory, **kwargs):
-    command_facade_generator = ClickCommandFacadeCodeGenerator(
+def write_command_service(type, model_tag: Tag, template_engine, option_factory, **kwargs):
+    command_service_generator = ClickCommandServiceCodeGenerator(
         model_tag,
         template_engine,
         option_factory,
-        kwargs["template_facade"],
+        kwargs["template_service"],
         kwargs["click_group"],
         kwargs["opn_cli"],
         kwargs["tag"],
         type,
     )
-    click.echo(command_facade_generator.write_code(kwargs["facade_output_dir"]))
+    output_path = f"{kwargs['command_output_dir']}/{kwargs['click_group']}/services/{kwargs['click_group']}_{kwargs['opn_cli']}_service.py"
+
+    click.echo(command_service_generator.write_code(output_path))
 
 
 def write_command_test(type, model_tag: Tag, template_engine, option_factory, **kwargs):
@@ -272,7 +262,10 @@ def write_command_test(type, model_tag: Tag, template_engine, option_factory, **
         kwargs["tag"],
         type,
     )
-    click.echo(command_test_generator.write_code(kwargs["test_output_dir"]))
+
+    output_path = f"{kwargs['command_output_dir']}/{kwargs['click_group']}/tests/test_{kwargs['click_group']}_{kwargs['opn_cli']}.py"
+
+    click.echo(command_test_generator.write_code(output_path))
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-from opnsense_cli.tests.base import BaseTestCase
+from opnsense_cli.test_base import BaseTestCase
 from opnsense_cli.template_engines.jinja2 import Jinja2TemplateEngine
 from opnsense_cli.template_engines.exceptions import TemplateEngineException, TemplateNotFoundException
 from opnsense_cli.template_engines.tests.fixtures.template_vars import TemplateTestVars

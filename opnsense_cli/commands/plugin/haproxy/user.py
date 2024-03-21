@@ -4,10 +4,10 @@ from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, b
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
-from opnsense_cli.facades.commands.plugin.haproxy.user import HaproxyUserFacade
+from opnsense_cli.commands.plugin.haproxy.services.haproxy_user_service import HaproxyUserService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_haproxy_user_svc = click.make_pass_decorator(HaproxyUserFacade)
+pass_haproxy_user_svc = click.make_pass_decorator(HaproxyUserService)
 
 
 @haproxy.group()
@@ -19,7 +19,7 @@ def user(ctx, api_client: ApiClient, **kwargs):
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = HaproxyUserFacade(settings_api, service_api)
+    ctx.obj = HaproxyUserService(settings_api, service_api)
 
 
 @user.command()
@@ -40,7 +40,7 @@ def user(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_haproxy_user_svc
-def list(haproxy_user_svc: HaproxyUserFacade, **kwargs):
+def list(haproxy_user_svc: HaproxyUserService, **kwargs):
     """
     Show all user
     """
@@ -68,7 +68,7 @@ def list(haproxy_user_svc: HaproxyUserFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_user_svc
-def show(haproxy_user_svc: HaproxyUserFacade, **kwargs):
+def show(haproxy_user_svc: HaproxyUserService, **kwargs):
     """
     Show details for user
     """
@@ -124,7 +124,7 @@ def show(haproxy_user_svc: HaproxyUserFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_user_svc
-def create(haproxy_user_svc: HaproxyUserFacade, **kwargs):
+def create(haproxy_user_svc: HaproxyUserService, **kwargs):
     """
     Create a new user
     """
@@ -182,7 +182,7 @@ def create(haproxy_user_svc: HaproxyUserFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_user_svc
-def update(haproxy_user_svc: HaproxyUserFacade, **kwargs):
+def update(haproxy_user_svc: HaproxyUserService, **kwargs):
     """
     Update a user.
     """
@@ -216,7 +216,7 @@ def update(haproxy_user_svc: HaproxyUserFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_user_svc
-def delete(haproxy_user_svc: HaproxyUserFacade, **kwargs):
+def delete(haproxy_user_svc: HaproxyUserService, **kwargs):
     """
     Delete user
     """

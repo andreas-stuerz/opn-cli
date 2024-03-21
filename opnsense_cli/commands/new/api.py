@@ -158,7 +158,9 @@ def write_api(template_engine, controllers, module_name, **kwargs):
     api_code_generator = OpnsenseApiCodeGenerator(
         template_engine=template_engine, template=kwargs["template_api"], controllers=controllers, module_name=module_name
     )
-    click.echo(api_code_generator.write_code(kwargs["api_output_dir"]))
+    output_path = f"{kwargs['api_output_dir']}/{module_name}.py"
+
+    click.echo(api_code_generator.write_code(output_path))
 
 
 def list_modules(type, url):

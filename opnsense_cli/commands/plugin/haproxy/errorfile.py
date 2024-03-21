@@ -4,10 +4,10 @@ from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, a
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
-from opnsense_cli.facades.commands.plugin.haproxy.errorfile import HaproxyErrorfileFacade
+from opnsense_cli.commands.plugin.haproxy.services.haproxy_errorfile_service import HaproxyErrorfileService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_haproxy_errorfile_svc = click.make_pass_decorator(HaproxyErrorfileFacade)
+pass_haproxy_errorfile_svc = click.make_pass_decorator(HaproxyErrorfileService)
 
 
 @haproxy.group()
@@ -19,7 +19,7 @@ def errorfile(ctx, api_client: ApiClient, **kwargs):
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = HaproxyErrorfileFacade(settings_api, service_api)
+    ctx.obj = HaproxyErrorfileService(settings_api, service_api)
 
 
 @errorfile.command()
@@ -40,7 +40,7 @@ def errorfile(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_haproxy_errorfile_svc
-def list(haproxy_errorfile_svc: HaproxyErrorfileFacade, **kwargs):
+def list(haproxy_errorfile_svc: HaproxyErrorfileService, **kwargs):
     """
     Show all errorfile
     """
@@ -68,7 +68,7 @@ def list(haproxy_errorfile_svc: HaproxyErrorfileFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_errorfile_svc
-def show(haproxy_errorfile_svc: HaproxyErrorfileFacade, **kwargs):
+def show(haproxy_errorfile_svc: HaproxyErrorfileService, **kwargs):
     """
     Show details for errorfile
     """
@@ -128,7 +128,7 @@ def show(haproxy_errorfile_svc: HaproxyErrorfileFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_errorfile_svc
-def create(haproxy_errorfile_svc: HaproxyErrorfileFacade, **kwargs):
+def create(haproxy_errorfile_svc: HaproxyErrorfileService, **kwargs):
     """
     Create a new errorfile
     """
@@ -190,7 +190,7 @@ def create(haproxy_errorfile_svc: HaproxyErrorfileFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_errorfile_svc
-def update(haproxy_errorfile_svc: HaproxyErrorfileFacade, **kwargs):
+def update(haproxy_errorfile_svc: HaproxyErrorfileService, **kwargs):
     """
     Update a errorfile.
     """
@@ -224,7 +224,7 @@ def update(haproxy_errorfile_svc: HaproxyErrorfileFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_errorfile_svc
-def delete(haproxy_errorfile_svc: HaproxyErrorfileFacade, **kwargs):
+def delete(haproxy_errorfile_svc: HaproxyErrorfileService, **kwargs):
     """
     Delete errorfile
     """

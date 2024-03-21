@@ -4,10 +4,10 @@ from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, b
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
-from opnsense_cli.facades.commands.plugin.haproxy.mailer import HaproxyMailerFacade
+from opnsense_cli.commands.plugin.haproxy.services.haproxy_mailer_service import HaproxyMailerService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_haproxy_mailer_svc = click.make_pass_decorator(HaproxyMailerFacade)
+pass_haproxy_mailer_svc = click.make_pass_decorator(HaproxyMailerService)
 
 
 @haproxy.group()
@@ -19,7 +19,7 @@ def mailer(ctx, api_client: ApiClient, **kwargs):
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = HaproxyMailerFacade(settings_api, service_api)
+    ctx.obj = HaproxyMailerService(settings_api, service_api)
 
 
 @mailer.command()
@@ -40,7 +40,7 @@ def mailer(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_haproxy_mailer_svc
-def list(haproxy_mailer_svc: HaproxyMailerFacade, **kwargs):
+def list(haproxy_mailer_svc: HaproxyMailerService, **kwargs):
     """
     Show all mailer
     """
@@ -68,7 +68,7 @@ def list(haproxy_mailer_svc: HaproxyMailerFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_mailer_svc
-def show(haproxy_mailer_svc: HaproxyMailerFacade, **kwargs):
+def show(haproxy_mailer_svc: HaproxyMailerService, **kwargs):
     """
     Show details for mailer
     """
@@ -160,7 +160,7 @@ def show(haproxy_mailer_svc: HaproxyMailerFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_mailer_svc
-def create(haproxy_mailer_svc: HaproxyMailerFacade, **kwargs):
+def create(haproxy_mailer_svc: HaproxyMailerService, **kwargs):
     """
     Create a new mailer
     """
@@ -256,7 +256,7 @@ def create(haproxy_mailer_svc: HaproxyMailerFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_mailer_svc
-def update(haproxy_mailer_svc: HaproxyMailerFacade, **kwargs):
+def update(haproxy_mailer_svc: HaproxyMailerService, **kwargs):
     """
     Update a mailer.
     """
@@ -290,7 +290,7 @@ def update(haproxy_mailer_svc: HaproxyMailerFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_mailer_svc
-def delete(haproxy_mailer_svc: HaproxyMailerFacade, **kwargs):
+def delete(haproxy_mailer_svc: HaproxyMailerService, **kwargs):
     """
     Delete mailer
     """

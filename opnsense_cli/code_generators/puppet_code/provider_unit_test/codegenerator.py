@@ -21,8 +21,6 @@ class PuppetProviderUnitTestCodeGenerator(PuppetCodeGenerator):
         self._template = template
         self._update_command_params = update_command_params
 
-    def _get_filename(self):
-        return f"opnsense_{self._click_group}_{self._click_command}_spec.rb"
 
     def _get_template_vars(self):
         return PuppetProviderUnitTestTemplateVars(

@@ -12,10 +12,10 @@ from opnsense_cli.click_addons.param_type_csv import CSV
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
-from opnsense_cli.facades.commands.plugin.haproxy.action import HaproxyActionFacade
+from opnsense_cli.commands.plugin.haproxy.services.haproxy_action_service import HaproxyActionService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_haproxy_action_svc = click.make_pass_decorator(HaproxyActionFacade)
+pass_haproxy_action_svc = click.make_pass_decorator(HaproxyActionService)
 
 
 @haproxy.group()
@@ -27,7 +27,7 @@ def action(ctx, api_client: ApiClient, **kwargs):
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = HaproxyActionFacade(settings_api, service_api)
+    ctx.obj = HaproxyActionService(settings_api, service_api)
 
 
 @action.command()
@@ -48,7 +48,7 @@ def action(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_haproxy_action_svc
-def list(haproxy_action_svc: HaproxyActionFacade, **kwargs):
+def list(haproxy_action_svc: HaproxyActionService, **kwargs):
     """
     Show all action
     """
@@ -92,7 +92,7 @@ def list(haproxy_action_svc: HaproxyActionFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_action_svc
-def show(haproxy_action_svc: HaproxyActionFacade, **kwargs):
+def show(haproxy_action_svc: HaproxyActionService, **kwargs):
     """
     Show details for action
     """
@@ -604,7 +604,7 @@ def show(haproxy_action_svc: HaproxyActionFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_action_svc
-def create(haproxy_action_svc: HaproxyActionFacade, **kwargs):
+def create(haproxy_action_svc: HaproxyActionService, **kwargs):
     """
     Create a new action
     """
@@ -1069,7 +1069,7 @@ def create(haproxy_action_svc: HaproxyActionFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_action_svc
-def update(haproxy_action_svc: HaproxyActionFacade, **kwargs):
+def update(haproxy_action_svc: HaproxyActionService, **kwargs):
     """
     Update a action.
     """
@@ -1157,7 +1157,7 @@ def update(haproxy_action_svc: HaproxyActionFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_action_svc
-def delete(haproxy_action_svc: HaproxyActionFacade, **kwargs):
+def delete(haproxy_action_svc: HaproxyActionService, **kwargs):
     """
     Delete action
     """
