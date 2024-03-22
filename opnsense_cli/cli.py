@@ -6,7 +6,6 @@ from opnsense_cli.click_addons.callbacks import defaults_from_configfile, expand
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.click_addons.command_autoloader import ClickCommandAutoloader
 
-
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
 
@@ -139,6 +138,7 @@ autoloader.autoload("opnsense_cli.commands.plugin")
 autoloader.autoload("opnsense_cli.commands.new")
 autoloader.autoload("opnsense_cli.commands.completion")
 autoloader.autoload("opnsense_cli.commands.version")
+autoloader.autoload("opnsense_cli.commands.tree")
 
 if __name__ == "__main__":
     cli()

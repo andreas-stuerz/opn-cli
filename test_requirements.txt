@@ -6,8 +6,6 @@ pytest
 pytest-cov
 pyfakefs
 flake8
-pytest
-pytest-cov
 pyfakefs
 black
 autoflake

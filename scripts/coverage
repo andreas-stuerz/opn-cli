@@ -5,4 +5,5 @@ if [ -n "$1" ]; then
   MODULE=$(printf ' %q' "$@")
 fi
 
-pytest --exitfirst --verbose --failed-first --cov=${MODULE} --cov-report term-missing --cov-config=.coveragerc --cov-fail-under=${MIN_COVERAGE} ${MODULE} --verbosity=5
+pytest --exitfirst --verbose --failed-first --cov=${MODULE}/ --debug config --cov-report term-missing --cov-fail-under=${MIN_COVERAGE} ${MODULE} --verbosity=5
+
