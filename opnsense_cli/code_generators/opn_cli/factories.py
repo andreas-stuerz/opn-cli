@@ -1,9 +1,13 @@
 from bs4.element import Tag
 from opnsense_cli.code_generators.opn_cli.factory_types import ClickOptionCodeFragment
 from opnsense_cli.factories import ObjectTypeFromDataFactory, FactoryException
-from opnsense_cli.code_generators.opn_cli.factory_types import ClickBoolean, ClickText, ClickInteger, ClickChoice, \
-    ClickTextLinkedItem
-
+from opnsense_cli.code_generators.opn_cli.factory_types import (
+    ClickBoolean,
+    ClickText,
+    ClickInteger,
+    ClickChoice,
+    ClickTextLinkedItem,
+)
 
 
 class ClickOptionCodeTypeFactory(ObjectTypeFromDataFactory):

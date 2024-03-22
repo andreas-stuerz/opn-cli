@@ -1,6 +1,13 @@
 from opnsense_cli.factories import ObjectTypeFromDataFactory, FactoryException
-from opnsense_cli.code_generators.puppet_code.factory_types import PuppetCodeFragment, PuppetBoolean, PuppetChoice, \
-    PuppetChoiceMultiple, PuppetCsv, PuppetInteger, PuppetString
+from opnsense_cli.code_generators.puppet_code.factory_types import (
+    PuppetCodeFragment,
+    PuppetBoolean,
+    PuppetChoice,
+    PuppetChoiceMultiple,
+    PuppetCsv,
+    PuppetInteger,
+    PuppetString,
+)
 
 
 class PuppetCodeFragmentFactory(ObjectTypeFromDataFactory):

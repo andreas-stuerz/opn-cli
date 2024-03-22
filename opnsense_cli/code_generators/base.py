@@ -25,5 +25,3 @@ class CodeGenerator(ABC):
     @abstractmethod
     def _get_template_vars(self):
         """ " This method should be implemented."""
-
-

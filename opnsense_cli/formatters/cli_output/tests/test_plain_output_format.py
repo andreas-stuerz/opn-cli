@@ -1,6 +1,7 @@
 from opnsense_cli.formatters.cli_output.output_formats import PlainOutputFormat
 from opnsense_cli.formatters.cli_output.tests.base import FormatTestCase
 
+
 class TestPlainOutputFormat(FormatTestCase):
     def test_with_json_array(self):
         format = PlainOutputFormat(self._api_data_json_array, ["name", "version"])

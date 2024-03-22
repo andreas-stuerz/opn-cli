@@ -2,14 +2,15 @@ from opnsense_cli.code_generators.base import CodeGenerator
 from opnsense_cli.code_generators.puppet_code.factories import PuppetCodeFragmentFactory
 from typing import List
 
+
 class PuppetCodeGenerator(CodeGenerator):
     def __init__(
-            self,
-            create_command_params,
-            type_factory: PuppetCodeFragmentFactory,
-            find_uuid_by_column,
-            click_group,
-            click_command,
+        self,
+        create_command_params,
+        type_factory: PuppetCodeFragmentFactory,
+        find_uuid_by_column,
+        click_group,
+        click_command,
     ):
         self._create_command_params = create_command_params
         self._type_factory = type_factory
@@ -52,5 +53,3 @@ class PuppetCodeGenerator(CodeGenerator):
                 continue
             columns.append(param_line["name"])
         return columns
-
-

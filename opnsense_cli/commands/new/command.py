@@ -32,7 +32,11 @@ def command(**kwargs):
     required=True,
 )
 @click.option(
-    "--tag", "-t", help="The xml tag from the core_model.xml e.g. dnsbl for unbound dnsbl command", show_default=True, required=True
+    "--tag",
+    "-t",
+    help="The xml tag from the core_model.xml e.g. dnsbl for unbound dnsbl command",
+    show_default=True,
+    required=True,
 )
 @click.option(
     "--form-url",
@@ -246,7 +250,7 @@ def write_command_service(type, model_tag: Tag, template_engine, option_factory,
         kwargs["tag"],
         type,
     )
-    output_path = f"{kwargs['command_output_dir']}/{kwargs['click_group']}/services/{kwargs['click_group']}_{kwargs['opn_cli']}_service.py"
+    output_path = f"{kwargs['command_output_dir']}/{kwargs['click_group']}/services/{kwargs['click_group']}_{kwargs['opn_cli']}_service.py"  # noqa: E501
 
     click.echo(command_service_generator.write_code(output_path))
 
@@ -263,7 +267,9 @@ def write_command_test(type, model_tag: Tag, template_engine, option_factory, **
         type,
     )
 
-    output_path = f"{kwargs['command_output_dir']}/{kwargs['click_group']}/tests/test_{kwargs['click_group']}_{kwargs['opn_cli']}.py"
+    output_path = (
+        f"{kwargs['command_output_dir']}/{kwargs['click_group']}/tests/test_{kwargs['click_group']}_{kwargs['opn_cli']}.py"
+    )
 
     click.echo(command_test_generator.write_code(output_path))
 

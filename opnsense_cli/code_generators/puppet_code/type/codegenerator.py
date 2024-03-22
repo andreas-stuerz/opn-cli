@@ -21,7 +21,6 @@ class PuppetTypeCodeGenerator(PuppetCodeGenerator):
         self._template = template
         self._update_command_params = update_command_params
 
-
     def _get_template_vars(self):
         return PuppetTypeTemplateVars(
             click_command=self._click_command,

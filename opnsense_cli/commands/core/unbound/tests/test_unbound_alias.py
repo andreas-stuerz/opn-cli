@@ -18,7 +18,9 @@ class TestUnboundAliasCommands(CommandTestCase):
         self._api_data_fixtures_delete_NOT_FOUND = {"result": "not found"}
         self._api_data_fixtures_delete_OK = {"result": "deleted"}
         self._api_data_fixtures_list_EMPTY = {"unbound": {"aliases": {"alias": []}}}
-        self._api_data_fixtures_list = self._api_data_fixtures_list = self._read_json_fixture("fixtures/model_data.json", base_dir=os.path.dirname(__file__))
+        self._api_data_fixtures_list = self._api_data_fixtures_list = self._read_json_fixture(
+            "fixtures/model_data.json", base_dir=os.path.dirname(__file__)
+        )
         self._api_client_args_fixtures = ["api_key", "api_secret", "https://127.0.0.1/api", True, "~/.opn-cli/ca.pem", 60]
 
     @patch("opnsense_cli.commands.core.unbound.alias.ApiClient.execute")
