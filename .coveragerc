@@ -4,10 +4,10 @@ omit =
     *private*
     */local/*
     *venv*
-    *tests/*
-    *tests/fixtures/*
-    *test_base.py
-    *output*
+    */tests/*
+    */tests/fixtures/*
+    test_base.py
+    */output*
     /usr/lib/python*
 
 [report]
