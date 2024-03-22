@@ -5,7 +5,7 @@ import click
 from opnsense_cli.click_addons.callbacks import defaults_from_configfile, expand_path, get_default_config_dir
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.click_addons.command_autoloader import ClickCommandAutoloader
-
+from opnsense_cli.click_addons.command_tree import _build_command_tree, _print_tree
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
@@ -132,13 +132,13 @@ def cli(ctx, **kwargs):
         kwargs["timeout"],
     )
 
-
 autoloader = ClickCommandAutoloader(cli)
 autoloader.autoload("opnsense_cli.commands.core")
 autoloader.autoload("opnsense_cli.commands.plugin")
 autoloader.autoload("opnsense_cli.commands.new")
 autoloader.autoload("opnsense_cli.commands.completion")
 autoloader.autoload("opnsense_cli.commands.version")
+autoloader.autoload("opnsense_cli.commands.tree")
 
 if __name__ == "__main__":
     cli()

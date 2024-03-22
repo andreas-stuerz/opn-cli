@@ -2,11 +2,11 @@ import os
 import importlib
 import importlib.util
 
-
 class ClickCommandAutoloader:
     def __init__(self, click_core_group):
-        self.loaded_modules = set()
+        self.loaded_modules = []
         self.loaded_classes = []
+        self.subgroups = {}
         self.click_core_group = click_core_group
 
     def autoload(self, module_name=None, ignore_dirs=None):
@@ -37,36 +37,34 @@ class ClickCommandAutoloader:
         path = spec.submodule_search_locations[0]
 
         (root_dir, command_group_dirs, files) = list(os.walk(path))[0]
-
         command_group_dirs = [directory for directory in command_group_dirs if directory not in ignore_dirs]
 
         if not command_group_dirs:
             path, file = os.path.split(root_dir)
             command_group_dirs = [file]
             module_path_components = module_name.split(".")
-            module_name = ".".join(module_path_components[0 : len(module_path_components) - 1])
+            module_name = ".".join(module_path_components[:-1])
 
         for command_group_dir in command_group_dirs:
-            command_group_files = list(os.walk(f"{path}/{command_group_dir}"))[0][2]
+            command_group_files = sorted(list(os.walk(f"{path}/{command_group_dir}"))[0][2])
 
             for command_group_file in command_group_files:
-                import_name = f"{module_name}.{command_group_dir}"
-                class_name = f"{command_group_dir}"
-
-                if command_group_file != "__init__.py":
+                if command_group_file == "__init__.py":
+                    import_name = f"{module_name}.{command_group_dir}"
+                    class_name = command_group_dir
+                else:
                     _subname_ = os.path.splitext(command_group_file)[0]
                     import_name = f"{module_name}.{command_group_dir}.{_subname_}"
-                    class_name = f"{_subname_}"
+                    class_name = _subname_
 
                 module = importlib.import_module(import_name)
                 click_group = getattr(module, class_name)
 
-                self.loaded_modules.add(module)
+                self.loaded_modules.append(module)
                 self.loaded_classes.append(click_group)
 
                 if command_group_file == "__init__.py":
                     self.click_core_group.add_command(click_group)
-                else:
-                    click_group.add_command(click_group)
+                    self.subgroups[command_group_dir] = click_group
 
-        return click_group
+        return self.click_core_group
