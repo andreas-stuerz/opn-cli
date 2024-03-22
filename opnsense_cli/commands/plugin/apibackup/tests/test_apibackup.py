@@ -4,10 +4,10 @@ from opnsense_cli.commands.test_base import CommandTestCase
 import base64
 import os
 
+
 class TestApibackupCommands(CommandTestCase):
     def setUp(self):
         self._setup_fakefs()
-
 
         self._config_xml = self._read_fixture_file("fixtures/config.xml.sample", base_dir=os.path.dirname(__file__))
         self._api_data_fixtures_download = {

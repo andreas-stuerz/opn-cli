@@ -12,8 +12,12 @@ class TestNewCommandApi(CommandTestCase):
 
         self._core_html_fixture = self._read_fixture_file("fixtures/api/core.html", base_dir=os.path.dirname(__file__))
         self._plugin_html_fixture = self._read_fixture_file("fixtures/api/plugin.html", base_dir=os.path.dirname(__file__))
-        self._list_core_html_fixture = self._read_fixture_file("fixtures/api/core_list.html", base_dir=os.path.dirname(__file__))
-        self._list_plugin_html_fixture = self._read_fixture_file("fixtures/api/plugin_list.html", base_dir=os.path.dirname(__file__))
+        self._list_core_html_fixture = self._read_fixture_file(
+            "fixtures/api/core_list.html", base_dir=os.path.dirname(__file__)
+        )
+        self._list_plugin_html_fixture = self._read_fixture_file(
+            "fixtures/api/plugin_list.html", base_dir=os.path.dirname(__file__)
+        )
 
         self._mock_html_core_resp = self._mock_response(content=self._core_html_fixture)
         self._mock_html_plugin_resp = self._mock_response(content=self._plugin_html_fixture)

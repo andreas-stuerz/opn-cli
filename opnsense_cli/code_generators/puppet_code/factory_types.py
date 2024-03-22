@@ -142,6 +142,7 @@ class PuppetBoolean(PuppetCodeFragment):
     expect(r.stdout).to match %r{${name}: '0'}
     """
 
+
 class PuppetChoice(PuppetCodeFragment):
     TEMPLATE_PROVIDER_translate_json_object_to_puppet_resource = """
     ${name}: json_object['${name}'],
@@ -188,6 +189,7 @@ class PuppetChoice(PuppetCodeFragment):
     TEMPLATE_ACCEPTANCE_TEST_match_item = """
     expect(r.stdout).to match %r{${name}: 'TODO'}
     """
+
 
 class PuppetChoiceMultiple(PuppetCodeFragment):
     TEMPLATE_PROVIDER_translate_json_object_to_puppet_resource = """
@@ -240,6 +242,7 @@ class PuppetChoiceMultiple(PuppetCodeFragment):
     expect(r.stdout).to match %r{${name}: 'TODO'}
     """
 
+
 class PuppetCsv(PuppetCodeFragment):
     TEMPLATE_PROVIDER_translate_json_object_to_puppet_resource = """
     ${name}: array_from_value(json_object['${name}']),
@@ -287,6 +290,7 @@ class PuppetCsv(PuppetCodeFragment):
     TEMPLATE_ACCEPTANCE_TEST_match_item = """
     expect(r.stdout).to match %r{${name}: '\\[\\]'}
     """
+
 
 class PuppetInteger(PuppetCodeFragment):
     TEMPLATE_PROVIDER_translate_json_object_to_puppet_resource = """
@@ -342,6 +346,7 @@ class PuppetInteger(PuppetCodeFragment):
     TEMPLATE_ACCEPTANCE_TEST_match_item = """
     expect(r.stdout).to match %r{${name}: 'TODO'}
     """
+
 
 class PuppetString(PuppetCodeFragment):
     TEMPLATE_PROVIDER_translate_json_object_to_puppet_resource = """
@@ -415,5 +420,3 @@ class PuppetString(PuppetCodeFragment):
     TEMPLATE_ACCEPTANCE_TEST_match_item_namevar = """
     expect(r.stdout).to match %r{${name}: acceptance test item}
     """
-
-

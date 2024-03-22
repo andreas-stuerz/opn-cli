@@ -124,7 +124,7 @@ def write_puppet_provider(ctx, template_engine, code_factory, create_command_par
         update_command_params,
     )
 
-    output_path = f"{kwargs['puppet_output_dir']}/provider/opnsense_{kwargs['click_group']}_{kwargs['click_command']}/opnsense_{kwargs['click_group']}_{kwargs['click_command']}.rb"
+    output_path = f"{kwargs['puppet_output_dir']}/provider/opnsense_{kwargs['click_group']}_{kwargs['click_command']}/opnsense_{kwargs['click_group']}_{kwargs['click_command']}.rb"  # noqa: E501
 
     click.echo(code_generator.write_code(output_path))
 
@@ -158,7 +158,7 @@ def write_puppet_type_unit_test(ctx, template_engine, code_factory, create_comma
         update_command_params,
     )
 
-    output_path = f"{kwargs['puppet_output_dir']}/spec/unit/puppet/type/opnsense_{kwargs['click_group']}_{kwargs['click_command']}_spec.rb"
+    output_path = f"{kwargs['puppet_output_dir']}/spec/unit/puppet/type/opnsense_{kwargs['click_group']}_{kwargs['click_command']}_spec.rb"  # noqa: E501
 
     click.echo(code_generator.write_code(output_path))
 
@@ -177,7 +177,7 @@ def write_puppet_provider_unit_test(
         update_command_params,
     )
 
-    output_path = f"{kwargs['puppet_output_dir']}/spec/unit/puppet/provider/opnsense_{kwargs['click_group']}_{kwargs['click_command']}_spec.rb"
+    output_path = f"{kwargs['puppet_output_dir']}/spec/unit/puppet/provider/opnsense_{kwargs['click_group']}_{kwargs['click_command']}_spec.rb"  # noqa: E501
 
     click.echo(code_generator.write_code(output_path))
 
@@ -194,7 +194,7 @@ def write_puppet_acceptance_test(ctx, template_engine, code_factory, create_comm
         update_command_params,
     )
 
-    output_path = f"{kwargs['puppet_output_dir']}/spec/acceptance/types/opnsense_{kwargs['click_group']}_{kwargs['click_command']}_spec.rb"
+    output_path = f"{kwargs['puppet_output_dir']}/spec/acceptance/types/opnsense_{kwargs['click_group']}_{kwargs['click_command']}_spec.rb"  # noqa: E501
 
     click.echo(code_generator.write_code(output_path))
 

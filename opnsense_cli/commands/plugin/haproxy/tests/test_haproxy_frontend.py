@@ -3,6 +3,7 @@ from opnsense_cli.commands.plugin.haproxy.frontend import frontend
 from opnsense_cli.commands.test_base import CommandTestCase
 import os
 
+
 class TestHaproxyFrontendCommands(CommandTestCase):
     def setUp(self):
         self._api_data_fixtures_reconfigure_OK = {"status": "ok"}

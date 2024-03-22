@@ -10,10 +10,16 @@ class TestNewCommandCommands(CommandTestCase):
     def setUp(self):
         self._setup_fakefs()
 
-        self._core_model_fixture = self._read_fixture_file("fixtures/opn_cli/core_model.xml", base_dir=os.path.dirname(__file__))
+        self._core_model_fixture = self._read_fixture_file(
+            "fixtures/opn_cli/core_model.xml", base_dir=os.path.dirname(__file__)
+        )
         self._core_form_fixture = self._read_fixture_file("fixtures/opn_cli/core_form.xml", base_dir=os.path.dirname(__file__))
-        self._plugin_model_fixture = self._read_fixture_file("fixtures/opn_cli/plugin_model.xml", base_dir=os.path.dirname(__file__))
-        self._plugin_form_fixture = self._read_fixture_file("fixtures/opn_cli/plugin_form.xml", base_dir=os.path.dirname(__file__))
+        self._plugin_model_fixture = self._read_fixture_file(
+            "fixtures/opn_cli/plugin_model.xml", base_dir=os.path.dirname(__file__)
+        )
+        self._plugin_form_fixture = self._read_fixture_file(
+            "fixtures/opn_cli/plugin_form.xml", base_dir=os.path.dirname(__file__)
+        )
 
         self._mock_model_core_resp = self._mock_response(content=self._core_model_fixture)
         self._mock_form_core_resp = self._mock_response(content=self._core_form_fixture)
@@ -27,7 +33,9 @@ class TestNewCommandCommands(CommandTestCase):
         self._output_dir = self._get_output_path()
 
         self._generated_plugin_command_path = f"{self._output_dir}/commands/plugin/haproxy/frontend.py"
-        self._generated_plugin_service_path = f"{self._output_dir}/commands/plugin/haproxy/services/haproxy_frontend_service.py"
+        self._generated_plugin_service_path = (
+            f"{self._output_dir}/commands/plugin/haproxy/services/haproxy_frontend_service.py"
+        )
         self._generated_plugin_test_path = f"{self._output_dir}/commands/plugin/haproxy/tests/test_haproxy_frontend.py"
 
         self._generated_core_command_path = f"{self._output_dir}/commands/core/firewall/category.py"
