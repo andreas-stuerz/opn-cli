@@ -1,0 +1,16 @@
+from opnsense_cli.api.base import ApiBase
+
+{% for controller, controller_values in vars.controllers.items() %}
+class {{ controller.capitalize() }}(ApiBase):
+    MODULE = "{{ vars.module_name }}"
+    CONTROLLER = "{{ controller }}"
+    """
+    {{ vars.module_name.capitalize() }} {{ controller.capitalize() }}Controller
+    """
+{% for controller_value in controller_values %}
+    @ApiBase._api_call
+    def {{ controller_value['command'] }}(self, *args):
+        self.method = "{{ controller_value['method'].lower() }}"
+        self.command = "{{ controller_value['command'] }}"
+{% endfor %}
+{% endfor %}

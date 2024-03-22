@@ -1,14 +1,14 @@
 import click
 import os
 from opnsense_cli.commands.new import new
-from opnsense_cli.facades.code_generator.puppet_acceptance_test import PuppetAcceptanceTestCodeGenerator
-from opnsense_cli.facades.code_generator.puppet_provider import PuppetProviderCodeGenerator
-from opnsense_cli.facades.code_generator.puppet_provider_unit_test import PuppetProviderUnitTestCodeGenerator
-from opnsense_cli.facades.code_generator.puppet_type import PuppetTypeCodeGenerator
-from opnsense_cli.facades.code_generator.puppet_type_unit_test import PuppetTypeUnitTestCodeGenerator
-from opnsense_cli.facades.template_engines.jinja2 import Jinja2TemplateEngine
+from opnsense_cli.code_generators.puppet_code.acceptance_test.codegenerator import PuppetAcceptanceTestCodeGenerator
+from opnsense_cli.code_generators.puppet_code.provider.codegenerator import PuppetProviderCodeGenerator
+from opnsense_cli.code_generators.puppet_code.provider_unit_test.codegenerator import PuppetProviderUnitTestCodeGenerator
+from opnsense_cli.code_generators.puppet_code.type.codegenerator import PuppetTypeCodeGenerator
+from opnsense_cli.code_generators.puppet_code.type_unit_test.codegenerator import PuppetTypeUnitTestCodeGenerator
+from opnsense_cli.template_engines.jinja2 import Jinja2TemplateEngine
 from opnsense_cli.cli import cli
-from opnsense_cli.factories.code_generator.puppet_code_fragment import PuppetCodeFragmentFactory
+from opnsense_cli.code_generators.puppet_code.factories import PuppetCodeFragmentFactory
 
 
 @new.group()
@@ -27,42 +27,42 @@ def puppet(**kwargs):
     "-tb",
     help="The template basedir path",
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), "../../../opnsense_cli/templates"),
+    default=os.path.join(os.path.dirname(__file__), "../../../opnsense_cli"),
 )
 @click.option(
     "--template-provider",
     "-tp",
     help="The template for the puppet provider relative to the template basedir.",
     show_default=True,
-    default="code_generator/puppet/provider.rb.j2",
+    default="code_generators/puppet_code/provider/template.rb.j2",
 )
 @click.option(
     "--template-type",
     "-tt",
     help="The template for the puppet type relative to the template basedir.",
     show_default=True,
-    default="code_generator/puppet/type.rb.j2",
+    default="code_generators/puppet_code/type/template.rb.j2",
 )
 @click.option(
     "--template-provider-unit-test",
     "-tpt",
     help="The template for the puppet provider unit-test relative to the template basedir.",
     show_default=True,
-    default="code_generator/puppet/provider_unit_test.rb.j2",
+    default="code_generators/puppet_code/provider_unit_test/template.rb.j2",
 )
 @click.option(
     "--template-type-unit-test",
     "-ttt",
     help="The template for the puppet type unit-test  relative to the template basedir.",
     show_default=True,
-    default="code_generator/puppet/type_unit_test.rb.j2",
+    default="code_generators/puppet_code/type_unit_test/template.rb.j2",
 )
 @click.option(
     "--template-acceptance-test",
     "-ttt",
     help="The template for the puppet acceptance relative to the template basedir.",
     show_default=True,
-    default="code_generator/puppet/acceptance_test.rb.j2",
+    default="code_generators/puppet_code/acceptance_test/template.rb.j2",
 )
 @click.option(
     "--puppet-output-dir",
@@ -70,41 +70,6 @@ def puppet(**kwargs):
     help="The output directory for the generated puppet resource type files",
     show_default=True,
     default=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../output/puppet")),
-)
-@click.option(
-    "--provider-output-dir",
-    "-pod",
-    help="The output directory for the generated puppet provider",
-    show_default=True,
-    default=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../output/puppet/provider")),
-)
-@click.option(
-    "--type-output-dir",
-    "-pod",
-    help="The output directory for the generated puppet provider",
-    show_default=True,
-    default=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../output/puppet/type")),
-)
-@click.option(
-    "--provider-test-output-dir",
-    "-ptod",
-    help="The output directory for the generated provider unit test",
-    show_default=True,
-    default=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../output/puppet/spec/unit/puppet/provider")),
-)
-@click.option(
-    "--type-test-output-dir",
-    "-ttod",
-    help="The output directory for the generated type unit test",
-    show_default=True,
-    default=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../output/puppet/spec/unit/puppet/type")),
-)
-@click.option(
-    "--acceptance-test-output-dir",
-    "-atod",
-    help="The output directory for the generated resource type acceptance test",
-    show_default=True,
-    default=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../output/puppet/spec/acceptance/types")),
 )
 @click.pass_context
 def resource_type(ctx, **kwargs):
@@ -159,7 +124,9 @@ def write_puppet_provider(ctx, template_engine, code_factory, create_command_par
         update_command_params,
     )
 
-    click.echo(code_generator.write_code(kwargs["provider_output_dir"]))
+    output_path = f"{kwargs['puppet_output_dir']}/provider/opnsense_{kwargs['click_group']}_{kwargs['click_command']}/opnsense_{kwargs['click_group']}_{kwargs['click_command']}.rb"  # noqa: E501
+
+    click.echo(code_generator.write_code(output_path))
 
 
 def write_puppet_type(ctx, template_engine, code_factory, create_command_params, update_command_params, **kwargs):
@@ -174,7 +141,9 @@ def write_puppet_type(ctx, template_engine, code_factory, create_command_params,
         update_command_params,
     )
 
-    click.echo(code_generator.write_code(kwargs["type_output_dir"]))
+    output_path = f"{kwargs['puppet_output_dir']}/type/opnsense_{kwargs['click_group']}_{kwargs['click_command']}.rb"
+
+    click.echo(code_generator.write_code(output_path))
 
 
 def write_puppet_type_unit_test(ctx, template_engine, code_factory, create_command_params, update_command_params, **kwargs):
@@ -189,7 +158,9 @@ def write_puppet_type_unit_test(ctx, template_engine, code_factory, create_comma
         update_command_params,
     )
 
-    click.echo(code_generator.write_code(kwargs["type_test_output_dir"]))
+    output_path = f"{kwargs['puppet_output_dir']}/spec/unit/puppet/type/opnsense_{kwargs['click_group']}_{kwargs['click_command']}_spec.rb"  # noqa: E501
+
+    click.echo(code_generator.write_code(output_path))
 
 
 def write_puppet_provider_unit_test(
@@ -206,7 +177,9 @@ def write_puppet_provider_unit_test(
         update_command_params,
     )
 
-    click.echo(code_generator.write_code(kwargs["provider_test_output_dir"]))
+    output_path = f"{kwargs['puppet_output_dir']}/spec/unit/puppet/provider/opnsense_{kwargs['click_group']}_{kwargs['click_command']}_spec.rb"  # noqa: E501
+
+    click.echo(code_generator.write_code(output_path))
 
 
 def write_puppet_acceptance_test(ctx, template_engine, code_factory, create_command_params, update_command_params, **kwargs):
@@ -221,7 +194,9 @@ def write_puppet_acceptance_test(ctx, template_engine, code_factory, create_comm
         update_command_params,
     )
 
-    click.echo(code_generator.write_code(kwargs["acceptance_test_output_dir"]))
+    output_path = f"{kwargs['puppet_output_dir']}/spec/acceptance/types/opnsense_{kwargs['click_group']}_{kwargs['click_command']}_spec.rb"  # noqa: E501
+
+    click.echo(code_generator.write_code(output_path))
 
 
 if __name__ == "__main__":

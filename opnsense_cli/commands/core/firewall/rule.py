@@ -1,15 +1,15 @@
 import click
 
-from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import formatter_from_formatter_name, bool_as_string, int_as_string, available_formats
-from opnsense_cli.types.click_param_type.int_or_empty import INT_OR_EMPTY
+from opnsense_cli.formatters.cli_output.cli_output_formatter import CliOutputFormatter
+from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, bool_as_string, int_as_string, available_formats
+from opnsense_cli.click_addons.param_type_int_or_empty import INT_OR_EMPTY
 from opnsense_cli.commands.core.firewall import firewall
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.firewall import FirewallFilter
-from opnsense_cli.facades.commands.plugin.firewall.firewall_rule import FirewallRuleFacade
+from opnsense_cli.commands.core.firewall.services.firewall_rule_service import FirewallRuleService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_firewall_rule_svc = click.make_pass_decorator(FirewallRuleFacade)
+pass_firewall_rule_svc = click.make_pass_decorator(FirewallRuleService)
 
 
 @firewall.group()
@@ -36,7 +36,7 @@ def rule(ctx, api_client: ApiClient, **kwargs):
 
     """
     rule_api = FirewallFilter(api_client)
-    ctx.obj = FirewallRuleFacade(rule_api)
+    ctx.obj = FirewallRuleService(rule_api)
 
 
 @rule.command()
@@ -63,7 +63,7 @@ def rule(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_firewall_rule_svc
-def list(firewall_rule_svc: FirewallRuleFacade, **kwargs):
+def list(firewall_rule_svc: FirewallRuleService, **kwargs):
     """
     Show all firewall rules
     """
@@ -97,7 +97,7 @@ def list(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     show_default=True,
 )
 @pass_firewall_rule_svc
-def show(firewall_rule_svc: FirewallRuleFacade, **kwargs):
+def show(firewall_rule_svc: FirewallRuleService, **kwargs):
     """
     Show firewall rule details
     """
@@ -394,7 +394,7 @@ def show(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     show_default=True,
 )
 @pass_firewall_rule_svc
-def create(firewall_rule_svc: FirewallRuleFacade, **kwargs):
+def create(firewall_rule_svc: FirewallRuleService, **kwargs):
     """
     Create a new firewall rule.
 
@@ -703,7 +703,7 @@ def create(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     show_default=True,
 )
 @pass_firewall_rule_svc
-def update(firewall_rule_svc: FirewallRuleFacade, **kwargs):
+def update(firewall_rule_svc: FirewallRuleService, **kwargs):
     """
     Update firewall rule.
 
@@ -757,7 +757,7 @@ def update(firewall_rule_svc: FirewallRuleFacade, **kwargs):
     show_default=True,
 )
 @pass_firewall_rule_svc
-def delete(firewall_rule_svc: FirewallRuleFacade, **kwargs):
+def delete(firewall_rule_svc: FirewallRuleService, **kwargs):
     """
     Delete a firewall rule
     """

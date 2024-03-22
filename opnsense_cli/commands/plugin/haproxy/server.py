@@ -1,6 +1,6 @@
 import click
-from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import (
+from opnsense_cli.formatters.cli_output.cli_output_formatter import CliOutputFormatter
+from opnsense_cli.click_addons.callbacks import (
     formatter_from_formatter_name,
     bool_as_string,
     available_formats,
@@ -8,15 +8,15 @@ from opnsense_cli.callbacks.click import (
     tuple_to_csv,
     resolve_linked_names_to_uuids,
 )
-from opnsense_cli.types.click_param_type.int_or_empty import INT_OR_EMPTY
-from opnsense_cli.types.click_param_type.csv import CSV
+from opnsense_cli.click_addons.param_type_int_or_empty import INT_OR_EMPTY
+from opnsense_cli.click_addons.param_type_csv import CSV
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
-from opnsense_cli.facades.commands.plugin.haproxy.server import HaproxyServerFacade
+from opnsense_cli.commands.plugin.haproxy.services.haproxy_server_service import HaproxyServerService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_haproxy_server_svc = click.make_pass_decorator(HaproxyServerFacade)
+pass_haproxy_server_svc = click.make_pass_decorator(HaproxyServerService)
 
 
 @haproxy.group()
@@ -28,7 +28,7 @@ def server(ctx, api_client: ApiClient, **kwargs):
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = HaproxyServerFacade(settings_api, service_api)
+    ctx.obj = HaproxyServerService(settings_api, service_api)
 
 
 @server.command()
@@ -49,7 +49,7 @@ def server(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_haproxy_server_svc
-def list(haproxy_server_svc: HaproxyServerFacade, **kwargs):
+def list(haproxy_server_svc: HaproxyServerService, **kwargs):
     """
     Show all server
     """
@@ -81,7 +81,7 @@ def list(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_server_svc
-def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
+def show(haproxy_server_svc: HaproxyServerService, **kwargs):
     """
     Show details for server
     """
@@ -325,7 +325,7 @@ def show(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_server_svc
-def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
+def create(haproxy_server_svc: HaproxyServerService, **kwargs):
     """
     Create a new server
     """
@@ -598,7 +598,7 @@ def create(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_server_svc
-def update(haproxy_server_svc: HaproxyServerFacade, **kwargs):
+def update(haproxy_server_svc: HaproxyServerService, **kwargs):
     """
     Update a server.
     """
@@ -656,7 +656,7 @@ def update(haproxy_server_svc: HaproxyServerFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_server_svc
-def delete(haproxy_server_svc: HaproxyServerFacade, **kwargs):
+def delete(haproxy_server_svc: HaproxyServerService, **kwargs):
     """
     Delete server
     """

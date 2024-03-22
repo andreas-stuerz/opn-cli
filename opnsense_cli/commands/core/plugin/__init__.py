@@ -1,13 +1,13 @@
 import click
 
-from opnsense_cli.facades.commands.core.firmware import FirmwareFacade
-from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import formatter_from_formatter_name, available_formats
+from opnsense_cli.commands.core.plugin.services.plugin import PluginService
+from opnsense_cli.formatters.cli_output.cli_output_formatter import CliOutputFormatter
+from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, available_formats
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core.firmware import Firmware
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_firmware_svc = click.make_pass_decorator(FirmwareFacade)
+pass_firmware_svc = click.make_pass_decorator(PluginService)
 
 
 @click.group()
@@ -25,7 +25,7 @@ def plugin(ctx, api_client: ApiClient, **kwargs):
     Manage the packages and plugins in OPNsense
     """
     firmware_api = Firmware(api_client)
-    ctx.obj = FirmwareFacade(firmware_api, kwargs["time_interval"])
+    ctx.obj = PluginService(firmware_api, kwargs["time_interval"])
 
 
 @plugin.command()
@@ -46,7 +46,7 @@ def plugin(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def list(firmware_svc: FirmwareFacade, **kwargs):
+def list(firmware_svc: PluginService, **kwargs):
     """
     Show all available plugins.
     """
@@ -73,7 +73,7 @@ def list(firmware_svc: FirmwareFacade, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def installed(firmware_svc: FirmwareFacade, **kwargs):
+def installed(firmware_svc: PluginService, **kwargs):
     """
     Show installed plugins.
     """
@@ -101,7 +101,7 @@ def installed(firmware_svc: FirmwareFacade, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def show(firmware_svc: FirmwareFacade, **kwargs):
+def show(firmware_svc: PluginService, **kwargs):
     """
     Show plugin details.
     """
@@ -129,7 +129,7 @@ def show(firmware_svc: FirmwareFacade, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def install(firmware_svc: FirmwareFacade, **kwargs):
+def install(firmware_svc: PluginService, **kwargs):
     """
     Install plugin by name
     """
@@ -157,7 +157,7 @@ def install(firmware_svc: FirmwareFacade, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def uninstall(firmware_svc: FirmwareFacade, **kwargs):
+def uninstall(firmware_svc: PluginService, **kwargs):
     """
     Uninstall plugin by name.
     """
@@ -185,7 +185,7 @@ def uninstall(firmware_svc: FirmwareFacade, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def reinstall(firmware_svc: FirmwareFacade, **kwargs):
+def reinstall(firmware_svc: PluginService, **kwargs):
     """
     Reinstall plugin by name.
     """
@@ -213,7 +213,7 @@ def reinstall(firmware_svc: FirmwareFacade, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def lock(firmware_svc: FirmwareFacade, **kwargs):
+def lock(firmware_svc: PluginService, **kwargs):
     """
     Lock plugin.
     """
@@ -241,7 +241,7 @@ def lock(firmware_svc: FirmwareFacade, **kwargs):
     show_default=True,
 )
 @pass_firmware_svc
-def unlock(firmware_svc: FirmwareFacade, **kwargs):
+def unlock(firmware_svc: PluginService, **kwargs):
     """
     Unlock plugin.
     """

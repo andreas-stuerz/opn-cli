@@ -1,13 +1,13 @@
 import click
-from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import formatter_from_formatter_name, expand_path, available_formats
+from opnsense_cli.formatters.cli_output.cli_output_formatter import CliOutputFormatter
+from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, expand_path, available_formats
 from opnsense_cli.commands.core.configbackup import configbackup
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core.configbackup import Backup
-from opnsense_cli.facades.commands.core.configbackup.backup import ApibackupBackupFacade
+from opnsense_cli.commands.core.configbackup.services.backup_service import ConfigBackupService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_apibackup_backup_svc = click.make_pass_decorator(ApibackupBackupFacade)
+pass_apibackup_backup_svc = click.make_pass_decorator(ConfigBackupService)
 
 
 @configbackup.group()
@@ -18,7 +18,7 @@ def backup(ctx, api_client: ApiClient, **kwargs):
     Manage api-backup
     """
     backup_api = Backup(api_client)
-    ctx.obj = ApibackupBackupFacade(backup_api)
+    ctx.obj = ConfigBackupService(backup_api)
 
 
 @backup.command()
@@ -51,7 +51,7 @@ def backup(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_apibackup_backup_svc
-def download(apibackup_backup_svc: ApibackupBackupFacade, **kwargs):
+def download(apibackup_backup_svc: ConfigBackupService, **kwargs):
     """
     Download config.xml from OPNsense.
     """

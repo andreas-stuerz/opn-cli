@@ -1,6 +1,6 @@
 import requests
 from urllib3.exceptions import InsecureRequestWarning
-from opnsense_cli.exceptions.api import APIException
+from opnsense_cli.api.exceptions import APIException
 import json
 
 # Suppress only the single warning from urllib3 needed.
@@ -9,7 +9,7 @@ requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 HTTP_SUCCESS = (200, 201, 202, 203, 204, 205, 206, 207)
 
 
-class ApiClient(object):
+class ApiClient:
     def __init__(self, api_key, api_secret, base_url, ssl_verify_cert, ca, timeout):
         self._api_key = api_key
         self._api_secret = api_secret

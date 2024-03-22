@@ -2,9 +2,9 @@
 import click
 
 
-from opnsense_cli.callbacks.click import defaults_from_configfile, expand_path, get_default_config_dir
+from opnsense_cli.click_addons.callbacks import defaults_from_configfile, expand_path, get_default_config_dir
 from opnsense_cli.api.client import ApiClient
-from opnsense_cli.autoloader.click_command import ClickCommandAutoloader
+from opnsense_cli.click_addons.command_autoloader import ClickCommandAutoloader
 
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])

@@ -1,13 +1,13 @@
 import click
-from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import formatter_from_formatter_name, bool_as_string, available_formats, tuple_to_csv
+from opnsense_cli.formatters.cli_output.cli_output_formatter import CliOutputFormatter
+from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, bool_as_string, available_formats, tuple_to_csv
 from opnsense_cli.commands.core.syslog import syslog
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core.syslog import Settings, Service
-from opnsense_cli.facades.commands.core.syslog.destination import SyslogDestinationFacade
+from opnsense_cli.commands.core.syslog.services.syslog_destination_service import SyslogDestinationService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_syslog_destination_svc = click.make_pass_decorator(SyslogDestinationFacade)
+pass_syslog_destination_svc = click.make_pass_decorator(SyslogDestinationService)
 
 
 @syslog.group()
@@ -19,7 +19,7 @@ def destination(ctx, api_client: ApiClient, **kwargs):
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = SyslogDestinationFacade(settings_api, service_api)
+    ctx.obj = SyslogDestinationService(settings_api, service_api)
 
 
 @destination.command()
@@ -40,7 +40,7 @@ def destination(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_syslog_destination_svc
-def list(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
+def list(syslog_destination_svc: SyslogDestinationService, **kwargs):
     """
     Show all destination
     """
@@ -68,7 +68,7 @@ def list(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
     show_default=True,
 )
 @pass_syslog_destination_svc
-def show(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
+def show(syslog_destination_svc: SyslogDestinationService, **kwargs):
     """
     Show details for destination
     """
@@ -212,7 +212,7 @@ def show(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
     show_default=True,
 )
 @pass_syslog_destination_svc
-def create(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
+def create(syslog_destination_svc: SyslogDestinationService, **kwargs):
     """
     Create a new destination
     """
@@ -352,7 +352,7 @@ def create(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
     show_default=True,
 )
 @pass_syslog_destination_svc
-def update(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
+def update(syslog_destination_svc: SyslogDestinationService, **kwargs):
     """
     Update a destination.
     """
@@ -397,7 +397,7 @@ def update(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
     show_default=True,
 )
 @pass_syslog_destination_svc
-def delete(syslog_destination_svc: SyslogDestinationFacade, **kwargs):
+def delete(syslog_destination_svc: SyslogDestinationService, **kwargs):
     """
     Delete destination
     """

@@ -1,20 +1,20 @@
 import click
-from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import (
+from opnsense_cli.formatters.cli_output.cli_output_formatter import CliOutputFormatter
+from opnsense_cli.click_addons.callbacks import (
     formatter_from_formatter_name,
     bool_as_string,
     available_formats,
     int_as_string,
     tuple_to_csv,
 )
-from opnsense_cli.types.click_param_type.int_or_empty import INT_OR_EMPTY
+from opnsense_cli.click_addons.param_type_int_or_empty import INT_OR_EMPTY
 from opnsense_cli.commands.core.unbound import unbound
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core.unbound import Settings, Service
-from opnsense_cli.facades.commands.core.unbound.host import UnboundHostFacade
+from opnsense_cli.commands.core.unbound.services.unbound_host_service import UnboundHostService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_unbound_host_svc = click.make_pass_decorator(UnboundHostFacade)
+pass_unbound_host_svc = click.make_pass_decorator(UnboundHostService)
 
 
 @unbound.group()
@@ -26,7 +26,7 @@ def host(ctx, api_client: ApiClient, **kwargs):
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = UnboundHostFacade(settings_api, service_api)
+    ctx.obj = UnboundHostService(settings_api, service_api)
 
 
 @host.command()
@@ -47,7 +47,7 @@ def host(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_unbound_host_svc
-def list(unbound_host_svc: UnboundHostFacade, **kwargs):
+def list(unbound_host_svc: UnboundHostService, **kwargs):
     """
     Show all hosts overrides
     """
@@ -75,7 +75,7 @@ def list(unbound_host_svc: UnboundHostFacade, **kwargs):
     show_default=True,
 )
 @pass_unbound_host_svc
-def show(unbound_host_svc: UnboundHostFacade, **kwargs):
+def show(unbound_host_svc: UnboundHostService, **kwargs):
     """
     Show details for host override
     """
@@ -165,7 +165,7 @@ def show(unbound_host_svc: UnboundHostFacade, **kwargs):
     show_default=True,
 )
 @pass_unbound_host_svc
-def create(unbound_host_svc: UnboundHostFacade, **kwargs):
+def create(unbound_host_svc: UnboundHostService, **kwargs):
     """
     Create a new host override
     """
@@ -245,7 +245,7 @@ def create(unbound_host_svc: UnboundHostFacade, **kwargs):
     show_default=True,
 )
 @pass_unbound_host_svc
-def update(unbound_host_svc: UnboundHostFacade, **kwargs):
+def update(unbound_host_svc: UnboundHostService, **kwargs):
     """
     Update a host override
     """
@@ -279,7 +279,7 @@ def update(unbound_host_svc: UnboundHostFacade, **kwargs):
     show_default=True,
 )
 @pass_unbound_host_svc
-def delete(unbound_host_svc: UnboundHostFacade, **kwargs):
+def delete(unbound_host_svc: UnboundHostService, **kwargs):
     """
     Delete a host override
     """

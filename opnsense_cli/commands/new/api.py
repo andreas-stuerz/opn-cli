@@ -1,10 +1,10 @@
 import click
 import os
 from opnsense_cli.commands.new import new
-from opnsense_cli.facades.code_generator.api import ApiCodeGenerator
-from opnsense_cli.parser.opnsense_api_reference import OpnsenseApiReferenceParser
-from opnsense_cli.parser.opnsense_module_list import OpnsenseModuleListParser
-from opnsense_cli.facades.template_engines.jinja2 import Jinja2TemplateEngine
+from opnsense_cli.code_generators.opnsense_api.codegenerator import OpnsenseApiCodeGenerator
+from opnsense_cli.parser.opnsense_api_reference_parser import OpnsenseApiReferenceParser
+from opnsense_cli.parser.opnsense_module_list_parser import OpnsenseModuleListParser
+from opnsense_cli.template_engines.jinja2 import Jinja2TemplateEngine
 
 
 @new.group()
@@ -29,14 +29,14 @@ def api(**kwargs):
     "-atb",
     help="The template basedir path",
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), "../../templates"),
+    default=os.path.join(os.path.dirname(__file__), "../.."),
 )
 @click.option(
     "--template-api",
     "-ta",
     help="The template for the api relative to the template basedir.",
     show_default=True,
-    default="code_generator/api/api.py.j2",
+    default="code_generators/opnsense_api/template.py.j2",
 )
 @click.option(
     "--api-output-dir",
@@ -79,14 +79,14 @@ def plugin(**kwargs):
     "-atb",
     help="The template basedir path",
     show_default=True,
-    default=os.path.join(os.path.dirname(__file__), "../../../opnsense_cli/templates"),
+    default=os.path.join(os.path.dirname(__file__), "../../../opnsense_cli"),
 )
 @click.option(
     "--template-api",
     "-ta",
-    help="The template for the api relative to the template basedir.",
+    help="The template for the opnsense api relative to the template basedir.",
     show_default=True,
-    default="code_generator/api/api.py.j2",
+    default="code_generators/opnsense_api/template.py.j2",
 )
 @click.option(
     "--api-output-dir",
@@ -132,7 +132,6 @@ def core(**kwargs):
 )
 def list(**kwargs):
     """
-
     List all plugin or core modules.
 
     $ opn-cli new api list --module-type core
@@ -155,10 +154,12 @@ def generate_api_files(module_name, **kwargs):
 
 
 def write_api(template_engine, controllers, module_name, **kwargs):
-    api_code_generator = ApiCodeGenerator(
+    api_code_generator = OpnsenseApiCodeGenerator(
         template_engine=template_engine, template=kwargs["template_api"], controllers=controllers, module_name=module_name
     )
-    click.echo(api_code_generator.write_code(kwargs["api_output_dir"]))
+    output_path = f"{kwargs['api_output_dir']}/{module_name}.py"
+
+    click.echo(api_code_generator.write_code(output_path))
 
 
 def list_modules(type, url):

@@ -1,13 +1,13 @@
 import click
-from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import formatter_from_formatter_name, bool_as_string, available_formats
+from opnsense_cli.formatters.cli_output.cli_output_formatter import CliOutputFormatter
+from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, bool_as_string, available_formats
 from opnsense_cli.commands.core.route import route
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core.routes import Routes, Gateway
-from opnsense_cli.facades.commands.core.route.static import RoutesStaticFacade
+from opnsense_cli.commands.core.route.services.route_static_service import RoutesStaticService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_routes_static_svc = click.make_pass_decorator(RoutesStaticFacade)
+pass_routes_static_svc = click.make_pass_decorator(RoutesStaticService)
 
 
 @route.group()
@@ -19,7 +19,7 @@ def static(ctx, api_client: ApiClient, **kwargs):
     """
     routes_api = Routes(api_client)
     gateway_api = Gateway(api_client)
-    ctx.obj = RoutesStaticFacade(routes_api, gateway_api)
+    ctx.obj = RoutesStaticService(routes_api, gateway_api)
 
 
 @static.command()
@@ -40,7 +40,7 @@ def static(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_routes_static_svc
-def list(routes_static_svc: RoutesStaticFacade, **kwargs):
+def list(routes_static_svc: RoutesStaticService, **kwargs):
     """
     Show all static routes
     """
@@ -68,7 +68,7 @@ def list(routes_static_svc: RoutesStaticFacade, **kwargs):
     show_default=True,
 )
 @pass_routes_static_svc
-def show(routes_static_svc: RoutesStaticFacade, **kwargs):
+def show(routes_static_svc: RoutesStaticService, **kwargs):
     """
     Show details for a static route
     """
@@ -127,7 +127,7 @@ def show(routes_static_svc: RoutesStaticFacade, **kwargs):
     show_default=True,
 )
 @pass_routes_static_svc
-def create(routes_static_svc: RoutesStaticFacade, **kwargs):
+def create(routes_static_svc: RoutesStaticService, **kwargs):
     """
     Create a new static route
     """
@@ -184,7 +184,7 @@ def create(routes_static_svc: RoutesStaticFacade, **kwargs):
     show_default=True,
 )
 @pass_routes_static_svc
-def update(routes_static_svc: RoutesStaticFacade, **kwargs):
+def update(routes_static_svc: RoutesStaticService, **kwargs):
     """
     Update a static route
     """
@@ -218,7 +218,7 @@ def update(routes_static_svc: RoutesStaticFacade, **kwargs):
     show_default=True,
 )
 @pass_routes_static_svc
-def delete(routes_static_svc: RoutesStaticFacade, **kwargs):
+def delete(routes_static_svc: RoutesStaticService, **kwargs):
     """
     Delete static route
     """

@@ -1,2 +1,1 @@
-recursive-include opnsense_cli/templates *
-recursive-include opnsense_cli/fixtures *
+recursive-include opnsense_cli *.j2

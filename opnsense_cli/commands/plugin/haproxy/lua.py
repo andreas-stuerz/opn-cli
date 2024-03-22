@@ -1,13 +1,13 @@
 import click
-from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import formatter_from_formatter_name, bool_as_string, available_formats
+from opnsense_cli.formatters.cli_output.cli_output_formatter import CliOutputFormatter
+from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, bool_as_string, available_formats
 from opnsense_cli.commands.plugin.haproxy import haproxy
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.plugin.haproxy import Settings, Service
-from opnsense_cli.facades.commands.plugin.haproxy.lua import HaproxyLuaFacade
+from opnsense_cli.commands.plugin.haproxy.services.haproxy_lua_service import HaproxyLuaService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_haproxy_lua_svc = click.make_pass_decorator(HaproxyLuaFacade)
+pass_haproxy_lua_svc = click.make_pass_decorator(HaproxyLuaService)
 
 
 @haproxy.group()
@@ -19,7 +19,7 @@ def lua(ctx, api_client: ApiClient, **kwargs):
     """
     settings_api = Settings(api_client)
     service_api = Service(api_client)
-    ctx.obj = HaproxyLuaFacade(settings_api, service_api)
+    ctx.obj = HaproxyLuaService(settings_api, service_api)
 
 
 @lua.command()
@@ -40,7 +40,7 @@ def lua(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_haproxy_lua_svc
-def list(haproxy_lua_svc: HaproxyLuaFacade, **kwargs):
+def list(haproxy_lua_svc: HaproxyLuaService, **kwargs):
     """
     Show all lua
     """
@@ -68,7 +68,7 @@ def list(haproxy_lua_svc: HaproxyLuaFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_lua_svc
-def show(haproxy_lua_svc: HaproxyLuaFacade, **kwargs):
+def show(haproxy_lua_svc: HaproxyLuaService, **kwargs):
     """
     Show details for lua
     """
@@ -119,7 +119,7 @@ def show(haproxy_lua_svc: HaproxyLuaFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_lua_svc
-def create(haproxy_lua_svc: HaproxyLuaFacade, **kwargs):
+def create(haproxy_lua_svc: HaproxyLuaService, **kwargs):
     """
     Create a new lua
     """
@@ -167,7 +167,7 @@ def create(haproxy_lua_svc: HaproxyLuaFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_lua_svc
-def update(haproxy_lua_svc: HaproxyLuaFacade, **kwargs):
+def update(haproxy_lua_svc: HaproxyLuaService, **kwargs):
     """
     Update a lua.
     """
@@ -201,7 +201,7 @@ def update(haproxy_lua_svc: HaproxyLuaFacade, **kwargs):
     show_default=True,
 )
 @pass_haproxy_lua_svc
-def delete(haproxy_lua_svc: HaproxyLuaFacade, **kwargs):
+def delete(haproxy_lua_svc: HaproxyLuaService, **kwargs):
     """
     Delete lua
     """

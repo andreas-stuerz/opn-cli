@@ -1,13 +1,13 @@
 import click
-from opnsense_cli.formatters.cli_output import CliOutputFormatter
-from opnsense_cli.callbacks.click import formatter_from_formatter_name, available_formats
+from opnsense_cli.formatters.cli_output.cli_output_formatter import CliOutputFormatter
+from opnsense_cli.click_addons.callbacks import formatter_from_formatter_name, available_formats
 from opnsense_cli.commands.core.ipsec import tunnel
 from opnsense_cli.api.client import ApiClient
 from opnsense_cli.api.core.ipsec import Tunnel
-from opnsense_cli.facades.commands.core.ipsec.tunnel import IpsecTunnelFacade
+from opnsense_cli.commands.core.ipsec.services.ipsec_tunnel_service import IpsecTunnelService
 
 pass_api_client = click.make_pass_decorator(ApiClient)
-pass_ipsec_tunnel_svc = click.make_pass_decorator(IpsecTunnelFacade)
+pass_ipsec_tunnel_svc = click.make_pass_decorator(IpsecTunnelService)
 
 
 @tunnel.group()
@@ -18,7 +18,7 @@ def phase2(ctx, api_client: ApiClient, **kwargs):
     Manage ipsec phase 2 tunnels
     """
     tunnel_api = Tunnel(api_client)
-    ctx.obj = IpsecTunnelFacade(tunnel_api)
+    ctx.obj = IpsecTunnelService(tunnel_api)
 
 
 @phase2.command()
@@ -39,7 +39,7 @@ def phase2(ctx, api_client: ApiClient, **kwargs):
     show_default=True,
 )
 @pass_ipsec_tunnel_svc
-def list(ipsec_tunnel_svc: IpsecTunnelFacade, **kwargs):
+def list(ipsec_tunnel_svc: IpsecTunnelService, **kwargs):
     """
     Show all ipsec phase2 tunnels
     """
@@ -68,7 +68,7 @@ def list(ipsec_tunnel_svc: IpsecTunnelFacade, **kwargs):
     show_default=True,
 )
 @pass_ipsec_tunnel_svc
-def show(ipsec_tunnel_svc: IpsecTunnelFacade, **kwargs):
+def show(ipsec_tunnel_svc: IpsecTunnelService, **kwargs):
     """
     Show details for phase 2 tunnel
     """
