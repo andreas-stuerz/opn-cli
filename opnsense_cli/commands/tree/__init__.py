@@ -10,5 +10,3 @@ def tree(ctx):
     """
     root_cmd = _build_command_tree(ctx.find_root().command)
     _print_tree(root_cmd)
-
-

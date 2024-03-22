@@ -132,6 +132,7 @@ def cli(ctx, **kwargs):
         kwargs["timeout"],
     )
 
+
 autoloader = ClickCommandAutoloader(cli)
 autoloader.autoload("opnsense_cli.commands.core")
 autoloader.autoload("opnsense_cli.commands.plugin")

@@ -2,6 +2,7 @@ import os
 import importlib
 import importlib.util
 
+
 class ClickCommandAutoloader:
     def __init__(self, click_core_group):
         self.loaded_modules = []
@@ -31,7 +32,7 @@ class ClickCommandAutoloader:
         :return: click.core.Group
         """
         if ignore_dirs is None:
-            ignore_dirs = ['__pycache__', 'tests', 'services']
+            ignore_dirs = ["__pycache__", "tests", "services"]
 
         spec = importlib.util.find_spec(module_name)
         path = spec.submodule_search_locations[0]
