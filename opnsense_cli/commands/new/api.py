@@ -132,7 +132,6 @@ def core(**kwargs):
 )
 def list(**kwargs):
     """
-
     List all plugin or core modules.
 
     $ opn-cli new api list --module-type core
