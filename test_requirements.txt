@@ -1,11 +1,8 @@
 #
 ####### test_requirements.txt #######
 #
-flake8
 pytest
 pytest-cov
 pyfakefs
-flake8
 pyfakefs
-black
-autoflake
+ruff
