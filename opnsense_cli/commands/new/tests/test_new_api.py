@@ -227,7 +227,7 @@ class TestNewCommandApi(CommandTestCase):
         runner = CliRunner()
         result_plugin = runner.invoke(
             api,
-            ["list", "--module-type", "plugin", "--base-url", "https://fake.githubusercontent.com/module/plugin.html"],
+            ["list", "--module-type", "plugins", "--base-url", "https://fake.githubusercontent.com/module/plugin.html"],
             catch_exceptions=False,
         )
         self.assertIn("haproxy", result_plugin.output)

@@ -1,24 +1,13 @@
-from opnsense_cli.parser.html_parser import HtmlParser
+from opnsense_cli.parser.base import Parser
+import json
+from bs4.element import Tag
 
 
-class OpnsenseModuleListParser(HtmlParser):
-    def __init__(self, url):
-        super().__init__(url, "a")
-        self.module_list = self._list_all_modules()
-
-    def _list_all_modules(self):
-        super()._set_content()
-        links = self._content.find_all(self._tag, href=True)
-        module_list = []
-        for link in links:
-            if link["href"].endswith(".rst"):
-                url_component_list = link["href"].split("/")
-                module = self._get_module(url_component_list)
-                module_list.append(module)
-        return module_list
-
-    def _get_module(self, url_components):
-        if len(url_components) > 2:
-            module_type = url_components[-2]
-            if module_type == "plugins" or module_type == "core":
-                return url_components[-1].split(".")[0]
+class OpnsenseModuleListParser(Parser):
+    def __init__(self, parsed_html_tag_from_gh: Tag):
+        self._parsed_html_tag_from_gh = parsed_html_tag_from_gh
+    def _set_content(self):
+        json_content = self._parsed_html_tag_from_gh.string.strip()
+        self._content = json.loads(json_content)
+    def _parse_content(self) -> dict:
+        return [item["name"].split(".")[0] for item in self._content["payload"]["tree"]["items"]]

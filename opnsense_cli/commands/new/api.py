@@ -2,8 +2,10 @@ import click
 import os
 from opnsense_cli.commands.new import new
 from opnsense_cli.code_generators.opnsense_api.codegenerator import OpnsenseApiCodeGenerator
+from opnsense_cli.parser.html_parser import HtmlParser
 from opnsense_cli.parser.opnsense_api_reference_parser import OpnsenseApiReferenceParser
 from opnsense_cli.parser.opnsense_module_list_parser import OpnsenseModuleListParser
+from opnsense_cli.parser.rst_parser import RstParser
 from opnsense_cli.template_engines.jinja2 import Jinja2TemplateEngine
 
 
@@ -15,13 +17,13 @@ def api(**kwargs):
 
 
 @api.command()
-@click.argument("plugin_module_name", required=True)
+@click.argument("module_name", required=True)
 @click.option(
     "--api-reference-url",
     "-aru",
     help=("The url to the api reference in the official Opnsense documentation"),
     show_default=True,
-    default="https://github.com/opnsense/docs/tree/master/source/development/api/plugins",
+    default="https://raw.githubusercontent.com/opnsense/docs/master/source/development/api/plugins",
     required=True,
 )
 @click.option(
@@ -49,10 +51,6 @@ def plugin(**kwargs):
     """
     Generate new api code for a plugin module.
 
-    List all plugin module names:
-
-    $ opn-cli new api list --module-type plugin
-
     Example:
     Generate api code for the 'haproxy' plugin module
 
@@ -61,17 +59,17 @@ def plugin(**kwargs):
     Default output path is opn-cli/opnsense_cli/output/api/plugins/
 
     """
-    generate_api_files(kwargs["plugin_module_name"], **kwargs)
+    generate_api_files(**kwargs)
 
 
 @api.command()
-@click.argument("core_module_name", required=True)
+@click.argument("module_name", required=True)
 @click.option(
     "--api-reference-url",
     "-aru",
     help=("The url to the core module api reference in the official Opnsense documentation."),
     show_default=True,
-    default="https://github.com/opnsense/docs/tree/master/source/development/api/core",
+    default="https://raw.githubusercontent.com/opnsense/docs/master/source/development/api/core",
     required=True,
 )
 @click.option(
@@ -111,7 +109,7 @@ def core(**kwargs):
     Default output path is opn-cli/opnsense_cli/output/api/core/
 
     """
-    generate_api_files(kwargs["core_module_name"], **kwargs)
+    generate_api_files(**kwargs)
 
 
 @api.command()
@@ -120,14 +118,14 @@ def core(**kwargs):
     "-bu",
     help=("The url to the api reference in the official Opnsense documentation."),
     show_default=True,
-    default="https://github.com/opnsense/docs/tree/master/source/development/api/",
+    default="https://github.com/opnsense/docs/tree/master/source/development/api",
     required=True,
 )
 @click.option(
     "--module-type",
     "-mt",
-    help=("The url to the api reference in the official Opnsense documentation."),
-    type=click.Choice(["core", "plugin"], case_sensitive=True),
+    help=("What type of modules to list. core or plugins"),
+    type=click.Choice(["core", "plugins"], case_sensitive=True),
     required=True,
 )
 def list(**kwargs):
@@ -139,18 +137,27 @@ def list(**kwargs):
     $ opn-cli new api list --module-type plugin
 
     """
-    list_modules(kwargs["module_type"], kwargs["base_url"])
 
+    list_modules(f"{kwargs['base_url']}/{kwargs['module_type']}")
 
-def generate_api_files(module_name, **kwargs):
-    controller_parser = OpnsenseApiReferenceParser(
-        kwargs["api_reference_url"],
-        "table",
-        module_name,
-    )
-    controller_html_tables = controller_parser.parse()
+def list_modules(url):
+    github_html_parser = HtmlParser(url, 'script[type="application/json"][data-target="react-app.embeddedData"]', False)
+    parsed_github_html_tag = github_html_parser.parse()
+    module_list_parser = OpnsenseModuleListParser(parsed_github_html_tag)
+    module_list = module_list_parser.parse()
+
+    for module in module_list:
+        click.echo(module)
+
+def generate_api_files(**kwargs):
+    rst_url = f"{kwargs['api_reference_url']}/{kwargs['module_name']}.rst"
+    rst_parser = RstParser(rst_url, 'table')
+    api_reference_tables = rst_parser.parse()
+
+    api_reference_parser = OpnsenseApiReferenceParser(api_reference_tables)
+    controller_html_tables = api_reference_parser.parse()
     template_engine = Jinja2TemplateEngine(kwargs["api_template_basedir"])
-    write_api(template_engine, controller_html_tables, module_name, **kwargs)
+    write_api(template_engine, controller_html_tables, kwargs['plugin_module_name'], **kwargs)
 
 
 def write_api(template_engine, controllers, module_name, **kwargs):
@@ -162,11 +169,4 @@ def write_api(template_engine, controllers, module_name, **kwargs):
     click.echo(api_code_generator.write_code(output_path))
 
 
-def list_modules(type, url):
-    if type == "core":
-        url += "core"
-    elif type == "plugin":
-        url += "plugins"
-    module_list = OpnsenseModuleListParser(url).module_list
-    for module in module_list:
-        click.echo(module)
+

@@ -121,7 +121,7 @@ def core(**kwargs):
 
 @command.command()
 @click.argument("click_group")
-@click.argument("opn_cli")
+@click.argument("click_group")
 @click.option(
     "--model-url",
     "-m",
@@ -225,7 +225,7 @@ def write_command(type, model_tag: Tag, template_engine, option_factory, **kwarg
         option_factory,
         kwargs["template_command"],
         kwargs["click_group"],
-        kwargs["opn_cli"],
+        kwargs["click_group"],
         kwargs["tag"],
         type,
     )
@@ -234,7 +234,7 @@ def write_command(type, model_tag: Tag, template_engine, option_factory, **kwarg
         form_parser = OpnsenseFormParser(kwargs["form_url"], "form")
         command_code_generator.help_messages = form_parser.parse()
 
-    output_path = f"{kwargs['command_output_dir']}/{kwargs['click_group']}/{kwargs['opn_cli']}.py"
+    output_path = f"{kwargs['command_output_dir']}/{kwargs['click_group']}/{kwargs['click_group']}.py"
 
     click.echo(command_code_generator.write_code(output_path))
 
@@ -246,11 +246,11 @@ def write_command_service(type, model_tag: Tag, template_engine, option_factory,
         option_factory,
         kwargs["template_service"],
         kwargs["click_group"],
-        kwargs["opn_cli"],
+        kwargs["click_group"],
         kwargs["tag"],
         type,
     )
-    output_path = f"{kwargs['command_output_dir']}/{kwargs['click_group']}/services/{kwargs['click_group']}_{kwargs['opn_cli']}_service.py"  # noqa: E501
+    output_path = f"{kwargs['command_output_dir']}/{kwargs['click_group']}/services/{kwargs['click_group']}_{kwargs['click_group']}_service.py"  # noqa: E501
 
     click.echo(command_service_generator.write_code(output_path))
 
@@ -262,13 +262,13 @@ def write_command_test(type, model_tag: Tag, template_engine, option_factory, **
         option_factory,
         kwargs["template_test"],
         kwargs["click_group"],
-        kwargs["opn_cli"],
+        kwargs["click_group"],
         kwargs["tag"],
         type,
     )
 
     output_path = (
-        f"{kwargs['command_output_dir']}/{kwargs['click_group']}/tests/test_{kwargs['click_group']}_{kwargs['opn_cli']}.py"
+        f"{kwargs['command_output_dir']}/{kwargs['click_group']}/tests/test_{kwargs['click_group']}_{kwargs['click_group']}.py"
     )
 
     click.echo(command_test_generator.write_code(output_path))

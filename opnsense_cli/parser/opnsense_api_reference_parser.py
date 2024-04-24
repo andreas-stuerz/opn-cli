@@ -1,28 +1,16 @@
-from bs4 import BeautifulSoup
-import requests
-from opnsense_cli.parser.html_parser import HtmlParser
+from opnsense_cli.parser.base import Parser
 
 
-class OpnsenseApiReferenceParser(HtmlParser):
-    def __init__(self, url, tag, module_name):
-        super().__init__(url, tag)
-        self._module_name = module_name
+class OpnsenseApiReferenceParser(Parser):
+    def __init__(self, controller_html_tables):
+        self._controller_html_tables = controller_html_tables
+
 
     def _parse_content(self) -> dict:
-        controller_html_tables = super()._parse_content()
-        return self._get_api_endpoints(controller_html_tables)
+        return self._get_api_endpoints(self._content)
 
     def _set_content(self):
-        super()._set_content()
-        github_url = "https://github.com"
-        links = self._content.find_all("a", href=True)
-        for link in links:
-            if link["href"].endswith(".rst"):
-                url_component_list = link["href"].split("/")
-                if self._check_url_components(url_component_list):
-                    webpage_plugin_response = requests.get(github_url + link["href"], verify=True)
-                    webpage_plugin = webpage_plugin_response.content
-                    self._content = BeautifulSoup(webpage_plugin, "html.parser")
+        self._content = self._controller_html_tables
 
     def _check_url_components(self, url_components):
         if len(url_components) > 2:
